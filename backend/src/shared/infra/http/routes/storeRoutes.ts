@@ -1,17 +1,15 @@
+import { CreateStoreController } from "@modules/store/useCase/createStore/CreateStoreController";
+import { ListStoreController } from "@modules/store/useCase/listStore/ListStoreController";
 import { Router } from "express";
-import { createStoreController, listStoreController } from "../../../../modules/store/useCase";
 
 
 const storeRoutes = Router();
 
+const createStoreController = new CreateStoreController();
+const listStoreController = new ListStoreController();
 
-
-storeRoutes.post("/new", (request, response) => {
-  return createStoreController.handle(request, response)
-});
-storeRoutes.get("/", (request, response) => {
-  return listStoreController.handle(request, response)
-});
+storeRoutes.post("/new", createStoreController.handle);
+storeRoutes.get("/", listStoreController.handle);
 
 
 export { storeRoutes }

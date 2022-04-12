@@ -1,3 +1,4 @@
+import { inject, injectable } from "tsyringe";
 import { IStoreRepository } from "../../repositories/IStoreRepository";
 
 interface IRequest {
@@ -6,10 +7,12 @@ interface IRequest {
   brand: string;
 }
 
+@injectable()
 export class CreateStoreUseCase {
 
   constructor(
-    private storeRepositoryInMemory: IStoreRepository
+    @inject("StoreRepository")
+    private storeRepository: IStoreRepository
   ) { }
 
   async execute({
@@ -18,13 +21,13 @@ export class CreateStoreUseCase {
     brand
   }: IRequest): Promise<void> {
 
-    const storeExists = await this.storeRepositoryInMemory.findByCNPJ(cnpj);
+    const storeExists = await this.storeRepository.findByCNPJ(cnpj);
 
     if (storeExists) {
       throw new Error("loja já cadastrada")
     }
 
-    await this.storeRepositoryInMemory.create({ cnpj, name, brand });
+    await this.storeRepository.create({ cnpj, name, brand });
   }
 
 }

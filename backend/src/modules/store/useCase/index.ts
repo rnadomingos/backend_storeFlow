@@ -1,17 +1,23 @@
-import { StoreRepositoryInMemory } from "../repositories/in-memory/StoreRepositoryInMemory";
-import { CreateStoreController } from "./createStore/CreateStoreController";
-import { CreateStoreUseCase } from "./createStore/CreateStoreUseCase";
-import { ListStoreController } from "./listStore/ListStoreController";
-import { ListStoreUseCase } from "./listStore/ListStoreUseCase";
+// import { StoreRepositoryInMemory } from "../repositories/in-memory/StoreRepositoryInMemory";
+// import { StoreRepositoryPostgres } from "../repositories/postgres/StoreRepositoryPostgres";
+// import { CreateStoreController } from "./createStore/CreateStoreController";
+// import { CreateStoreUseCase } from "./createStore/CreateStoreUseCase";
+// import { ListStoreController } from "./listStore/ListStoreController";
+// import { ListStoreUseCase } from "./listStore/ListStoreUseCase";
 
 
-const storeRepositoryInMemory = StoreRepositoryInMemory.getInstance();
 
-const createStoreUseCase = new CreateStoreUseCase(storeRepositoryInMemory);
-const createStoreController = new CreateStoreController(createStoreUseCase);
+// function StoreRepository() {
+//   const storeRepositoryPostgres = new StoreRepositoryPostgres();
+//   return storeRepositoryPostgres
+// }
+// const createStoreUseCase = new CreateStoreUseCase(StoreRepository());
+// const createStoreController = new CreateStoreController(createStoreUseCase);
 
-const listStoryUseCase = new ListStoreUseCase(storeRepositoryInMemory);
-const listStoreController = new ListStoreController(listStoryUseCase)
+// const listStoryUseCase = new ListStoreUseCase(StoreRepository());
+// const listStoreController = new ListStoreController(listStoryUseCase);
 
 
-export { createStoreUseCase, listStoryUseCase, createStoreController, listStoreController }
+
+// export { createStoreController, listStoreController }
+
