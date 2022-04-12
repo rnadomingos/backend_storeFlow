@@ -13,7 +13,7 @@ export class StoreRepositoryPostgres implements IStoreRepository {
   }
 
   async findByCNPJ(cnpj: number): Promise<Store> {
-    return this.repository.findOne(cnpj)
+    return this.repository.findOne({ cnpj })
   }
   async create({
     cnpj,
