@@ -1,11 +1,7 @@
+import { ICreateStoreDTO } from "@modules/store/dtos/ICreateStoreDTO";
 import { inject, injectable } from "tsyringe";
 import { IStoreRepository } from "../../repositories/IStoreRepository";
 
-interface IRequest {
-  cnpj: number;
-  name: string;
-  brand: string;
-}
 
 @injectable()
 export class CreateStoreUseCase {
@@ -19,12 +15,12 @@ export class CreateStoreUseCase {
     cnpj,
     name,
     brand
-  }: IRequest): Promise<void> {
+  }: ICreateStoreDTO): Promise<void> {
 
     const storeExists = await this.storeRepository.findByCNPJ(cnpj);
 
     if (storeExists) {
-      throw new Error("loja já cadastrada")
+      throw new Error("Store Already exists")
     }
 
     await this.storeRepository.create({ cnpj, name, brand });

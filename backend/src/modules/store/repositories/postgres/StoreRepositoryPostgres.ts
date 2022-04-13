@@ -2,6 +2,7 @@ import { getRepository, Repository } from "typeorm";
 import { IStoreRepository } from "../IStoreRepository";
 import { ICreateStoreDTO } from "../../dtos/ICreateStoreDTO";
 import { Store } from "@modules/store/entities/Store";
+import { Seller } from "@modules/seller/entities/Seller";
 
 
 export class StoreRepositoryPostgres implements IStoreRepository {
@@ -10,6 +11,10 @@ export class StoreRepositoryPostgres implements IStoreRepository {
 
   constructor() {
     this.repository = getRepository(Store);
+  }
+
+  async findById(id: string): Promise<Store> {
+    return this.repository.findOne(id)
   }
 
   async findByCNPJ(cnpj: number): Promise<Store> {
@@ -30,6 +35,10 @@ export class StoreRepositoryPostgres implements IStoreRepository {
 
   async list(): Promise<Store[]> {
     return await this.repository.find()
+  }
+
+  listSellers(): Promise<Seller[]> {
+    throw new Error("Method not implemented.");
   }
 
 }

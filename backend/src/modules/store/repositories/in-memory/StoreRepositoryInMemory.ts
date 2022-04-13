@@ -5,18 +5,11 @@ import { IStoreRepository } from "../IStoreRepository";
 export class StoreRepositoryInMemory implements IStoreRepository {
 
   private stores: Store[] = [];
-  // private static INSTANCE: StoreRepositoryInMemory;
 
-  // private constructor() {
-  //   this.stores = [];
-  // }
 
-  // public static getInstance(): StoreRepositoryInMemory {
-  //   if (!StoreRepositoryInMemory.INSTANCE) {
-  //     StoreRepositoryInMemory.INSTANCE = new StoreRepositoryInMemory()
-  //   }
-  //   return StoreRepositoryInMemory.INSTANCE;
-  // }
+  findById(id: string): Promise<Store> {
+    throw new Error("Method not implemented.");
+  }
 
   async findByCNPJ(cnpj: number): Promise<Store> {
     return this.stores.find(
