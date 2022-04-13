@@ -13,6 +13,13 @@ export class SellerRepositoryPostgres implements ISellerRepository {
     this.repository = getRepository(Seller)
   }
 
+  async findStoreBySeller(user_dms: string): Promise<Seller[]> {
+    return await this.repository.find({
+      where: { user_dms },
+      relations: ["store"]
+    });
+  }
+
   async findById(id: string): Promise<Seller> {
     return this.repository.findOne(id)
   }

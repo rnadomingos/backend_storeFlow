@@ -7,6 +7,10 @@ export class StoreRepositoryInMemory implements IStoreRepository {
   private stores: Store[] = [];
 
 
+  listSellers(id: string): Promise<Store[]> {
+    throw new Error("Method not implemented.");
+  }
+
   findById(id: string): Promise<Store> {
     throw new Error("Method not implemented.");
   }

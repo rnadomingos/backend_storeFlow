@@ -37,8 +37,11 @@ export class StoreRepositoryPostgres implements IStoreRepository {
     return await this.repository.find()
   }
 
-  listSellers(): Promise<Seller[]> {
-    throw new Error("Method not implemented.");
+  async listSellers(id: string): Promise<Store[]> {
+    return await this.repository.find({
+      where: { id },
+      relations: ["sellers"]
+    });
   }
 
 }

@@ -1,6 +1,6 @@
 import { Seller } from "@modules/seller/entities/Seller";
 import { randomUUID } from "crypto";
-import { Column, CreateDateColumn, Entity, JoinColumn, ManyToOne, PrimaryColumn } from "typeorm";
+import { Column, CreateDateColumn, Entity, JoinColumn, ManyToOne, OneToMany, PrimaryColumn } from "typeorm";
 
 @Entity("stores")
 export class Store {
@@ -22,11 +22,8 @@ export class Store {
   @CreateDateColumn()
   create_at: Date;
 
-  @ManyToOne(() => Seller)
-  @JoinColumn([
-    { name: "id_seller", referencedColumnName: "id" }
-  ])
-  seller: Seller;
+  @OneToMany(() => Seller, seller => seller.store)
+  sellers: Seller[];
 
   constructor() {
     if (!this.id) {
