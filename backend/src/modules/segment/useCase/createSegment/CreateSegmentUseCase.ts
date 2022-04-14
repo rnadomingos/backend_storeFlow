@@ -1,26 +1,31 @@
-import { ICreateSegmentDTO } from "modules/segment/dtos/ICrateSegmentDTO";
-import { ISegmentRepository } from "modules/segment/repositories/ISegmentRepository";
+import { ICreateSegmentDTO } from "modules/segment/dtos/ICreateSegmentDTO";
+import { ISegmentRepository } from "../../repositories/ISegmentRepository";
+import { inject, injectable } from "tsyringe";
 
 
+@injectable()
 export class CreateSegmentUseCase {
+
   constructor(
+    @inject("SegmentRepository")
     private segmentRepository: ISegmentRepository
   ) { }
 
   async execute({
     name,
     description
-  }: ICreateSegmentDTO) {
+  }: ICreateSegmentDTO): Promise<void> {
 
     const segmentExists = this.segmentRepository.findByName(name);
 
     if (segmentExists) {
-
+      // throw new Error('Segment already exists!')
+      throw new Error("Segment Already exists.")
     }
 
-    this.segmentRepository.create({
+    await this.segmentRepository.create({
       name,
       description
-    })
+    });
   }
 }
