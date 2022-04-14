@@ -15,7 +15,7 @@ export class StoreRepositoryInMemory implements IStoreRepository {
     throw new Error("Method not implemented.");
   }
 
-  async findByCNPJ(cnpj: number): Promise<Store> {
+  async findByCNPJ(cnpj: string): Promise<Store> {
     return this.stores.find(
       (store) => store.cnpj === cnpj
     )

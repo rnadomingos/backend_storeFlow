@@ -8,7 +8,7 @@ export class Store {
   id: string;
 
   @Column()
-  cnpj: number;
+  cnpj: string;
 
   @Column()
   name: string;

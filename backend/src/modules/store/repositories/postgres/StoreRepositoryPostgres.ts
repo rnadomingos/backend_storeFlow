@@ -17,7 +17,7 @@ export class StoreRepositoryPostgres implements IStoreRepository {
     return this.repository.findOne(id)
   }
 
-  async findByCNPJ(cnpj: number): Promise<Store> {
+  async findByCNPJ(cnpj: string): Promise<Store> {
     return this.repository.findOne({ cnpj })
   }
   async create({
