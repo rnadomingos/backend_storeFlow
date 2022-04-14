@@ -1,9 +1,10 @@
-import { ICreateSegmentDTO } from "../dtos/ICrateSegmentDTO";
+import { ICreateSegmentDTO } from "../dtos/ICreateSegmentDTO";
 import { Segment } from "../entities/Segment";
 
 
 
 export interface ISegmentRepository {
-  create(data: ICreateSegmentDTO): void;
-  findByName(name: string): Segment;
+  create(data: ICreateSegmentDTO): Promise<void>;
+  findByName(name: string): Promise<Segment>;
+  list(): Promise<Segment[]>;
 }

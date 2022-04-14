@@ -1,14 +1,36 @@
-import { ICreateSegmentDTO } from "modules/segment/dtos/ICrateSegmentDTO";
+import { ICreateSegmentDTO } from "../../dtos/ICreateSegmentDTO";
 import { Segment } from "../../entities/Segment";
 import { ISegmentRepository } from "../ISegmentRepository";
 
 
 export class SegmentRepositoryInMemory implements ISegmentRepository {
-  findByName(name: string): Segment {
-    throw new Error("Method not implemented.");
+
+  private segments: Segment[] = [];
+
+  async findByName(name: string): Promise<Segment> {
+    return this.segments.find(
+      (segments) => segments.name === name
+    )
   }
-  create(data: ICreateSegmentDTO): void {
-    throw new Error("Method not implemented.");
+
+  create({
+    name,
+    description
+  }: ICreateSegmentDTO): void {
+    const newSegment = new Segment();
+
+    Object.assign(newSegment, {
+      name,
+      description,
+      created_at: new Date()
+    });
+
+    this.segments.push(newSegment);
+    console.log('segment', this.segments);
+  }
+
+  async list(): Promise<Segment[]> {
+    return this.segments;
   }
 
 }
