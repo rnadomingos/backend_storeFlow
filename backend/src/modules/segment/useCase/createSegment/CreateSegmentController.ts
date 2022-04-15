@@ -10,6 +10,8 @@ export class CreateSegmentController {
     const createSegmentUseCase = container.resolve(CreateSegmentUseCase)
     await createSegmentUseCase.execute({ name, description });
 
-    return res.status(201).json("message:success");
+    return res.status(201).json({
+      message: "success"
+    });
   }
 }
