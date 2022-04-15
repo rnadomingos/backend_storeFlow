@@ -1,5 +1,6 @@
+import { Segment } from "@modules/segment/entities/Segment";
 import { ICreateSegmentDTO } from "../../dtos/ICreateSegmentDTO";
-import { Segment } from "../../entities/Segment";
+
 import { ISegmentRepository } from "../ISegmentRepository";
 
 
@@ -13,10 +14,10 @@ export class SegmentRepositoryInMemory implements ISegmentRepository {
     )
   }
 
-  create({
+  async create({
     name,
     description
-  }: ICreateSegmentDTO): void {
+  }: ICreateSegmentDTO): Promise<void> {
     const newSegment = new Segment();
 
     Object.assign(newSegment, {

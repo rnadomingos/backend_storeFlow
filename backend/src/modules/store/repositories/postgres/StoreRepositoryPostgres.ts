@@ -2,7 +2,6 @@ import { getRepository, Repository } from "typeorm";
 import { IStoreRepository } from "../IStoreRepository";
 import { ICreateStoreDTO } from "../../dtos/ICreateStoreDTO";
 import { Store } from "@modules/store/entities/Store";
-import { Seller } from "@modules/seller/entities/Seller";
 
 
 export class StoreRepositoryPostgres implements IStoreRepository {
@@ -14,7 +13,7 @@ export class StoreRepositoryPostgres implements IStoreRepository {
   }
 
   async findById(id: string): Promise<Store> {
-    return this.repository.findOne(id)
+    return await this.repository.findOne(id)
   }
 
   async findByCNPJ(cnpj: string): Promise<Store> {

@@ -1,6 +1,7 @@
 import { Seller } from "@modules/seller/entities/Seller";
+import { User } from "@modules/user/entities/User";
 import { randomUUID } from "crypto";
-import { Column, CreateDateColumn, Entity, JoinColumn, ManyToOne, OneToMany, PrimaryColumn } from "typeorm";
+import { Column, CreateDateColumn, Entity, OneToMany, PrimaryColumn } from "typeorm";
 
 @Entity("stores")
 export class Store {
@@ -24,6 +25,9 @@ export class Store {
 
   @OneToMany(() => Seller, seller => seller.store)
   sellers: Seller[];
+
+  @OneToMany(() => User, user => user.store)
+  users: User[];
 
   constructor() {
     if (!this.id) {

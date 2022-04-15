@@ -1,7 +1,7 @@
 import { ICreateSegmentDTO } from "../../dtos/ICreateSegmentDTO";
-import { Segment } from "@modules/segment/entities/Segment";
 import { getRepository, Repository } from "typeorm";
 import { ISegmentRepository } from "../ISegmentRepository";
+import { Segment } from "@modules/segment/entities/Segment";
 
 
 
@@ -10,7 +10,7 @@ export class SegmentRepositoryPostgres implements ISegmentRepository {
     private repository: Repository<Segment>;
 
     constructor() {
-        this.repository = getRepository(Segment);
+        this.repository = getRepository(Segment)
     }
 
     async create({
@@ -20,16 +20,16 @@ export class SegmentRepositoryPostgres implements ISegmentRepository {
         const newSegment = this.repository.create({
             name,
             description
-        })
-        await this.repository.save(newSegment)
-
+        });
+        await this.repository.save(newSegment);
     }
 
-    async findByName(name: string): Promise<Segment> {
-        return this.repository.findOne(name)
+    findByName(name: string): Promise<Segment> {
+        return this.repository.findOne({ name })
     }
 
-    async list(): Promise<Segment[]> {
-        return this.repository.find()
+    list(): Promise<Segment[]> {
+        throw new Error("Method not implemented.");
     }
+
 }
