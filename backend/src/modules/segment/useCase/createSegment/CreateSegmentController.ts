@@ -7,8 +7,8 @@ export class CreateSegmentController {
   async handle(req: Request, res: Response): Promise<Response> {
     const { name, description } = req.body;
 
-    const createStoreUseCase = container.resolve(CreateSegmentUseCase)
-    await createStoreUseCase.execute({ name, description });
+    const createSegmentUseCase = container.resolve(CreateSegmentUseCase)
+    await createSegmentUseCase.execute({ name, description });
 
     return res.status(201).json("message:success");
   }
