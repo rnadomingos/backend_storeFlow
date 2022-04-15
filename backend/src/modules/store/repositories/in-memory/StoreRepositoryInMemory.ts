@@ -7,11 +7,15 @@ export class StoreRepositoryInMemory implements IStoreRepository {
   private stores: Store[] = [];
 
 
+  listSellers(id: string): Promise<Store[]> {
+    throw new Error("Method not implemented.");
+  }
+
   findById(id: string): Promise<Store> {
     throw new Error("Method not implemented.");
   }
 
-  async findByCNPJ(cnpj: number): Promise<Store> {
+  async findByCNPJ(cnpj: string): Promise<Store> {
     return this.stores.find(
       (store) => store.cnpj === cnpj
     )

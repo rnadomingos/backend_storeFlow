@@ -9,4 +9,5 @@ export interface ISellerRepository {
   findByUserDms(user_dms: string): Promise<Seller>;
   create(data: ICreateSellerDTO): Promise<void>;
   list(): Promise<Seller[]>;
+  findStoreBySeller(user_dms: string): Promise<Seller[]>;
 }

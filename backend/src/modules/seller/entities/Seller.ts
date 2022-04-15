@@ -19,11 +19,12 @@ export class Seller {
   @CreateDateColumn()
   create_at: Date;
 
-  // @ManyToOne(() => Store)
-  // @JoinColumn({ name: "id_store" })
-  // store: Store;
-  // @Column()
-  // id_store: string;
+  @ManyToOne(() => Store)
+  @JoinColumn({ name: "id_store" })
+  store: Store;
+
+  @Column()
+  id_store: string;
 
 
   constructor() {

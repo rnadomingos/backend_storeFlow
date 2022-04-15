@@ -13,7 +13,7 @@ export class Store1649707337764 implements MigrationInterface {
                 },
                 {
                     name: "cnpj",
-                    type: "integer",
+                    type: "varchar",
                     isUnique: true
                 },
                 {
