@@ -19,7 +19,7 @@ export class FindByNameSegmentUseCase {
         const segment = await this.segmentRepository.findByName(name)
 
         if (!segment) {
-            throw Error(`Segment not found with ${name}!`)
+            throw new Error(`Segment not found with ${name}!`)
         }
         return segment;
     }

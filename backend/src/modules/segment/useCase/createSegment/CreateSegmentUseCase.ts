@@ -17,8 +17,6 @@ export class CreateSegmentUseCase {
   }: ICreateSegmentDTO): Promise<void> {
 
     const segmentExists = await this.segmentRepository.findByName(name);
-    console.log('log1', segmentExists);
-
 
     if (segmentExists) {
       // throw new Error('Segment already exists!')
