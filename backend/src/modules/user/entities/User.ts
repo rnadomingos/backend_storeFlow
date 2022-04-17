@@ -36,8 +36,6 @@ export class User {
   @Column()
   id_store: string;
 
-
-
   constructor() {
     if (!this.id) {
       this.id = randomUUID();
