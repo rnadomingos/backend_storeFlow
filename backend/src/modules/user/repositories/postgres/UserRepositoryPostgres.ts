@@ -11,6 +11,12 @@ export class UserRepositoryPostgres implements IUserRepository {
   constructor() {
     this.repository = getRepository(User)
   }
+  async findStoreByUser(user_dms: string): Promise<User[]> {
+    return await this.repository.find({
+      where: { user_dms },
+      relations: ["store"]
+    });
+  }
 
   async create({
     name,
