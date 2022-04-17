@@ -19,7 +19,7 @@ export class Segment {
   @CreateDateColumn()
   create_at: Date;
 
-  @ManyToMany(() => Store)
+  @ManyToMany(() => Store, store => store.segments)
   @JoinTable()
   store: Store[];
 
