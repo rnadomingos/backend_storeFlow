@@ -40,17 +40,19 @@ export class UpdateUserUseCase {
     }
     if (is_admin === false) {
       user.is_admin = false
-    } else {
+    }
+    if (is_admin === true) {
       user.is_admin = true
     }
 
     if (is_active === false) {
       user.is_active = false
-    } else {
+    }
+    if (is_active === true) {
       user.is_active = true
     }
 
-    await this.userRepository.updateUser(user);
+    await this.userRepository.update(user);
 
   }
 }

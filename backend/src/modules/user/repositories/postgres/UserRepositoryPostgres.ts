@@ -45,7 +45,7 @@ export class UserRepositoryPostgres implements IUserRepository {
     return await this.repository.find()
   }
 
-  async updateUser({
+  async update({
     id,
     name,
     email,

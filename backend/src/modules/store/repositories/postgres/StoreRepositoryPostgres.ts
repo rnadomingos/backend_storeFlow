@@ -2,6 +2,7 @@ import { getRepository, Repository } from "typeorm";
 import { IStoreRepository } from "../IStoreRepository";
 import { ICreateStoreDTO } from "../../dtos/ICreateStoreDTO";
 import { Store } from "@modules/store/entities/Store";
+import { IUpdateStoreDto } from "@modules/store/dtos/IUpdateStoreDTO";
 
 
 export class StoreRepositoryPostgres implements IStoreRepository {
@@ -42,6 +43,24 @@ export class StoreRepositoryPostgres implements IStoreRepository {
       relations: ["sellers"]
     });
   }
+
+  async update({
+    id,
+    cnpj,
+    name,
+    brand,
+    is_active
+  }: IUpdateStoreDto): Promise<void> {
+    const updateStore = this.repository.create({
+      id,
+      cnpj,
+      name,
+      brand,
+      is_active
+    })
+    await this.repository.save(updateStore)
+  }
+
 
 }
 

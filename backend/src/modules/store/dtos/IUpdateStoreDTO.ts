@@ -3,4 +3,5 @@ export interface IUpdateStoreDto {
   cnpj: string;
   name: string
   brand: string;
+  is_active: boolean;
 }
