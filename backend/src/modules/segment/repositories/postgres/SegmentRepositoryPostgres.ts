@@ -4,6 +4,7 @@ import { Store } from "@modules/store/entities/Store";
 import { getRepository, Repository } from "typeorm";
 import { ISegmentRepository } from "../ISegmentRepository";
 import { IJoinSegmentStoreDTO } from "@modules/segment/dtos/IJoinSegmentStoreDTO";
+import { IUpdateSegmentByIdDTO } from "@modules/segment/dtos/IUpdateSegmentByIdDTO";
 
 
 
@@ -47,7 +48,6 @@ export class SegmentRepositoryPostgres implements ISegmentRepository {
             .relation(Segment, "store")
             .of(segmentId)
             .add(storeId)
-
     }
 
     async getSegmentByStoreId(id: string): Promise<Store[]> {
@@ -57,6 +57,22 @@ export class SegmentRepositoryPostgres implements ISegmentRepository {
             },
             relations: ["segments"]
         })
+    }
+
+    async updateSegmentById({
+        id,
+        name,
+        description,
+        is_active
+    }: IUpdateSegmentByIdDTO): Promise<void> {
+        const newSegment = this.repository.create({
+            id,
+            name,
+            description,
+            is_active
+        })
+        await this.repository.save(newSegment)
+
     }
 }
 
