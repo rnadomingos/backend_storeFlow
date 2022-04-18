@@ -4,6 +4,7 @@ import { sellerRoutes } from "./sellerRoutes";
 import { storeRoutes } from "./storeRoutes";
 import { userRoutes } from "./userRoutes";
 
+
 const router = Router();
 
 router.use("/store", storeRoutes);

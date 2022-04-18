@@ -1,23 +1,26 @@
-import { Segment } from "modules/segment/entities/Segment";
-import { ISegmentRepository } from "modules/segment/repositories/ISegmentRepository";
+import { Segment } from "@modules/segment/entities/Segment";
+import { inject, injectable } from "tsyringe";
+import { ISegmentRepository } from "../../repositories/ISegmentRepository";
 
+
+@injectable()
 
 export class FindByNameSegmentUseCase {
+
     constructor(
+        @inject("SegmentRepository")
         private segmentRepository: ISegmentRepository
     ) { }
-   async execute({
-       name
-    }: Segment) {
 
-        const segmentExists = this.segmentRepository.findByName(name)
+    async execute(
+        name: string
+    ): Promise<Segment> {
 
-        if (!segmentExists) {
-            // throw Error(`Segment not found with ${name}!`)            
-            return { 
-                message: `Segment not found with ${name}!`
-            }
+        const segment = await this.segmentRepository.findByName(name)
+
+        if (!segment) {
+            throw new Error(`Segment not found with ${name}!`)
         }
-        
-   }
+        return segment;
+    }
 }
