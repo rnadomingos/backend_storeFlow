@@ -35,6 +35,10 @@ export class SegmentRepositoryPostgres implements ISegmentRepository {
         return this.repository.findOne({ name })
     }
 
+    async findById(id: string): Promise<Segment> {
+        return this.repository.findOne({ id })
+    }
+
     async list(): Promise<Segment[]> {
         return this.repository.find()
     }

@@ -9,6 +9,7 @@ import { Segment } from "../entities/Segment";
 export interface ISegmentRepository {
   create(data: ICreateSegmentDTO): Promise<void>;
   findByName(name: string): Promise<Segment>;
+  findById(id: string): Promise<Segment>;
   getSegmentByStoreId(id: string): Promise<Store[]>;
   list(): Promise<Segment[]>;
   joinSegmentStore(data: IJoinSegmentStoreDTO): Promise<void>;

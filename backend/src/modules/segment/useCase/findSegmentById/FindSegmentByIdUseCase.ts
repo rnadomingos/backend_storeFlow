@@ -5,7 +5,7 @@ import { ISegmentRepository } from "../../repositories/ISegmentRepository";
 
 @injectable()
 
-export class FindByNameSegmentUseCase {
+export class FindSegmentByIdUseCase {
 
     constructor(
         @inject("SegmentRepository")
@@ -13,13 +13,13 @@ export class FindByNameSegmentUseCase {
     ) { }
 
     async execute(
-        name: string
+        id: string
     ): Promise<Segment> {
 
-        const segment = await this.segmentRepository.findByName(name)
+        const segment = await this.segmentRepository.findById(id)
 
         if (!segment) {
-            throw new Error(`Segment not found with ${name}!`)
+            throw new Error(`Segment not found with this ID!`)
         }
         return segment;
     }
