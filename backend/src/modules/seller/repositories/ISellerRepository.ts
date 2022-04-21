@@ -1,5 +1,6 @@
 import { Seller } from "../entities/Seller";
 import { ICreateSellerDTO } from "../dtos/ICreateSellerDTO";
+import { IUpdateSellerDTO } from "../dtos/IUpdateSellerDTO";
 
 
 
@@ -10,4 +11,5 @@ export interface ISellerRepository {
   create(data: ICreateSellerDTO): Promise<void>;
   list(): Promise<Seller[]>;
   findStoreBySeller(user_dms: string): Promise<Seller[]>;
+  update(data: IUpdateSellerDTO): Promise<void>;
 }

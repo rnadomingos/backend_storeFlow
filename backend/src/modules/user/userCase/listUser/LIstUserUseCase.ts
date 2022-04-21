@@ -12,6 +12,6 @@ export class ListUserUseCase {
 
   async execute(): Promise<User[]> {
     const users = await this.userRepository.list();
-    return users
+    return users;
   }
 }

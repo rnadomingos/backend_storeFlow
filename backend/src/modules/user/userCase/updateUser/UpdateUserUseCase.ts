@@ -38,18 +38,12 @@ export class UpdateUserUseCase {
     if (id_store) {
       user.id_store = id_store
     }
-    if (is_admin === false) {
-      user.is_admin = false
-    }
-    if (is_admin === true) {
-      user.is_admin = true
+    if (is_admin !== null) {
+      user.is_admin = is_admin
     }
 
-    if (is_active === false) {
-      user.is_active = false
-    }
-    if (is_active === true) {
-      user.is_active = true
+    if (is_active !== null) {
+      user.is_active = is_active
     }
 
     await this.userRepository.update(user);

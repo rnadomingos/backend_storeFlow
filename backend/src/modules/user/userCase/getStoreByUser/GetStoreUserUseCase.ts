@@ -5,12 +5,15 @@ import { inject, injectable } from "tsyringe";
 
 interface IResponse {
   user: {
+    id: string;
     name: string;
     user_dms: string
   },
   store: {
+    id: string
     name: string;
     cnpj: string;
+    brand: string
   }
 }
 
@@ -27,12 +30,15 @@ export class GetStoreUserUseCase {
 
     const returnResponse: IResponse = {
       user: {
+        id: userAndStore[0].id,
         name: userAndStore[0].name,
         user_dms: userAndStore[0].user_dms
       },
       store: {
         name: userAndStore[0].store.name,
-        cnpj: userAndStore[0].store.cnpj
+        cnpj: userAndStore[0].store.cnpj,
+        brand: userAndStore[0].store.brand,
+        id: userAndStore[0].store.id
       }
     }
     return returnResponse
