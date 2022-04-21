@@ -78,5 +78,12 @@ export class SegmentRepositoryPostgres implements ISegmentRepository {
         await this.repository.save(newSegment)
 
     }
+
+
+    async deleteSegmentById(id: string): Promise<void> {
+
+        await this.repository.delete(id)
+
+    }
 }
 

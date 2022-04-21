@@ -1,4 +1,5 @@
 import { CreateSegmentController } from "@modules/segment/useCase/createSegment/CreateSegmentController";
+import { DeleteSegmentByIdController } from "@modules/segment/useCase/deleteSegmentById/DeleteSegmentByIdController";
 import { FindSegmentByIdController } from "@modules/segment/useCase/findSegmentById/FindSegmentByIdController";
 import { FindSegmentByNameController } from "@modules/segment/useCase/findSegmentByName/FindSegmentByNameController";
 import { GetSegmentByStoreIdController } from "@modules/segment/useCase/getSegmentByStoreId/GetSegmentByStoreIdController";
@@ -16,6 +17,7 @@ const listSegmentController = new ListSegmentController();
 const joinSegmentStoreController = new JoinSegmentStoreController();
 const getSegmentByStoreId = new GetSegmentByStoreIdController();
 const updateSegmentById = new UpdateSegmentByIdController();
+const deleteSegmentByIdController = new DeleteSegmentByIdController();
 
 segmentRoutes.post("/new", createSegmentController.handle);
 segmentRoutes.get("/get-segment-name/:name", findSegmentByNameController.handle);
@@ -23,6 +25,7 @@ segmentRoutes.get("/get-segment-id/:id", findSegmentByIdController.handle);
 segmentRoutes.get("/list", listSegmentController.handle);
 segmentRoutes.post("/join", joinSegmentStoreController.handle)
 segmentRoutes.get("/get-store/:id", getSegmentByStoreId.handle)
-segmentRoutes.patch("/update/:name", updateSegmentById.handle)
+segmentRoutes.patch("/update/:id", updateSegmentById.handle)
+segmentRoutes.delete("/del/:id", deleteSegmentByIdController.handle)
 
 export { segmentRoutes }

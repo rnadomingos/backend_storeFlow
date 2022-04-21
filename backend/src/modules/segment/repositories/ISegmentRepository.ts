@@ -14,4 +14,5 @@ export interface ISegmentRepository {
   list(): Promise<Segment[]>;
   joinSegmentStore(data: IJoinSegmentStoreDTO): Promise<void>;
   updateSegmentById(data: IUpdateSegmentByIdDTO): Promise<void>;
+  deleteSegmentById(id: string): Promise<void>;
 }

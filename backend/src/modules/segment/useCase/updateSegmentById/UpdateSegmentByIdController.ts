@@ -8,13 +8,12 @@ export class UpdateSegmentByIdController {
     async handle(req: Request, res: Response) {
 
 
-        const nameReq = req.params.name;
+        const id = req.params.id;
 
-        console.log("req.params", nameReq);
+        console.log("req.params", id);
 
 
         const {
-            id,
             name,
             description,
             is_active
@@ -27,7 +26,6 @@ export class UpdateSegmentByIdController {
         await updateSegmentByIdUseCase.excecute({
             id,
             name,
-            nameReq,
             description,
             is_active
         })

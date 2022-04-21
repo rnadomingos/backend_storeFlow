@@ -12,13 +12,11 @@ export class UpdateSegmentByIdUseCase {
     async excecute({
         id,
         name,
-        nameReq,
         description,
         is_active
     }: IUpdateSegmentByIdDTO): Promise<void> {
 
-        const segment = await this.segmentRepository.findByName(nameReq);
-
+        const segment = await this.segmentRepository.findById(id);
 
         if (name) {
             segment.name = name
