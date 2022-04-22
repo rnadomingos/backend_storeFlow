@@ -1,3 +1,4 @@
+import { AuthenticateController } from "@modules/user/userCase/authenticateUser/AuthenticateController";
 import { CreateUserController } from "@modules/user/userCase/createUser/CreateUserController";
 import { GetStoreUserController } from "@modules/user/userCase/getStoreByUser/GetStoreUserController";
 import { ListUseController } from "@modules/user/userCase/listUser/ListUserCotroller";
@@ -10,10 +11,13 @@ const createUserController = new CreateUserController()
 const getStoreUserController = new GetStoreUserController()
 const updateUserController = new UpdateUserController()
 const listUseController = new ListUseController()
+const authenticateController = new AuthenticateController()
 
 userRoutes.post("/new", createUserController.handle);
 userRoutes.get("/get-store/:user_dms", getStoreUserController.handle)
 userRoutes.put("/update/:id", updateUserController.handle)
 userRoutes.get("/list", listUseController.handle)
+userRoutes.post("/login", authenticateController.handle)
+
 
 export { userRoutes }
