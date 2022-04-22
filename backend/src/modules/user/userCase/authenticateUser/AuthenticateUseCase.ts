@@ -12,6 +12,10 @@ interface IResponse {
     is_admin: boolean;
   },
   token: string;
+  options: {
+    expires: Date;
+    httpOnly: boolean
+  }
 }
 
 @injectable()
@@ -40,8 +44,17 @@ export class AuthenticateUseCase {
       expiresIn: auth.expires_in_token
     });
 
+    const options = {
+      expires: new Date(
+        Date.now() + auth.cookie_expires_time * 24 * 60 * 1000
+      ),
+      httpOnly: true
+    }
+
+
     const tokenReturn: IResponse = {
       token,
+      options,
       user: {
         name: user.name,
         user_dms: user.user_dms,

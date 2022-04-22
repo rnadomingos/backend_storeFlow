@@ -11,6 +11,12 @@ export class AuthenticateController {
     const authenticateUseCase = container.resolve(AuthenticateUseCase);
     const authenticateToken = await authenticateUseCase.execute(user_dms, password);
 
-    return res.json(authenticateToken);
+    return res.cookie(
+      'token',
+      authenticateToken.token,
+      authenticateToken.options).json({
+        success: true,
+        authenticateToken
+      });
   }
 }
