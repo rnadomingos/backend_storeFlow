@@ -14,7 +14,7 @@ export class CreateUserController {
     } = req.body;
 
     const createUserUseCase = container.resolve(CreateUserUseCase);
-    await createUserUseCase.execute({
+    const authenticateToken = await createUserUseCase.execute({
       name,
       email,
       password,
@@ -22,6 +22,12 @@ export class CreateUserController {
       id_store
     });
 
-    return res.status(201).json("message: success")
+    return res.cookie(
+      'token',
+      authenticateToken.token,
+      authenticateToken.options).json({
+        success: true,
+        authenticateToken
+      });
   }
 }

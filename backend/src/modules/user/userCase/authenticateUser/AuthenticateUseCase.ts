@@ -1,8 +1,8 @@
 import { IUserRepository } from "@modules/user/repositories/IUserRepository";
+import { ErrorHandler } from "@shared/errors/ErrorHandler";
 import { compare } from "bcrypt";
 import { inject, injectable } from "tsyringe";
-import { sign } from "jsonwebtoken";
-import auth from "@config/auth";
+import { generateToken, optionsToCookie } from "utils/gererateToken";
 
 
 interface IResponse {
@@ -30,26 +30,17 @@ export class AuthenticateUseCase {
     const user = await this.userRepository.findByUserDms(user_dms);
 
     if (!user) {
-      throw new Error("Email or password incorrect !");
+      throw new ErrorHandler("Email or password incorrect !");
     }
 
     const passwordMatch = await compare(password, user.password);
 
     if (!passwordMatch) {
-      throw new Error("Email or password incorrect !");
+      throw new ErrorHandler("Email or password incorrect !");
     }
 
-    const token = sign({ user_dms: user.user_dms }, auth.secret_token, {
-      subject: user.id,
-      expiresIn: auth.expires_in_token
-    });
-
-    const options = {
-      expires: new Date(
-        Date.now() + auth.cookie_expires_time * 24 * 60 * 1000
-      ),
-      httpOnly: true
-    }
+    const token = generateToken(user);
+    const options = optionsToCookie();
 
 
     const tokenReturn: IResponse = {

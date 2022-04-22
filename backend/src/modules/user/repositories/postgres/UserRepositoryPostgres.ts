@@ -26,7 +26,7 @@ export class UserRepositoryPostgres implements IUserRepository {
     password,
     user_dms,
     id_store
-  }: ICreateUserDTO): Promise<void> {
+  }: ICreateUserDTO): Promise<User> {
     const newUser = this.repository.create({
       name,
       email,
@@ -34,7 +34,7 @@ export class UserRepositoryPostgres implements IUserRepository {
       user_dms,
       id_store
     });
-    await this.repository.save(newUser)
+    return await this.repository.save(newUser)
   }
 
   async findByUserDms(user_dms: string): Promise<User> {
