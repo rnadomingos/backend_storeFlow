@@ -7,7 +7,7 @@ export class ServiceType {
     @PrimaryColumn()
     id: string;
 
-    @Column({ unique: true })
+    @Column()
     name: string;
 
     @Column()

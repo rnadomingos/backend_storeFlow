@@ -26,4 +26,8 @@ export class ServiceTypeRepositoryPostgres implements IServiceTypeRepository {
         await this.repository.save(newServiceType);
 
     }
+
+    async list(): Promise<ServiceType[]> {
+        return await this.repository.find();
+    }
 }
