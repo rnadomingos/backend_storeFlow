@@ -12,7 +12,7 @@ export class FindSegmentByIdController {
         const findSegmentByIdController = container.resolve(FindSegmentByIdUseCase)
         const segment = await findSegmentByIdController.execute(id)
 
-        return res.json(segment)
+        return res.json(segment);
     }
 
 }
