@@ -4,6 +4,7 @@ import { GetStoreUserController } from "@modules/user/userCase/getStoreByUser/Ge
 import { ListUseController } from "@modules/user/userCase/listUser/ListUserCotroller";
 import { UpdateUserController } from "@modules/user/userCase/updateUser/UpdateUserController";
 import { Router } from "express";
+import { isAuthenticated } from "../middlewares/isAuthenticated";
 
 const userRoutes = Router()
 
@@ -16,7 +17,7 @@ const authenticateController = new AuthenticateController()
 userRoutes.post("/new", createUserController.handle);
 userRoutes.get("/get-store/:user_dms", getStoreUserController.handle)
 userRoutes.put("/update/:id", updateUserController.handle)
-userRoutes.get("/list", listUseController.handle)
+userRoutes.get("/list", isAuthenticated, listUseController.handle)
 userRoutes.post("/login", authenticateController.handle)
 
 
