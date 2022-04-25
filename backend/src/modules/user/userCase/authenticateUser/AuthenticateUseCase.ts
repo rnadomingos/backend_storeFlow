@@ -2,7 +2,7 @@ import { IUserRepository } from "@modules/user/repositories/IUserRepository";
 import { ErrorHandler } from "@shared/errors/ErrorHandler";
 import { compare } from "bcrypt";
 import { inject, injectable } from "tsyringe";
-import { generateToken, optionsToCookie } from "utils/gererateToken";
+import { generateRefreshToken, generateToken, optionsToCookie } from "utils/helpersToken";
 
 
 interface IResponse {

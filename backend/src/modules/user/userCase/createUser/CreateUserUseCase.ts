@@ -2,7 +2,7 @@ import { ICreateUserDTO } from "@modules/user/dtos/ICreateUserDTO";
 import { IUserRepository } from "@modules/user/repositories/IUserRepository";
 import { inject, injectable } from "tsyringe";
 import { hash } from "bcrypt";
-import { generateToken, optionsToCookie } from "utils/gererateToken";
+import { generateToken, optionsToCookie } from "utils/helpersToken";
 import { ErrorHandler } from "@shared/errors/ErrorHandler";
 
 

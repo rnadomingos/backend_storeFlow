@@ -7,6 +7,8 @@ import { ISegmentRepository } from "@modules/segment/repositories/ISegmentReposi
 import { SegmentRepositoryPostgres } from "@modules/segment/repositories/postgres/SegmentRepositoryPostgres";
 import { IUserRepository } from "@modules/user/repositories/IUserRepository";
 import { UserRepositoryPostgres } from "@modules/user/repositories/postgres/UserRepositoryPostgres";
+import { IUserTokenRepository } from "@modules/user/repositories/IUserTokenRepositoryPostgres";
+import { UserTokenRepositoryPostgres } from "@modules/user/repositories/postgres/UserTokenRepositoryPostgres";
 
 
 container.registerSingleton<IStoreRepository>(
@@ -28,5 +30,11 @@ container.registerSingleton<ISegmentRepository>(
 container.registerSingleton<IUserRepository>(
   "UserRepository",
   UserRepositoryPostgres
+
+)
+
+container.registerSingleton<IUserTokenRepository>(
+  "UserTokenRepository",
+  UserTokenRepositoryPostgres
 
 )
