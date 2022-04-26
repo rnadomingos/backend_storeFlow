@@ -5,6 +5,7 @@ import { randomBytes } from "crypto";
 import { IDateProvider } from "@shared/container/providers/date/IDateProvider";
 import auth from "@config/auth";
 import { IUserTokenRepository } from "@modules/user/repositories/IUserTokenRepositoryPostgres";
+import { IMailProvider } from "@shared/container/providers/mail/IMailProvider";
 
 @injectable()
 export class SendForgotPasswordMailUseCase {
@@ -15,6 +16,8 @@ export class SendForgotPasswordMailUseCase {
     private dateProvider: IDateProvider,
     @inject("UserTokenRepository")
     private userTokenRepository: IUserTokenRepository,
+    @inject("EtherealMailProvider")
+    private mailProvider: IMailProvider
   ) { }
 
   async execute(email: string): Promise<void> {
@@ -28,15 +31,22 @@ export class SendForgotPasswordMailUseCase {
 
 
     const resetToken = randomBytes(20).toString('hex');
+    console.log(resetToken);
 
     const expires_hours = this.dateProvider.addHours(auth.refresh_token_expires_hours);
 
-    const result = await this.userTokenRepository.create({
+    await this.userTokenRepository.create({
       refresh_token: resetToken,
       user_id: user.id,
       expires_token: expires_hours
     })
-    //console.log(result);
+    const variables = resetToken
+
+    await this.mailProvider.sendMail(
+      email,
+      'Recuperação de senha',
+      `Link para o reset é ${resetToken}`
+    )
 
   }
 }
