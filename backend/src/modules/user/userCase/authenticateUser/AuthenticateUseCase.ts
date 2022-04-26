@@ -2,7 +2,7 @@ import { IUserRepository } from "@modules/user/repositories/IUserRepository";
 import { ErrorHandler } from "@shared/errors/ErrorHandler";
 import { compare } from "bcrypt";
 import { inject, injectable } from "tsyringe";
-import { generateRefreshToken, generateToken, optionsToCookie } from "utils/helpersToken";
+import { generateToken, optionsToCookie } from "@shared/container/providers/utils/helpersToken";
 
 
 interface IResponse {
@@ -15,7 +15,7 @@ interface IResponse {
   options: {
     expires: Date;
     httpOnly: boolean
-  }
+  },
 }
 
 @injectable()

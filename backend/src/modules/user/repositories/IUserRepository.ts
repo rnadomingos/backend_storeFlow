@@ -10,4 +10,6 @@ export interface IUserRepository {
   findStoreByUser(user_dms: string): Promise<User[]>;
   update(data: IUpdateUserDTO): Promise<void>;
   findById(id: string): Promise<User>;
+  findByEmail(email: string): Promise<User>;
+
 }  

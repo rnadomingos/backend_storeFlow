@@ -13,6 +13,7 @@ export class UserRepositoryPostgres implements IUserRepository {
     this.repository = getRepository(User)
   }
 
+
   async findStoreByUser(user_dms: string): Promise<User[]> {
     return await this.repository.find({
       where: { user_dms },
@@ -70,5 +71,9 @@ export class UserRepositoryPostgres implements IUserRepository {
 
   async findById(id: string): Promise<User> {
     return this.repository.findOne(id)
+  }
+
+  async findByEmail(email: string): Promise<User> {
+    return this.repository.findOne({ email })
   }
 }

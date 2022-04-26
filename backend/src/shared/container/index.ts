@@ -9,6 +9,7 @@ import { IUserRepository } from "@modules/user/repositories/IUserRepository";
 import { UserRepositoryPostgres } from "@modules/user/repositories/postgres/UserRepositoryPostgres";
 import { IUserTokenRepository } from "@modules/user/repositories/IUserTokenRepositoryPostgres";
 import { UserTokenRepositoryPostgres } from "@modules/user/repositories/postgres/UserTokenRepositoryPostgres";
+import "@shared/container/providers";
 
 
 container.registerSingleton<IStoreRepository>(

@@ -6,6 +6,7 @@ import "express-async-errors";
 import { router } from "./routes";
 import createConnection from "../typeorm";
 import cookieParser from "cookie-parser";
+import { ErrorHandler } from "@shared/errors/ErrorHandler";
 
 createConnection();
 
@@ -17,14 +18,14 @@ app.use(cookieParser());
 app.use(router);
 
 app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
-    if (err instanceof Error) {
+    if (err instanceof ErrorHandler) {
         return res.status(400).json({
             message: err.message
         })
     }
     return res.status(500).json({
         status: 'error',
-        message: "Inernal server error"
+        message: `Internal server error ${err.message}`
     })
 })
 
