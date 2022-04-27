@@ -6,6 +6,8 @@ import { IDateProvider } from "@shared/container/providers/date/IDateProvider";
 import auth from "@config/auth";
 import { IUserTokenRepository } from "@modules/user/repositories/IUserTokenRepositoryPostgres";
 import { IMailProvider } from "@shared/container/providers/mail/IMailProvider";
+import { resolve } from "path";
+
 
 @injectable()
 export class SendForgotPasswordMailUseCase {
@@ -40,12 +42,26 @@ export class SendForgotPasswordMailUseCase {
       user_id: user.id,
       expires_token: expires_hours
     })
-    const variables = resetToken
+
+    const templatePath = resolve(
+      __dirname,
+      "..",
+      "..",
+      "views",
+      "emails",
+      "forgotPassword.hbs"
+    );
+
+    const variables = {
+      name: user.name,
+      link: `${process.env.FORGOT_MAIL_URL_DEV}${resetToken}`,
+    }
 
     await this.mailProvider.sendMail(
       email,
       'Recuperação de senha',
-      `Link para o reset é ${resetToken}`
+      variables,
+      templatePath
     )
 
   }

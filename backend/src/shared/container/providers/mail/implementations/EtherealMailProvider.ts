@@ -1,7 +1,8 @@
 import { injectable } from "tsyringe"
 import { IMailProvider } from "../IMailProvider"
 import nodemailer, { Transporter } from "nodemailer"
-
+import Handlebars from "handlebars";
+import fs from "fs";
 
 @injectable()
 export class EtherealMailProvider implements IMailProvider {
@@ -28,15 +29,20 @@ export class EtherealMailProvider implements IMailProvider {
   async sendMail(
     to: string,
     subject: string,
-    body: string
+    variables: any,
+    path: string
   ): Promise<void> {
+
+    const templateFileContent = fs.readFileSync(path).toString("utf-8");
+    const templateParse = Handlebars.compile(templateFileContent);
+
+    const templateHTML = templateParse(variables);
 
     const message = await this.client.sendMail({
       to,
       from: "GB <noreplay@gb.com.br>",
       subject,
-      text: body,
-      html: body
+      html: templateHTML
     })
 
     console.log('Message sent: %s', message.messageId);
