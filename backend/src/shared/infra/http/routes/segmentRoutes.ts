@@ -5,6 +5,7 @@ import { JoinSegmentStoreController } from "@modules/segment/useCase/joinSegment
 import { ListSegmentController } from "@modules/segment/useCase/listSegment/ListSegmentController";
 import { UpdateSegmentByIdController } from "@modules/segment/useCase/updateSegmentById/UpdateSegmentByIdController";
 import { Router } from "express";
+import { isAuthenticated } from "../middlewares/isAuthenticated";
 
 const segmentRoutes = Router();
 
@@ -15,11 +16,11 @@ const joinSegmentStoreController = new JoinSegmentStoreController();
 const getSegmentByStoreId = new GetSegmentByStoreIdController();
 const updateSegmentById = new UpdateSegmentByIdController();
 
-segmentRoutes.post("/new", createSegmentController.handle);
-segmentRoutes.get("/get-segment/:name", findBySegmentController.handle);
-segmentRoutes.get("/list", listSegmentController.handle);
-segmentRoutes.post("/join", joinSegmentStoreController.handle)
-segmentRoutes.get("/get-store/:id", getSegmentByStoreId.handle)
-segmentRoutes.patch("/update/:name", updateSegmentById.handle)
+segmentRoutes.post("/new", isAuthenticated, createSegmentController.handle);
+segmentRoutes.get("/get-segment/:name", isAuthenticated, findBySegmentController.handle);
+segmentRoutes.get("/list", isAuthenticated, listSegmentController.handle);
+segmentRoutes.post("/join", isAuthenticated, joinSegmentStoreController.handle)
+segmentRoutes.get("/get-store/:id", isAuthenticated, getSegmentByStoreId.handle)
+segmentRoutes.patch("/update/:name", isAuthenticated, updateSegmentById.handle)
 
 export { segmentRoutes }

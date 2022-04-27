@@ -15,7 +15,7 @@ export async function isAuthenticated(req: Request, res: Response, next: NextFun
   const userRepository = new UserRepositoryPostgres()
 
   if (!token) {
-    throw new Error("Token missing !")
+    throw new ErrorHandler("Token missing !")
   }
 
 

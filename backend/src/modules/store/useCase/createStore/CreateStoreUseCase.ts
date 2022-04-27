@@ -1,4 +1,5 @@
 import { ICreateStoreDTO } from "@modules/store/dtos/ICreateStoreDTO";
+import { ErrorHandler } from "@shared/errors/ErrorHandler";
 import { inject, injectable } from "tsyringe";
 import { IStoreRepository } from "../../repositories/IStoreRepository";
 
@@ -20,7 +21,7 @@ export class CreateStoreUseCase {
     const storeExists = await this.storeRepository.findByCNPJ(cnpj);
 
     if (storeExists) {
-      throw new Error("Store Already exists")
+      throw new ErrorHandler("Store Already exists")
     }
 
     await this.storeRepository.create({ cnpj, name, brand });

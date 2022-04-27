@@ -3,6 +3,7 @@ import { ListSellersStoreController } from "@modules/store/useCase/listSellersFr
 import { ListStoreController } from "@modules/store/useCase/listStore/ListStoreController";
 import { UpdateStoreController } from "@modules/store/useCase/updateStore/UpdateStoreController";
 import { Router } from "express";
+import { isAuthenticated } from "../middlewares/isAuthenticated";
 
 
 const storeRoutes = Router();
@@ -12,10 +13,10 @@ const listStoreController = new ListStoreController();
 const listSellersStoreController = new ListSellersStoreController();
 const updateStoreController = new UpdateStoreController()
 
-storeRoutes.post("/new", createStoreController.handle);
-storeRoutes.get("/", listStoreController.handle);
-storeRoutes.get("/list-sellers/:id", listSellersStoreController.handle);
-storeRoutes.put("/update/:id", updateStoreController.handle);
+storeRoutes.post("/new", isAuthenticated, createStoreController.handle);
+storeRoutes.get("/", isAuthenticated, listStoreController.handle);
+storeRoutes.get("/list-sellers/:id", isAuthenticated, listSellersStoreController.handle);
+storeRoutes.put("/update/:id", isAuthenticated, updateStoreController.handle);
 
 
 export { storeRoutes }
