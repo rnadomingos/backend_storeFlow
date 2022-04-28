@@ -13,7 +13,7 @@ export class SocialMedia {
     name: string;
 
     @Column()
-    descrition: string;
+    description: string;
 
     @Column()
     is_active: boolean;
