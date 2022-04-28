@@ -4,7 +4,7 @@ import { SocialMedia } from "@modules/socialMedia/entities/SocialMedia"
 import { getRepository, Repository } from "typeorm"
 import { ISocialMediaRepository } from "../ISocialMediaRepository"
 
-export class SociaMediaRepositoryPostgres implements ISocialMediaRepository {
+export class SocialMediaRepositoryPostgres implements ISocialMediaRepository {
 
     private repository: Repository<SocialMedia>;
 
@@ -31,6 +31,10 @@ export class SociaMediaRepositoryPostgres implements ISocialMediaRepository {
 
     async findById(id: string): Promise<SocialMedia> {
         return await this.repository.findOne({ id });
+    }
+
+    async findByName(name: string): Promise<SocialMedia> {
+        return await this.repository.findOne({ name });
     }
 
     async updateById({

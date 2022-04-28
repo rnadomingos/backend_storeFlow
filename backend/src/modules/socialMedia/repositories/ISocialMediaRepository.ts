@@ -7,6 +7,7 @@ export interface ISocialMediaRepository {
     create(data: ICreateSocialMediaDTO): Promise<void>;
     list(): Promise<SocialMedia[]>;
     findById(id: string): Promise<SocialMedia>;
+    findByName(name: string): Promise<SocialMedia>;
     updateById(data: IUpdateSocialMediaDTO): Promise<void>;
     deleteById(id: string): Promise<void>;
 
