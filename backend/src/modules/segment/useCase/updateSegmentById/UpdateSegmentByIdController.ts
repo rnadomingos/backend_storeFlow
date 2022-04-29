@@ -33,7 +33,7 @@ export class UpdateSegmentByIdController {
         })
 
         res.json({
-            message: "Success"
+            success: true
         })
     }
 }

@@ -17,7 +17,9 @@ export class CreateSellerController {
       id_store
     });
 
-    return res.status(201).json("message: success")
+    return res.status(201).json({
+      success: true
+    })
   }
 }
 
