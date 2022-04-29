@@ -24,7 +24,7 @@ export class UpdateSegmentByIdController {
 
         const updateSegmentByIdUseCase = container.resolve(UpdateSegmentByIdUseCase)
 
-        await updateSegmentByIdUseCase.excecute({
+        await updateSegmentByIdUseCase.execute({
             id,
             name,
             nameReq,

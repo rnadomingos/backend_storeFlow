@@ -9,7 +9,7 @@ export class UpdateSegmentByIdUseCase {
         @inject("SegmentRepository")
         private segmentRepository: ISegmentRepository
     ) { }
-    async excecute({
+    async execute({
         id,
         name,
         nameReq,
