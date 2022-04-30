@@ -11,31 +11,41 @@ interface IPayload {
 
 export async function isAuthenticated(req: Request, res: Response, next: NextFunction) {
 
-  const { token } = req.cookies;
+  let { token } = req.cookies
+  const authHeader = req.headers.authorization;
+
   const userRepository = new UserRepositoryPostgres()
 
-  if (!token) {
-    throw new ErrorHandler("Token missing !")
-  }
+  if (token || authHeader) {
 
-
-  try {
-    const decoded = verify(token, auth.secret_token) as IPayload
-
-    const userExists = await userRepository.findById(decoded.id)
-
-    if (!userExists) {
-      throw new ErrorHandler('User does not exists', 401);
+    if (authHeader) {
+      [, token] = authHeader.split(" ");
     }
 
-    req.user = {
-      id: decoded.id
-    };
+    try {
+      const decoded = verify(token, auth.secret_token) as IPayload
 
-    return next();
+      const userExists = await userRepository.findById(decoded.id)
 
-  } catch {
-    throw new ErrorHandler("Invalid token!", 401);
+      if (!userExists) {
+        throw new ErrorHandler('User does not exists', 401);
+      }
+
+      req.user = {
+        id: decoded.id
+      };
+
+      return next();
+
+    } catch {
+
+      throw new ErrorHandler("Invalid token!", 401);
+    }
+
   }
+
+  throw new ErrorHandler("Token is missing or invalid !")
+
+
 }
 
