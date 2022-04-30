@@ -11,7 +11,7 @@ export class FindSocialMediaByIdController {
         const { id } = req.params;
 
         const findSocialMediaByIdController = container.resolve(FindSocialMediaByIdUseCase)
-        const socialMedia = findSocialMediaByIdController.excecute(id)
+        const socialMedia = await findSocialMediaByIdController.excecute(id)
 
         return res.json(socialMedia);
     }

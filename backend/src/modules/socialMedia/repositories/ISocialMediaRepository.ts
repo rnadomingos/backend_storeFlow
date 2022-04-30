@@ -1,6 +1,6 @@
+import { SocialMedia } from "../entities/SocialMedia";
 import { ICreateSocialMediaDTO } from "../dtos/ICreateSocialMediaDTO";
 import { IUpdateSocialMediaDTO } from "../dtos/IUpdateSocialMediaDTO";
-import { SocialMedia } from "../entities/SocialMedia";
 
 export interface ISocialMediaRepository {
 

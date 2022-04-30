@@ -5,7 +5,7 @@ import { CreateSocialMediaUseCase } from "./CreateSocialMediaUseCase";
 
 
 export class CreateSocialMediaController {
-    async handle(req: Request, res: Response) {
+    async handle(req: Request, res: Response): Promise<Response> {
         const {
             name,
             description
@@ -18,5 +18,8 @@ export class CreateSocialMediaController {
             description
         });
 
+        return res.status(201).json({
+            message: "Success"
+        });
     }
 }

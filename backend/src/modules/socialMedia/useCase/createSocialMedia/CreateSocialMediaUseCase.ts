@@ -1,13 +1,11 @@
 import { ICreateSegmentDTO } from "@modules/segment/dtos/ICreateSegmentDTO";
-import { ISocialMediaRepository } from "@modules/socialMedia/repositories/ISocialMediaRepository";
 import { inject, injectable } from "tsyringe";
-
+import { ISocialMediaRepository } from "../../repositories/ISocialMediaRepository";
 
 @injectable()
-
 export class CreateSocialMediaUseCase {
     constructor(
-        @inject("SocialMediaRespository")
+        @inject("SocialMediaRepository")
         private socialMediaRepository: ISocialMediaRepository
     ) { }
 
@@ -16,7 +14,7 @@ export class CreateSocialMediaUseCase {
         description
     }: ICreateSegmentDTO): Promise<void> {
 
-        const socialMediaExists = this.socialMediaRepository.findByName(name);
+        const socialMediaExists = await this.socialMediaRepository.findByName(name);
 
         if (socialMediaExists) {
             throw new Error("This social media already exists!")

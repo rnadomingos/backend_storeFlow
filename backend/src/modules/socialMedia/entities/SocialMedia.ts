@@ -3,7 +3,7 @@ import { Column, CreateDateColumn, Entity, PrimaryColumn } from "typeorm";
 
 
 
-Entity("social_media")
+@Entity("social_media")
 
 export class SocialMedia {
     @PrimaryColumn()

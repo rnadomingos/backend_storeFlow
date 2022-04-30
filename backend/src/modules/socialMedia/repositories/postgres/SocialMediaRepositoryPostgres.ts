@@ -1,6 +1,7 @@
-import { ICreateSocialMediaDTO } from "@modules/socialMedia/dtos/ICreateSocialMediaDTO"
-import { IUpdateSocialMediaDTO } from "@modules/socialMedia/dtos/IUpdateSocialMediaDTO"
+
 import { SocialMedia } from "@modules/socialMedia/entities/SocialMedia"
+import { ICreateSocialMediaDTO } from "../../dtos/ICreateSocialMediaDTO"
+import { IUpdateSocialMediaDTO } from "../../dtos/IUpdateSocialMediaDTO"
 import { getRepository, Repository } from "typeorm"
 import { ISocialMediaRepository } from "../ISocialMediaRepository"
 
