@@ -11,9 +11,9 @@ export class DeleteServiceTypeByIdController {
 
         const { id } = req.params;
 
-        const deleteServiceTypeByController = container.resolve(DeleteServiceTypeByIdUseCase)
+        const deleteServiceTypeByIdController = container.resolve(DeleteServiceTypeByIdUseCase)
 
-        await deleteServiceTypeByController.execute(id);
+        await deleteServiceTypeByIdController.execute(id);
 
         return res.json({
             message: "Success"

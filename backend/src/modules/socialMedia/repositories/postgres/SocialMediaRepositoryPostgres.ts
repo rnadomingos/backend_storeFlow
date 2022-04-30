@@ -58,4 +58,14 @@ export class SocialMediaRepositoryPostgres implements ISocialMediaRepository {
         await this.repository.delete(id)
 
     }
+    async disableEnableById({
+        id,
+        is_active
+    }): Promise<void> {
+        await this.repository.update({
+            id
+        }, {
+            is_active
+        })
+    }
 }

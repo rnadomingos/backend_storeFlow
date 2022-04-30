@@ -1,11 +1,11 @@
 import { Request, Response } from "express";
 import { container } from "tsyringe";
-import { UpdateServiceTypeUseCase } from "./UpdateServiceTypeUseCase";
+import { UpdateSocialMediaByIdUseCase } from "./UpdateSocialMediaByIdUseCase";
 
-export class UpdateServiceTypeController {
+export class UpdateSocialMediaByIdController {
     async handle(req: Request, res: Response): Promise<Response> {
 
-        const id = req.params.id;
+        const { id } = req.params;
 
         const {
             name,
@@ -13,9 +13,9 @@ export class UpdateServiceTypeController {
             is_active
         } = req.body;
 
-        const updateServiceTypeController = container.resolve(UpdateServiceTypeUseCase)
+        const updateSocialMediaByIdController = container.resolve(UpdateSocialMediaByIdUseCase)
 
-        await updateServiceTypeController.execute({
+        await updateSocialMediaByIdController.execute({
             id,
             name,
             description,
