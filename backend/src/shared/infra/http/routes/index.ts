@@ -1,10 +1,10 @@
 import { Router } from "express";
-import { segmentRoutes } from "./SegmentRoutes";
-import { sellerRoutes } from "./SellerRoutes";
+import { segmentRoutes } from "./segmentRoutes";
+import { sellerRoutes } from "./sellerRoutes";
 import { storeRoutes } from "./storeRoutes";
-import { serviceTypeRoutes } from "./ServiceTypeRoutes";
-import { socialMediaRoutes } from "./SocialMediaRoutes";
-import { prospectionRoutes } from "./ProspectionRoutes";
+import { serviceTypeRoutes } from "./serviceTypeRoutes";
+import { socialMediaRoutes } from "./socialMediaRoutes";
+import { prospectionRoutes } from "./prospectionRoutes";
 
 
 const router = Router();
