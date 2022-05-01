@@ -13,7 +13,7 @@ const updateUserController = new UpdateUserController()
 const listUseController = new ListUseController()
 
 
-userRoutes.post("/new", isAuthenticated, createUserController.handle);
+userRoutes.post("/new", createUserController.handle);
 userRoutes.get("/get-store/:user_dms", isAuthenticated, getStoreUserController.handle)
 userRoutes.put("/update/:id", isAuthenticated, updateUserController.handle)
 userRoutes.get("/list", isAuthenticated, listUseController.handle)
