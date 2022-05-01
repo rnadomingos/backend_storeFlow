@@ -11,6 +11,11 @@ import { ISocialMediaRepository } from "@modules/socialMedia/repositories/ISocia
 import { SocialMediaRepositoryPostgres } from "@modules/socialMedia/repositories/postgres/SocialMediaRepositoryPostgres"
 import { IProspectionRepository } from "@modules/prospection/repositories/IProspectionRepository";
 import { ProspectionRepositoryPostgres } from "@modules/prospection/repositories/postgres/ProspectionRepositoryPostgres"
+import { IUserRepository } from "@modules/user/repositories/IUserRepository";
+import { UserRepositoryPostgres } from "@modules/user/repositories/postgres/UserRepositoryPostgres";
+import { IUserTokenRepository } from "@modules/user/repositories/IUserTokenRepositoryPostgres";
+import { UserTokenRepositoryPostgres } from "@modules/user/repositories/postgres/UserTokenRepositoryPostgres";
+import "@shared/container/providers";
 
 
 container.registerSingleton<IStoreRepository>(
@@ -42,4 +47,15 @@ container.registerSingleton<ISocialMediaRepository>(
 container.registerSingleton<IProspectionRepository>(
   "ProspectionRepository",
   ProspectionRepositoryPostgres
+)
+container.registerSingleton<IUserRepository>(
+  "UserRepository",
+  UserRepositoryPostgres
+
+)
+
+container.registerSingleton<IUserTokenRepository>(
+  "UserTokenRepository",
+  UserTokenRepositoryPostgres
+
 )

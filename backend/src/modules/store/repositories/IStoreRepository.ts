@@ -7,4 +7,5 @@ export interface IStoreRepository {
   create(data: ICreateStoreDTO): Promise<void>;
   list(): Promise<Store[]>
   listSellers(id: string): Promise<Store[]>;
+  update(data: ICreateStoreDTO): Promise<void>;
 }

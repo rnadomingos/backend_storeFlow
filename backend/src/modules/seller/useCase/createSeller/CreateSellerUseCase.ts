@@ -1,5 +1,6 @@
 import { ICreateSellerDTO } from "@modules/seller/dtos/ICreateSellerDTO";
 import { ISellerRepository } from "@modules/seller/repositories/ISellerRepository";
+import { ErrorHandler } from "@shared/errors/ErrorHandler";
 import { inject, injectable } from "tsyringe";
 
 
@@ -21,7 +22,7 @@ export class CreateSellerUseCase {
     const sellerExists = await this.sellerRepository.findByUserDms(user_dms);
 
     if (sellerExists) {
-      throw new Error("Seller Already Exists !")
+      throw new ErrorHandler("Seller Already Exists !")
     }
 
     await this.sellerRepository.create({

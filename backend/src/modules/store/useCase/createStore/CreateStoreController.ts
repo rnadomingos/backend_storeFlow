@@ -12,6 +12,8 @@ export class CreateStoreController {
     const createStoreUseCase = container.resolve(CreateStoreUseCase)
     await createStoreUseCase.execute({ cnpj, name, brand });
 
-    return res.status(201).json("message: success");
+    return res.status(201).json({
+      success: true
+    });
   }
 }
