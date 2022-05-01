@@ -9,6 +9,8 @@ import { ServiceTypeRepositoryPostgres } from "@modules/serviceType/repositories
 import { IServiceTypeRepository } from "@modules/serviceType/repositories/IServiceTypeRepository";
 import { ISocialMediaRepository } from "@modules/socialMedia/repositories/ISocialMediaRepository";
 import { SocialMediaRepositoryPostgres } from "@modules/socialMedia/repositories/postgres/SocialMediaRepositoryPostgres"
+import { IProspectionRepository } from "@modules/prospection/repositories/IProspectionRepository";
+import { ProspectionRepositoryPostgres } from "@modules/prospection/repositories/postgres/ProspectionRepositoryPostgres"
 
 
 container.registerSingleton<IStoreRepository>(
@@ -35,4 +37,9 @@ container.registerSingleton<IServiceTypeRepository>(
 container.registerSingleton<ISocialMediaRepository>(
   "SocialMediaRepository",
   SocialMediaRepositoryPostgres
+)
+
+container.registerSingleton<IProspectionRepository>(
+  "ProspectionRepository",
+  ProspectionRepositoryPostgres
 )

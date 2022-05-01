@@ -1,5 +1,6 @@
+import { Prospection } from "@modules/prospection/entities/Prospection";
 import { randomUUID } from "crypto"
-import { Column, CreateDateColumn, Entity, PrimaryColumn } from "typeorm";
+import { Column, CreateDateColumn, Entity, JoinColumn, ManyToOne, PrimaryColumn } from "typeorm";
 
 
 
@@ -20,6 +21,13 @@ export class SocialMedia {
 
     @CreateDateColumn()
     created_at: Date;
+
+    @ManyToOne(() => Prospection)
+    @JoinColumn({ name: "id_prospection" })
+
+    @Column()
+    id_prospection: string;
+
 
     constructor() {
         if (!this.id) {

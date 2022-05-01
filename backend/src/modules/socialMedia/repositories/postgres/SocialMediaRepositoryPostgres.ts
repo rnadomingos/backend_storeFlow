@@ -4,6 +4,7 @@ import { ICreateSocialMediaDTO } from "../../dtos/ICreateSocialMediaDTO"
 import { IUpdateSocialMediaDTO } from "../../dtos/IUpdateSocialMediaDTO"
 import { getRepository, Repository } from "typeorm"
 import { ISocialMediaRepository } from "../ISocialMediaRepository"
+import { IDisableEnableSocialMediaDTO } from "@modules/socialMedia/dtos/IDisableEnableSocialMediaDTO"
 
 export class SocialMediaRepositoryPostgres implements ISocialMediaRepository {
 
@@ -61,7 +62,7 @@ export class SocialMediaRepositoryPostgres implements ISocialMediaRepository {
     async disableEnableById({
         id,
         is_active
-    }): Promise<void> {
+    }: IDisableEnableSocialMediaDTO): Promise<void> {
         await this.repository.update({
             id
         }, {
