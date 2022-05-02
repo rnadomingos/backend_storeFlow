@@ -1,4 +1,5 @@
 import { IServiceTypeRepository } from "@modules/serviceType/repositories/IServiceTypeRepository";
+import { ErrorHandler } from "@shared/errors/ErrorHandler";
 import { inject, injectable } from "tsyringe";
 
 
@@ -14,7 +15,7 @@ export class DeleteServiceTypeByIdUseCase {
         const serviceTypeExists = await this.serviceTypeRespository.findById(id);
 
         if (!serviceTypeExists) {
-            throw new Error(`This ID:(${id}) was not found!`)
+            throw new ErrorHandler(`This ID:(${id}) was not found!`)
         }
 
         return await this.serviceTypeRespository.deleteById(id);

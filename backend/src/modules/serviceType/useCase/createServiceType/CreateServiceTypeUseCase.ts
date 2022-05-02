@@ -17,7 +17,7 @@ export class CreateServiceTypeUseCase {
         name,
         description
     }: ICreateServiceTypeDTO): Promise<void> {
-
+        name = name.toLocaleLowerCase()
         const serviceTypeExists = await this.serviceTypeRepository.findByName(name)
 
         if (serviceTypeExists) {

@@ -20,7 +20,6 @@ export class ServiceTypeRepositoryPostgres implements IServiceTypeRepository {
         name,
         description
     }: ICreateServiceTypeDTO): Promise<void> {
-        name = name.toLocaleLowerCase()
         const newServiceType = this.repository.create({
             name,
             description
@@ -47,7 +46,7 @@ export class ServiceTypeRepositoryPostgres implements IServiceTypeRepository {
         description,
         is_active
     }: IUpdateServiceTypeByIdDTO): Promise<void> {
-        name = name.toLocaleLowerCase()
+
         const updateServiceType = this.repository.create({
             id,
             name,

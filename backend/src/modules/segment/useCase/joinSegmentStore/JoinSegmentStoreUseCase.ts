@@ -12,7 +12,7 @@ export class JoinSegmentStoreUseCase {
         private segmentRepository: ISegmentRepository
     ) { }
 
-    async excecute({
+    async execute({
         segmentId,
         storeId
     }: IJoinSegmentStoreDTO): Promise<void> {

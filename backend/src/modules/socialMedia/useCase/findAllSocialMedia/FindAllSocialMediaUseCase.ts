@@ -1,5 +1,6 @@
 import { SocialMedia } from "@modules/socialMedia/entities/SocialMedia";
 import { ISocialMediaRepository } from "@modules/socialMedia/repositories/ISocialMediaRepository";
+import { ErrorHandler } from "@shared/errors/ErrorHandler";
 import { inject, injectable } from "tsyringe";
 
 
@@ -11,12 +12,12 @@ export class FindAllSocialMediaUseCase {
         @inject("SocialMediaRepository")
         private socialMediaRepository: ISocialMediaRepository
     ) { }
-    async excecute(): Promise<SocialMedia[]> {
+    async execute(): Promise<SocialMedia[]> {
 
         const socialMedia = await this.socialMediaRepository.list();
 
         if (!socialMedia) {
-            throw new Error(`Social Media not found!`)
+            throw new ErrorHandler(`Social Media not found!`)
         }
 
         return socialMedia;

@@ -16,7 +16,15 @@ import { UserRepositoryPostgres } from "@modules/user/repositories/postgres/User
 import { IUserTokenRepository } from "@modules/user/repositories/IUserTokenRepositoryPostgres";
 import { UserTokenRepositoryPostgres } from "@modules/user/repositories/postgres/UserTokenRepositoryPostgres";
 import "@shared/container/providers";
+import { StoreFlowRepositoryPostgres } from "@modules/storeFlow/repositories/postgres/StoreFlowRepositoryPostgres";
+import { IStoreFlowRepository } from "@modules/storeFlow/repositories/IStoreFlowReposiotry";
 
+
+
+container.registerSingleton<IStoreFlowRepository>(
+  "StoreFlowRepository",
+  StoreFlowRepositoryPostgres
+)
 
 container.registerSingleton<IStoreRepository>(
   "StoreRepository",

@@ -18,7 +18,6 @@ export class SocialMediaRepositoryPostgres implements ISocialMediaRepository {
         name,
         description
     }: ICreateSocialMediaDTO): Promise<void> {
-        name = name.toLocaleLowerCase()
         const newSocialMedia = this.repository.create({
             name,
             description
@@ -45,7 +44,6 @@ export class SocialMediaRepositoryPostgres implements ISocialMediaRepository {
         description,
         is_active
     }: IUpdateSocialMediaDTO): Promise<void> {
-        name = name.toLocaleLowerCase()
         const updateSocialMedia = this.repository.create({
             id,
             name,

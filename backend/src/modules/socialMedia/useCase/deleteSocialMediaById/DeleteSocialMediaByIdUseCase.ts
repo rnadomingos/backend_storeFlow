@@ -1,4 +1,5 @@
 import { ISocialMediaRepository } from "@modules/socialMedia/repositories/ISocialMediaRepository";
+import { ErrorHandler } from "@shared/errors/ErrorHandler";
 import { inject, injectable } from "tsyringe";
 
 
@@ -14,7 +15,7 @@ export class DeleteSocialMediaByIdUseCase {
         const socialMediaExists = await this.socialMediaRespository.findById(id);
 
         if (!socialMediaExists) {
-            throw new Error(`This ID:(${id}) was not found!`)
+            throw new ErrorHandler(`This ID:(${id}) was not found!`)
         }
 
         return await this.socialMediaRespository.deleteById(id);

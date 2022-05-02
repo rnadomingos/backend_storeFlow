@@ -1,5 +1,6 @@
 import { Prospection } from "@modules/prospection/entities/Prospection";
 import { IProspectionRepository } from "@modules/prospection/repositories/IProspectionRepository";
+import { ErrorHandler } from "@shared/errors/ErrorHandler";
 import { inject, injectable } from "tsyringe";
 
 @injectable()
@@ -16,7 +17,7 @@ export class FindProspectionByIdUseCase {
         const prospection = await this.prospectionRepository.findById(id);
 
         if (!prospection) {
-            throw new Error(`Prospection not found with this ID!`)
+            throw new ErrorHandler(`Prospection not found with this ID!`)
         }
 
         return prospection;

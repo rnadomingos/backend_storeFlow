@@ -18,7 +18,7 @@ serviceTypeRoutes.post("/new", isAuthenticated, createServiceTypeController.hand
 serviceTypeRoutes.get("/list", isAuthenticated, listServiceTypeController.handle);
 serviceTypeRoutes.get("/get-service/:id", isAuthenticated, findServiceTypeByIidController.handle);
 serviceTypeRoutes.patch("/update/:id", isAuthenticated, updateServiceTypeController.handle);
-serviceTypeRoutes.delete("/del/:id", isAuthenticated, deleteServiceTypeController.handle);
+serviceTypeRoutes.delete("/delete/:id", isAuthenticated, deleteServiceTypeController.handle);
 
 
 export { serviceTypeRoutes }

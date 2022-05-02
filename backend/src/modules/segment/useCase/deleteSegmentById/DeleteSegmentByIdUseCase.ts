@@ -1,4 +1,5 @@
 import { ISegmentRepository } from "@modules/segment/repositories/ISegmentRepository";
+import { ErrorHandler } from "@shared/errors/ErrorHandler";
 import { inject, injectable } from "tsyringe";
 
 
@@ -13,7 +14,7 @@ export class DeleteSegmentByIdUseCase {
         const segmentExsists = this.segmentRepository.findById(id);
 
         if (!segmentExsists) {
-            throw new Error(`This ID:(${id}) was not found!`)
+            throw new ErrorHandler(`This ID:(${id}) was not found!`)
         }
 
         return await this.segmentRepository.deleteSegmentById(id)

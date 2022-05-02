@@ -1,5 +1,6 @@
 import { SocialMedia } from "@modules/socialMedia/entities/SocialMedia";
 import { ISocialMediaRepository } from "@modules/socialMedia/repositories/ISocialMediaRepository";
+import { ErrorHandler } from "@shared/errors/ErrorHandler";
 import { inject, injectable } from "tsyringe";
 
 
@@ -11,12 +12,12 @@ export class FindSocialMediaByNameUseCase {
         @inject("SocialMediaRepository")
         private socialMediaRepository: ISocialMediaRepository
     ) { }
-    async excecute(name: string): Promise<SocialMedia> {
+    async execute(name: string): Promise<SocialMedia> {
 
         const socialMedia = await this.socialMediaRepository.findByName(name);
 
         if (!socialMedia) {
-            throw new Error(`Social Media was not found with this ID!`)
+            throw new ErrorHandler(`Social Media was not found with this ID!`)
         }
 
         return socialMedia;

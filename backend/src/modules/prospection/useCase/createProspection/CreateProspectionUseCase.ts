@@ -1,6 +1,6 @@
 import { ICreateProspectionDTO } from "@modules/prospection/dtos/ICreateProspectionDTO";
-import { Prospection } from "@modules/prospection/entities/Prospection";
 import { IProspectionRepository } from "@modules/prospection/repositories/IProspectionRepository";
+import { ErrorHandler } from "@shared/errors/ErrorHandler";
 import { inject, injectable } from "tsyringe";
 
 
@@ -16,11 +16,11 @@ export class CreateProspectionUseCase {
         name,
         description
     }: ICreateProspectionDTO): Promise<void> {
-
+        name = name.toLocaleLowerCase()
         const prospectionExists = await this.prospectionRepository.findByName(name);
 
         if (prospectionExists) {
-            throw new Error(`Prospection already exists!`);
+            throw new ErrorHandler(`Prospection already exists!`);
         }
 
         await this.prospectionRepository.create({

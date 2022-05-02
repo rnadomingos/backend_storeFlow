@@ -15,7 +15,6 @@ export class SegmentRepositoryPostgres implements ISegmentRepository {
 
     constructor() {
         this.repository = getRepository(Segment)
-        this.repository = getRepository(Segment);
         this.storeRepository = getRepository(Store)
 
     }
