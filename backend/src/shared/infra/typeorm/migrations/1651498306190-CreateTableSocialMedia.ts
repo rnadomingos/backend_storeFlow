@@ -1,11 +1,11 @@
 import { MigrationInterface, QueryRunner, Table } from "typeorm";
 
-export class CreateUser1650060999699 implements MigrationInterface {
+export class CreateTableSocialMedia1651498306190 implements MigrationInterface {
 
     public async up(queryRunner: QueryRunner): Promise<void> {
         await queryRunner.createTable(
             new Table({
-                name: "users",
+                name: "social_media",
                 columns: [
                     {
                         name: "id",
@@ -17,23 +17,8 @@ export class CreateUser1650060999699 implements MigrationInterface {
                         type: "varchar"
                     },
                     {
-                        name: "email",
-                        type: "varchar",
-                        isUnique: true
-                    },
-                    {
-                        name: "password",
+                        name: "description",
                         type: "varchar"
-                    },
-                    {
-                        name: "user_dms",
-                        type: "varchar",
-                        isUnique: true
-                    },
-                    {
-                        name: "is_admin",
-                        type: "boolean",
-                        default: false
                     },
                     {
                         name: "is_active",
@@ -41,8 +26,8 @@ export class CreateUser1650060999699 implements MigrationInterface {
                         default: false
                     },
                     {
-                        name: "id_store",
-                        type: "uuid"
+                        name: "id_prospection",
+                        type: "varchar"
                     },
                     {
                         name: "created_at",
@@ -52,10 +37,10 @@ export class CreateUser1650060999699 implements MigrationInterface {
                 ],
                 foreignKeys: [
                     {
-                        name: "FKUsersStore",
-                        referencedTableName: "stores",
+                        name: "FKSellerSocialMedia",
+                        referencedTableName: "prospection",
                         referencedColumnNames: ["id"],
-                        columnNames: ["id_store"],
+                        columnNames: ["id_prospection"],
                         onDelete: "SET NULL",
                         onUpdate: "SET NULL"
                     }
@@ -66,7 +51,7 @@ export class CreateUser1650060999699 implements MigrationInterface {
     }
 
     public async down(queryRunner: QueryRunner): Promise<void> {
-        await queryRunner.dropTable("users")
+        await queryRunner.dropTable("social_media")
     }
 
 }
