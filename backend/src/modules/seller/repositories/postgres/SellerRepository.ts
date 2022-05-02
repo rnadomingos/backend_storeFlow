@@ -21,6 +21,7 @@ export class SellerRepositoryPostgres implements ISellerRepository {
     id_store,
     is_active
   }: IUpdateSellerDTO): Promise<void> {
+    name = name.toLocaleLowerCase()
     const updateSeller = this.repository.create({
       id,
       name,
@@ -51,7 +52,7 @@ export class SellerRepositoryPostgres implements ISellerRepository {
     user_dms,
     id_store
   }: ICreateSellerDTO): Promise<void> {
-
+    name = name.toLocaleLowerCase()
     const newSeller = this.repository.create({
       name,
       user_dms,

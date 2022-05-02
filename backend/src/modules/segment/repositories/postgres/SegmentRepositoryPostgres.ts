@@ -24,6 +24,7 @@ export class SegmentRepositoryPostgres implements ISegmentRepository {
         name,
         description
     }: ICreateSegmentDTO): Promise<void> {
+        name = name.toLocaleLowerCase()
         const newSegment = this.repository.create({
             name,
             description
@@ -69,6 +70,7 @@ export class SegmentRepositoryPostgres implements ISegmentRepository {
         description,
         is_active
     }: IUpdateSegmentByIdDTO): Promise<void> {
+        name = name.toLocaleLowerCase()
         const newSegment = this.repository.create({
             id,
             name,

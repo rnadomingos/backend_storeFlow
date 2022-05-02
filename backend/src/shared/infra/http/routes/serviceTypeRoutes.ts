@@ -4,6 +4,7 @@ import { FindServiceTypeByIdController } from "@modules/serviceType/useCase/find
 import { ListServiceTypeController } from "@modules/serviceType/useCase/listServiceType/ListServiceTypeController";
 import { UpdateServiceTypeController } from "@modules/serviceType/useCase/updateServiceType/UpdateServiceTypeController";
 import { Router } from "express";
+import { isAuthenticated } from "../middlewares/isAuthenticated";
 
 const serviceTypeRoutes = Router();
 
@@ -13,11 +14,11 @@ const findServiceTypeByIidController = new FindServiceTypeByIdController();
 const updateServiceTypeController = new UpdateServiceTypeController();
 const deleteServiceTypeController = new DeleteServiceTypeByIdController();
 
-serviceTypeRoutes.post("/new", createServiceTypeController.handle);
-serviceTypeRoutes.get("/list", listServiceTypeController.handle);
-serviceTypeRoutes.get("/get-service/:id", findServiceTypeByIidController.handle);
-serviceTypeRoutes.patch("/update/:id", updateServiceTypeController.handle);
-serviceTypeRoutes.delete("/del/:id", deleteServiceTypeController.handle);
+serviceTypeRoutes.post("/new", isAuthenticated, createServiceTypeController.handle);
+serviceTypeRoutes.get("/list", isAuthenticated, listServiceTypeController.handle);
+serviceTypeRoutes.get("/get-service/:id", isAuthenticated, findServiceTypeByIidController.handle);
+serviceTypeRoutes.patch("/update/:id", isAuthenticated, updateServiceTypeController.handle);
+serviceTypeRoutes.delete("/del/:id", isAuthenticated, deleteServiceTypeController.handle);
 
 
 export { serviceTypeRoutes }

@@ -1,6 +1,7 @@
 import { ICreateServiceTypeDTO } from "@modules/serviceType/dtos/ICreateServiceTypeDTO";
 import { IServiceTypeRepository } from "../../repositories/IServiceTypeRepository";
 import { inject, injectable } from "tsyringe";
+import { ErrorHandler } from "@shared/errors/ErrorHandler";
 
 
 
@@ -9,7 +10,7 @@ export class CreateServiceTypeUseCase {
 
     constructor(
         @inject("ServiceTypeRepository")
-        private serviceTypeREpository: IServiceTypeRepository
+        private serviceTypeRepository: IServiceTypeRepository
     ) { }
 
     async execute({
@@ -17,7 +18,13 @@ export class CreateServiceTypeUseCase {
         description
     }: ICreateServiceTypeDTO): Promise<void> {
 
-        await this.serviceTypeREpository.create({
+        const serviceTypeExists = await this.serviceTypeRepository.findByName(name)
+
+        if (serviceTypeExists) {
+            throw new ErrorHandler("Service Type Already exists")
+        }
+
+        await this.serviceTypeRepository.create({
             name,
             description
         });

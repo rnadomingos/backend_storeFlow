@@ -20,6 +20,7 @@ export class ProspectionRepositoryPostgres implements IProspectionRepository {
         description
     }: ICreateProspectionDTO): Promise<void> {
 
+        name = name.toLocaleLowerCase()
         const newProspection = this.repository.create({
             name,
             description
@@ -45,6 +46,7 @@ export class ProspectionRepositoryPostgres implements IProspectionRepository {
         description,
         is_active
     }: IUpdateProspectionDTO): Promise<void> {
+        name = name.toLocaleLowerCase()
         const updateProspection = this.repository.create({
             id,
             name,
