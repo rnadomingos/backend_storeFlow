@@ -24,6 +24,7 @@ export class SocialMedia {
 
     @ManyToOne(() => Prospection)
     @JoinColumn({ name: "id_prospection" })
+    prospection: Prospection;
 
     @Column()
     id_prospection: string;

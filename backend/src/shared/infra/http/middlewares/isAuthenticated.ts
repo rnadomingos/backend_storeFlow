@@ -6,7 +6,7 @@ import { UserRepositoryPostgres } from "@modules/user/repositories/postgres/User
 
 
 interface IPayload {
-  id: string;
+  sub: string;
 }
 
 export async function isAuthenticated(req: Request, res: Response, next: NextFunction) {
@@ -25,14 +25,15 @@ export async function isAuthenticated(req: Request, res: Response, next: NextFun
     try {
       const decoded = verify(token, auth.secret_token) as IPayload
 
-      const userExists = await userRepository.findById(decoded.id)
+
+      const userExists = await userRepository.findById(decoded.sub)
 
       if (!userExists) {
         throw new ErrorHandler('User does not exists', 401);
       }
 
       req.user = {
-        id: decoded.id
+        id: decoded.sub
       };
 
       return next();

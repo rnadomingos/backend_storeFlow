@@ -17,9 +17,10 @@ export class CreateStoreFlowController {
       id_seller,
       id_store_segment,
       id_type_service,
-      id_user,
       id_prospection
     } = req.body;
+
+    const id_user = req.user.id
 
     const createStoreFlowUseCase = container.resolve(CreateStoreFlowUseCase);
     await createStoreFlowUseCase.execute({
