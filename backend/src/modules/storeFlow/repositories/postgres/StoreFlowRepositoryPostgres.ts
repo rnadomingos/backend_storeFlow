@@ -46,8 +46,8 @@ export class StoreFlowRepositoryPostgres implements IStoreFlowRepository {
     await this.repository.save(newStoreFlow)
   }
 
-  list(): Promise<StoreFlow[]> {
-    throw new Error("Method not implemented.");
+  async list(): Promise<StoreFlow[]> {
+    return await this.repository.find()
   }
 
 }
