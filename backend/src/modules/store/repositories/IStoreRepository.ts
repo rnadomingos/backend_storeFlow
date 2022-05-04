@@ -1,5 +1,6 @@
 import { Store } from "../entities/Store";
 import { ICreateStoreDTO } from "../dtos/ICreateStoreDTO";
+import { IUpdateStoreDto } from "../dtos/IUpdateStoreDTO";
 
 export interface IStoreRepository {
   findById(id: string): Promise<Store>;
@@ -7,5 +8,5 @@ export interface IStoreRepository {
   create(data: ICreateStoreDTO): Promise<void>;
   list(): Promise<Store[]>
   listSellers(id: string): Promise<Store[]>;
-  update(data: ICreateStoreDTO): Promise<void>;
+  update(data: IUpdateStoreDto): Promise<void>;
 }
