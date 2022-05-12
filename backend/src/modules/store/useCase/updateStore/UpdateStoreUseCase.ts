@@ -3,9 +3,8 @@ import { IStoreRepository } from "@modules/store/repositories/IStoreRepository";
 import { inject, injectable } from "tsyringe";
 
 
-injectable()
+@injectable()
 export class UpdateStoreUseCase {
-
   constructor(
     @inject("StoreRepository")
     private storeRepository: IStoreRepository
@@ -18,6 +17,7 @@ export class UpdateStoreUseCase {
     brand,
     is_active
   }: IUpdateStoreDto): Promise<void> {
+
     const store = await this.storeRepository.findById(id);
 
     if (cnpj) {
@@ -39,4 +39,8 @@ export class UpdateStoreUseCase {
 
     await this.storeRepository.update(store);
   }
+
 }
+
+
+

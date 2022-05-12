@@ -8,6 +8,7 @@ export class UpdateStoreController {
     const { cnpj, name, brand, is_active } = req.body;
 
     const updateStoreUseCase = container.resolve(UpdateStoreUseCase)
+
     await updateStoreUseCase.execute({
       id,
       cnpj,

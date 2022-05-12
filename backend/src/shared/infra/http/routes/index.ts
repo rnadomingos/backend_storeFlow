@@ -12,7 +12,7 @@ import { storeFlowRoutes } from "./storeFlowRoutes";
 
 const router = Router();
 
-router.use("/store", storeRoutes);
+router.use("/stores", storeRoutes);
 router.use("/seller", sellerRoutes);
 router.use("/segment", segmentRoutes);
 router.use("/service-type", serviceTypeRoutes);
