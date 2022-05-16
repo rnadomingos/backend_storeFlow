@@ -1,5 +1,5 @@
 export interface ICreateStoreDTO {
   cnpj: string;
-  name: string
+  name: string;
   brand: string;
 }

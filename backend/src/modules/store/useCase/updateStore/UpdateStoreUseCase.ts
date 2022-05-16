@@ -3,7 +3,7 @@ import { IStoreRepository } from "@modules/store/repositories/IStoreRepository";
 import { inject, injectable } from "tsyringe";
 
 
-injectable()
+@injectable()
 export class UpdateStoreUseCase {
 
   constructor(
@@ -18,6 +18,7 @@ export class UpdateStoreUseCase {
     brand,
     is_active
   }: IUpdateStoreDto): Promise<void> {
+
     const store = await this.storeRepository.findById(id);
 
     if (cnpj) {
@@ -35,7 +36,6 @@ export class UpdateStoreUseCase {
     if (is_active === true) {
       store.is_active = true
     }
-
 
     await this.storeRepository.update(store);
   }

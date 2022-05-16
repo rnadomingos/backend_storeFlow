@@ -23,49 +23,61 @@ components:
       description: Token is missing or invalid !
 
 tags:
-- name: "user"
+- name: "User"
   description: "List all user, update user and get store from user "
 
-- name: "session"
+- name: "Session"
   description: "Create User, authentication, reset password, forgot password  and logout"
 
-- name: "store"
+- name: "Store"
   description: "create, update, list all, list by seller"
+
+- name: "Prospection"
+  description: "Create, Update, Disable-Enable, List All and List by Prospection"
   
 paths:
   /login:
     post:
       tags:
-      - "session"
+      - "Session"
       summary: "Logs user into the system"
       description: "Authentication user"
       consumes:
-        - application/json
-      parameters:
-      - in: body
-        name: login
-        description: "Login with registered user "
-        schema:
-          type: "object"
-          properties: 
-            user_dms:
-              required: true 
-              type: "string"
-
-            password: 
-              required: true
-              type: "string"
+        - "application/json"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: "object"
+              properties: 
+                user_dms:
+                  required: true 
+                  type: "string"
+                password: 
+                  required: true
+                  type: "string"
       responses:
         200:
           success: true        
         400:
-          description: "Email or password incorrect !"
-
+          description: "User or password incorrect !"          
+  /logout:
+    post:
+      tags:
+      - "Session"
+      summary: "Logout user"
+      description: "Logout User"
+      consumes:
+        - application/json
+      responses:
+        200:
+          success: true        
   /store/new:
     post:
       tags: 
-      - "store"
-      summary: "Create a category"
+      - "Store"
+      summary: "Create a store"
+      description: "Create a new store"
       security:
         - bearerAuth: []
       requestBody:
@@ -88,5 +100,111 @@ paths:
           success: true
         401:
           $ref: "#/components/responses/UnauthorizedError"
-      
-     
+  /store/list:
+    get:
+      tags: 
+      - "Store"
+      summary: "List Store"
+      description: "List all stores"
+      security:
+        - bearerAuth: []
+      responses:
+        201:
+          success: true
+        401:
+          $ref: "#/components/responses/UnauthorizedError"
+  /store/list-sellers/{id}:
+    get:
+      tags: 
+      - "Store"
+      summary: "List store sellers"
+      description: "List sellers by store ID"
+      security:
+        - bearerAuth: []
+      parameters: 
+        - in: path
+          name: id
+          description: "Store Id"
+          schema:
+            type: string
+          required: true                  
+      responses:
+        200:
+          description: "Success"
+        401:
+          $ref: "#/components/responses/UnauthorizedError"      
+  /store/update/{id}:
+    put:
+      tags: 
+      - "Store"
+      summary: "Update a store"
+      security:
+        - bearerAuth: []
+      parameters: 
+        - in: path
+          name: id
+          description: Store Id
+          schema:
+            type: string
+          required: true                  
+      requestBody:
+        content: 
+          application/json:
+            schema:
+              type: "object"
+              properties: 
+                cnpj: 
+                  type: string
+                name: 
+                  type: string
+                brand: 
+                  type: string  
+                is_active:
+                  type: boolean  
+      responses:
+        200:
+          success: true
+        401:
+          $ref: "#/components/responses/UnauthorizedError"     
+  /seller/new:
+    post:
+      tags:
+      - "Seller"
+      summary: "Create a Seller"
+      description: "Create a new Seller"
+      security: 
+        - bearerAuth: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: "object"
+              required:
+                - user_dms
+                - name
+                - id_store
+              properties:
+                user_dms:
+                  type: string
+                name:
+                  type: string
+                id_store:
+                  type: string
+      responses:
+        201: 
+          description: "Success"
+        401:
+          $ref: "#/components/responses/UnauthorizedError"
+  /seller/list:
+    get:
+      tags: 
+      - "Seller"
+      summary: "List Sellers"
+      description: "List all sellers"
+      security:
+        - bearerAuth: []
+      responses:
+        201:
+          description: "Success"
+        401:
+          $ref: "#/components/responses/UnauthorizedError"          

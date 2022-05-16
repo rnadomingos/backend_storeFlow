@@ -14,7 +14,7 @@ const listSellersStoreController = new ListSellersStoreController();
 const updateStoreController = new UpdateStoreController()
 
 storeRoutes.post("/new", createStoreController.handle);
-storeRoutes.get("/", isAuthenticated, listStoreController.handle);
+storeRoutes.get("/list", isAuthenticated, listStoreController.handle);
 storeRoutes.get("/list-sellers/:id", isAuthenticated, listSellersStoreController.handle);
 storeRoutes.put("/update/:id", isAuthenticated, updateStoreController.handle);
 

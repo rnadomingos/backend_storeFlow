@@ -13,6 +13,10 @@ export class ListSellersStoreUseCase {
 
   async execute(id: string): Promise<Store[]> {
     const listSellers = await this.storeRepository.listSellers(id);
+
+    if (listSellers.length === 0) {
+      throw new Error('Store not found this id')
+    }
     return listSellers;
   }
 
