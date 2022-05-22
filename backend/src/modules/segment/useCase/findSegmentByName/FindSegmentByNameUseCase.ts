@@ -1,4 +1,5 @@
 import { Segment } from "@modules/segment/entities/Segment";
+import { ErrorHandler } from "@shared/errors/ErrorHandler";
 import { inject, injectable } from "tsyringe";
 import { ISegmentRepository } from "../../repositories/ISegmentRepository";
 
@@ -18,7 +19,7 @@ export class FindSegmentByNameUseCase {
         const segment = await this.segmentRepository.findByName(name)
 
         if (!segment) {
-            throw new Error(`Segment not found with this id!`)
+            throw new ErrorHandler(`Segment not found with this id!`)
         }
         return segment;
     }

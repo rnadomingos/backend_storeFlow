@@ -15,11 +15,11 @@ export class ServiceTypeRepositoryPostgres implements IServiceTypeRepository {
         this.repository = getRepository(ServiceType);
     }
 
+
     async create({
         name,
         description
     }: ICreateServiceTypeDTO): Promise<void> {
-
         const newServiceType = this.repository.create({
             name,
             description
@@ -36,11 +36,17 @@ export class ServiceTypeRepositoryPostgres implements IServiceTypeRepository {
 
         return await this.repository.findOne({ id });
     }
+
+    async findByName(name: string): Promise<ServiceType> {
+        return await this.repository.findOne({ name });
+    }
+
     async updateById({ id,
         name,
         description,
         is_active
     }: IUpdateServiceTypeByIdDTO): Promise<void> {
+
         const updateServiceType = this.repository.create({
             id,
             name,

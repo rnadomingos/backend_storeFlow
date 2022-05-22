@@ -28,6 +28,7 @@ export class UserRepositoryPostgres implements IUserRepository {
     user_dms,
     id_store
   }: ICreateUserDTO): Promise<User> {
+    user_dms = user_dms.toLocaleLowerCase()
     const newUser = this.repository.create({
       name,
       email,
@@ -56,6 +57,7 @@ export class UserRepositoryPostgres implements IUserRepository {
     is_admin,
     is_active
   }: IUpdateUserDTO): Promise<void> {
+    user_dms = user_dms.toLocaleLowerCase()
     const updateUser = this.repository.create({
       id,
       name,

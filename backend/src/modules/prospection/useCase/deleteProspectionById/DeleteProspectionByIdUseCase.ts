@@ -1,5 +1,6 @@
 
 import { IProspectionRepository } from "@modules/prospection/repositories/IProspectionRepository";
+import { ErrorHandler } from "@shared/errors/ErrorHandler";
 import { inject, injectable } from "tsyringe";
 
 
@@ -15,7 +16,7 @@ export class DeleteProspectionByIdUseCase {
         const prospectionExists = await this.prospectionRespository.findById(id);
 
         if (!prospectionExists) {
-            throw new Error(`This ID:(${id}) was not found!`)
+            throw new ErrorHandler(`This ID:(${id}) was not found!`)
         }
 
         return await this.prospectionRespository.deleteById(id);

@@ -1,5 +1,6 @@
 import { IUpdateSocialMediaDTO } from "@modules/socialMedia/dtos/IUpdateSocialMediaDTO";
 import { ISocialMediaRepository } from "@modules/socialMedia/repositories/ISocialMediaRepository";
+import { ErrorHandler } from "@shared/errors/ErrorHandler";
 import { inject, injectable } from "tsyringe";
 
 
@@ -20,11 +21,11 @@ export class UpdateSocialMediaByIdUseCase {
         const socialMediaExists = await this.socialMediaRepository.findById(id);
 
         if (!socialMediaExists) {
-            throw new Error(`This ID:(${id}) was not found!`)
+            throw new ErrorHandler(`This ID:(${id}) was not found!`)
         }
 
         if (name) {
-            socialMediaExists.name = name;
+            socialMediaExists.name = name.toLocaleLowerCase();
         }
 
         if (description) {

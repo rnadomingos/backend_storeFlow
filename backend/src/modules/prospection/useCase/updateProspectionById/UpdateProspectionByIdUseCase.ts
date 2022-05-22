@@ -1,5 +1,6 @@
 import { IUpdateProspectionDTO } from "@modules/prospection/dtos/IUpdateProspection";
 import { IProspectionRepository } from "@modules/prospection/repositories/IProspectionRepository";
+import { ErrorHandler } from "@shared/errors/ErrorHandler";
 import { inject, injectable } from "tsyringe";
 
 
@@ -20,11 +21,11 @@ export class UpdateProspectionByIdUseCase {
         const prospectionExists = await this.prospectionRepository.findById(id);
 
         if (!prospectionExists) {
-            throw new Error(`This ID:(${id}) was not found!`)
+            throw new ErrorHandler(`This ID:(${id}) was not found!`)
         }
 
         if (name) {
-            prospectionExists.name = name;
+            prospectionExists.name = name.toLocaleLowerCase();
         }
 
         if (description) {

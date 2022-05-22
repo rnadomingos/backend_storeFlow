@@ -9,7 +9,7 @@ export class JoinSegmentStoreController {
         const { segmentId, storeId } = req.body;
 
         const joinSegmentStoreUseCase = container.resolve(JoinSegmentStoreUseCase)
-        await joinSegmentStoreUseCase.excecute({
+        await joinSegmentStoreUseCase.execute({
             segmentId,
             storeId
         })

@@ -16,7 +16,7 @@ export class CreateSegmentUseCase {
     name,
     description
   }: ICreateSegmentDTO): Promise<void> {
-
+    name = name.toLocaleLowerCase()
     const segmentExists = await this.segmentRepository.findByName(name);
 
     if (segmentExists) {

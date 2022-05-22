@@ -1,5 +1,6 @@
 import { IUpdateSegmentByIdDTO } from "@modules/segment/dtos/IUpdateSegmentByIdDTO";
 import { IServiceTypeRepository } from "@modules/serviceType/repositories/IServiceTypeRepository";
+import { ErrorHandler } from "@shared/errors/ErrorHandler";
 import { container, inject, injectable } from "tsyringe";
 import { FindServiceTypeByIdUseCase } from "../findServiceTypeById/FindServiceTypeByIdUseCase";
 
@@ -22,11 +23,11 @@ export class UpdateServiceTypeUseCase {
         const serviceType = await this.serviceTypeRepository.findById(id);
 
         if (!serviceType) {
-            throw new Error(`This ID:(${id}) was not found!`)
+            throw new ErrorHandler(`This ID:(${id}) was not found!`)
         }
 
         if (name) {
-            serviceType.name = name
+            serviceType.name = name.toLocaleLowerCase()
         }
 
         if (description) {

@@ -8,4 +8,5 @@ export interface IServiceTypeRepository {
     findById(id: string): Promise<ServiceType>;
     updateById(data: IUpdateServiceTypeByIdDTO): Promise<void>;
     deleteById(id: string): Promise<void>;
+    findByName(name: string): Promise<ServiceType>;
 }

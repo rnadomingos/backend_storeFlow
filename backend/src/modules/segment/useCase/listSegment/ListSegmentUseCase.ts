@@ -11,7 +11,7 @@ export class ListSegmentUseCase {
         private segmentRepository: ISegmentRepository
     ) { }
 
-    async excecute(): Promise<Segment[]> {
+    async execute(): Promise<Segment[]> {
         return await this.segmentRepository.list();
     }
 }

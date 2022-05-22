@@ -5,7 +5,6 @@ import { inject, injectable } from "tsyringe";
 
 @injectable()
 export class UpdateStoreUseCase {
-
   constructor(
     @inject("StoreRepository")
     private storeRepository: IStoreRepository
@@ -39,4 +38,8 @@ export class UpdateStoreUseCase {
 
     await this.storeRepository.update(store);
   }
+
 }
+
+
+

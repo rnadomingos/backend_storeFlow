@@ -19,7 +19,6 @@ export class ProspectionRepositoryPostgres implements IProspectionRepository {
         name,
         description
     }: ICreateProspectionDTO): Promise<void> {
-
         const newProspection = this.repository.create({
             name,
             description

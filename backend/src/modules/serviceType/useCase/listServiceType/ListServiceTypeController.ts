@@ -6,7 +6,7 @@ export class ListServiceTypeController {
     async handle(req: Request, res: Response): Promise<Response> {
 
         const listServiceTypeUseCase = container.resolve(ListServiceTypeUseCase)
-        const listService = await listServiceTypeUseCase.excecute();
+        const listService = await listServiceTypeUseCase.execute();
         return res.json(listService);
 
     }

@@ -16,12 +16,13 @@ export class SocialMediaRepositoryPostgres implements ISocialMediaRepository {
 
     async create({
         name,
-        description
+        description,
+        id_prospection,
     }: ICreateSocialMediaDTO): Promise<void> {
-
         const newSocialMedia = this.repository.create({
             name,
-            description
+            description,
+            id_prospection
         })
 
         await this.repository.save(newSocialMedia);

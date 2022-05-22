@@ -7,7 +7,7 @@ export class FindAllSocialMediaController {
     async handle(req: Request, res: Response): Promise<Response> {
 
         const findAllSocialMediaController = container.resolve(FindAllSocialMediaUseCase)
-        const socialMedia = await findAllSocialMediaController.excecute()
+        const socialMedia = await findAllSocialMediaController.execute()
 
         return res.json(socialMedia);
     }

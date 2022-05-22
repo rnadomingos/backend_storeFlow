@@ -12,7 +12,7 @@ export class GetSegmentByStoreIdController {
         const { id } = req.params;
 
         const getSegmentByStoreUseCase = container.resolve(GetSegmentByStoreIdUseCase)
-        const segment = await getSegmentByStoreUseCase.excecute(id)
+        const segment = await getSegmentByStoreUseCase.execute(id)
 
         return res.json(segment)
 

@@ -19,7 +19,7 @@ export class UpdateSegmentByIdUseCase {
         const segment = await this.segmentRepository.findById(id);
 
         if (name) {
-            segment.name = name
+            segment.name = name.toLocaleLowerCase()
         }
         if (description) {
             segment.description = description

@@ -10,7 +10,7 @@ export class ListServiceTypeUseCase {
         @inject("ServiceTypeRepository")
         private serviceTypeRepository: IServiceTypeRepository
     ) { }
-    async excecute(): Promise<ServiceType[]> {
+    async execute(): Promise<ServiceType[]> {
         return await this.serviceTypeRepository.list();
     }
 }
