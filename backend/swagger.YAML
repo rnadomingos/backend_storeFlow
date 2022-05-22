@@ -23,49 +23,224 @@ components:
       description: Token is missing or invalid !
 
 tags:
-- name: "user"
-  description: "List all user, update user and get store from user "
-
-- name: "session"
+- name: "Session"
   description: "Create User, authentication, reset password, forgot password  and logout"
 
-- name: "store"
+- name: "User"
+  description: "List all user, update user and get store from user "
+
+- name: "Store"
   description: "create, update, list all, list by seller"
+
+- name: "Seller"
+  description: "Create, list, update and list by user DMS"
+
+- name: "Segment"
+  description: "Create, Update, Disable-Enable, List All and List by Segment"
+
+- name: "Service Type"
+  description: "Create, Update, Disable-Enable, List All and List by Service Type"  
+
+- name: "Social Media"
+  description: "Create, Update, Disable-Enable, List All and List by Social Media"
+
+- name: "Prospection"
+  description: "Create, Update, Disable-Enable, List All and List by Prospection"
   
 paths:
   /login:
     post:
       tags:
-      - "session"
+      - "Session"
       summary: "Logs user into the system"
       description: "Authentication user"
       consumes:
-        - application/json
-      parameters:
-      - in: body
-        name: login
-        description: "Login with registered user "
-        schema:
-          type: "object"
-          properties: 
-            user_dms:
-              required: true 
-              type: "string"
-
-            password: 
-              required: true
-              type: "string"
+        - "application/json"
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: "object"
+              properties: 
+                user_dms:
+                  required: true 
+                  type: "string"
+                password: 
+                  required: true
+                  type: "string"
       responses:
         200:
           success: true        
         400:
-          description: "Email or password incorrect !"
-
+          description: "User or password incorrect !"          
+  /logout:
+    post:
+      tags:
+      - "Session"
+      summary: "Logout user"
+      description: "Logout User"
+      consumes:
+        - application/json
+      responses:
+        200:
+          success: true 
+  /password/forgot:
+    post:
+      tags:
+      - "Session"
+      summary: "Forgot password"
+      description: "Send mail to reset password"
+      consumes:
+        - application/json
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: "object"
+              properties: 
+                email:
+                  required: true 
+                  type: "string"
+      responses:
+        201: 
+          description: "Success" 
+  /password/reset:
+    post:
+      tags:
+      - "Session"
+      summary: "Reset password"
+      description: "Process to reset password"
+      parameters: 
+        - in: query
+          name: token
+          description: Token
+          schema:
+            type: string
+          required: true                  
+      requestBody:
+        content: 
+          application/json:
+            schema:
+              type: "object"
+              properties: 
+                password:
+                  type: string  
+      responses:
+        201: 
+          description: "Success"                        
+  /account/new:
+    post:
+      tags:
+      - "User"
+      summary: "Create user"
+      description: "Create a new User"
+      security: 
+        - bearerAuth: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: "object"
+              required:
+                - name
+                - email
+                - password
+                - user_dms
+                - id_store
+              properties:
+                name:
+                  type: string
+                email:
+                  type: string
+                password:
+                  type: string
+                user_dms:
+                  type: string
+                name:
+                  type: string
+                id_store:
+                  type: string
+      responses:
+        201: 
+          description: "Success"
+        401:
+          $ref: "#/components/responses/UnauthorizedError"
+  /account/list:
+    get:
+      tags: 
+      - "User"
+      summary: "List Users"
+      description: "List all users"
+      security:
+        - bearerAuth: []
+      responses:
+        201:
+          success: true
+        401:
+          $ref: "#/components/responses/UnauthorizedError"
+  /account/get-store/{user_dms}:
+    get:
+      tags: 
+      - "User"
+      summary: "List store user"
+      description: "List user DMS User"
+      security:
+        - bearerAuth: []
+      parameters: 
+        - in: path
+          name: user_dms
+          description: "DMS User"
+          schema:
+            type: string
+          required: true                  
+      responses:
+        200:
+          description: "Success"
+        401:
+          $ref: "#/components/responses/UnauthorizedError"          
+  /account/update/{id}:
+    put:
+      tags: 
+      - "User"
+      summary: "Update a user"
+      security:
+        - bearerAuth: []
+      parameters: 
+        - in: path
+          name: id
+          description: User Id
+          schema:
+            type: string
+          required: true                  
+      requestBody:
+        content: 
+          application/json:
+            schema:
+              type: "object"
+              properties: 
+                name:
+                  type: string
+                email:
+                  type: string
+                user_dms:
+                  type: string
+                password:
+                  type: string
+                id_store:
+                  type: string
+                is_active:
+                  type: boolean  
+      responses:
+        200:
+          success: true
+        401:
+          $ref: "#/components/responses/UnauthorizedError"                    
   /store/new:
     post:
       tags: 
-      - "store"
-      summary: "Create a category"
+      - "Store"
+      summary: "Create a store"
+      description: "Create a new store"
       security:
         - bearerAuth: []
       requestBody:
@@ -88,5 +263,770 @@ paths:
           success: true
         401:
           $ref: "#/components/responses/UnauthorizedError"
-      
-     
+  /store/list:
+    get:
+      tags: 
+      - "Store"
+      summary: "List Store"
+      description: "List all stores"
+      security:
+        - bearerAuth: []
+      responses:
+        201:
+          success: true
+        401:
+          $ref: "#/components/responses/UnauthorizedError"
+  /store/list-sellers/{id}:
+    get:
+      tags: 
+      - "Store"
+      summary: "List store sellers"
+      description: "List sellers by store ID"
+      security:
+        - bearerAuth: []
+      parameters: 
+        - in: path
+          name: id
+          description: "Store Id"
+          schema:
+            type: string
+          required: true                  
+      responses:
+        200:
+          description: "Success"
+        401:
+          $ref: "#/components/responses/UnauthorizedError"      
+  /store/update/{id}:
+    put:
+      tags: 
+      - "Store"
+      summary: "Update a store"
+      security:
+        - bearerAuth: []
+      parameters: 
+        - in: path
+          name: id
+          description: Store Id
+          schema:
+            type: string
+          required: true                  
+      requestBody:
+        content: 
+          application/json:
+            schema:
+              type: "object"
+              properties: 
+                cnpj: 
+                  type: string
+                name: 
+                  type: string
+                brand: 
+                  type: string  
+                is_active:
+                  type: boolean  
+      responses:
+        200:
+          success: true
+        401:
+          $ref: "#/components/responses/UnauthorizedError"     
+  /seller/new:
+    post:
+      tags:
+      - "Seller"
+      summary: "Create a Seller"
+      description: "Create a new Seller"
+      security: 
+        - bearerAuth: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: "object"
+              required:
+                - user_dms
+                - name
+                - id_store
+              properties:
+                user_dms:
+                  type: string
+                name:
+                  type: string
+                id_store:
+                  type: string
+      responses:
+        201: 
+          description: "Success"
+        401:
+          $ref: "#/components/responses/UnauthorizedError"
+  /seller/list:
+    get:
+      tags: 
+      - "Seller"
+      summary: "List Sellers"
+      description: "List all sellers"
+      security:
+        - bearerAuth: []
+      responses:
+        201:
+          description: "Success"
+        401:
+          $ref: "#/components/responses/UnauthorizedError"
+  /seller/get-store/{user_dms}:
+    get:
+      tags: 
+      - "Seller"
+      summary: "Seller store list"
+      description: "Seller store list by DMS user"
+      security:
+        - bearerAuth: []
+      parameters: 
+        - in: path
+          name: user_dms
+          description: "DMS User"
+          schema:
+            type: string
+          required: true                  
+      responses:
+        200:
+          description: "Success"
+        401:
+          $ref: "#/components/responses/UnauthorizedError" 
+  /seller/get-seller/{user_dms}:
+    get:
+      tags: 
+      - "Seller"
+      summary: "Seller list"
+      description: "Seller list by DMS user"
+      security:
+        - bearerAuth: []
+      parameters: 
+        - in: path
+          name: user_dms
+          description: "DMS User"
+          schema:
+            type: string
+          required: true                  
+      responses:
+        200:
+          description: "Success"
+        401:
+          $ref: "#/components/responses/UnauthorizedError"                   
+  /seller/update/{id}:
+    put:
+      tags: 
+      - "Seller"
+      summary: "Update seller"
+      security:
+        - bearerAuth: []
+      parameters: 
+        - in: path
+          name: id
+          description: Seller Id
+          schema:
+            type: string
+          required: true                  
+      requestBody:
+        content: 
+          application/json:
+            schema:
+              type: "object"
+              properties: 
+                name: 
+                  type: string
+                user_dms: 
+                  type: string
+                id_store: 
+                  type: string  
+                is_active:
+                  type: boolean  
+      responses:
+        200:
+          description: "Success"
+        401:
+          $ref: "#/components/responses/UnauthorizedError"   
+  /segment/new:
+    post:
+      tags:
+      - "Segment"
+      summary: "Create a Segment"
+      description: "Create a new Segment"
+      security: 
+        - bearerAuth: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: "object"
+              required:
+                - name
+                - description
+              properties:
+                name:
+                  type: string
+                description:
+                  type: string
+      responses:
+        201: 
+          description: "Success"
+        401:
+          $ref: "#/components/responses/UnauthorizedError"                 
+  /segment/list:
+    get:
+      tags: 
+      - "Segment"
+      summary: "List Segment"
+      description: "List all segment"
+      security:
+        - bearerAuth: []
+      responses:
+        201:
+          description: "Success"
+        401:
+          $ref: "#/components/responses/UnauthorizedError"
+  /segment/get-segment-name/{name}:
+    get:
+      tags: 
+      - "Segment"
+      summary: "List segment by name"
+      description: "List Segment by name"
+      security:
+        - bearerAuth: []
+      parameters: 
+        - in: path
+          name: name
+          description: "Segment name"
+          schema:
+            type: string
+          required: true                  
+      responses:
+        200:
+          description: "Success"
+        401:
+          $ref: "#/components/responses/UnauthorizedError"                     
+  /segment/get-segment-id/{id}:
+    get:
+      tags: 
+      - "Segment"
+      summary: "List segment by Id"
+      description: "List Segment by Id"
+      security:
+        - bearerAuth: []
+      parameters: 
+        - in: path
+          name: ID
+          description: "Segment Id"
+          schema:
+            type: string
+          required: true                  
+      responses:
+        200:
+          description: "Success"
+        401:
+          $ref: "#/components/responses/UnauthorizedError"
+  /segment/join:
+    post:
+      tags:
+      - "Segment"
+      summary: "Join Segment and Store"
+      description: "Join Segment and Store"
+      security: 
+        - bearerAuth: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: "object"
+              required:
+                - segmentId
+                - storeId
+              properties:
+                segmentId:
+                  type: string
+                storeId:
+                  type: string
+      responses:
+        201: 
+          description: "Success"
+        401:
+          $ref: "#/components/responses/UnauthorizedError"        
+  /segment/get-store/{id}:
+    get:
+      tags: 
+      - "Segment"
+      summary: "List segment by store Id"
+      description: "List segment by store Id"
+      security:
+        - bearerAuth: []
+      parameters: 
+        - in: path
+          name: id
+          description: "Store Id"
+          schema:
+            type: string
+          required: true                  
+      responses:
+        200:
+          description: "Success"
+        401:
+          $ref: "#/components/responses/UnauthorizedError"
+  /segment/update/{id}:
+    patch:
+      tags: 
+      - "Segment"
+      summary: "Update segment"
+      security:
+        - bearerAuth: []
+      parameters: 
+        - in: path
+          name: id
+          description: Segment Id
+          schema:
+            type: string
+          required: true                  
+      requestBody:
+        content: 
+          application/json:
+            schema:
+              type: "object"
+              properties: 
+                name: 
+                  type: string
+                description: 
+                  type: string
+                is_active:
+                  type: boolean  
+      responses:
+        200:
+          description: "Success"
+        401:
+          $ref: "#/components/responses/UnauthorizedError"
+  /segment/del/{id}:
+    delete:
+      tags: 
+      - "Segment"
+      summary: "Delete segment by store Id"
+      description: "Delete segment by store Id"
+      security:
+        - bearerAuth: []
+      parameters: 
+        - in: path
+          name: id
+          description: "Delete Id"
+          schema:
+            type: string
+          required: true                  
+      responses:
+        200:
+          description: "Success"
+        401:
+          $ref: "#/components/responses/UnauthorizedError"          
+  /serviceType/new:
+    post:
+      tags:
+      - "Service Type"
+      summary: "Create a Service Type"
+      description: "Create a new Service Type"
+      security: 
+        - bearerAuth: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: "object"
+              required:
+                - name
+                - description
+              properties:
+                name:
+                  type: string
+                description:
+                  type: string
+      responses:
+        201: 
+          description: "Success"
+        401:
+          $ref: "#/components/responses/UnauthorizedError"
+  /serviceType/list:
+    get:
+      tags: 
+      - "Service Type"
+      summary: "List Service Type"
+      description: "List all Service Types"
+      security:
+        - bearerAuth: []
+      responses:
+        201:
+          description: "Success"
+        401:
+          $ref: "#/components/responses/UnauthorizedError"
+  /serviceType/get-service/{id}:
+    get:
+      tags: 
+      - "Service Type"
+      summary: "List Service Type by Id"
+      description: "List Service Type by Id"
+      security:
+        - bearerAuth: []
+      parameters: 
+        - in: path
+          name: ID
+          description: "Service Type Id"
+          schema:
+            type: string
+          required: true                  
+      responses:
+        200:
+          description: "Success"
+        401:
+          $ref: "#/components/responses/UnauthorizedError"
+  /serviceType/update/{id}:
+    patch:
+      tags: 
+      - "Service Type"
+      summary: "Update a service Type"
+      security:
+        - bearerAuth: []
+      parameters: 
+        - in: path
+          name: id
+          description: Service Type Id
+          schema:
+            type: string
+          required: true                  
+      requestBody:
+        content: 
+          application/json:
+            schema:
+              type: "object"
+              properties: 
+                name: 
+                  type: string
+                description: 
+                  type: string
+                is_active:
+                  type: boolean  
+      responses:
+        200:
+          description: "Success"
+        401:
+          $ref: "#/components/responses/UnauthorizedError"
+  /serviceType/del/{id}:
+    delete:
+      tags: 
+      - "Service Type"
+      summary: "Delete Service Type by Id"
+      description: "Delete Service Type by Id"
+      security:
+        - bearerAuth: []
+      parameters: 
+        - in: path
+          name: id
+          description: "Delete Id"
+          schema:
+            type: string
+          required: true                  
+      responses:
+        200:
+          description: "Success"
+        401:
+          $ref: "#/components/responses/UnauthorizedError"          
+  /socialMedia/new:
+    post:
+      tags:
+      - "Social Media"
+      summary: "Create a Social Media"
+      description: "Create a new Social Media"
+      security: 
+        - bearerAuth: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: "object"
+              required:
+                - name
+                - description
+              properties:
+                name:
+                  type: string
+                description:
+                  type: string
+      responses:
+        201: 
+          description: "Success"
+        401:
+          $ref: "#/components/responses/UnauthorizedError"
+  /socialMedia/list:
+    get:
+      tags: 
+      - "Social Media"
+      summary: "List Social Media"
+      description: "List all Social Medias"
+      security:
+        - bearerAuth: []
+      responses:
+        201:
+          description: "Success"
+        401:
+          $ref: "#/components/responses/UnauthorizedError"
+  /socialMedia/get-service/{id}:
+    get:
+      tags: 
+      - "Social Media"
+      summary: "List Social Media by Id"
+      description: "List Social Media by Id"
+      security:
+        - bearerAuth: []
+      parameters: 
+        - in: path
+          name: ID
+          description: "Social Media Id"
+          schema:
+            type: string
+          required: true                  
+      responses:
+        200:
+          description: "Success"
+        401:
+          $ref: "#/components/responses/UnauthorizedError"
+  /socialMedia/get-service/{name}:
+    get:
+      tags: 
+      - "Social Media"
+      summary: "List Social Media by name"
+      description: "List Social Media by name"
+      security:
+        - bearerAuth: []
+      parameters: 
+        - in: path
+          name: ID
+          description: "Social Media name"
+          schema:
+            type: string
+          required: true                  
+      responses:
+        200:
+          description: "Success"
+        401:
+          $ref: "#/components/responses/UnauthorizedError"          
+  /socialMedia/update/{id}:
+    patch:
+      tags: 
+      - "Social Media"
+      summary: "Update a Social Media"
+      security:
+        - bearerAuth: []
+      parameters: 
+        - in: path
+          name: id
+          description: Social Media Id
+          schema:
+            type: string
+          required: true                  
+      requestBody:
+        content: 
+          application/json:
+            schema:
+              type: "object"
+              properties: 
+                name: 
+                  type: string
+                description: 
+                  type: string
+                is_active:
+                  type: boolean  
+      responses:
+        200:
+          description: "Success"
+        401:
+          $ref: "#/components/responses/UnauthorizedError"
+  /socialMedia/update-status/{id}:
+    delete:
+      tags: 
+      - "Social Media"
+      summary: "Enable or Disable Social Media by Id"
+      description: "Update status Social Media"
+      security:
+        - bearerAuth: []
+      parameters: 
+        - in: path
+          name: id
+          description: "Delete Id"
+          schema:
+            type: string
+          required: true                  
+      responses:
+        200:
+          description: "Success"
+        401:
+          $ref: "#/components/responses/UnauthorizedError"
+  /socialMedia/del/{id}:
+    delete:
+      tags: 
+      - "Social Media"
+      summary: "Delete Social Media by Id"
+      description: "Delete Social Media by Id"
+      security:
+        - bearerAuth: []
+      parameters: 
+        - in: path
+          name: id
+          description: "Delete Id"
+          schema:
+            type: string
+          required: true                  
+      responses:
+        200:
+          description: "Success"
+        401:
+          $ref: "#/components/responses/UnauthorizedError"                       
+  /prospection/new:
+    post:
+      tags:
+      - "Prospection"
+      summary: "Create a Prospection"
+      description: "Create a new Prospection"
+      security: 
+        - bearerAuth: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: "object"
+              required:
+                - name
+                - description
+              properties:
+                name:
+                  type: string
+                description:
+                  type: string
+      responses:
+        201: 
+          description: "Success"
+        401:
+          $ref: "#/components/responses/UnauthorizedError"
+  /prospection/list:
+    get:
+      tags: 
+      - "Prospection"
+      summary: "List Prospection"
+      description: "List all Prospections"
+      security:
+        - bearerAuth: []
+      responses:
+        201:
+          description: "Success"
+        401:
+          $ref: "#/components/responses/UnauthorizedError"
+  /prospection/get-service/{id}:
+    get:
+      tags: 
+      - "Prospection"
+      summary: "List Prospection by Id"
+      description: "List Prospection by Id"
+      security:
+        - bearerAuth: []
+      parameters: 
+        - in: path
+          name: ID
+          description: "Prospection Id"
+          schema:
+            type: string
+          required: true                  
+      responses:
+        200:
+          description: "Success"
+        401:
+          $ref: "#/components/responses/UnauthorizedError"
+  /prospection/get-service/{name}:
+    get:
+      tags: 
+      - "Prospection"
+      summary: "List Prospection by name"
+      description: "List Social Media by name"
+      security:
+        - bearerAuth: []
+      parameters: 
+        - in: path
+          name: ID
+          description: "Prospection name"
+          schema:
+            type: string
+          required: true                  
+      responses:
+        200:
+          description: "Success"
+        401:
+          $ref: "#/components/responses/UnauthorizedError"          
+  /prospection/update/{id}:
+    patch:
+      tags: 
+      - "Social Media"
+      summary: "Update a Prospection"
+      security:
+        - bearerAuth: []
+      parameters: 
+        - in: path
+          name: id
+          description: Prospection Id
+          schema:
+            type: string
+          required: true                  
+      requestBody:
+        content: 
+          application/json:
+            schema:
+              type: "object"
+              properties: 
+                name: 
+                  type: string
+                description: 
+                  type: string
+                is_active:
+                  type: boolean  
+      responses:
+        200:
+          description: "Success"
+        401:
+          $ref: "#/components/responses/UnauthorizedError"
+  /prospection/update-status/{id}:
+    delete:
+      tags: 
+      - "Prospection"
+      summary: "Enable or Disable Prospection Status"
+      description: "Update Prospection status"
+      security:
+        - bearerAuth: []
+      parameters: 
+        - in: path
+          name: id
+          description: "Prospection Id"
+          schema:
+            type: string
+          required: true                  
+      responses:
+        200:
+          description: "Success"
+        401:
+          $ref: "#/components/responses/UnauthorizedError"          
+  /prospection/del/{id}:
+    delete:
+      tags: 
+      - "Prospection"
+      summary: "Delete Prospection by Id"
+      description: "Delete Prospection by Id"
+      security:
+        - bearerAuth: []
+      parameters: 
+        - in: path
+          name: id
+          description: "Delete Id"
+          schema:
+            type: string
+          required: true                  
+      responses:
+        200:
+          description: "Success"
+        401:
+          $ref: "#/components/responses/UnauthorizedError"             

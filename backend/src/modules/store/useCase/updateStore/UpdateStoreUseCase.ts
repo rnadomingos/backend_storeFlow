@@ -36,7 +36,6 @@ export class UpdateStoreUseCase {
       store.is_active = true
     }
 
-
     await this.storeRepository.update(store);
   }
 

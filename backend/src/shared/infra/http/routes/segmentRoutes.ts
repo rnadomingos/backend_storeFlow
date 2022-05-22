@@ -20,21 +20,13 @@ const getSegmentByStoreId = new GetSegmentByStoreIdController();
 const updateSegmentById = new UpdateSegmentByIdController();
 const deleteSegmentByIdController = new DeleteSegmentByIdController();
 
-segmentRoutes.post("/new", createSegmentController.handle);
-segmentRoutes.get("/get-segment-name/:name", findSegmentByNameController.handle);
-segmentRoutes.get("/get-segment-id/:id", findSegmentByIdController.handle);
-segmentRoutes.get("/list", listSegmentController.handle);
-segmentRoutes.post("/join", joinSegmentStoreController.handle)
-segmentRoutes.get("/get-store/:id", getSegmentByStoreId.handle)
-segmentRoutes.patch("/update/:id", updateSegmentById.handle)
-segmentRoutes.delete("/del/:id", deleteSegmentByIdController.handle)
-
 segmentRoutes.post("/new", isAuthenticated, createSegmentController.handle);
-segmentRoutes.get("/get-segment/:name", isAuthenticated, findSegmentByIdController.handle);
+segmentRoutes.get("/get-segment-name/:name", isAuthenticated, findSegmentByNameController.handle);
+segmentRoutes.get("/get-segment-id/:id", isAuthenticated, findSegmentByIdController.handle);
 segmentRoutes.get("/list", isAuthenticated, listSegmentController.handle);
 segmentRoutes.post("/join", isAuthenticated, joinSegmentStoreController.handle)
 segmentRoutes.get("/get-store/:id", isAuthenticated, getSegmentByStoreId.handle)
-segmentRoutes.patch("/update/:name", isAuthenticated, updateSegmentById.handle)
-
+segmentRoutes.patch("/update/:id", isAuthenticated, updateSegmentById.handle)
+segmentRoutes.delete("/del/:id", isAuthenticated, deleteSegmentByIdController.handle)
 
 export { segmentRoutes }
