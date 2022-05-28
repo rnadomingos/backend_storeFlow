@@ -13,7 +13,7 @@ import { UpdateStoreScreen } from './components/store/screens/UpdateStoreScreen'
 import { SellerScreen } from './components/seller/screens/admin/SellerScreen';
 import { UpdateSellerScreen } from './components/seller/screens/admin/UpdateSellerScreen';
 import { CreateSellerScreen } from './components/seller/screens/admin/CreateSellerScreen';
-
+import { ServiceTypesScreen } from './components/serviceType/screens/admin/ServiceTypesScreen'
 
 
 
@@ -29,7 +29,7 @@ function App() {
 
       <Container>
         <main className='mx-auto'>
-
+          <ProtectRoute path='/service-type' component={ServiceTypesScreen} />
           <ProtectRoute path='/home' component={Home} />
           <ProtectRoute isAdmin={true} path='/admin/stores' component={StoresScreen} />
           <ProtectRoute path='/admin/store/new' component={CreateStoreScreen} />
