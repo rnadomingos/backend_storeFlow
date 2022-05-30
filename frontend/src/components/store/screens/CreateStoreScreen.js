@@ -83,7 +83,7 @@ function CreateStoreScreen({ history }) {
               >
                 salvar
               </Button>
-              <Link to={`/admin/sellers`}>
+              <Link to={`/admin/stores`}>
                 <Button
                   variant="secondary">
                   Cancelar

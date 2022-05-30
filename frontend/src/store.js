@@ -13,6 +13,7 @@ import { sellerDetailReducer } from './components/seller/reducers/sellerDetailRe
 import { sellerUpdateReducer } from './components/seller/reducers/admin/sellerUpdateReduce'
 import { sellerCreateReducer } from './components/seller/reducers/admin/sellerCreateReducer'
 import { serviceTypeListReducer } from './components/serviceType/reducers/admin/serviceTypeListReducer'
+import { serviceTypeCreateReducer } from './components/serviceType/reducers/admin/serviceTypeCreateReducer'
 
 const reducer = combineReducers({
   //Account
@@ -31,7 +32,8 @@ const reducer = combineReducers({
   sellerCreateReducer: sellerCreateReducer,
 
   //Service Types
-  serviceTypeListReducer: serviceTypeListReducer
+  serviceTypeListReducer: serviceTypeListReducer,
+  serviceTypeCreateReducer: serviceTypeCreateReducer
 })
 
 const middleware = [thunk]

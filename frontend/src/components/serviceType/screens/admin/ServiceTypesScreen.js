@@ -13,8 +13,6 @@ function ServiceTypesScreen() {
     const dispatch = useDispatch()
     const { error, loading, serviceTypes } = useSelector(state => state.serviceTypeListReducer)
 
-    console.log('TESTE: ', serviceTypes);
-
     useEffect(() => {
         dispatch(serviceTypeListAction())
     }, [dispatch])
@@ -29,7 +27,7 @@ function ServiceTypesScreen() {
                 </Col>
 
                 <Col className='text-right'>
-                    <Link to={``}>
+                    <Link to={`/admin/service-type/new`}>
                         <Button className='my-3' >
                             <i className='fas fa-plus'></i> Cadastrar
                         </Button>
