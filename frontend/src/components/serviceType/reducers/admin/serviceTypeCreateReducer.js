@@ -7,10 +7,10 @@ import {
 
 
 export const serviceTypeCreateReducer = (state = {}, action) => {
+
   switch (action.type) {
     case SERVICE_TYPE_CREATE_REQUEST:
       return { loading: true }
-
     case SERVICE_TYPE_CREATE_SUCCESS:
       return {
         loading: false,
@@ -21,7 +21,6 @@ export const serviceTypeCreateReducer = (state = {}, action) => {
         loading: false,
         error: action.payload.error
       }
-
     case SERVICE_TYPE_CREATE_RESET:
       return {}
 

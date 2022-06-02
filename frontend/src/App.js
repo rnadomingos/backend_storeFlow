@@ -30,8 +30,6 @@ function App() {
 
       <Container>
         <main className='mx-auto'>
-          <ProtectRoute path='/admin/service-type' component={ServiceTypesScreen} />
-          <ProtectRoute isAdmin={true} path='/admin/service-type/new' component={CreateServiceTypeScreen} />
           <ProtectRoute path='/home' component={Home} />
           <ProtectRoute isAdmin={true} path='/admin/stores' component={StoresScreen} />
           <ProtectRoute path='/admin/store/new' component={CreateStoreScreen} />
@@ -39,9 +37,8 @@ function App() {
           <ProtectRoute isAdmin={true} path='/admin/sellers' component={SellerScreen} />
           <ProtectRoute path='/admin/seller/:user_dms/edit' component={UpdateSellerScreen} />
           <ProtectRoute path='/admin/seller/new' component={CreateSellerScreen} />
-
-
-
+          <ProtectRoute isAdmin={true} path='/admin/service-types' component={ServiceTypesScreen} />
+          <ProtectRoute path='/admin/service-type/new' component={CreateServiceTypeScreen} />
         </main>
       </Container>
       <Footer />

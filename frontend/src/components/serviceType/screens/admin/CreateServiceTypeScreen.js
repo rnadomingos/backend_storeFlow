@@ -15,10 +15,8 @@ function CreateServiceTypeScreen({ history }) {
 
   const dispatch = useDispatch()
 
-  //const { error, loading, success } = useSelector(state => state.serviceTypeCreateReducer)
-  const serviceTypeCreate = useSelector(state => state.serviceTypeCreateReducer)
-  console.log('service Type: ', serviceTypeCreate);
-  const { error, loading, success } = serviceTypeCreate
+  const { error, loading, success } = useSelector(state => state.serviceTypeCreateReducer)
+
   useEffect(() => {
     if (error) {
       alert(`Problema ${error} ao gravar novo Tipo de Serviço`)
@@ -73,7 +71,7 @@ function CreateServiceTypeScreen({ history }) {
               >
                 Salvar
               </Button>
-              <Link to={`/admin/serviceType`}>
+              <Link to={`/admin/service-types`}>
                 <Button
                   variant="secondary">
                   Cancelar

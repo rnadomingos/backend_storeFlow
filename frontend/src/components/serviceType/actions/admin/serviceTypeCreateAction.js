@@ -7,7 +7,7 @@ import {
 } from "../../constants/serviceTypeConstant"
 
 
-export const serviceTypeCreateAction = (newSeller) => async (dispatch, getState) => {
+export const serviceTypeCreateAction = (newServiceType) => async (dispatch, getState) => {
   try {
 
     dispatch({ type: SERVICE_TYPE_CREATE_REQUEST })
@@ -25,7 +25,7 @@ export const serviceTypeCreateAction = (newSeller) => async (dispatch, getState)
 
     const { data } = await axios.post(
       `http://localhost:3333/service-type/new`,
-      newSeller,
+      newServiceType,
       config
     )
 

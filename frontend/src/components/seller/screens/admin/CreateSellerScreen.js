@@ -85,6 +85,7 @@ function CreateSellerScreen({ history }) {
                       value={store.id}
                     >{store.name}</option>
                   ))}
+
                 </Form.Select>
               </Form.Group>
 
@@ -93,7 +94,7 @@ function CreateSellerScreen({ history }) {
                 variant="primary"
                 type="submit"
               >
-                salvar
+                Salvar
               </Button>
               <Link to={`/admin/sellers`}>
                 <Button
@@ -104,10 +105,6 @@ function CreateSellerScreen({ history }) {
             </Form>
           )
         }
-
-
-
-
       </FormContainer >
     </div>
   )
