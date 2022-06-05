@@ -24,7 +24,7 @@ function CreateServiceTypeScreen({ history }) {
     }
 
     if (success) {
-      history.push('/admin/service-type')
+      history.push('/admin/service-types')
       dispatch({ type: SERVICE_TYPE_CREATE_RESET })
     }
   }, [error, dispatch, success, history])

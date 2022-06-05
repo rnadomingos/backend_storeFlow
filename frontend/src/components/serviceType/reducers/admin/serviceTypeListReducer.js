@@ -9,7 +9,7 @@ export const serviceTypeListReducer = (state = { serviceTypes: [] }, action) => 
         case SERVICE_TYPE_LIST_REQUEST:
             return {
                 loading: true,
-                SERVICE_TYPEs: []
+                serviceTypes: []
             }
 
         case SERVICE_TYPE_LIST_SUCCESS:

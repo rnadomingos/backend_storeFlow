@@ -2,7 +2,7 @@ import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Button, Col, Row, Table } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
-import { serviceTypeListAction } from '../../actions/ServiceTypeListAction'
+import { serviceTypeListAction } from '../../actions/admin/ServiceTypeListAction'
 import { Loader } from '../../../layout/Loader'
 import { Message } from '../../../layout/Message'
 
@@ -54,14 +54,14 @@ function ServiceTypesScreen() {
                             <tbody>
                                 {serviceTypes.map(serviceTypes => (
                                     <tr key={serviceTypes.id}>
-                                        <td>{serviceTypes.name}</td>
+                                        <td>{serviceTypes.name.toUpperCase()}</td>
                                         <td>{serviceTypes.description}</td>
                                         <td>{serviceTypes.create_at}</td>
                                         <td>{serviceTypes.is_active ? <b className='greenColor'>Ativo</b> :
                                             <b className='redColor'>Desativado</b>
                                         }</td>
                                         <td>
-                                            <Link to={`/admin/serviceType/${serviceTypes.name}/edit`}>
+                                            <Link to={`/admin/service-type/${serviceTypes.id}/edit`}>
                                                 <Button variant='light' className='btn-sm'>
                                                     <i className='fas fa-edit'></i>
                                                 </Button>

@@ -15,9 +15,7 @@ import { UpdateSellerScreen } from './components/seller/screens/admin/UpdateSell
 import { CreateSellerScreen } from './components/seller/screens/admin/CreateSellerScreen';
 import { ServiceTypesScreen } from './components/serviceType/screens/admin/ServiceTypesScreen'
 import { CreateServiceTypeScreen } from './components/serviceType/screens/admin/CreateServiceTypeScreen';
-
-
-
+import { UpdateServiceTypeScreen } from './components/serviceType/screens/admin/UpdateServiceTypeScreen'
 
 function App() {
   const { userInfo } = useSelector(state => state.userLogin)
@@ -38,6 +36,7 @@ function App() {
           <ProtectRoute path='/admin/seller/:user_dms/edit' component={UpdateSellerScreen} />
           <ProtectRoute path='/admin/seller/new' component={CreateSellerScreen} />
           <ProtectRoute isAdmin={true} path='/admin/service-types' component={ServiceTypesScreen} />
+          <ProtectRoute path='/admin/service-type/:id/edit' component={UpdateServiceTypeScreen} />
           <ProtectRoute path='/admin/service-type/new' component={CreateServiceTypeScreen} />
         </main>
       </Container>
