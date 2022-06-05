@@ -11,7 +11,11 @@ import { Message } from '../../../layout/Message'
 function ServiceTypesScreen() {
 
     const dispatch = useDispatch()
-    const { error, loading, serviceTypes } = useSelector(state => state.serviceTypeListReducer)
+    const {
+        error,
+        loading,
+        serviceTypes
+    } = useSelector(state => state.serviceTypeListReducer)
 
     useEffect(() => {
         dispatch(serviceTypeListAction())

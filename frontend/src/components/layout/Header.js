@@ -36,7 +36,7 @@ function Header() {
             <NavDropdown title="Prospecção" id="navbarScrollingDropdown">
               <NavDropdown.Item>Midia Social</NavDropdown.Item>
               <Link className="dropdown-item" to="/admin/service-types">Tipo de serviço</Link>
-              <NavDropdown.Item>Prospecção</NavDropdown.Item>
+              <Link className="dropdown-item" to="/admin/prospections">Prospecção</Link>
             </NavDropdown>
             <NavDropdown title="Usuario" id="navbarScrollingDropdown">
               <Link className="dropdown-item" to="/profile">Minha Conta</Link>
