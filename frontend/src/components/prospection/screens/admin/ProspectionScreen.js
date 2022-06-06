@@ -66,7 +66,7 @@ function ProspectionScreen() {
                   <tr key={prospection.id}>
                     <td>{prospection.name.toUpperCase()}</td>
                     <td>{prospection.description}</td>
-                    <td>{prospection.create_at}</td>
+                    <td>{prospection.created_at}</td>
                     <td>{prospection.is_active ? <b className='greenColor'>Ativo</b> :
                       <b className='redColor'>Desativado</b>
                     }</td>
