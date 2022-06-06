@@ -8,7 +8,7 @@ import { Message } from '../../layout/Message'
 import { storeUpdateAction } from '../actions/admin/storeUpdateAction'
 import { cleanErrors } from '../actions/cleanErrors'
 import { storesDetailActions } from '../actions/storeDetailActions'
-import { STORE_UPDATE_RESET } from '../constants/storeConstants'
+import { STORE_DETAIL_RESET, STORE_UPDATE_RESET } from '../constants/storeConstants'
 
 function UpdateStoreScreen({ history, match }) {
 
@@ -49,8 +49,10 @@ function UpdateStoreScreen({ history, match }) {
     }
 
     if (success) {
-      history.push('/admin/stores')
+      dispatch({ type: STORE_DETAIL_RESET })
       dispatch({ type: STORE_UPDATE_RESET })
+      history.push('/admin/stores')
+
     }
   }, [error, dispatch, success, history, store, storeCNPJ, errorDetail])
 

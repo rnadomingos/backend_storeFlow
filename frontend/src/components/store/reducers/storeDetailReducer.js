@@ -1,7 +1,8 @@
 import {
   STORE_DETAIL_REQUEST,
   STORE_DETAIL_SUCCESS,
-  STORE_DETAIL_FAIL
+  STORE_DETAIL_FAIL,
+  STORE_DETAIL_RESET,
 } from '../constants/storeConstants'
 
 export const storesDetailReducer = (state = { store: {} }, action) => {
@@ -14,6 +15,9 @@ export const storesDetailReducer = (state = { store: {} }, action) => {
         loading: false,
         store: action.payload
       }
+
+    case STORE_DETAIL_RESET:
+      return {}
 
     case STORE_DETAIL_FAIL:
       return {

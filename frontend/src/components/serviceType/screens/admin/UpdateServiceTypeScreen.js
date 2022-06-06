@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { cleanErrors } from "../../actions/serviceTypeCleanErrors";
 import { serviceTypeDetailActions } from '../../actions/serviceTypeDetailAction'
-import { SERVICE_TYPE_UPDATE_RESET } from "../../constants/serviceTypeConstant";
+import { SERVICE_TYPE_UPDATE_RESET, SERVICE_TYPE_DETAIL_RESET } from "../../constants/serviceTypeConstant";
 import { serviceTypeUpdateAction } from '../../actions/admin/serviceTypeUpdateActions'
 import { FormContainer } from "../../../layout/FormContainer";
 import { Message } from "../../../layout/Message";
@@ -30,9 +30,7 @@ function UpdateServiceTypeScreen({ history, match }) {
 
     if (!serviceType || serviceTypeID !== serviceType.id) {
       dispatch(serviceTypeDetailActions(serviceTypeID))
-      console.log('if');
     } else {
-      console.log('else');
       setName(serviceType.name)
       setDescription(serviceType.description)
       setIsActive(serviceType.is_active)
@@ -48,17 +46,14 @@ function UpdateServiceTypeScreen({ history, match }) {
     }
 
     if (success) {
-      history.push('/admin/service-types')
       dispatch({ type: SERVICE_TYPE_UPDATE_RESET })
+      dispatch({ type: SERVICE_TYPE_DETAIL_RESET })
+      history.push('/admin/service-types')
     }
   }, [error, dispatch, success, history, serviceType, serviceTypeID, errorDetail])
 
 
   const submitHandler = (e) => {
-    serviceType.name = name
-    serviceType.description = description
-    serviceType.is_active = is_active
-
     e.preventDefault()
     dispatch(serviceTypeUpdateAction({ id: serviceType.id, name, description, is_active }))
 
