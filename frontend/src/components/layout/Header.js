@@ -27,20 +27,34 @@ function Header() {
               <NavDropdown.Item>Tipo se Serviço</NavDropdown.Item>
             </NavDropdown>
             <NavDropdown title="Loja" id="navbarScrollingDropdown">
-              <Link className="dropdown-item" to="/admin/stores">Lojas</Link>
-              <NavDropdown.Item>Segmento de Vendas</NavDropdown.Item>
-              <Link className="dropdown-item" to="/admin/sellers">
-                Vendedores
-              </Link>
+              <NavDropdown.Item>
+                <Link className="dropdown-item" to="/admin/stores">Lojas</Link>
+              </NavDropdown.Item>
+              <NavDropdown.Item>
+                <Link className="dropdown-item" to="#">Segmento de Vendas</Link>
+              </NavDropdown.Item>
+              <NavDropdown.Item>
+                <Link className="dropdown-item" to="/admin/sellers">Vendedores</Link>
+              </NavDropdown.Item>
             </NavDropdown>
             <NavDropdown title="Prospecção" id="navbarScrollingDropdown">
-              <NavDropdown.Item>Midia Social</NavDropdown.Item>
-              <Link className="dropdown-item" to="/admin/service-types">Tipo de serviço</Link>
-              <Link className="dropdown-item" to="/admin/prospections">Prospecção</Link>
+              <NavDropdown.Item>
+                <Link className="dropdown-item" to="/admin/service-types">Midias Sociais</Link>
+              </NavDropdown.Item>
+              <NavDropdown.Item>
+                <Link className="dropdown-item" to="/admin/service-types">Tipo de serviço</Link>
+              </NavDropdown.Item>
+              <NavDropdown.Item>
+                <Link className='dropdown-item' to="/admin/prospections">Prospecção</Link>
+              </NavDropdown.Item>
             </NavDropdown>
             <NavDropdown title="Usuario" id="navbarScrollingDropdown">
-              <Link className="dropdown-item" to="/profile">Minha Conta</Link>
-              <Link className="dropdown-item" to="/admin/users">Usuários</Link>
+              <NavDropdown.Item>
+                <Link className="dropdown-item" to="/profile">Minha Conta</Link>
+              </NavDropdown.Item>
+              <NavDropdown.Item>
+                <Link className="dropdown-item" to="/admin/users">Usuários</Link>
+              </NavDropdown.Item>
               <NavDropdown.Item onClick={logoutHandler}>Logout</NavDropdown.Item>
             </NavDropdown>
           </Nav>
