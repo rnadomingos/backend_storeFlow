@@ -71,7 +71,7 @@ function ProspectionScreen() {
                       <b className='redColor'>Desativado</b>
                     }</td>
                     <td>
-                      <Link to={`/admin/prospection/${prospection.name}/edit`}>
+                      <Link to={`/admin/prospection/${prospection.id}/edit`}>
                         <Button variant='light' className='btn-sm'>
                           <i className='fas fa-edit'></i>
                         </Button>

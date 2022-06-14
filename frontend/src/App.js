@@ -18,6 +18,7 @@ import { CreateServiceTypeScreen } from './components/serviceType/screens/admin/
 import { UpdateServiceTypeScreen } from './components/serviceType/screens/admin/UpdateServiceTypeScreen'
 import { ProspectionScreen } from './components/prospection/screens/admin/ProspectionScreen';
 import { CreateProspectionScreen } from './components/prospection/screens/admin/CreateProspectionScreen';
+import { UpdateProspectionScreen } from './components/prospection/screens/admin/UpdateProspectionScreen'
 
 function App() {
   const { userInfo } = useSelector(state => state.userLogin)
@@ -42,6 +43,7 @@ function App() {
           <ProtectRoute path='/admin/service-type/new' component={CreateServiceTypeScreen} />
           <ProtectRoute isAdmin={true} path='/admin/prospections' component={ProspectionScreen} />
           <ProtectRoute path='/admin/prospection/new' component={CreateProspectionScreen} />
+          <ProtectRoute path='/admin/prospection/:id/edit' component={UpdateProspectionScreen} />
         </main>
       </Container>
       <Footer />

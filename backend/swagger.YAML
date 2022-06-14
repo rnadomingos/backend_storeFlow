@@ -841,7 +841,7 @@ paths:
         401:
           $ref: "#/components/responses/UnauthorizedError"
   /socialMedia/update-status/{id}:
-    delete:
+    patch:
       tags: 
       - "Social Media"
       summary: "Enable or Disable Social Media by Id"
@@ -919,7 +919,7 @@ paths:
           description: "Success"
         401:
           $ref: "#/components/responses/UnauthorizedError"
-  /prospection/get-service/{id}:
+  /prospection/get-id/{id}:
     get:
       tags: 
       - "Prospection"
@@ -939,7 +939,7 @@ paths:
           description: "Success"
         401:
           $ref: "#/components/responses/UnauthorizedError"
-  /prospection/get-service/{name}:
+  /prospection/get-name/{name}:
     get:
       tags: 
       - "Prospection"
@@ -962,7 +962,7 @@ paths:
   /prospection/update/{id}:
     patch:
       tags: 
-      - "Social Media"
+      - "Prospection"
       summary: "Update a Prospection"
       security:
         - bearerAuth: []
@@ -991,7 +991,7 @@ paths:
         401:
           $ref: "#/components/responses/UnauthorizedError"
   /prospection/update-status/{id}:
-    delete:
+    patch:
       tags: 
       - "Prospection"
       summary: "Enable or Disable Prospection Status"

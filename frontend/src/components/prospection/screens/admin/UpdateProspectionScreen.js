@@ -1,66 +1,70 @@
 import { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { cleanErrors } from "../../actions/serviceTypeCleanErrors";
-import { serviceTypeDetailActions } from '../../actions/serviceTypeDetailAction'
-import { SERVICE_TYPE_UPDATE_RESET, SERVICE_TYPE_DETAIL_RESET } from "../../constants/serviceTypeConstant";
-import { serviceTypeUpdateAction } from '../../actions/admin/serviceTypeUpdateActions'
-import { FormContainer } from "../../../layout/FormContainer";
-import { Message } from "../../../layout/Message";
-import { Loader } from "../../../layout/Loader";
 import { Button, Form } from "react-bootstrap";
+import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
+import { FormContainer } from "../../../layout/FormContainer";
+import { Loader } from "../../../layout/Loader";
+import { Message } from "../../../layout/Message";
+import { prospectionDetailUpdateAction } from '../../actions/admin/prospectionDetailUpdateAction'
+import { prospectionUpdateAction } from "../../actions/admin/prospectionUpdateAction";
+import { cleanErrors } from "../../actions/prospectionCleanErrors"
+import { PROSPECTION_DETAIL_RESET, PROSPECTION_UPDATE_RESET } from "../../constants/prospectionConstants";
 
-function UpdateServiceTypeScreen({ history, match }) {
+
+function UpdateProspectionScreen({ history, match }) {
 
   const [name, setName] = useState('')
   const [description, setDescription] = useState('')
   const [is_active, setIsActive] = useState('')
 
-  const serviceTypeID = match.params.id
+  const prospectionID = match.params.id
 
-  const { error: errorDetail, serviceType } = useSelector(state => state.serviceTypeDetailReducer)
+  const {
+    error: errorDetail,
+    prospection
+  } = useSelector(state => state.prospectionDetailUpdateReducer)
 
-  const { error, loading, success } = useSelector(state => state.serviceTypeUpdateReducer)
+  const {
+    error,
+    loading,
+    success
+  } = useSelector(state => state.prospectionUpdateReducer)
 
   const dispatch = useDispatch()
 
   useEffect(() => {
-
-    if (!serviceType || serviceTypeID !== serviceType.id) {
-      dispatch(serviceTypeDetailActions(serviceTypeID))
+    if (!prospection || prospectionID !== prospection.id) {
+      dispatch(prospectionDetailUpdateAction(prospectionID))
     } else {
-      setName(serviceType.name)
-      setDescription(serviceType.description)
-      setIsActive(serviceType.is_active)
+      setName(prospection.name)
+      setDescription(prospection.description)
+      setIsActive(prospection.is_active)
     }
-
     if (errorDetail) {
-      alert(`Problema ${errorDetail} ao gravar tipo de serviço`)
+      alert(`Problema ${errorDetail} ao retornar os detalhes`)
       dispatch(cleanErrors)
     }
 
     if (error) {
-      alert(`Problema ${error} ao gravar tipo de serviço`)
+      alert(`Problema ${error} ao gravar prospecção`)
     }
 
     if (success) {
-      dispatch({ type: SERVICE_TYPE_UPDATE_RESET })
-      dispatch({ type: SERVICE_TYPE_DETAIL_RESET })
-      history.push('/admin/service-types')
+      dispatch({ type: PROSPECTION_UPDATE_RESET })
+      dispatch({ type: PROSPECTION_DETAIL_RESET })
+      history.push('/admin/prospections')
     }
-  }, [error, dispatch, success, history, serviceType, serviceTypeID, errorDetail])
-
+  }, [error, dispatch, success, history, prospection, prospectionID, errorDetail])
 
   const submitHandler = (e) => {
     e.preventDefault()
-    dispatch(serviceTypeUpdateAction({ id: serviceType.id, name, description, is_active }))
-
+    dispatch(prospectionUpdateAction({ id: prospection.id, name, description, is_active }))
   }
   return (
     <div>
       <FormContainer>
-        <h1>Editar Tipo de Serviço</h1>
-        {error && <Message>Problema {error} ao gravar novo Tipo de Serviço</Message>}
+        <h1>Editar Prospecção</h1>
+        {error && <Message>Problema {error} ao gravar nova Prospecção</Message>}
         {loading ? <Loader />
           : (
             <Form onSubmit={submitHandler}>
@@ -68,7 +72,7 @@ function UpdateServiceTypeScreen({ history, match }) {
                 <Form.Label>Nome</Form.Label>
                 <Form.Control
                   type="string"
-                  placeholder="Digite o Tipo de Serviço"
+                  placeholder="Digite o nome da Prospecção"
                   required
                   value={name}
                   onChange={(e) => setName(e.target.value)}
@@ -77,10 +81,10 @@ function UpdateServiceTypeScreen({ history, match }) {
               </Form.Group>
 
               <Form.Group className="mb-3">
-                <Form.Label>Descrição do Tipo de Serviço</Form.Label>
+                <Form.Label>Descrição da Prospecção</Form.Label>
                 <Form.Control
                   type="string"
-                  placeholder="Digite a Descrição do Tipo de Serviço"
+                  placeholder="Digite a Descrição da Prospecção"
                   required
                   value={description}
                   onChange={(e) => setDescription(e.target.value)}
@@ -102,7 +106,7 @@ function UpdateServiceTypeScreen({ history, match }) {
               >
                 Salvar
               </Button>
-              <Link to={`/admin/service-types`}>
+              <Link to={`/admin/prospections`}>
                 <Button
                   variant="secondary">
                   Cancelar
@@ -114,8 +118,6 @@ function UpdateServiceTypeScreen({ history, match }) {
       </FormContainer >
     </div>
   )
-
-
 }
 
-export { UpdateServiceTypeScreen }
+export { UpdateProspectionScreen }

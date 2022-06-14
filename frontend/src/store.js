@@ -18,6 +18,8 @@ import { serviceTypeDetailReducer } from './components/serviceType/reducers/serv
 import { serviceTypeUpdateReducer } from './components/serviceType/reducers/admin/serviceTypeUpdateReducer'
 import { prospectionListReducer } from './components/prospection/reducers/admin/prospectionListReducer'
 import { prospectionCreateReducer } from './components/prospection/reducers/admin/prospectionCreateReducer'
+import { prospectionDetailUpdateReducer } from './components/prospection/reducers/admin/prospectionDetailUpdateReducer'
+import { prospectionUpdateReducer } from './components/prospection/reducers/admin/prospectionUpdateReducer'
 
 const reducer = combineReducers({
   //Account
@@ -44,6 +46,8 @@ const reducer = combineReducers({
   //Prospection
   prospectionListReducer: prospectionListReducer,
   prospectionCreateReducer: prospectionCreateReducer,
+  prospectionDetailUpdateReducer: prospectionDetailUpdateReducer,
+  prospectionUpdateReducer: prospectionUpdateReducer
 })
 
 const middleware = [thunk]
