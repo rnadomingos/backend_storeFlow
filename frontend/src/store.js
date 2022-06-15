@@ -20,6 +20,7 @@ import { prospectionListReducer } from './components/prospection/reducers/admin/
 import { prospectionCreateReducer } from './components/prospection/reducers/admin/prospectionCreateReducer'
 import { prospectionDetailUpdateReducer } from './components/prospection/reducers/admin/prospectionDetailUpdateReducer'
 import { prospectionUpdateReducer } from './components/prospection/reducers/admin/prospectionUpdateReducer'
+import { socialMediaListReducer } from './components/socialMedia/reducers/admin/socialMediaListReducer'
 
 const reducer = combineReducers({
   //Account
@@ -47,7 +48,10 @@ const reducer = combineReducers({
   prospectionListReducer: prospectionListReducer,
   prospectionCreateReducer: prospectionCreateReducer,
   prospectionDetailUpdateReducer: prospectionDetailUpdateReducer,
-  prospectionUpdateReducer: prospectionUpdateReducer
+  prospectionUpdateReducer: prospectionUpdateReducer,
+
+  //SocialMidia
+  socialMediaListReducer: socialMediaListReducer,
 })
 
 const middleware = [thunk]

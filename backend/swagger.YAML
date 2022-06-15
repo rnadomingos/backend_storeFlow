@@ -730,7 +730,7 @@ paths:
           description: "Success"
         401:
           $ref: "#/components/responses/UnauthorizedError"          
-  /socialMedia/new:
+  /social-media/new:
     post:
       tags:
       - "Social Media"
@@ -746,17 +746,20 @@ paths:
               required:
                 - name
                 - description
+                - id_prospection
               properties:
                 name:
                   type: string
                 description:
+                  type: string
+                id_prospection:
                   type: string
       responses:
         201: 
           description: "Success"
         401:
           $ref: "#/components/responses/UnauthorizedError"
-  /socialMedia/list:
+  /social-media/list:
     get:
       tags: 
       - "Social Media"
@@ -769,7 +772,7 @@ paths:
           description: "Success"
         401:
           $ref: "#/components/responses/UnauthorizedError"
-  /socialMedia/get-service/{id}:
+  /social-media/get-service/{id}:
     get:
       tags: 
       - "Social Media"
@@ -789,7 +792,7 @@ paths:
           description: "Success"
         401:
           $ref: "#/components/responses/UnauthorizedError"
-  /socialMedia/get-service/{name}:
+  /social-media/get-service/{name}:
     get:
       tags: 
       - "Social Media"
@@ -809,7 +812,7 @@ paths:
           description: "Success"
         401:
           $ref: "#/components/responses/UnauthorizedError"          
-  /socialMedia/update/{id}:
+  /social-media/update/{id}:
     patch:
       tags: 
       - "Social Media"
@@ -840,7 +843,7 @@ paths:
           description: "Success"
         401:
           $ref: "#/components/responses/UnauthorizedError"
-  /socialMedia/update-status/{id}:
+  /social-media/update-status/{id}:
     patch:
       tags: 
       - "Social Media"
@@ -860,7 +863,7 @@ paths:
           description: "Success"
         401:
           $ref: "#/components/responses/UnauthorizedError"
-  /socialMedia/del/{id}:
+  /social-media/del/{id}:
     delete:
       tags: 
       - "Social Media"

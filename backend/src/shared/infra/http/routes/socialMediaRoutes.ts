@@ -6,6 +6,7 @@ import { FindSocialMediaByIdController } from "@modules/socialMedia/useCase/find
 import { FindSocialMediaByNameController } from "@modules/socialMedia/useCase/findSocialMediaByName/FindSocialMediaByNameController";
 import { UpdateSocialMediaByIdController } from "@modules/socialMedia/useCase/updateSocialMediaById/UpdateSocialMediaByIdController";
 import { Router } from "express";
+import { isAuthenticated } from "../middlewares/isAuthenticated";
 
 const socialMediaRoutes = Router();
 
@@ -17,12 +18,12 @@ const updateSocialMediaController = new UpdateSocialMediaByIdController();
 const deleteSocialMediaByIdController = new DeleteSocialMediaByIdController();
 const disableEnableSocialMediaByIdController = new DisableEnableSocialMediaByIdController();
 
-socialMediaRoutes.post("/new", createSocialMediaController.handle);
-socialMediaRoutes.get("/get-id/:id", findSocialMediaByIdController.handle);
-socialMediaRoutes.get("/get-name/:name", findSocialMediaByNameController.handle);
-socialMediaRoutes.get("/list", findAllSocialMediaController.handle);
-socialMediaRoutes.patch("/update/:id", updateSocialMediaController.handle);
-socialMediaRoutes.delete("/delete/:id", deleteSocialMediaByIdController.handle);
-socialMediaRoutes.patch("/update-status/:id", disableEnableSocialMediaByIdController.handle);
+socialMediaRoutes.post("/new", isAuthenticated, createSocialMediaController.handle);
+socialMediaRoutes.get("/get-id/:id", isAuthenticated, findSocialMediaByIdController.handle);
+socialMediaRoutes.get("/get-name/:name", isAuthenticated, findSocialMediaByNameController.handle);
+socialMediaRoutes.get("/list", isAuthenticated, findAllSocialMediaController.handle);
+socialMediaRoutes.patch("/update/:id", isAuthenticated, updateSocialMediaController.handle);
+socialMediaRoutes.delete("/delete/:id", isAuthenticated, deleteSocialMediaByIdController.handle);
+socialMediaRoutes.patch("/update-status/:id", isAuthenticated, disableEnableSocialMediaByIdController.handle);
 
 export { socialMediaRoutes }
