@@ -19,7 +19,8 @@ import { UpdateServiceTypeScreen } from './components/serviceType/screens/admin/
 import { ProspectionScreen } from './components/prospection/screens/admin/ProspectionScreen';
 import { CreateProspectionScreen } from './components/prospection/screens/admin/CreateProspectionScreen';
 import { UpdateProspectionScreen } from './components/prospection/screens/admin/UpdateProspectionScreen'
-import { SocialMediaListScreen } from './components/socialMedia/screen/admin/SocialMediaListScreen'
+import { SocialMediaListScreen } from './components/socialMedia/screen/admin/ListSocialMediaScreen'
+import { CreateSocialMediaScreen } from './components/socialMedia/screen/admin/CreateSocialMediaScreen'
 
 function App() {
   const { userInfo } = useSelector(state => state.userLogin)
@@ -45,7 +46,8 @@ function App() {
           <ProtectRoute isAdmin={true} path='/admin/prospections' component={ProspectionScreen} />
           <ProtectRoute path='/admin/prospection/new' component={CreateProspectionScreen} />
           <ProtectRoute path='/admin/prospection/:id/edit' component={UpdateProspectionScreen} />
-          <ProtectRoute isAdmin={true} path='/admin/social-midias' component={SocialMediaListScreen} />
+          <ProtectRoute isAdmin={true} path='/admin/social-medias' component={SocialMediaListScreen} />
+          <ProtectRoute isAdmin={true} path='/admin/social-media/new' component={CreateSocialMediaScreen} />
         </main>
       </Container>
       <Footer />
