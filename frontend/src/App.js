@@ -22,6 +22,7 @@ import { UpdateProspectionScreen } from './components/prospection/screens/admin/
 import { SocialMediaListScreen } from './components/socialMedia/screen/admin/ListSocialMediaScreen'
 import { CreateSocialMediaScreen } from './components/socialMedia/screen/admin/CreateSocialMediaScreen'
 import { UpdateSocialMediaScreen } from './components/socialMedia/screen/admin/UpdateSocialMediaScreen'
+import { SegmentScreen } from './components/segment/screens/admin/SegmentScreen';
 
 function App() {
   const { userInfo } = useSelector(state => state.userLogin)
@@ -50,6 +51,7 @@ function App() {
           <ProtectRoute isAdmin={true} path='/admin/social-medias' component={SocialMediaListScreen} />
           <ProtectRoute isAdmin={true} path='/admin/social-media/new' component={CreateSocialMediaScreen} />
           <ProtectRoute path='/admin/social-media/:id/edit' component={UpdateSocialMediaScreen} />
+          <ProtectRoute isAdmin={true} path='/admin/segments' component={SegmentScreen} />
         </main>
       </Container>
       <Footer />

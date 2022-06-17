@@ -32,6 +32,9 @@ function Header() {
               <NavDropdown.Item>
                 <Link className="dropdown-item" to="/admin/sellers">Vendedores</Link>
               </NavDropdown.Item>
+              <NavDropdown.Item>
+                <Link className="dropdown-item" to="/admin/segments">Segmento de Vendas</Link>
+              </NavDropdown.Item>
             </NavDropdown>
             <NavDropdown title="Prospecção" id="navbarScrollingDropdown">
               <NavDropdown.Item>
@@ -42,9 +45,6 @@ function Header() {
               </NavDropdown.Item>
               <NavDropdown.Item>
                 <Link className="dropdown-item" to="/admin/service-types">Tipo de serviço</Link>
-              </NavDropdown.Item>
-              <NavDropdown.Item>
-                <Link className="dropdown-item" to="#">Segmento de Vendas</Link>
               </NavDropdown.Item>
             </NavDropdown>
             <NavDropdown title="Usuario" id="navbarScrollingDropdown">

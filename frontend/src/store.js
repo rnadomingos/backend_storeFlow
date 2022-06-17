@@ -24,6 +24,7 @@ import { socialMediaListReducer } from './components/socialMedia/reducers/admin/
 import { socialMediaCreateReducer } from './components/socialMedia/reducers/admin/socialMediaCreateReducer'
 import { socialMediaDetailReducer } from './components/socialMedia/reducers/admin/socialMediaDetailReducer'
 import { socialMediaUpdateReducer } from './components/socialMedia/reducers/admin/socialMediaUpdateReducer'
+import { segmentListReducer } from './components/segment/reducers/admin/segmentListReducer'
 
 const reducer = combineReducers({
   //Account
@@ -57,7 +58,10 @@ const reducer = combineReducers({
   socialMediaListReducer: socialMediaListReducer,
   socialMediaCreateReducer: socialMediaCreateReducer,
   socialMediaDetailReducer: socialMediaDetailReducer,
-  socialMediaUpdateReducer: socialMediaUpdateReducer
+  socialMediaUpdateReducer: socialMediaUpdateReducer,
+
+  //Segment
+  segmentListReducer: segmentListReducer,
 
 })
 
