@@ -772,7 +772,7 @@ paths:
           description: "Success"
         401:
           $ref: "#/components/responses/UnauthorizedError"
-  /social-media/get-service/{id}:
+  /social-media/get-id/{id}:
     get:
       tags: 
       - "Social Media"
@@ -792,7 +792,7 @@ paths:
           description: "Success"
         401:
           $ref: "#/components/responses/UnauthorizedError"
-  /social-media/get-service/{name}:
+  /social-media/get-name/{name}:
     get:
       tags: 
       - "Social Media"

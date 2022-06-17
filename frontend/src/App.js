@@ -21,6 +21,7 @@ import { CreateProspectionScreen } from './components/prospection/screens/admin/
 import { UpdateProspectionScreen } from './components/prospection/screens/admin/UpdateProspectionScreen'
 import { SocialMediaListScreen } from './components/socialMedia/screen/admin/ListSocialMediaScreen'
 import { CreateSocialMediaScreen } from './components/socialMedia/screen/admin/CreateSocialMediaScreen'
+import { UpdateSocialMediaScreen } from './components/socialMedia/screen/admin/UpdateSocialMediaScreen'
 
 function App() {
   const { userInfo } = useSelector(state => state.userLogin)
@@ -48,6 +49,7 @@ function App() {
           <ProtectRoute path='/admin/prospection/:id/edit' component={UpdateProspectionScreen} />
           <ProtectRoute isAdmin={true} path='/admin/social-medias' component={SocialMediaListScreen} />
           <ProtectRoute isAdmin={true} path='/admin/social-media/new' component={CreateSocialMediaScreen} />
+          <ProtectRoute path='/admin/social-media/:id/edit' component={UpdateSocialMediaScreen} />
         </main>
       </Container>
       <Footer />

@@ -22,6 +22,8 @@ import { prospectionDetailUpdateReducer } from './components/prospection/reducer
 import { prospectionUpdateReducer } from './components/prospection/reducers/admin/prospectionUpdateReducer'
 import { socialMediaListReducer } from './components/socialMedia/reducers/admin/socialMediaListReducer'
 import { socialMediaCreateReducer } from './components/socialMedia/reducers/admin/socialMediaCreateReducer'
+import { socialMediaDetailReducer } from './components/socialMedia/reducers/admin/socialMediaDetailReducer'
+import { socialMediaUpdateReducer } from './components/socialMedia/reducers/admin/socialMediaUpdateReducer'
 
 const reducer = combineReducers({
   //Account
@@ -54,6 +56,9 @@ const reducer = combineReducers({
   //SocialMidia
   socialMediaListReducer: socialMediaListReducer,
   socialMediaCreateReducer: socialMediaCreateReducer,
+  socialMediaDetailReducer: socialMediaDetailReducer,
+  socialMediaUpdateReducer: socialMediaUpdateReducer
+
 })
 
 const middleware = [thunk]
