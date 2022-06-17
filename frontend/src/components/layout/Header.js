@@ -23,15 +23,11 @@ function Header() {
           </Link>
           <Nav className="me-auto">
             <NavDropdown title="Cliente" id="navbarScrollingDropdown">
-              <NavDropdown.Item>Novo Cadastro</NavDropdown.Item>
-              <NavDropdown.Item>Tipo se Serviço</NavDropdown.Item>
+              <NavDropdown.Item>Nova Passagem</NavDropdown.Item>
             </NavDropdown>
             <NavDropdown title="Loja" id="navbarScrollingDropdown">
               <NavDropdown.Item>
                 <Link className="dropdown-item" to="/admin/stores">Lojas</Link>
-              </NavDropdown.Item>
-              <NavDropdown.Item>
-                <Link className="dropdown-item" to="#">Segmento de Vendas</Link>
               </NavDropdown.Item>
               <NavDropdown.Item>
                 <Link className="dropdown-item" to="/admin/sellers">Vendedores</Link>
@@ -39,13 +35,16 @@ function Header() {
             </NavDropdown>
             <NavDropdown title="Prospecção" id="navbarScrollingDropdown">
               <NavDropdown.Item>
+                <Link className='dropdown-item' to="/admin/prospections">Prospecção</Link>
+              </NavDropdown.Item>
+              <NavDropdown.Item>
                 <Link className="dropdown-item" to="/admin/social-medias">Midias Sociais</Link>
               </NavDropdown.Item>
               <NavDropdown.Item>
                 <Link className="dropdown-item" to="/admin/service-types">Tipo de serviço</Link>
               </NavDropdown.Item>
               <NavDropdown.Item>
-                <Link className='dropdown-item' to="/admin/prospections">Prospecção</Link>
+                <Link className="dropdown-item" to="#">Segmento de Vendas</Link>
               </NavDropdown.Item>
             </NavDropdown>
             <NavDropdown title="Usuario" id="navbarScrollingDropdown">
