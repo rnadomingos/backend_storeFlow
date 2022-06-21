@@ -13,16 +13,17 @@ import { UpdateStoreScreen } from './components/store/screens/UpdateStoreScreen'
 import { SellerScreen } from './components/seller/screens/admin/SellerScreen';
 import { UpdateSellerScreen } from './components/seller/screens/admin/UpdateSellerScreen';
 import { CreateSellerScreen } from './components/seller/screens/admin/CreateSellerScreen';
-import { ServiceTypesScreen } from './components/serviceType/screens/admin/ServiceTypesScreen'
+import { ServiceTypesScreen } from './components/serviceType/screens/admin/ServiceTypesScreen';
 import { CreateServiceTypeScreen } from './components/serviceType/screens/admin/CreateServiceTypeScreen';
-import { UpdateServiceTypeScreen } from './components/serviceType/screens/admin/UpdateServiceTypeScreen'
+import { UpdateServiceTypeScreen } from './components/serviceType/screens/admin/UpdateServiceTypeScreen';
 import { ProspectionScreen } from './components/prospection/screens/admin/ProspectionScreen';
 import { CreateProspectionScreen } from './components/prospection/screens/admin/CreateProspectionScreen';
-import { UpdateProspectionScreen } from './components/prospection/screens/admin/UpdateProspectionScreen'
-import { SocialMediaListScreen } from './components/socialMedia/screen/admin/ListSocialMediaScreen'
-import { CreateSocialMediaScreen } from './components/socialMedia/screen/admin/CreateSocialMediaScreen'
-import { UpdateSocialMediaScreen } from './components/socialMedia/screen/admin/UpdateSocialMediaScreen'
+import { UpdateProspectionScreen } from './components/prospection/screens/admin/UpdateProspectionScreen';
+import { SocialMediaListScreen } from './components/socialMedia/screen/admin/ListSocialMediaScreen';
+import { CreateSocialMediaScreen } from './components/socialMedia/screen/admin/CreateSocialMediaScreen';
+import { UpdateSocialMediaScreen } from './components/socialMedia/screen/admin/UpdateSocialMediaScreen';
 import { SegmentScreen } from './components/segment/screens/admin/SegmentScreen';
+import { CreateSegmentScreen } from './components/segment/screens/admin/CreateSegmentScreen';
 
 function App() {
   const { userInfo } = useSelector(state => state.userLogin)
@@ -52,6 +53,7 @@ function App() {
           <ProtectRoute isAdmin={true} path='/admin/social-media/new' component={CreateSocialMediaScreen} />
           <ProtectRoute path='/admin/social-media/:id/edit' component={UpdateSocialMediaScreen} />
           <ProtectRoute isAdmin={true} path='/admin/segments' component={SegmentScreen} />
+          <ProtectRoute isAdmin={true} path='/admin/segment/new' component={CreateSegmentScreen} />
         </main>
       </Container>
       <Footer />

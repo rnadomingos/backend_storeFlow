@@ -1,14 +1,14 @@
 import axios from 'axios'
 import {
-  SEGMENT_LIST_FAIL,
-  SEGMENT_LIST_REQUEST,
-  SEGMENT_LIST_SUCCESS,
+  SEGMENT_CREATE_REQUEST,
+  SEGMENT_CREATE_SUCCESS,
+  SEGMENT_CREATE_FAIL
 } from '../../constants/segmentConstants'
 
-export const segmentListAction = () => async (dispatch, getState) => {
-  try {
+export const segmentCreateAction = (newSegment) => async (dispatch, getState) => {
 
-    dispatch({ type: SEGMENT_LIST_REQUEST })
+  try {
+    dispatch({ type: SEGMENT_CREATE_REQUEST })
 
     const {
       userLogin: { userInfo }
@@ -21,22 +21,20 @@ export const segmentListAction = () => async (dispatch, getState) => {
       }
     }
 
-    const { data } = await axios.get(
-      `http://localhost:3333/segment/list`,
+    const { data } = await axios.post(
+      `http://localhost:3333/segment/new`,
+      newSegment,
       config
     )
-
     dispatch({
-      type: SEGMENT_LIST_SUCCESS,
+      type: SEGMENT_CREATE_SUCCESS,
       payload: data
     })
 
   } catch (error) {
     dispatch({
-      type: SEGMENT_LIST_FAIL,
+      type: SEGMENT_CREATE_FAIL,
       payload: error.response.data
     })
-
-    console.log('error: ', error);
   }
 }
