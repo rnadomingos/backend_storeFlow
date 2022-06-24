@@ -1,8 +1,8 @@
-main{
+main {
   min-height: 80vh;
 }
 
-.link-header{
+.link-header {
   text-decoration: none;
 }
 
@@ -10,7 +10,7 @@ main{
   margin-right: 10px;
 }
 
-.login-container{
+.login-container {
   width: 50px;
   height: 50px;
   position: absolute;
@@ -18,34 +18,37 @@ main{
   left: 30%;
 
 }
-.login-form{
+
+.login-form {
   padding: 10%;
   box-shadow: 0 5px 8px 0 rgba(0, 0, 0, 0.2), 0 9px 26px 0 rgba(0, 0, 0, 0.19);
 }
-.login-form h3{
+
+.login-form h3 {
   text-align: center;
   color: #333;
 }
 
 
-.login-container form{
+.login-container form {
   padding: 10%;
 }
-.btnSubmit
-{
+
+.btnSubmit {
   width: 50%;
   border-radius: 1rem;
   padding: 1.5%;
   border: none;
   cursor: pointer;
 }
-.login-form .btnSubmit{
+
+.login-form .btnSubmit {
   font-weight: 600;
   color: #fff;
   background-color: #0062cc;
 }
 
-.login-form .ForgetPwd{
+.login-form .ForgetPwd {
   color: #0062cc;
   font-weight: 600;
   text-decoration: none;
@@ -57,4 +60,8 @@ main{
 
 .greenColor {
   color: green;
+}
+
+.form-select {
+  margin-bottom: 10px;
 }

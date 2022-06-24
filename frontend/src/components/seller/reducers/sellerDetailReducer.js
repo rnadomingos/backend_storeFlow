@@ -1,7 +1,8 @@
 import {
   SELLER_DETAIL_FAIL,
   SELLER_DETAIL_REQUEST,
-  SELLER_DETAIL_SUCCESS
+  SELLER_DETAIL_SUCCESS,
+  SELLER_DETAIL_RESET
 } from "../constants/sellerConstants"
 
 
@@ -21,6 +22,9 @@ export const sellerDetailReducer = (state = { seller: {} }, action) => {
         loading: false,
         error: action.payload.error
       }
+
+    case SELLER_DETAIL_RESET:
+      return {}
 
     default:
       return state

@@ -12,6 +12,20 @@ import { sellersListReducer } from './components/seller/reducers/admin/sellersLi
 import { sellerDetailReducer } from './components/seller/reducers/sellerDetailReducer'
 import { sellerUpdateReducer } from './components/seller/reducers/admin/sellerUpdateReduce'
 import { sellerCreateReducer } from './components/seller/reducers/admin/sellerCreateReducer'
+import { serviceTypeListReducer } from './components/serviceType/reducers/admin/serviceTypeListReducer'
+import { serviceTypeCreateReducer } from './components/serviceType/reducers/admin/serviceTypeCreateReducer'
+import { serviceTypeDetailReducer } from './components/serviceType/reducers/serviceTypeDatailReducer'
+import { serviceTypeUpdateReducer } from './components/serviceType/reducers/admin/serviceTypeUpdateReducer'
+import { prospectionListReducer } from './components/prospection/reducers/admin/prospectionListReducer'
+import { prospectionCreateReducer } from './components/prospection/reducers/admin/prospectionCreateReducer'
+import { prospectionDetailUpdateReducer } from './components/prospection/reducers/admin/prospectionDetailUpdateReducer'
+import { prospectionUpdateReducer } from './components/prospection/reducers/admin/prospectionUpdateReducer'
+import { socialMediaListReducer } from './components/socialMedia/reducers/admin/socialMediaListReducer'
+import { socialMediaCreateReducer } from './components/socialMedia/reducers/admin/socialMediaCreateReducer'
+import { socialMediaDetailReducer } from './components/socialMedia/reducers/admin/socialMediaDetailReducer'
+import { socialMediaUpdateReducer } from './components/socialMedia/reducers/admin/socialMediaUpdateReducer'
+import { segmentListReducer } from './components/segment/reducers/admin/segmentListReducer'
+import { segmentCreateReducer } from './components/segment/reducers/admin/segmentCreateReducer'
 
 const reducer = combineReducers({
   //Account
@@ -28,6 +42,29 @@ const reducer = combineReducers({
   sellerDetailReducer: sellerDetailReducer,
   sellerUpdateReducer: sellerUpdateReducer,
   sellerCreateReducer: sellerCreateReducer,
+
+  //Service Types
+  serviceTypeListReducer: serviceTypeListReducer,
+  serviceTypeCreateReducer: serviceTypeCreateReducer,
+  serviceTypeDetailReducer: serviceTypeDetailReducer,
+  serviceTypeUpdateReducer: serviceTypeUpdateReducer,
+
+  //Prospection
+  prospectionListReducer: prospectionListReducer,
+  prospectionCreateReducer: prospectionCreateReducer,
+  prospectionDetailUpdateReducer: prospectionDetailUpdateReducer,
+  prospectionUpdateReducer: prospectionUpdateReducer,
+
+  //SocialMidia
+  socialMediaListReducer: socialMediaListReducer,
+  socialMediaCreateReducer: socialMediaCreateReducer,
+  socialMediaDetailReducer: socialMediaDetailReducer,
+  socialMediaUpdateReducer: socialMediaUpdateReducer,
+
+  //Segment
+  segmentListReducer: segmentListReducer,
+  segmentCreateReducer: segmentCreateReducer,
+
 })
 
 const middleware = [thunk]

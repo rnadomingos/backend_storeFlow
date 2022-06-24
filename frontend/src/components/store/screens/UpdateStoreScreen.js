@@ -8,7 +8,7 @@ import { Message } from '../../layout/Message'
 import { storeUpdateAction } from '../actions/admin/storeUpdateAction'
 import { cleanErrors } from '../actions/cleanErrors'
 import { storesDetailActions } from '../actions/storeDetailActions'
-import { STORE_UPDATE_RESET } from '../constants/storeConstants'
+import { STORE_DETAIL_RESET, STORE_UPDATE_RESET } from '../constants/storeConstants'
 
 function UpdateStoreScreen({ history, match }) {
 
@@ -49,8 +49,10 @@ function UpdateStoreScreen({ history, match }) {
     }
 
     if (success) {
-      history.push('/admin/stores')
+      dispatch({ type: STORE_DETAIL_RESET })
       dispatch({ type: STORE_UPDATE_RESET })
+      history.push('/admin/stores')
+
     }
   }, [error, dispatch, success, history, store, storeCNPJ, errorDetail])
 
@@ -63,7 +65,7 @@ function UpdateStoreScreen({ history, match }) {
   return (
     <div>
       <FormContainer>
-        <h1>Nova Loja</h1>
+        <h1>Editar Loja</h1>
         {error && <Message>Problema {error} ao gravar nova loja</Message>}
         {loading ? <Loader />
           : (
@@ -116,7 +118,7 @@ function UpdateStoreScreen({ history, match }) {
                 variant="primary"
                 type="submit"
               >
-                salvar
+                Alterar
               </Button>
               <Link to={`/admin/stores`}>
                 <Button
