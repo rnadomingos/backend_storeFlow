@@ -13,7 +13,7 @@ function LoginScreen({ location, history }) {
   const [password, setPassword] = useState('')
 
   const userLogin = useSelector(state => state.userLogin)
-  const { error, loading, userInfo, isAuthenticated } = userLogin
+  const { error, loading, isAuthenticated } = userLogin
 
   const dispatch = useDispatch()
 
@@ -27,7 +27,7 @@ function LoginScreen({ location, history }) {
     if (error) {
       dispatch(cleanError())
     }
-  }, [history, isAuthenticated, redirect])
+  }, [dispatch, error, history, isAuthenticated, redirect])
 
   const submitHandler = (e) => {
     e.preventDefault()
