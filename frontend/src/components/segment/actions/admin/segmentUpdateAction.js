@@ -18,7 +18,7 @@ export const segmentUpdateAction = (segment) => async (dispatch, getState) => {
     }
 
     const { data } = await axios.patch(
-      `http://localhost/segment/update`,
+      `http://localhost:3333/segment/update/${segment.id}`,
       segment,
       config
     )
