@@ -22,7 +22,7 @@ export const serviceTypeUpdateReducer = (state = { serviceType: {} }, action) =>
     case SERVICE_TYPE_UPDATE_FAIL:
       return {
         loading: false,
-        success: action.payload.error
+        error: action.payload.error
       }
 
     case SERVICE_TYPE_UPDATE_RESET:

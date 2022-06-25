@@ -26,6 +26,8 @@ import { socialMediaDetailReducer } from './components/socialMedia/reducers/admi
 import { socialMediaUpdateReducer } from './components/socialMedia/reducers/admin/socialMediaUpdateReducer'
 import { segmentListReducer } from './components/segment/reducers/admin/segmentListReducer'
 import { segmentCreateReducer } from './components/segment/reducers/admin/segmentCreateReducer'
+import { segmentDetailReducer } from './components/segment/reducers/admin/segmentDetailReducer'
+import { segmentUpdateReducer } from './components/segment/reducers/admin/segmentUpdateReducer'
 
 const reducer = combineReducers({
   //Account
@@ -64,6 +66,8 @@ const reducer = combineReducers({
   //Segment
   segmentListReducer: segmentListReducer,
   segmentCreateReducer: segmentCreateReducer,
+  segmentDetailReducer: segmentDetailReducer,
+  segmentUpdateReducer: segmentUpdateReducer
 
 })
 
