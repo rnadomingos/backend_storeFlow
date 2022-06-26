@@ -12,7 +12,6 @@ function Header() {
     dispatch(logoutAction())
   }
 
-
   return (
 
     <Fragment>

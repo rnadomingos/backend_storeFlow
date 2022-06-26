@@ -26,10 +26,12 @@ import { socialMediaDetailReducer } from './components/socialMedia/reducers/admi
 import { socialMediaUpdateReducer } from './components/socialMedia/reducers/admin/socialMediaUpdateReducer'
 import { segmentListReducer } from './components/segment/reducers/admin/segmentListReducer'
 import { segmentCreateReducer } from './components/segment/reducers/admin/segmentCreateReducer'
+import { forgotPasswordReducer } from './components/account/reducers/forgotPasswordReducer'
 
 const reducer = combineReducers({
   //Account
   userLogin: loginReducer,
+  forgotPassword: forgotPasswordReducer,
 
   //Stores
   storesListReducer: storesListReducer,
