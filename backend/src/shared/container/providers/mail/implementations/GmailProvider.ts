@@ -1,3 +1,4 @@
+import * as dotenv from "dotenv"
 import { injectable } from "tsyringe"
 import { IMailProvider } from "../IMailProvider"
 import nodemailer, { Transporter } from "nodemailer"
@@ -10,13 +11,12 @@ export class GmailProvider implements IMailProvider {
   private client: Transporter
 
   constructor() {
+    dotenv.config()
     const transporter = nodemailer.createTransport({
-      host: 'smtp.gmail.com',
-      port: 465,
-      secure: true,
+      service: 'gmail',
       auth: {
-        user: 'renra.developer@gmail.com',
-        pass: 'akvdhaldveagbibw'
+        user: process.env.GMAIL_USER,
+        pass: process.env.GMAIL_PASS
       },
     });
     this.client = transporter;
