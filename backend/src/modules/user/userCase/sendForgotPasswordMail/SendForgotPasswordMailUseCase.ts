@@ -18,7 +18,7 @@ export class SendForgotPasswordMailUseCase {
     private dateProvider: IDateProvider,
     @inject("UserTokenRepository")
     private userTokenRepository: IUserTokenRepository,
-    @inject("EtherealMailProvider")
+    @inject("GmailProvider")
     private mailProvider: IMailProvider
   ) { }
 
@@ -33,7 +33,6 @@ export class SendForgotPasswordMailUseCase {
 
 
     const resetToken = randomBytes(20).toString('hex');
-    console.log(resetToken);
 
     const expires_hours = this.dateProvider.addHours(auth.refresh_token_expires_hours);
 
