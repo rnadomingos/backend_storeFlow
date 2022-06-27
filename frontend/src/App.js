@@ -1,4 +1,4 @@
-import { HashRouter as Router, Route } from 'react-router-dom'
+import { BrowserRouter as Router, Route } from 'react-router-dom'
 import { useSelector } from 'react-redux';
 import { Header } from './components/layout/Header'
 import { Footer } from './components/layout/Footer'
@@ -24,6 +24,7 @@ import { CreateSocialMediaScreen } from './components/socialMedia/screen/admin/C
 import { UpdateSocialMediaScreen } from './components/socialMedia/screen/admin/UpdateSocialMediaScreen';
 import { SegmentScreen } from './components/segment/screens/admin/SegmentScreen';
 import { CreateSegmentScreen } from './components/segment/screens/admin/CreateSegmentScreen';
+import { ResetPasswordScreen } from './components/account/screens/ResetPasswordScreen';
 
 function App() {
   const { userInfo } = useSelector(state => state.userLogin)
@@ -33,6 +34,7 @@ function App() {
       {userInfo && <Header />}
       {!userInfo && <Route path='/' component={LoginScreen} exact />}
       <Route path='/password/forgot' component={ForgotPasswordScreen} exact />
+      <Route path='/password/reset' component={ResetPasswordScreen} exact />
 
       <Container>
         <main className='mx-auto'>
