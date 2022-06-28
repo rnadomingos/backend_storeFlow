@@ -74,7 +74,7 @@ const middleware = [thunk]
 const userInfoFromStorage = localStorage.getItem('userInfo') ?
   JSON.parse(localStorage.getItem('userInfo')) : null
 
-const initialState = {
+let initialState = {
   userLogin: { userInfo: userInfoFromStorage },
 }
 

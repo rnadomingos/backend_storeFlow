@@ -1,30 +1,30 @@
 import React, { Fragment } from 'react'
+import { Route, Redirect } from 'react-router-dom'
 import { useSelector } from 'react-redux'
-import { Redirect, Route } from 'react-router-dom'
 
-export default function ProtectRoute({ isAdmin, component: Component, ...rest }) {
+function ProtectRoute({ isAdmin, component: Component, ...restOfProps }) {
 
   const { loading, userInfo, isAuthenticated } = useSelector(state => state.userLogin)
 
+
   return (
     <Fragment>
-      {loading === false && (
-        <Route
-          {...rest}
-          render={props => {
-            if (isAuthenticated === false) {
-              return <Redirect to='/' />
-            }
+      <Route
+        {...restOfProps}
+        render={(props) => {
+          if (isAuthenticated === false) {
+            return <Redirect to='/' />
+          }
 
-            if (isAdmin === true && !userInfo.user.is_admin) {
-              return <Redirect to='/' />
-            }
+          if (isAdmin === true && !userInfo.user.is_admin) {
+            return <Redirect to='/home' />
+          }
 
-            return <Component {...props} />
-          }}
-        />
-      )}
+          return <Component {...props} />
+        }}
+      />
     </Fragment>
   )
-
 }
+
+export default ProtectRoute

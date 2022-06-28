@@ -41,7 +41,6 @@ export const loginReducer = (state = { userInfo: {} }, action) => {
 
     case CLEAN_ERRORS:
       return {
-        ...state,
         error: null
       }
 

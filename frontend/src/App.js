@@ -35,36 +35,35 @@ function App() {
       {!userInfo && <Route path='/' component={LoginScreen} exact />}
       <Route path='/password/forgot' component={ForgotPasswordScreen} exact />
       <Route path='/password/reset' component={ResetPasswordScreen} exact />
-
-      <Container>
-        <main className='mx-auto'>
+      <main className='mx-auto'>
+        <Container>
           <ProtectRoute path='/home' component={Home} />
 
-          <ProtectRoute isAdmin={true} path='/admin/stores' component={StoresScreen} />
+          <ProtectRoute path='/admin/stores' isAdmin={true} component={StoresScreen} />
           <ProtectRoute path='/admin/store/new' component={CreateStoreScreen} />
           <ProtectRoute path='/admin/store/:cnpj/edit' component={UpdateStoreScreen} />
 
-          <ProtectRoute isAdmin={true} path='/admin/sellers' component={SellerScreen} />
+          <ProtectRoute path='/admin/sellers' isAdmin={true} component={SellerScreen} />
           <ProtectRoute path='/admin/seller/:user_dms/edit' component={UpdateSellerScreen} />
           <ProtectRoute path='/admin/seller/new' component={CreateSellerScreen} />
 
-          <ProtectRoute isAdmin={true} path='/admin/service-types' component={ServiceTypesScreen} />
+          <ProtectRoute path='/admin/service-types' isAdmin={true} component={ServiceTypesScreen} />
           <ProtectRoute path='/admin/service-type/:id/edit' component={UpdateServiceTypeScreen} />
           <ProtectRoute path='/admin/service-type/new' component={CreateServiceTypeScreen} />
 
-          <ProtectRoute isAdmin={true} path='/admin/prospections' component={ProspectionScreen} />
+          <ProtectRoute path='/admin/prospections' isAdmin={true} component={ProspectionScreen} />
           <ProtectRoute path='/admin/prospection/new' component={CreateProspectionScreen} />
           <ProtectRoute path='/admin/prospection/:id/edit' component={UpdateProspectionScreen} />
 
-          <ProtectRoute isAdmin={true} path='/admin/social-medias' component={SocialMediaListScreen} />
-          <ProtectRoute isAdmin={true} path='/admin/social-media/new' component={CreateSocialMediaScreen} />
+          <ProtectRoute path='/admin/social-medias' isAdmin={true} component={SocialMediaListScreen} />
+          <ProtectRoute path='/admin/social-media/new' isAdmin={true} component={CreateSocialMediaScreen} />
           <ProtectRoute path='/admin/social-media/:id/edit' component={UpdateSocialMediaScreen} />
 
-          <ProtectRoute isAdmin={true} path='/admin/segments' component={SegmentScreen} />
-          <ProtectRoute isAdmin={true} path='/admin/segment/new' component={CreateSegmentScreen} />
+          <ProtectRoute path='/admin/segments' isAdmin={true} component={SegmentScreen} />
+          <ProtectRoute path='/admin/segment/new' isAdmin={true} component={CreateSegmentScreen} />
+        </Container>
+      </main>
 
-        </main>
-      </Container>
       <Footer />
     </Router>
   );
