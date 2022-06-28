@@ -27,11 +27,13 @@ import { socialMediaUpdateReducer } from './components/socialMedia/reducers/admi
 import { segmentListReducer } from './components/segment/reducers/admin/segmentListReducer'
 import { segmentCreateReducer } from './components/segment/reducers/admin/segmentCreateReducer'
 import { forgotPasswordReducer } from './components/account/reducers/forgotPasswordReducer'
+import { userListReducer } from './components/account/reducers/admin/userListReducer'
 
 const reducer = combineReducers({
   //Account
   userLogin: loginReducer,
   forgotPassword: forgotPasswordReducer,
+  userListReducer: userListReducer,
 
   //Stores
   storesListReducer: storesListReducer,
