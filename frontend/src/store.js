@@ -28,12 +28,14 @@ import { segmentListReducer } from './components/segment/reducers/admin/segmentL
 import { segmentCreateReducer } from './components/segment/reducers/admin/segmentCreateReducer'
 import { forgotPasswordReducer } from './components/account/reducers/forgotPasswordReducer'
 import { userListReducer } from './components/account/reducers/admin/userListReducer'
+import { userCreateReducer } from './components/account/reducers/admin/userCreateReducer'
 
 const reducer = combineReducers({
   //Account
   userLogin: loginReducer,
   forgotPassword: forgotPasswordReducer,
   userListReducer: userListReducer,
+  userCreateReducer: userCreateReducer,
 
   //Stores
   storesListReducer: storesListReducer,

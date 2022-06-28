@@ -25,7 +25,8 @@ import { UpdateSocialMediaScreen } from './components/socialMedia/screen/admin/U
 import { SegmentScreen } from './components/segment/screens/admin/SegmentScreen';
 import { CreateSegmentScreen } from './components/segment/screens/admin/CreateSegmentScreen';
 import { ResetPasswordScreen } from './components/account/screens/ResetPasswordScreen';
-import { UsersScreen } from './components/account/screens/admin/usersScreen';
+import { UsersScreen } from './components/account/screens/admin/UsersScreen';
+import { CreateUserScreen } from './components/account/screens/admin/CreateUserScreen';
 
 
 
@@ -43,7 +44,7 @@ function App() {
           <ProtectRoute path='/home' component={Home} />
 
           <ProtectRoute path='/admin/users' isAdmin={true} component={UsersScreen} />
-
+          <ProtectRoute path='/admin/user/new' isAdmin={true} component={CreateUserScreen} />
 
           <ProtectRoute path='/admin/stores' isAdmin={true} component={StoresScreen} />
           <ProtectRoute path='/admin/store/new' component={CreateStoreScreen} />

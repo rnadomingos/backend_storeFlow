@@ -23,7 +23,7 @@ function UsersScreen() {
         </Col>
 
         <Col className='text-right'>
-          <Link to={`/admin/store/new`}>
+          <Link to={`/admin/user/new`}>
             <Button className='my-3' >
               <i className='fas fa-plus'></i> Cadastrar
             </Button>
@@ -75,8 +75,6 @@ function UsersScreen() {
                 </tbody>
 
               </Table>
-
-
             </div>
           )
       }

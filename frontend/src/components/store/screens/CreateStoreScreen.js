@@ -16,8 +16,8 @@ function CreateStoreScreen({ history }) {
 
   const dispatch = useDispatch()
 
-  const storeCreate = useSelector(state => state.storeCreateReducer)
-  const { error, loading, success } = storeCreate
+  const { error, loading, success } = useSelector(state => state.storeCreateReducer)
+
 
   useEffect(() => {
     if (error) {
