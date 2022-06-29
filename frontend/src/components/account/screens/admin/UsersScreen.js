@@ -42,7 +42,7 @@ function UsersScreen() {
                     <th>USER DMS</th>
                     <th>NOME</th>
                     <th>EMAIL</th>
-                    <th>ADMINISTRADOR</th>
+                    <th>ADMIN</th>
                     <th>DATA CADASTRO</th>
                     <th>ATIVO</th>
                     <th></th>

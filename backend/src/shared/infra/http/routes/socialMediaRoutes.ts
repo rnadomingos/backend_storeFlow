@@ -1,3 +1,4 @@
+import { Router } from "express";
 import { CreateSocialMediaController } from "@modules/socialMedia/useCase/createSocialMedia/CreateSocialMediaController";
 import { DeleteSocialMediaByIdController } from "@modules/socialMedia/useCase/deleteSocialMediaById/DeleteSocialMediaByIdController";
 import { DisableEnableSocialMediaByIdController } from "@modules/socialMedia/useCase/disableEnableSocialMedia/DisableEnableSocialMediaByIdController";
@@ -5,7 +6,6 @@ import { FindAllSocialMediaController } from "@modules/socialMedia/useCase/findA
 import { FindSocialMediaByIdController } from "@modules/socialMedia/useCase/findSocialMediaById/FindSocialMediaByIdController";
 import { FindSocialMediaByNameController } from "@modules/socialMedia/useCase/findSocialMediaByName/FindSocialMediaByNameController";
 import { UpdateSocialMediaByIdController } from "@modules/socialMedia/useCase/updateSocialMediaById/UpdateSocialMediaByIdController";
-import { Router } from "express";
 import { isAuthenticated } from "../middlewares/isAuthenticated";
 
 const socialMediaRoutes = Router();
