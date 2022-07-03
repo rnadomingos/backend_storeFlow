@@ -7,7 +7,7 @@ import {
 
 
 
-export const storesDetailActions = (userId) => async (dispatch, getState) => {
+export const storesDetailAction = (userId) => async (dispatch, getState) => {
   try {
 
     dispatch({ type: USER_DETAIL_REQUEST })

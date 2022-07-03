@@ -40,7 +40,6 @@ function CreateSellerScreen({ history }) {
 
   const submitHandler = (e) => {
     e.preventDefault()
-    console.log(id_store);
     dispatch(sellerCreateAction({ name, user_dms, id_store }))
   }
 

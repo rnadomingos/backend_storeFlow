@@ -5,7 +5,7 @@ import {
   USER_UPDATE_SUCCESS
 } from "../../constants/accountConstants"
 
-export const userUpdateAction = (user) => async (dispatch, getState) => {
+export const userUpdateAction = (userData) => async (dispatch, getState) => {
   try {
 
     dispatch({ type: USER_UPDATE_REQUEST })
@@ -21,9 +21,10 @@ export const userUpdateAction = (user) => async (dispatch, getState) => {
       }
     }
 
+
     const { data } = await axios.put(
-      `/account/update/${user.id}`,
-      user,
+      `/account/update/${userData.id}`,
+      userData,
       config
     )
 

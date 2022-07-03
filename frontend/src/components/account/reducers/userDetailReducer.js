@@ -10,6 +10,7 @@ export const userDetailReducer = (state = { user: {} }, action) => {
   switch (action.type) {
     case USER_DETAIL_REQUEST:
       return {
+        ...state,
         loading: true
       }
 

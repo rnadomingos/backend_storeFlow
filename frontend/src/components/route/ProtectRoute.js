@@ -6,7 +6,6 @@ export default function ProtectRoute({ isAdmin, component: Component, ...restOfP
 
   const { userInfo, isAuthenticated } = useSelector(state => state.userLogin)
 
-
   return (
     <Fragment>
       <Route

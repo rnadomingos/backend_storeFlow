@@ -43,7 +43,6 @@ function UsersScreen() {
                     <th>NOME</th>
                     <th>EMAIL</th>
                     <th>ADMIN</th>
-                    <th>DATA CADASTRO</th>
                     <th>ATIVO</th>
                     <th></th>
                   </tr>
@@ -58,7 +57,6 @@ function UsersScreen() {
                       <td>{user.is_admin ? <b className="greenColor">Sim</b> :
                         <b className="redColor">Não</b>}
                       </td>
-                      <td>{user.create_at}</td>
                       <td>{user.is_active ? <b className="greenColor">Ativo</b> :
                         <b className="redColor">Desativado</b>
                       }</td>

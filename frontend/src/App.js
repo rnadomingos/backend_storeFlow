@@ -27,6 +27,7 @@ import { CreateSegmentScreen } from './components/segment/screens/admin/CreateSe
 import { ResetPasswordScreen } from './components/account/screens/ResetPasswordScreen';
 import { UsersScreen } from './components/account/screens/admin/UsersScreen';
 import { CreateUserScreen } from './components/account/screens/admin/CreateUserScreen';
+import { UpdateUserScreen } from './components/account/screens/admin/UpdateUserScreen';
 
 
 
@@ -45,6 +46,7 @@ function App() {
 
           <ProtectRoute path='/admin/users' isAdmin={true} component={UsersScreen} />
           <ProtectRoute path='/admin/user/new' isAdmin={true} component={CreateUserScreen} />
+          <ProtectRoute path='/admin/user/:id/edit' isAdmin={true} component={UpdateUserScreen} />
 
           <ProtectRoute path='/admin/stores' isAdmin={true} component={StoresScreen} />
           <ProtectRoute path='/admin/store/new' component={CreateStoreScreen} />

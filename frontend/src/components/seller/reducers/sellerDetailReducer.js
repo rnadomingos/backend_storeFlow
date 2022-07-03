@@ -9,7 +9,10 @@ import {
 export const sellerDetailReducer = (state = { seller: {} }, action) => {
   switch (action.type) {
     case SELLER_DETAIL_REQUEST:
-      return { loading: true }
+      return {
+        ...state,
+        loading: true
+      }
 
     case SELLER_DETAIL_SUCCESS:
       return {

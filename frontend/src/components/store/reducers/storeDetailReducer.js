@@ -9,6 +9,7 @@ export const storesDetailReducer = (state = { store: {} }, action) => {
   switch (action.type) {
     case STORE_DETAIL_REQUEST:
       return {
+        ...state,
         loading: true
       }
 

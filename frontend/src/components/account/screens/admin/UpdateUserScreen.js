@@ -1,46 +1,72 @@
 import { useEffect, useState } from "react"
-import { Button, Form } from "react-bootstrap"
 import { useDispatch, useSelector } from "react-redux"
-import { Link } from "react-router-dom"
+import { Link } from 'react-router-dom'
+import { Button, Form } from 'react-bootstrap'
 import { FormContainer } from "../../../layout/FormContainer"
-import { Loader } from "../../../layout/Loader"
-import { Message } from "../../../layout/Message"
-import { storesListActions } from "../../../store/actions/admin/storesListActions"
-import { userCreateAction } from "../../actions/admin/userCreateAction"
+import { Loader } from '../../../layout/Loader'
+import { Message } from '../../../layout/Message'
+import { userUpdateAction } from "../../actions/admin/userUpdateAction"
 import { cleanError } from "../../actions/cleanError"
-import { USER_CREATE_RESET } from "../../constants/accountConstants"
+import { userDetailAction } from "../../actions/userDetailAction"
+import { USER_DETAIL_RESET, USER_UPDATE_RESET } from "../../constants/accountConstants"
+import { storesListActions } from "../../../store/actions/admin/storesListActions"
 
-function CreateUserScreen({ history }) {
+function UpdateUserScreen({ history, match }) {
+
   const [user_dms, setUser_dms] = useState('')
   const [name, setName] = useState('')
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
+  const [is_active, setIsActive] = useState(true)
+  const [is_admin, setIsAdmin] = useState(false)
   const [id_store, setIdstore] = useState('')
 
-  const { error, loading, success } = useSelector(state => state.userCreateReducer)
+  const userId = match.params.id
+
+  const { error: errorDetail, user } = useSelector(state => state.userDetailReducer)
+
   const { stores } = useSelector(state => state.storesListReducer)
+
+  const { error, loading, success } = useSelector(state => state.userUpdateReducer)
 
   const dispatch = useDispatch()
 
   useEffect(() => {
-    dispatch(storesListActions())
 
+    if (!user || userId !== user.id) {
+      dispatch(userDetailAction(userId))
+      dispatch(storesListActions())
+
+    } else {
+      setName(user.name)
+      setEmail(user.email)
+      setUser_dms(user.user_dms)
+      setIsActive(user.is_active)
+      setIsAdmin(user.is_admin)
+    }
+
+
+    if (errorDetail) {
+      alert(`Problema ${errorDetail}`)
+      dispatch(cleanError())
+    }
 
     if (error) {
-      alert(`Problema ${error} ao gravar novo vendendor`)
+      alert(`Problema ${error} ao vendedor`)
       dispatch(cleanError())
     }
 
     if (success) {
-      dispatch({ type: USER_CREATE_RESET })
+      dispatch({ type: USER_DETAIL_RESET })
+      dispatch({ type: USER_UPDATE_RESET })
       history.push('/admin/users')
-    }
 
-  }, [dispatch, error, success, history])
+    }
+  }, [error, dispatch, success, history, user, userId, errorDetail])
 
   const submitHandler = (e) => {
     e.preventDefault()
-    dispatch(userCreateAction({ user_dms, name, email, password, id_store }))
+    dispatch(userUpdateAction({ id: user.id, user_dms, name, email, password, is_active, is_admin, id_store }))
   }
 
 
@@ -48,7 +74,7 @@ function CreateUserScreen({ history }) {
     <div>
       <FormContainer>
         <h1>Novo Vendedor</h1>
-        {error && <Message>Problema {error} ao gravar novo registro</Message>}
+        {error && <Message>Problema {error} ao atualizar registro</Message>}
         {loading ? <Loader />
           : (
             <Form onSubmit={submitHandler}>
@@ -76,7 +102,6 @@ function CreateUserScreen({ history }) {
                 <Form.Label>Senha</Form.Label>
                 <Form.Control
                   type='password'
-                  required
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                 >
@@ -92,6 +117,7 @@ function CreateUserScreen({ history }) {
                   onChange={(e) => setUser_dms(e.target.value)}
                 />
               </Form.Group>
+
               <Form.Group>
                 <Form.Label>Lojas</Form.Label>
                 <Form.Select
@@ -99,13 +125,35 @@ function CreateUserScreen({ history }) {
                   onChange={(e) => setIdstore(e.target.value)}
                 >
                   {stores.map(store => (
-                    <option
+                    <option key={store.id}
                       value={store.id}
                     >{store.name}</option>
                   ))}
 
                 </Form.Select>
               </Form.Group>
+
+              <Form.Group controlId='is_admin'>
+                <Form.Check
+                  type='checkbox'
+                  label='Admin'
+                  checked={is_admin}
+                  onChange={(e) => setIsAdmin(e.target.checked)}
+                >
+                </Form.Check>
+              </Form.Group>
+
+
+              <Form.Group controlId='is_active'>
+                <Form.Check
+                  type='checkbox'
+                  label='Ativo'
+                  checked={is_active}
+                  onChange={(e) => setIsActive(e.target.checked)}
+                >
+                </Form.Check>
+              </Form.Group>
+
 
               <Button
                 className='btn-space'
@@ -123,9 +171,13 @@ function CreateUserScreen({ history }) {
             </Form>
           )
         }
+
+
+
+
       </FormContainer >
     </div>
   )
 }
 
-export { CreateUserScreen }
+export { UpdateUserScreen }

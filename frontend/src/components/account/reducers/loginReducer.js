@@ -13,6 +13,7 @@ export const loginReducer = (state = { userInfo: {} }, action) => {
   switch (action.type) {
     case LOGIN_REQUEST:
       return {
+        ...state,
         loading: true,
         isAuthenticated: false
       }

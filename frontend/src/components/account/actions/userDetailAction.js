@@ -1,15 +1,10 @@
-import axios from 'axios'
-import {
-  SELLER_LIST_FAIL,
-  SELLER_LIST_REQUEST,
-  SELLER_LIST_SUCCESS
-} from '../constants/sellerConstants'
+import axios from "axios"
+import { USER_DETAIL_FAIL, USER_DETAIL_REQUEST, USER_DETAIL_SUCCESS } from "../constants/accountConstants"
 
-
-export const sellerListAction = () => async (dispatch, getState) => {
+export const userDetailAction = (userId) => async (dispatch, getState) => {
   try {
 
-    dispatch({ type: SELLER_LIST_REQUEST })
+    dispatch({ type: USER_DETAIL_REQUEST })
 
     const {
       userLogin: { userInfo },
@@ -23,18 +18,18 @@ export const sellerListAction = () => async (dispatch, getState) => {
     }
 
     const { data } = await axios.get(
-      `/seller/list`,
+      `/account/detail/${userId}`,
       config
     )
 
     dispatch({
-      type: SELLER_LIST_SUCCESS,
+      type: USER_DETAIL_SUCCESS,
       payload: data
     })
 
   } catch (error) {
     dispatch({
-      type: SELLER_LIST_FAIL,
+      type: USER_DETAIL_FAIL,
       payload: error.response.data
     })
   }
