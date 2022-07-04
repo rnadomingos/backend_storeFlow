@@ -30,6 +30,7 @@ import { userListReducer } from './components/account/reducers/admin/userListRed
 import { userCreateReducer } from './components/account/reducers/admin/userCreateReducer'
 import { userUpdateReducer } from './components/account/reducers/admin/userUpdateReducer'
 import { userDetailReducer } from './components/account/reducers/userDetailReducer'
+import { userUpdatePasswordReducer } from './components/account/reducers/userUpdatePasswordReducer'
 
 const reducer = combineReducers({
   //Account
@@ -39,6 +40,7 @@ const reducer = combineReducers({
   userCreateReducer: userCreateReducer,
   userDetailReducer: userDetailReducer,
   userUpdateReducer: userUpdateReducer,
+  userUpdatePasswordReducer: userUpdatePasswordReducer,
 
   //Stores
   storesListReducer: storesListReducer,

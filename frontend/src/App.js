@@ -28,6 +28,7 @@ import { ResetPasswordScreen } from './components/account/screens/ResetPasswordS
 import { UsersScreen } from './components/account/screens/admin/UsersScreen';
 import { CreateUserScreen } from './components/account/screens/admin/CreateUserScreen';
 import { UpdateUserScreen } from './components/account/screens/admin/UpdateUserScreen';
+import { UpdatePasswordScreen } from './components/account/screens/UpdatePasswordScreen';
 
 
 
@@ -43,6 +44,8 @@ function App() {
       <main className='mx-auto'>
         <Container>
           <ProtectRoute path='/home' component={Home} />
+
+          <ProtectRoute path='/profile/update-password' component={UpdatePasswordScreen} />
 
           <ProtectRoute path='/admin/users' isAdmin={true} component={UsersScreen} />
           <ProtectRoute path='/admin/user/new' isAdmin={true} component={CreateUserScreen} />

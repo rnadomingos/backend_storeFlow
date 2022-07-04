@@ -2,7 +2,6 @@ import { useEffect, useState } from "react"
 import { useDispatch, useSelector } from 'react-redux'
 import { Button, Col, Form, Row } from "react-bootstrap"
 import { Link, useLocation } from "react-router-dom"
-import { cleanError } from "../actions/cleanError"
 import { resetPasswordAction } from "../actions/resetPasswordAction"
 
 function ResetPasswordScreen({ history }) {
@@ -21,7 +20,6 @@ function ResetPasswordScreen({ history }) {
 
     if (error) {
       alert('Link para troca de senha invalido')
-      dispatch(cleanError());
     }
 
     if (success) {

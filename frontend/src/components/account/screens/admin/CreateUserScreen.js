@@ -7,7 +7,6 @@ import { Loader } from "../../../layout/Loader"
 import { Message } from "../../../layout/Message"
 import { storesListActions } from "../../../store/actions/admin/storesListActions"
 import { userCreateAction } from "../../actions/admin/userCreateAction"
-import { cleanError } from "../../actions/cleanError"
 import { USER_CREATE_RESET } from "../../constants/accountConstants"
 
 function CreateUserScreen({ history }) {
@@ -25,18 +24,12 @@ function CreateUserScreen({ history }) {
   useEffect(() => {
     dispatch(storesListActions())
 
-
-    if (error) {
-      alert(`Problema ${error} ao gravar novo vendendor`)
-      dispatch(cleanError())
-    }
-
     if (success) {
       dispatch({ type: USER_CREATE_RESET })
       history.push('/admin/users')
     }
 
-  }, [dispatch, error, success, history])
+  }, [dispatch, success, history])
 
   const submitHandler = (e) => {
     e.preventDefault()

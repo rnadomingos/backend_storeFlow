@@ -24,11 +24,7 @@ function LoginScreen({ location, history }) {
       history.push(redirect)
     }
 
-    if (error) {
-      dispatch(cleanError())
-    }
-
-  }, [dispatch, error, history, isAuthenticated, redirect])
+  }, [dispatch, history, isAuthenticated, redirect])
 
   const submitHandler = (e) => {
     e.preventDefault()

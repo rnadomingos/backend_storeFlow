@@ -4,7 +4,6 @@ import { useDispatch, useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
 import { Loader } from '../../layout/Loader'
 import { Message } from '../../layout/Message'
-import { cleanError } from '../actions/cleanError'
 import { forgotPasswordAction } from '../actions/forgotPasswordAction'
 import { FORGOT_PASSWORD_RESET } from '../constants/accountConstants'
 

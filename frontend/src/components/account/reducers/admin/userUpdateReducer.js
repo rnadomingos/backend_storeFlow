@@ -6,7 +6,7 @@ import {
 } from "../../constants/accountConstants"
 
 
-export const userUpdateReducer = (state = { user: {} }, action) => {
+export const userUpdateReducer = (state = {}, action) => {
   switch (action.type) {
     case USER_UPDATE_REQUEST:
       return { loading: true }
