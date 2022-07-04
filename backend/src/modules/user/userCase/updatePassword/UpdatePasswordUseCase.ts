@@ -12,14 +12,14 @@ export class UpdatePasswordUseCase {
     private userRepository: IUserRepository
   ) { }
 
-  async execute(id: string, password: string, newPassword: string): Promise<void> {
+  async execute(id: string, oldPassword: string, newPassword: string): Promise<void> {
     const user = await this.userRepository.findById(id);
 
     if (!user) {
       throw new ErrorHandler("User not found !");
     }
 
-    const passwordMatch = await compare(password, user.password);
+    const passwordMatch = await compare(oldPassword, user.password);
 
     if (!passwordMatch) {
       throw new ErrorHandler("Old password incorrect !");
