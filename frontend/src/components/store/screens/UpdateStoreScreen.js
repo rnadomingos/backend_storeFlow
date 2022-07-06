@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { Button, Form } from 'react-bootstrap'
+import { Button, Form, Col, Row, FloatingLabel, ListGroup, Badge, CloseButton } from 'react-bootstrap'
 import { useDispatch, useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
 import { FormContainer } from '../../layout/FormContainer'
@@ -9,6 +9,7 @@ import { storeUpdateAction } from '../actions/admin/storeUpdateAction'
 import { cleanErrors } from '../actions/cleanErrors'
 import { storesDetailActions } from '../actions/storeDetailActions'
 import { STORE_DETAIL_RESET, STORE_UPDATE_RESET } from '../constants/storeConstants'
+import '../../../css/formJoinSegment.css';
 
 function UpdateStoreScreen({ history, match }) {
 
@@ -111,8 +112,6 @@ function UpdateStoreScreen({ history, match }) {
                 >
                 </Form.Check>
               </Form.Group>
-
-
               <Button
                 className='btn-space'
                 variant="primary"
@@ -129,11 +128,67 @@ function UpdateStoreScreen({ history, match }) {
             </Form>
           )
         }
-
-
-
-
       </FormContainer >
+      <Row className="g-2">
+        <h3>Segmentos da Loja</h3>
+        <Col md>
+          <FloatingLabel controlId="floatingSelectGrid" label="Works with selects">
+            <Form.Select aria-label="Floating label select example">
+              <option>Open this select menu</option>
+              <option value="1">One</option>
+              <option value="2">Two</option>
+              <option value="3">Three</option>
+            </Form.Select>
+          </FloatingLabel>
+
+        </Col>
+        <Col md={1}>
+          <Button className='my-3' >
+            <i className='fas fa-arrow-right'></i>
+          </Button>
+        </Col>
+        <Col>
+          <ListGroup as="ol" numbered>
+            <ListGroup.Item
+              as="li"
+              className="d-flex justify-content-between align-items-start"
+            >
+              <div className="ms-2 me-auto">
+                <div className="fw-bold">Subheading</div>
+                Cras justo odio
+              </div>
+              <Button className='my-close'>
+                <i className='fa fa-trash'></i>
+              </Button>
+            </ListGroup.Item>
+            <ListGroup.Item
+              as="li"
+              className="d-flex justify-content-between align-items-start"
+            >
+              <div className="ms-2 me-auto">
+                <div className="fw-bold">Subheading</div>
+                Cras justo odio
+              </div>
+              <Badge bg="primary" pill>
+                14
+              </Badge>
+            </ListGroup.Item>
+            <ListGroup.Item
+              as="li"
+              className="d-flex justify-content-between align-items-start"
+            >
+              <div className="ms-2 me-auto">
+                <div className="fw-bold">Subheading</div>
+                Cras justo odio
+              </div>
+              <Badge bg="primary" pill>
+                14
+              </Badge>
+            </ListGroup.Item>
+          </ListGroup>
+        </Col>
+      </Row>
+
     </div>
   )
 }

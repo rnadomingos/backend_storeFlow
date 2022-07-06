@@ -56,7 +56,6 @@ function App() {
           <ProtectRoute isAdmin={true} path='/admin/segments' component={SegmentScreen} />
           <ProtectRoute isAdmin={true} path='/admin/segment/new' component={CreateSegmentScreen} />
           <ProtectRoute isAdmin={true} path='/admin/segment/:id/edit' component={UpdateSegmentScreen} />
-
         </main>
       </Container>
       <Footer />
