@@ -235,7 +235,7 @@ paths:
           success: true
         401:
           $ref: "#/components/responses/UnauthorizedError"                    
-  /store/new:
+  /stores/new:
     post:
       tags: 
       - "Store"
@@ -263,7 +263,7 @@ paths:
           success: true
         401:
           $ref: "#/components/responses/UnauthorizedError"
-  /store/list:
+  /stores:
     get:
       tags: 
       - "Store"
@@ -276,7 +276,7 @@ paths:
           success: true
         401:
           $ref: "#/components/responses/UnauthorizedError"
-  /store/list-sellers/{id}:
+  /stores/list-sellers/{id}:
     get:
       tags: 
       - "Store"
@@ -296,7 +296,7 @@ paths:
           description: "Success"
         401:
           $ref: "#/components/responses/UnauthorizedError"      
-  /store/update/{id}:
+  /stores/update/{id}:
     put:
       tags: 
       - "Store"
