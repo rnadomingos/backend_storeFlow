@@ -1,17 +1,15 @@
 import { Request, Response } from "express";
 import { container } from "tsyringe";
-import { JoinSegmentStoreUseCase } from "./JoinSegmentStoreUseCase";
+import { JoinStoreSegmentUseCase } from "./JoinStoreSegmentUseCase";
 
-
-
-export class JoinSegmentStoreController {
+export class JoinStoreSegmentController {
     async handle(req: Request, res: Response): Promise<Response> {
-        const { segmentId, storeId } = req.body;
+        const { storeId, segmentId } = req.body;
 
-        const joinSegmentStoreUseCase = container.resolve(JoinSegmentStoreUseCase)
+        const joinSegmentStoreUseCase = container.resolve(JoinStoreSegmentUseCase)
         await joinSegmentStoreUseCase.execute({
-            segmentId,
-            storeId
+            storeId,
+            segmentId
         })
         return res.status(201).json({
             message: "success"

@@ -3,7 +3,6 @@ import { getRepository, Repository } from "typeorm";
 import { ISegmentRepository } from "../ISegmentRepository";
 import { Segment } from "@modules/segment/entities/Segment";
 import { Store } from "@modules/store/entities/Store";
-import { IJoinSegmentStoreDTO } from "@modules/segment/dtos/IJoinSegmentStoreDTO";
 import { IUpdateSegmentByIdDTO } from "@modules/segment/dtos/IUpdateSegmentByIdDTO";
 
 
@@ -41,26 +40,6 @@ export class SegmentRepositoryPostgres implements ISegmentRepository {
 
     async list(): Promise<Segment[]> {
         return this.repository.find()
-    }
-
-    async joinSegmentStore({
-        segmentId,
-        storeId
-    }: IJoinSegmentStoreDTO): Promise<void> {
-
-        await this.repository.createQueryBuilder()
-            .relation(Segment, "store")
-            .of(segmentId)
-            .add(storeId)
-    }
-
-    async getSegmentByStoreId(id: string): Promise<Store[]> {
-        return await this.storeRepository.find({
-            where: {
-                id
-            },
-            relations: ["segments"]
-        })
     }
 
     async updateSegmentById({

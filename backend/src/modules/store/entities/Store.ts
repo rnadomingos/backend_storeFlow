@@ -32,7 +32,7 @@ export class Store {
 
   @ManyToMany(() => Segment, segment => segment.store)
   @JoinTable()
-  segment: Segment[];
+  segments: Segment[];
 
   constructor() {
     if (!this.id) {

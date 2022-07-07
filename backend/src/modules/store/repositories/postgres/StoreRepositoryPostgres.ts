@@ -3,6 +3,8 @@ import { IStoreRepository } from "../IStoreRepository";
 import { ICreateStoreDTO } from "../../dtos/ICreateStoreDTO";
 import { Store } from "@modules/store/entities/Store";
 import { IUpdateStoreDto } from "@modules/store/dtos/IUpdateStoreDTO";
+import { IJoinStoreSegmentDTO } from "@modules/store/dtos/IJoinStoreSegmentDTO";
+import { IUnjoinStoreSegmentDTO } from "@modules/store/dtos/IUnjoinStoreSegmentDTO";
 
 
 export class StoreRepositoryPostgres implements IStoreRepository {
@@ -59,6 +61,38 @@ export class StoreRepositoryPostgres implements IStoreRepository {
       is_active
     })
     await this.repository.save(updateStore)
+  }
+
+  async joinStoreSegment({
+    storeId,
+    segmentId
+
+  }: IJoinStoreSegmentDTO): Promise<void> {
+
+    await this.repository.createQueryBuilder()
+      .relation(Store, "segments")
+      .of(storeId)
+      .add(segmentId)
+  }
+
+  async getSegmentByStoreId(id: string): Promise<Store[]> {
+    return await this.repository.find({
+      where: {
+        id
+      },
+      relations: ["segments"]
+    })
+  }
+
+  async unjoinStoreSegment({
+    storeId,
+    segmentId
+
+  }: IUnjoinStoreSegmentDTO): Promise<void> {
+
+    //Implementar Corretamente a deleção da tabela de ManyToMany
+    await this.repository.delete([storeId, segmentId])
+
   }
 
 
