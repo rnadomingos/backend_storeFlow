@@ -5,7 +5,8 @@ import {
   FORGOT_PASSWORD_RESET,
   NEW_PASSWORD_REQUEST,
   NEW_PASSWORD_SUCCESS,
-  NEW_PASSWORD_FAIL
+  NEW_PASSWORD_FAIL,
+  CLEAN_ERRORS
 
 } from "../constants/accountConstants";
 
@@ -34,7 +35,13 @@ export const forgotPasswordReducer = (state = {}, action) => {
     case NEW_PASSWORD_FAIL:
       return {
         loading: false,
-        error: action.payload.error
+        error: action.payload.message
+      }
+
+    case CLEAN_ERRORS:
+      return {
+        ...state,
+        error: null
       }
 
     case FORGOT_PASSWORD_RESET:

@@ -6,10 +6,10 @@ import { FormContainer } from "../../../layout/FormContainer"
 import { Loader } from '../../../layout/Loader'
 import { Message } from '../../../layout/Message'
 import { userUpdateAction } from "../../actions/admin/userUpdateAction"
-import { cleanError } from "../../actions/cleanError"
 import { userDetailAction } from "../../actions/userDetailAction"
-import { USER_DETAIL_RESET, USER_UPDATE_RESET } from "../../constants/accountConstants"
+import { CLEAN_ERRORS, USER_DETAIL_RESET, USER_UPDATE_RESET } from "../../constants/accountConstants"
 import { storesListActions } from "../../../store/actions/admin/storesListActions"
+import { useAlert } from "react-alert"
 
 function UpdateUserScreen({ history, match }) {
 
@@ -29,6 +29,7 @@ function UpdateUserScreen({ history, match }) {
 
   const { error, loading, success } = useSelector(state => state.userUpdateReducer)
 
+  const alert = useAlert()
   const dispatch = useDispatch()
 
   useEffect(() => {
@@ -47,13 +48,13 @@ function UpdateUserScreen({ history, match }) {
 
 
     if (errorDetail) {
-      alert(`Problema ${errorDetail}`)
-      dispatch(cleanError())
+      alert.error(`Error: ${errorDetail}`)
+      dispatch({ type: CLEAN_ERRORS });
     }
 
     if (error) {
-      alert(`Problema ${error} ao vendedor`)
-      dispatch(cleanError())
+      alert.error(`Error: ${error}`)
+      dispatch({ type: CLEAN_ERRORS });
     }
 
     if (success) {
@@ -62,7 +63,7 @@ function UpdateUserScreen({ history, match }) {
       history.push('/admin/users')
 
     }
-  }, [error, dispatch, success, history, user, userId, errorDetail])
+  }, [error, dispatch, success, history, user, userId, errorDetail, alert])
 
   const submitHandler = (e) => {
     e.preventDefault()
@@ -74,7 +75,6 @@ function UpdateUserScreen({ history, match }) {
     <div>
       <FormContainer>
         <h1>Novo Vendedor</h1>
-        {error && <Message>Problema {error} ao atualizar registro</Message>}
         {loading ? <Loader />
           : (
             <Form onSubmit={submitHandler}>

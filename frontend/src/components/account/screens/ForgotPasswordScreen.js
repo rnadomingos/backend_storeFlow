@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react'
+import { useAlert } from 'react-alert'
 import { Button, Col, Form, Row } from 'react-bootstrap'
 import { useDispatch, useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
 import { Loader } from '../../layout/Loader'
-import { Message } from '../../layout/Message'
 import { forgotPasswordAction } from '../actions/forgotPasswordAction'
-import { FORGOT_PASSWORD_RESET } from '../constants/accountConstants'
+import { CLEAN_ERRORS, FORGOT_PASSWORD_RESET } from '../constants/accountConstants'
 
 function ForgotPasswordScreen({ history }) {
 
@@ -13,18 +13,21 @@ function ForgotPasswordScreen({ history }) {
 
   const { error, loading, success } = useSelector(state => state.forgotPassword)
 
+  const alert = useAlert()
   const dispatch = useDispatch()
 
   useEffect(() => {
 
     if (error) {
-      alert(`Problema ${error}!`)
+      alert.error('E-mail não cadastrado!');
+      dispatch({ type: CLEAN_ERRORS });
     }
+
     if (success) {
       history.push('/')
       dispatch({ type: FORGOT_PASSWORD_RESET })
     }
-  }, [history, error, success])
+  }, [history, error, success, alert, dispatch])
 
   const submitHandler = (e) => {
     e.preventDefault()
@@ -35,7 +38,6 @@ function ForgotPasswordScreen({ history }) {
     <div className="container login-container">
       <div className="row">
         <div className="col-md-6 login-form">
-          {error && <Message>{error}</Message>}
           <h4>Digite o seu e-mail</h4>
           {loading ? <Loader />
             : (<Form onSubmit={submitHandler}>

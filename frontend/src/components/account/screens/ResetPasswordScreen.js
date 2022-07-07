@@ -3,6 +3,8 @@ import { useDispatch, useSelector } from 'react-redux'
 import { Button, Col, Form, Row } from "react-bootstrap"
 import { Link, useLocation } from "react-router-dom"
 import { resetPasswordAction } from "../actions/resetPasswordAction"
+import { useAlert } from "react-alert"
+import { CLEAN_ERRORS } from "../constants/accountConstants"
 
 function ResetPasswordScreen({ history }) {
 
@@ -14,19 +16,22 @@ function ResetPasswordScreen({ history }) {
 
   const { error, success } = useSelector(state => state.forgotPassword)
 
+  const alert = useAlert()
   const dispatch = useDispatch()
 
   useEffect(() => {
 
     if (error) {
-      alert('Link para troca de senha invalido')
+      alert.error('Link para troca de senha invalido')
+      dispatch({ type: CLEAN_ERRORS });
     }
 
     if (success) {
+      alert.success('Senha alterada com sucesso')
       history.push('/')
     }
 
-  }, [dispatch, error, success, history])
+  }, [dispatch, error, success, history, alert])
 
   const submitHandler = (e) => {
     e.preventDefault()

@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react"
+import { useAlert } from "react-alert"
 import { Button, Form } from "react-bootstrap"
 import { useDispatch, useSelector } from "react-redux"
 import { Link } from "react-router-dom"
@@ -7,7 +8,7 @@ import { Loader } from "../../../layout/Loader"
 import { Message } from "../../../layout/Message"
 import { storesListActions } from "../../../store/actions/admin/storesListActions"
 import { userCreateAction } from "../../actions/admin/userCreateAction"
-import { USER_CREATE_RESET } from "../../constants/accountConstants"
+import { CLEAN_ERRORS, USER_CREATE_RESET } from "../../constants/accountConstants"
 
 function CreateUserScreen({ history }) {
   const [user_dms, setUser_dms] = useState('')
@@ -19,6 +20,7 @@ function CreateUserScreen({ history }) {
   const { error, loading, success } = useSelector(state => state.userCreateReducer)
   const { stores } = useSelector(state => state.storesListReducer)
 
+  const alert = useAlert()
   const dispatch = useDispatch()
 
   useEffect(() => {
@@ -29,7 +31,12 @@ function CreateUserScreen({ history }) {
       history.push('/admin/users')
     }
 
-  }, [dispatch, success, history])
+    if (error) {
+      alert.error(`Error: ${error}`)
+      dispatch({ type: CLEAN_ERRORS });
+    }
+
+  }, [dispatch, success, history, error, alert])
 
   const submitHandler = (e) => {
     e.preventDefault()
@@ -41,7 +48,6 @@ function CreateUserScreen({ history }) {
     <div>
       <FormContainer>
         <h1>Novo Vendedor</h1>
-        {error && <Message>Problema {error} ao gravar novo registro</Message>}
         {loading ? <Loader />
           : (
             <Form onSubmit={submitHandler}>

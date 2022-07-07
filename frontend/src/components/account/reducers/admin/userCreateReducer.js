@@ -1,4 +1,5 @@
 import {
+  CLEAN_ERRORS,
   USER_CREATE_FAIL,
   USER_CREATE_REQUEST,
   USER_CREATE_RESET,
@@ -23,8 +24,15 @@ export const userCreateReducer = (state = {}, action) => {
     case USER_CREATE_FAIL:
       return {
         loading: false,
-        error: action.payload.error
+        error: action.payload.message
       }
+
+    case CLEAN_ERRORS:
+      return {
+        ...state,
+        error: null
+      }
+
 
     case USER_CREATE_RESET:
       return {}

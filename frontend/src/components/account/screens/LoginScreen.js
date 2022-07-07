@@ -2,11 +2,10 @@ import React, { useEffect, useState } from 'react'
 import { Button, Col, Form, Row } from 'react-bootstrap'
 import { useDispatch, useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
-import { Message } from '../../layout/Message'
 import { loginAction } from '../actions/loginAction'
 import { Loader } from '../../layout/Loader'
-import { cleanError } from '../actions/cleanError'
 import { useAlert } from 'react-alert'
+import { CLEAN_ERRORS } from '../constants/accountConstants'
 
 function LoginScreen({ location, history }) {
 
@@ -26,8 +25,8 @@ function LoginScreen({ location, history }) {
     }
 
     if (error) {
-      alert.error(error);
-      dispatch(cleanError());
+      alert.error('Usuário ou senha incorreta!');
+      dispatch({ type: CLEAN_ERRORS });
     }
 
   }, [alert, dispatch, error, history, isAuthenticated, redirect])

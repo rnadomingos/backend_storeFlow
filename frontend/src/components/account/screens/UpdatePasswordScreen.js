@@ -3,10 +3,10 @@ import { useDispatch, useSelector } from 'react-redux'
 import { Button, Col, Form, Row } from "react-bootstrap"
 import { Link } from "react-router-dom"
 import { userUpdatePasswordAction } from "../actions/userUpdatePasswordAction"
-import { USER_UPDATE_PASSWORD_RESET } from "../constants/accountConstants"
+import { CLEAN_ERRORS, USER_UPDATE_PASSWORD_RESET } from "../constants/accountConstants"
 import { FormContainer } from "../../layout/FormContainer"
 import { Loader } from "../../layout/Loader"
-import { Message } from "../../layout/Message"
+import { useAlert } from "react-alert"
 
 function UpdatePasswordScreen({ history }) {
 
@@ -16,17 +16,23 @@ function UpdatePasswordScreen({ history }) {
 
   const { error, loading, success } = useSelector(state => state.userUpdatePasswordReducer)
 
+  const alert = useAlert()
   const dispatch = useDispatch()
 
   useEffect(() => {
 
     if (success) {
-      alert('Senha alterada com sucesso')
+      alert.success('Senha alterada com sucesso')
       dispatch({ type: USER_UPDATE_PASSWORD_RESET })
       history.push('/home')
     }
 
-  }, [dispatch, success, history])
+    if (error) {
+      alert.error(`Error: ${error}!`);
+      dispatch({ type: CLEAN_ERRORS });
+    }
+
+  }, [dispatch, success, history, error, alert])
 
   const submitHandler = (e) => {
     e.preventDefault()
@@ -41,7 +47,6 @@ function UpdatePasswordScreen({ history }) {
     <div>
       <FormContainer>
         <h1>Editar Senha</h1>
-        {error && <Message variant='warning'>Senha Incorreta</Message>}
         {loading ? <Loader />
           : (
             <Form onSubmit={submitHandler}>

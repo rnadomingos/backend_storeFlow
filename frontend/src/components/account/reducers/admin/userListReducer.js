@@ -1,4 +1,5 @@
 import {
+  CLEAN_ERRORS,
   USER_LIST_FAIL,
   USER_LIST_REQUEST,
   USER_LIST_SUCCESS
@@ -19,8 +20,15 @@ export const userListReducer = (state = { users: [] }, action) => {
     case USER_LIST_FAIL:
       return {
         loading: false,
-        error: action.payload.error
+        error: action.payload.message
       }
+
+    case CLEAN_ERRORS:
+      return {
+        ...state,
+        error: null
+      }
+
 
     default:
       return state

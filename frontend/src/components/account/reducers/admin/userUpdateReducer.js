@@ -1,4 +1,5 @@
 import {
+  CLEAN_ERRORS,
   USER_UPDATE_FAIL,
   USER_UPDATE_REQUEST,
   USER_UPDATE_RESET,
@@ -20,8 +21,15 @@ export const userUpdateReducer = (state = {}, action) => {
     case USER_UPDATE_FAIL:
       return {
         loading: false,
-        error: action.payload.error
+        error: action.payload.message
       }
+
+    case CLEAN_ERRORS:
+      return {
+        ...state,
+        error: null
+      }
+
 
     case USER_UPDATE_RESET:
       return {}
