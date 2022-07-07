@@ -6,6 +6,7 @@ import { Message } from '../../layout/Message'
 import { loginAction } from '../actions/loginAction'
 import { Loader } from '../../layout/Loader'
 import { cleanError } from '../actions/cleanError'
+import { useAlert } from 'react-alert'
 
 function LoginScreen({ location, history }) {
 
@@ -14,7 +15,7 @@ function LoginScreen({ location, history }) {
 
   const { error, loading, isAuthenticated } = useSelector(state => state.userLogin)
 
-
+  const alert = useAlert()
   const dispatch = useDispatch()
 
   const redirect = location.search ? location.search.split('=')[1] : '/home'
@@ -24,7 +25,12 @@ function LoginScreen({ location, history }) {
       history.push(redirect)
     }
 
-  }, [dispatch, history, isAuthenticated, redirect])
+    if (error) {
+      alert.error(error);
+      dispatch(cleanError());
+    }
+
+  }, [alert, dispatch, error, history, isAuthenticated, redirect])
 
   const submitHandler = (e) => {
     e.preventDefault()
@@ -37,44 +43,46 @@ function LoginScreen({ location, history }) {
       <div className="row">
         <div className="col-md-6 login-form">
           <h3>Entre com seu Login</h3>
-          {loading && <Loader />}
-          {error && <Message variant='warning'>{error}</Message>}
-          <Form onSubmit={submitHandler}>
-            <Form.Group controlId='user_dms' className="mb-2">
-              <Form.Label>Usuário do DMS</Form.Label>
-              <Form.Control
-                type='text'
-                required
-                value={user_dms}
-                onChange={(e) => setUser_dms(e.target.value)}
-              >
+          {loading ? <Loader /> : (
+            <Form onSubmit={submitHandler}>
+              <Form.Group controlId='user_dms' className="mb-2">
+                <Form.Label>Usuário do DMS</Form.Label>
+                <Form.Control
+                  type='text'
+                  required
+                  value={user_dms}
+                  onChange={(e) => setUser_dms(e.target.value)}
+                >
 
-              </Form.Control>
-            </Form.Group>
-            <Form.Group controlId='password' className="mb-2">
-              <Form.Label>Senha</Form.Label>
-              <Form.Control
-                type='password'
-                required
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
+                </Form.Control>
+              </Form.Group>
+              <Form.Group controlId='password' className="mb-2">
+                <Form.Label>Senha</Form.Label>
+                <Form.Control
+                  type='password'
+                  required
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
 
-              >
+                >
 
-              </Form.Control>
-            </Form.Group>
-            <Button type='submit' variant='primary'>
-              Logar
-            </Button>
-            <Row className='py-1'>
-              <Col>
-                <Link
-                  to='/password/forgot'>
-                  Esqueceu a senha?
-                </Link>
-              </Col>
-            </Row>
-          </Form>
+                </Form.Control>
+              </Form.Group>
+              <Button type='submit' variant='primary'>
+                Logar
+              </Button>
+              <Row className='py-1'>
+                <Col>
+                  <Link
+                    to='/password/forgot'>
+                    Esqueceu a senha?
+                  </Link>
+                </Col>
+              </Row>
+            </Form>
+
+          )}
+
 
         </div>
       </div >

@@ -20,15 +20,18 @@ function CreateStoreScreen({ history }) {
 
 
   useEffect(() => {
-    if (error) {
-      alert(`Problema ${error} ao gravar nova loja`)
-      dispatch(cleanErrors())
-    }
 
     if (success) {
       history.push('/admin/stores')
       dispatch({ type: STORE_CREATE_RESET })
     }
+
+
+    if (error) {
+      alert(error)
+      dispatch({ type: STORE_CREATE_RESET })
+    }
+
   }, [error, dispatch, success, history])
 
   const submitHandler = (e) => {
@@ -40,7 +43,7 @@ function CreateStoreScreen({ history }) {
     <div>
       <FormContainer>
         <h1>Nova Loja</h1>
-        {error && <Message>Problema {error} ao gravar nova loja</Message>}
+        {error && <Message variant='warning'>Error {error}</Message>}
         {loading ? <Loader />
           : (
             <Form onSubmit={submitHandler}>

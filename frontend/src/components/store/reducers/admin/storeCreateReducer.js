@@ -3,7 +3,8 @@ import {
   STORE_CREATE_REQUEST,
   STORE_CREATE_SUCCESS,
   STORE_CREATE_FAIL,
-  STORE_CREATE_RESET
+  STORE_CREATE_RESET,
+  CLEAN_ERRORS
 } from '../../constants/storeConstants'
 
 export const storeCreateReducer = (state = {}, action) => {
@@ -21,8 +22,9 @@ export const storeCreateReducer = (state = {}, action) => {
     case STORE_CREATE_FAIL:
       return {
         loading: false,
-        error: action.payload.error
+        error: action.payload.message
       }
+
     case STORE_CREATE_RESET:
       return {}
 
