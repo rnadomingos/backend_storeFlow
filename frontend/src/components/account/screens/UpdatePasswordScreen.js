@@ -39,7 +39,7 @@ function UpdatePasswordScreen({ history }) {
     if (newPassword === confirmPassword) {
       dispatch(userUpdatePasswordAction(oldPassword, newPassword))
     } else {
-      alert('Nova senha e confirmar senha não confere')
+      alert.error('Nova senha e confirmar senha não confere')
     }
   }
 

@@ -24,6 +24,7 @@ function ForgotPasswordScreen({ history }) {
     }
 
     if (success) {
+      alert.success('E-mail enviado!');
       history.push('/')
       dispatch({ type: FORGOT_PASSWORD_RESET })
     }

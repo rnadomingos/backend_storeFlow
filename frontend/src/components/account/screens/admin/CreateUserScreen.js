@@ -27,6 +27,7 @@ function CreateUserScreen({ history }) {
     dispatch(storesListActions())
 
     if (success) {
+      alert.success('Usuário cadastrado !')
       dispatch({ type: USER_CREATE_RESET })
       history.push('/admin/users')
     }

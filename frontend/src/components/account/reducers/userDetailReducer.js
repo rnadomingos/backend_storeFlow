@@ -26,7 +26,7 @@ export const userDetailReducer = (state = { user: {} }, action) => {
     case USER_DETAIL_FAIL:
       return {
         loading: false,
-        error: action.payload.error
+        error: action.payload.message
       }
 
     default:
