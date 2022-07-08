@@ -4,6 +4,7 @@ import { inject, injectable } from "tsyringe";
 import { hash } from "bcrypt";
 import { generateToken, optionsToCookie } from "@shared/container/providers/utils/helpersToken";
 import { ErrorHandler } from "@shared/errors/ErrorHandler";
+import { IEmailValidator } from "@shared/container/providers/validators/IEmailValidator";
 
 
 interface IResponse {
@@ -25,7 +26,9 @@ export class CreateUserUseCase {
 
   constructor(
     @inject("UserRepository")
-    private userRepository: IUserRepository
+    private userRepository: IUserRepository,
+    @inject("EmailValidator")
+    private emailValidator: IEmailValidator
   ) { }
 
   async execute({
@@ -40,6 +43,12 @@ export class CreateUserUseCase {
 
     if (userExists) {
       throw new ErrorHandler("User Already Exists !")
+    }
+
+    const emailIsValid = this.emailValidator.isValid(email)
+
+    if (!emailIsValid) {
+      throw new ErrorHandler("Invalid Email !")
     }
 
     const passwordHash = await hash(password, 10);
