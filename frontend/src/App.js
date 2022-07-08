@@ -29,8 +29,7 @@ import { UsersScreen } from './components/account/screens/admin/UsersScreen';
 import { CreateUserScreen } from './components/account/screens/admin/CreateUserScreen';
 import { UpdateUserScreen } from './components/account/screens/admin/UpdateUserScreen';
 import { UpdatePasswordScreen } from './components/account/screens/UpdatePasswordScreen';
-
-
+import { UpdateSegmentScreen } from './components/segment/screens/admin/UpdateSegmentScreen'
 
 function App() {
   const { userInfo } = useSelector(state => state.userLogin)
@@ -72,7 +71,8 @@ function App() {
           <ProtectRoute path='/admin/social-media/:id/edit' component={UpdateSocialMediaScreen} />
 
           <ProtectRoute path='/admin/segments' isAdmin={true} component={SegmentScreen} />
-          <ProtectRoute path='/admin/segment/new' isAdmin={true} component={CreateSegmentScreen} />
+          <ProtectRoute isAdmin={true} path='/admin/segment/new' component={CreateSegmentScreen} />
+          <ProtectRoute isAdmin={true} path='/admin/segment/:id/edit' component={UpdateSegmentScreen} />
         </Container>
       </main>
 

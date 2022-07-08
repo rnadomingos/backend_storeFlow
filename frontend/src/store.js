@@ -31,6 +31,8 @@ import { userCreateReducer } from './components/account/reducers/admin/userCreat
 import { userUpdateReducer } from './components/account/reducers/admin/userUpdateReducer'
 import { userDetailReducer } from './components/account/reducers/userDetailReducer'
 import { userUpdatePasswordReducer } from './components/account/reducers/userUpdatePasswordReducer'
+import { segmentDetailReducer } from './components/segment/reducers/admin/segmentDetailReducer'
+import { segmentUpdateReducer } from './components/segment/reducers/admin/segmentUpdateReducer'
 
 const reducer = combineReducers({
   //Account
@@ -75,6 +77,8 @@ const reducer = combineReducers({
   //Segment
   segmentListReducer: segmentListReducer,
   segmentCreateReducer: segmentCreateReducer,
+  segmentDetailReducer: segmentDetailReducer,
+  segmentUpdateReducer: segmentUpdateReducer
 
 })
 

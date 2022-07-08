@@ -64,7 +64,7 @@ function SegmentScreen() {
                       }</td>
 
                       <td>
-                        <Link to={`/admin/seller/${segment.id}/edit`}>
+                        <Link to={`/admin/segment/${segment.id}/edit`}>
                           <Button variant='light' className='btn-sm'>
                             <i className='fas fa-edit'></i>
                           </Button>
