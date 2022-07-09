@@ -31,34 +31,34 @@ export class CreateUserUseCase {
     private emailValidator: IEmailValidator
   ) { }
 
-  async execute({
-    name,
-    email,
-    password,
-    user_dms,
-    id_store
-  }: ICreateUserDTO): Promise<IResponse> {
+  async execute(userData: ICreateUserDTO): Promise<IResponse> {
 
-    const userExists = await this.userRepository.findByUserDms(user_dms);
+    for (const field of ["name", "email", "password", "user_dms", "id_store"]) {
+      if (!userData[field]) {
+        throw new ErrorHandler(`Params ${field} Missing`)
+      }
+    }
+
+    const userExists = await this.userRepository.findByUserDms(userData.user_dms);
 
     if (userExists) {
       throw new ErrorHandler("User Already Exists !")
     }
 
-    const emailIsValid = this.emailValidator.isValid(email)
+    const emailIsValid = this.emailValidator.isValid(userData.email)
 
     if (!emailIsValid) {
       throw new ErrorHandler("Invalid Email !")
     }
 
-    const passwordHash = await hash(password, 10);
+    const passwordHash = await hash(userData.password, 10);
 
     const user = await this.userRepository.create({
-      name,
-      email,
+      name: userData.name,
+      email: userData.email,
       password: passwordHash,
-      user_dms,
-      id_store
+      user_dms: userData.user_dms,
+      id_store: userData.id_store
     });
 
     const token = generateToken(user);
