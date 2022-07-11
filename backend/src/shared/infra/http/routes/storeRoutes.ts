@@ -17,7 +17,7 @@ const getStoreByCNPJController = new GetStoreByCNPJController();
 
 storeRoutes.post("/new", isAuthenticated, createStoreController.handle);
 storeRoutes.get("/", isAuthenticated, listStoreController.handle);
-storeRoutes.get("/list-sellers/:id", isAuthenticated, listSellersStoreController.handle);
+storeRoutes.get("/list-sellers/:storeId", isAuthenticated, listSellersStoreController.handle);
 storeRoutes.put("/update/:id", isAuthenticated, updateStoreController.handle);
 storeRoutes.get("/:cnpj", isAuthenticated, getStoreByCNPJController.handle);
 

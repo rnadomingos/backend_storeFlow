@@ -7,11 +7,11 @@ import { ListSellersStoreUseCase } from "./ListSellersStoreUseCase";
 export class ListSellersStoreController {
 
   async handle(req: Request, res: Response): Promise<Response> {
-    const { id } = req.params
+    const { storeId } = req.params
 
     const listSellerUseCase = container.resolve(ListSellersStoreUseCase);
 
-    const result = await listSellerUseCase.execute(id);
+    const result = await listSellerUseCase.execute(storeId);
     return res.json(result);
   }
 }

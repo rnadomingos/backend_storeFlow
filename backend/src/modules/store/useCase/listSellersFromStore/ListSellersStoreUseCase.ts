@@ -1,5 +1,6 @@
 import { Store } from "@modules/store/entities/Store";
 import { IStoreRepository } from "@modules/store/repositories/IStoreRepository";
+import { ErrorHandler } from "@shared/errors/ErrorHandler";
 import { inject, injectable } from "tsyringe";
 
 
@@ -15,8 +16,9 @@ export class ListSellersStoreUseCase {
     const listSellers = await this.storeRepository.listSellers(id);
 
     if (listSellers.length === 0) {
-      throw new Error('Store not found this id')
+      throw new ErrorHandler('Store not found !')
     }
+
     return listSellers;
   }
 
