@@ -6,6 +6,7 @@ interface IUserResponseDTO {
   create_at: Date,
   is_active: boolean,
   is_admin: boolean,
+  id_store: string;
 
 }
 
