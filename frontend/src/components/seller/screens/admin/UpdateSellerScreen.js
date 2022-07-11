@@ -61,7 +61,6 @@ function UpdateSellerScreen({ history, match }) {
 
   const submitHandler = (e) => {
     e.preventDefault()
-    console.log(id_store);
     dispatch(sellerUpdateAction({ id: seller.id, name, user_dms, is_active, id_store }))
   }
 

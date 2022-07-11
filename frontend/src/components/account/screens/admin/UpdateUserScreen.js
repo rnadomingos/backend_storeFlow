@@ -4,7 +4,6 @@ import { Link } from 'react-router-dom'
 import { Button, Form } from 'react-bootstrap'
 import { FormContainer } from "../../../layout/FormContainer"
 import { Loader } from '../../../layout/Loader'
-import { Message } from '../../../layout/Message'
 import { userUpdateAction } from "../../actions/admin/userUpdateAction"
 import { userDetailAction } from "../../actions/userDetailAction"
 import { CLEAN_ERRORS, USER_DETAIL_RESET, USER_UPDATE_RESET } from "../../constants/accountConstants"
@@ -19,7 +18,7 @@ function UpdateUserScreen({ history, match }) {
   const [password, setPassword] = useState('')
   const [is_active, setIsActive] = useState(true)
   const [is_admin, setIsAdmin] = useState(false)
-  const [id_store, setIdstore] = useState('')
+  const [id_store, setIdStore] = useState('')
 
   const userId = match.params.id
 
@@ -44,6 +43,7 @@ function UpdateUserScreen({ history, match }) {
       setUser_dms(user.user_dms)
       setIsActive(user.is_active)
       setIsAdmin(user.is_admin)
+      setIdStore(user.id_store)
     }
 
 
@@ -69,7 +69,6 @@ function UpdateUserScreen({ history, match }) {
     e.preventDefault()
     dispatch(userUpdateAction({ id: user.id, user_dms, name, email, password, is_active, is_admin, id_store }))
   }
-
 
   return (
     <div>
@@ -121,8 +120,9 @@ function UpdateUserScreen({ history, match }) {
               <Form.Group>
                 <Form.Label>Lojas</Form.Label>
                 <Form.Select
+
                   value={id_store}
-                  onChange={(e) => setIdstore(e.target.value)}
+                  onChange={(e) => setIdStore(e.target.value)}
                 >
                   {stores.map(store => (
                     <option key={store.id}

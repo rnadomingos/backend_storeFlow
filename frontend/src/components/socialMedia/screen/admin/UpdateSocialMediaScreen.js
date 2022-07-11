@@ -23,8 +23,6 @@ function UpdateSocialMediaScreen({ history, match }) {
   const { error: errorDetail, socialMedia } = useSelector(state => state.socialMediaDetailReducer)
   const { prospection } = useSelector(state => state.prospectionListReducer)
 
-  console.log('prosp: ', prospection);
-
   const { error, loading, success } = useSelector(state => state.socialMediaUpdateReducer)
 
   const dispatch = useDispatch()

@@ -30,6 +30,8 @@ import { CreateUserScreen } from './components/account/screens/admin/CreateUserS
 import { UpdateUserScreen } from './components/account/screens/admin/UpdateUserScreen';
 import { UpdatePasswordScreen } from './components/account/screens/UpdatePasswordScreen';
 import { UpdateSegmentScreen } from './components/segment/screens/admin/UpdateSegmentScreen'
+import { ProfileDetailScreen } from './components/account/screens/ProfileDetailScreen';
+
 
 function App() {
   const { userInfo } = useSelector(state => state.userLogin)
@@ -44,7 +46,8 @@ function App() {
         <Container>
           <ProtectRoute path='/home' component={Home} />
 
-          <ProtectRoute path='/profile/update-password' component={UpdatePasswordScreen} />
+          <ProtectRoute path='/profile' component={ProfileDetailScreen} exact />
+          <ProtectRoute path='/profile/update-password' component={UpdatePasswordScreen} exact />
 
           <ProtectRoute path='/admin/users' isAdmin={true} component={UsersScreen} />
           <ProtectRoute path='/admin/user/new' isAdmin={true} component={CreateUserScreen} />
