@@ -15,9 +15,14 @@ export class UpdateUserUseCase {
     const user = await this.userRepository.findById(userData.id);
 
     for (const field of ["name", "email", "password", "user_dms", "id_store", "is_admin", "is_active"]) {
+
       if (userData[field]) {
         user[field] = userData[field]
+      } else {
+        user.is_admin = userData.is_admin
+        user.is_active = userData.is_active
       }
+
     }
 
     await this.userRepository.update(user);

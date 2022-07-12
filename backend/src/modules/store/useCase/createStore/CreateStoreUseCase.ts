@@ -12,19 +12,21 @@ export class CreateStoreUseCase {
     private storeRepository: IStoreRepository
   ) { }
 
-  async execute({
-    cnpj,
-    name,
-    brand
-  }: ICreateStoreDTO): Promise<void> {
+  async execute(storeData: ICreateStoreDTO): Promise<void> {
 
-    const storeExists = await this.storeRepository.findByCNPJ(cnpj);
+    for (const field of ["cnpj", "name", "brand"]) {
+      if (!storeData[field]) {
+        throw new ErrorHandler(`Params ${field} Missing`)
+      }
+    }
+
+    const storeExists = await this.storeRepository.findByCNPJ(storeData.cnpj);
 
     if (storeExists) {
       throw new ErrorHandler("Store Already exists")
     }
 
-    await this.storeRepository.create({ cnpj, name, brand });
+    await this.storeRepository.create(storeData);
   }
 
 }
