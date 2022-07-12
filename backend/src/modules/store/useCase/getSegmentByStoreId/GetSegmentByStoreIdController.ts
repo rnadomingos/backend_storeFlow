@@ -6,10 +6,10 @@ export class GetSegmentByStoreIdController {
 
     async handle(req: Request, res: Response): Promise<Response> {
 
-        const { id } = req.params;
+        const { id_store } = req.params;
 
         const getSegmentByStoreUseCase = container.resolve(GetSegmentByStoreIdUseCase)
-        const segment = await getSegmentByStoreUseCase.execute(id)
+        const segment = await getSegmentByStoreUseCase.execute(id_store)
 
         return res.json(segment)
 

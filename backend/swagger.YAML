@@ -329,6 +329,78 @@ paths:
           success: true
         401:
           $ref: "#/components/responses/UnauthorizedError"     
+  /stores/joinStoreSegment:
+    post:
+      tags:
+      - "Store"
+      summary: "Join Store and Segment"
+      description: "Join Store and Segment"
+      security: 
+        - bearerAuth: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: "object"
+              required:
+                - storeId
+                - segmentId
+              properties:
+                storeId:
+                  type: string
+                segmentId:
+                  type: string
+      responses:
+        201: 
+          description: "Success"
+        401:
+          $ref: "#/components/responses/UnauthorizedError"        
+  /stores/separateStoreSegment:
+    delete:
+      tags:
+      - "Store"
+      summary: "Separate Store and Segment relationship"
+      description: "Separate Store and Segment relationship"
+      security: 
+        - bearerAuth: []
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: "object"
+              required:
+                - storeId
+                - segmentId
+              properties:
+                storeId:
+                  type: string
+                segmentId:
+                  type: string
+      responses:
+        201: 
+          description: "Success"
+        401:
+          $ref: "#/components/responses/UnauthorizedError"                  
+  /stores/get-segment/{id_store}:
+    get:
+      tags: 
+      - "Store"
+      summary: "List Store and Segment Relationship by store Id"
+      description: "List Store and Segment by store Id"
+      security:
+        - bearerAuth: []
+      parameters: 
+        - in: path
+          name: id_store
+          description: "Store Id"
+          schema:
+            type: string
+          required: true                  
+      responses:
+        200:
+          description: "Success"
+        401:
+          $ref: "#/components/responses/UnauthorizedError"
   /seller/new:
     post:
       tags:
@@ -515,52 +587,6 @@ paths:
         - in: path
           name: ID
           description: "Segment Id"
-          schema:
-            type: string
-          required: true                  
-      responses:
-        200:
-          description: "Success"
-        401:
-          $ref: "#/components/responses/UnauthorizedError"
-  /segment/join:
-    post:
-      tags:
-      - "Segment"
-      summary: "Join Segment and Store"
-      description: "Join Segment and Store"
-      security: 
-        - bearerAuth: []
-      requestBody:
-        content:
-          application/json:
-            schema:
-              type: "object"
-              required:
-                - segmentId
-                - storeId
-              properties:
-                segmentId:
-                  type: string
-                storeId:
-                  type: string
-      responses:
-        201: 
-          description: "Success"
-        401:
-          $ref: "#/components/responses/UnauthorizedError"        
-  /segment/get-store/{id}:
-    get:
-      tags: 
-      - "Segment"
-      summary: "List segment by store Id"
-      description: "List segment by store Id"
-      security:
-        - bearerAuth: []
-      parameters: 
-        - in: path
-          name: id
-          description: "Store Id"
           schema:
             type: string
           required: true                  
