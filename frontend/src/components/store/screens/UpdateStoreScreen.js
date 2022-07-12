@@ -18,9 +18,42 @@ function UpdateStoreScreen({ history, match }) {
   const [brand, setBrand] = useState('')
   const [is_active, setIsActive] = useState(true)
 
+
+
   const storeCNPJ = match.params.cnpj
 
   const { error: errorDetail, store } = useSelector(state => state.storesDetailReducer)
+
+  const { segments } = store;
+  let comp
+  if (segments.length > 0) {
+    comp = segments.map(segment => (
+      <ListGroup.Item
+        as="li"
+        className="d-flex justify-content-between align-items-start"
+      >
+        <div className="ms-2 me-auto">
+          <div className="fw-bold">{segment.name.toUpperCase()}</div>
+          {segment.description}
+        </div>
+        <Button className='my-close'>
+          <i className='fa fa-trash'></i>
+        </Button>
+      </ListGroup.Item>
+    ))
+  } else {
+    comp = <ListGroup.Item
+      as="ul"
+      className="d-flex justify-content-between align-items-start"
+    >
+      <div className="ms-2 me-auto">
+        <div className="fw-bold">
+          Sem dados.
+        </div>
+        Não há Segmentos vinculados a esta loja.
+      </div>
+    </ListGroup.Item>
+  }
 
   const { error, loading, success } = useSelector(state => state.storesUpdateReducer)
 
@@ -37,6 +70,7 @@ function UpdateStoreScreen({ history, match }) {
       setBrand(store.brand)
       setIsActive(store.is_active)
     }
+
 
 
     if (errorDetail) {
@@ -132,9 +166,9 @@ function UpdateStoreScreen({ history, match }) {
       <Row className="g-2">
         <h3>Segmentos da Loja</h3>
         <Col md>
-          <FloatingLabel controlId="floatingSelectGrid" label="Works with selects">
+          <FloatingLabel controlId="floatingSelectGrid" label="Segmentos disponíveis">
             <Form.Select aria-label="Floating label select example">
-              <option>Open this select menu</option>
+              <option></option>
               <option value="1">One</option>
               <option value="2">Two</option>
               <option value="3">Three</option>
@@ -149,42 +183,7 @@ function UpdateStoreScreen({ history, match }) {
         </Col>
         <Col>
           <ListGroup as="ol" numbered>
-            <ListGroup.Item
-              as="li"
-              className="d-flex justify-content-between align-items-start"
-            >
-              <div className="ms-2 me-auto">
-                <div className="fw-bold">Subheading</div>
-                Cras justo odio
-              </div>
-              <Button className='my-close'>
-                <i className='fa fa-trash'></i>
-              </Button>
-            </ListGroup.Item>
-            <ListGroup.Item
-              as="li"
-              className="d-flex justify-content-between align-items-start"
-            >
-              <div className="ms-2 me-auto">
-                <div className="fw-bold">Subheading</div>
-                Cras justo odio
-              </div>
-              <Badge bg="primary" pill>
-                14
-              </Badge>
-            </ListGroup.Item>
-            <ListGroup.Item
-              as="li"
-              className="d-flex justify-content-between align-items-start"
-            >
-              <div className="ms-2 me-auto">
-                <div className="fw-bold">Subheading</div>
-                Cras justo odio
-              </div>
-              <Badge bg="primary" pill>
-                14
-              </Badge>
-            </ListGroup.Item>
+            {comp}
           </ListGroup>
         </Col>
       </Row>

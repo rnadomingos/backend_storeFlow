@@ -75,8 +75,8 @@ export class StoreRepositoryPostgres implements IStoreRepository {
       .add(segmentId)
   }
 
-  async getSegmentByStoreId(id: string): Promise<Store[]> {
-    return await this.repository.find({
+  async getSegmentByStoreId(id: string): Promise<Store> {
+    return await this.repository.findOne({
       where: {
         id
       },

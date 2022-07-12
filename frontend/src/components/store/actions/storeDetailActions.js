@@ -22,10 +22,17 @@ export const storesDetailActions = (cnpj) => async (dispatch, getState) => {
       }
     }
 
-    const { data } = await axios.get(
+    const dados = await axios.get(
       `http://localhost:3333/stores/${cnpj}`,
       config
     )
+
+    const { data } = await axios.get(
+      `http://localhost:3333/stores/get-segment/${dados.data.id}`,
+      config
+    )
+
+
 
     dispatch({
       type: STORE_DETAIL_SUCCESS,

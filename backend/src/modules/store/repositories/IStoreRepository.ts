@@ -12,6 +12,6 @@ export interface IStoreRepository {
   listSellers(id: string): Promise<Store[]>;
   update(data: IUpdateStoreDto): Promise<void>;
   joinStoreSegment(data: IJoinStoreSegmentDTO): Promise<void>;
-  getSegmentByStoreId(id: string): Promise<Store[]>;
+  getSegmentByStoreId(id: string): Promise<Store>;
   separateStoreSegment(data: ISeparateStoreSegmentDTO): Promise<void>;
 }

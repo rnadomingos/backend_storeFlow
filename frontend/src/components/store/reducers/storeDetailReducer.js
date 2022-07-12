@@ -16,7 +16,7 @@ export const storesDetailReducer = (state = { store: {} }, action) => {
     case STORE_DETAIL_SUCCESS:
       return {
         loading: false,
-        store: action.payload
+        store: action.payload,
       }
 
     case STORE_DETAIL_RESET:
