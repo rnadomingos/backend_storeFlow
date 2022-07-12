@@ -9,9 +9,7 @@ import { storesListActions } from '../actions/admin/storesListActions'
 
 function StoresScreen() {
   const dispatch = useDispatch()
-  const storesList = useSelector(state => state.storesListReducer)
-  const { error, loading, stores } = storesList
-
+  const { error, loading, stores } = useSelector(state => state.storesListReducer)
 
   useEffect(() => {
     dispatch(storesListActions())

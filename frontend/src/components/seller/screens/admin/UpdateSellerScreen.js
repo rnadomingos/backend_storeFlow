@@ -43,12 +43,12 @@ function UpdateSellerScreen({ history, match }) {
 
 
     if (errorDetail) {
-      alert(`Problema ${errorDetail} ao gravar nova loja`)
+      alert(`Problema ${errorDetail}`)
       dispatch(cleanErrors())
     }
 
     if (error) {
-      alert(`Problema ${error} ao gravar nova loja`)
+      alert(`Problema ${error} ao atualizar`)
       dispatch(cleanErrors())
     }
 

@@ -8,7 +8,10 @@ import {
 export const storesDetailReducer = (state = { store: {} }, action) => {
   switch (action.type) {
     case STORE_DETAIL_REQUEST:
-      return { loading: true }
+      return {
+        ...state,
+        loading: true
+      }
 
     case STORE_DETAIL_SUCCESS:
       return {

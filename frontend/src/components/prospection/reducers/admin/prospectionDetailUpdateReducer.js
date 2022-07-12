@@ -10,6 +10,7 @@ export const prospectionDetailUpdateReducer = (state = { prospection: {} }, acti
   switch (action.type) {
     case PROSPECTION_DETAIL_REQUEST:
       return {
+        ...state,
         loading: true
       }
     case PROSPECTION_DETAIL_SUCCESS:

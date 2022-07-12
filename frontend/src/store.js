@@ -1,4 +1,3 @@
-import { configureStore } from '@reduxjs/toolkit'
 import { applyMiddleware, createStore, combineReducers } from 'redux'
 import { composeWithDevTools } from 'redux-devtools-extension'
 import thunk from 'redux-thunk'
@@ -26,12 +25,24 @@ import { socialMediaDetailReducer } from './components/socialMedia/reducers/admi
 import { socialMediaUpdateReducer } from './components/socialMedia/reducers/admin/socialMediaUpdateReducer'
 import { segmentListReducer } from './components/segment/reducers/admin/segmentListReducer'
 import { segmentCreateReducer } from './components/segment/reducers/admin/segmentCreateReducer'
+import { forgotPasswordReducer } from './components/account/reducers/forgotPasswordReducer'
+import { userListReducer } from './components/account/reducers/admin/userListReducer'
+import { userCreateReducer } from './components/account/reducers/admin/userCreateReducer'
+import { userUpdateReducer } from './components/account/reducers/admin/userUpdateReducer'
+import { userDetailReducer } from './components/account/reducers/userDetailReducer'
+import { userUpdatePasswordReducer } from './components/account/reducers/userUpdatePasswordReducer'
 import { segmentDetailReducer } from './components/segment/reducers/admin/segmentDetailReducer'
 import { segmentUpdateReducer } from './components/segment/reducers/admin/segmentUpdateReducer'
 
 const reducer = combineReducers({
   //Account
   userLogin: loginReducer,
+  forgotPassword: forgotPasswordReducer,
+  userListReducer: userListReducer,
+  userCreateReducer: userCreateReducer,
+  userDetailReducer: userDetailReducer,
+  userUpdateReducer: userUpdateReducer,
+  userUpdatePasswordReducer: userUpdatePasswordReducer,
 
   //Stores
   storesListReducer: storesListReducer,
@@ -76,7 +87,7 @@ const middleware = [thunk]
 const userInfoFromStorage = localStorage.getItem('userInfo') ?
   JSON.parse(localStorage.getItem('userInfo')) : null
 
-const initialState = {
+let initialState = {
   userLogin: { userInfo: userInfoFromStorage },
 }
 

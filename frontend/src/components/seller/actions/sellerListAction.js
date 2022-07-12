@@ -23,7 +23,7 @@ export const sellerListAction = () => async (dispatch, getState) => {
     }
 
     const { data } = await axios.get(
-      `http://localhost:3333/seller/list`,
+      `/seller/list`,
       config
     )
 

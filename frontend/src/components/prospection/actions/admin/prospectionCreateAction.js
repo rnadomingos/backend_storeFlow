@@ -41,9 +41,3 @@ export const prospectionCreateAction = (newProspection) => async (dispatch, getS
     })
   }
 }
-
-export const cleanErrors = () => async (dispatch) => {
-  dispatch({
-    type: CLEAN_ERRORS
-  })
-}

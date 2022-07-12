@@ -1,14 +1,14 @@
 import { useEffect, useState } from "react"
+import { useAlert } from "react-alert"
 import { Button, Form } from "react-bootstrap"
 import { useDispatch, useSelector } from "react-redux"
 import { Link } from "react-router-dom"
 import { FormContainer } from "../../../layout/FormContainer"
 import { Loader } from "../../../layout/Loader"
-import { Message } from "../../../layout/Message"
 import {
-  cleanErrors,
   prospectionCreateAction
 } from "../../actions/admin/prospectionCreateAction"
+import { CLEAN_ERRORS } from "../../constants/prospectionConstants"
 
 
 function CreateProspectionScreen({ history }) {
@@ -16,6 +16,7 @@ function CreateProspectionScreen({ history }) {
   const [name, setName] = useState('')
   const [description, setDescription] = useState('')
 
+  const alert = useAlert()
   const dispatch = useDispatch()
 
   const {
@@ -28,14 +29,14 @@ function CreateProspectionScreen({ history }) {
 
   useEffect(() => {
     if (error) {
-      alert(`Problema ${error} ao gravar nova Prospecção`)
-      dispatch(cleanErrors)
+      alert.error(`Error: ${error}`)
+      dispatch({ type: CLEAN_ERRORS })
     }
 
     if (success) {
       history.push('/admin/prospections')
     }
-  }, [error, dispatch, success, history])
+  }, [error, dispatch, success, history, alert])
 
   const submitHandler = (e) => {
     e.preventDefault()
@@ -49,7 +50,6 @@ function CreateProspectionScreen({ history }) {
     <div>
       <FormContainer>
         <h1>Nova Prospecção</h1>
-        {error && <Message>Problema {error} ao gravar novo Tipo de Serviço</Message>}
         {loading ? <Loader />
           : (
             <Form onSubmit={submitHandler}>

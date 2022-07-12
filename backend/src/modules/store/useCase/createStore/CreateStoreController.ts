@@ -10,7 +10,7 @@ export class CreateStoreController {
     const { cnpj, name, brand } = req.body;
 
     const createStoreUseCase = container.resolve(CreateStoreUseCase)
-    await createStoreUseCase.execute({ cnpj, name, brand });
+    const result = await createStoreUseCase.execute({ cnpj, name, brand });
 
     return res.status(201).json({
       success: true

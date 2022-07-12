@@ -10,6 +10,7 @@ export const serviceTypeDetailReducer = (state = { serviceType: {} }, action) =>
   switch (action.type) {
     case SERVICE_TYPE_DETAIL_REQUEST:
       return {
+        ...state,
         loading: true
       }
 

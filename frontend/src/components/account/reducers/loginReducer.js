@@ -13,6 +13,7 @@ export const loginReducer = (state = { userInfo: {} }, action) => {
   switch (action.type) {
     case LOGIN_REQUEST:
       return {
+        ...state,
         loading: true,
         isAuthenticated: false
       }
@@ -44,6 +45,7 @@ export const loginReducer = (state = { userInfo: {} }, action) => {
         ...state,
         error: null
       }
+
 
     default:
       return state

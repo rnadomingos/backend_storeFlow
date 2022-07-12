@@ -1,4 +1,3 @@
-import { User } from "@modules/user/entities/User";
 import { IUserRepository } from "@modules/user/repositories/IUserRepository";
 import { inject, injectable } from "tsyringe";
 

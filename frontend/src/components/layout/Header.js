@@ -12,7 +12,6 @@ function Header() {
     dispatch(logoutAction())
   }
 
-
   return (
 
     <Fragment>
@@ -50,6 +49,9 @@ function Header() {
             <NavDropdown title="Usuario" id="navbarScrollingDropdown">
               <NavDropdown.Item>
                 <Link className="dropdown-item" to="/profile">Minha Conta</Link>
+              </NavDropdown.Item>
+              <NavDropdown.Item>
+                <Link className="dropdown-item" to="/profile/update-password">Editar Senha</Link>
               </NavDropdown.Item>
               <NavDropdown.Item>
                 <Link className="dropdown-item" to="/admin/users">Usuários</Link>

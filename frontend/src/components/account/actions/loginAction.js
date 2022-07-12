@@ -19,7 +19,7 @@ export const loginAction = (user_dms, password) => async (dispatch) => {
 
     const { data } = await axios.post(
       '/login',
-      { 'user_dms': user_dms, 'password': password },
+      { user_dms, password },
       config
     )
 

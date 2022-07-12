@@ -9,6 +9,7 @@ export const socialMediaDetailReducer = (state = { socialMedia: {} }, action) =>
   switch (action.type) {
     case SOCIAL_MEDIA_DETAIL_REQUEST:
       return {
+        ...state,
         loading: false
       }
     case SOCIAL_MEDIA_DETAIL_SUCCESS:
