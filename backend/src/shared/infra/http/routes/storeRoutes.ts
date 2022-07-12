@@ -5,7 +5,7 @@ import { ListStoreController } from "@modules/store/useCase/listStore/ListStoreC
 import { UpdateStoreController } from "@modules/store/useCase/updateStore/UpdateStoreController";
 import { JoinStoreSegmentController } from "@modules/store/useCase/joinStoreSegment/JoinStoreSegmentController";
 import { GetSegmentByStoreIdController } from "@modules/store/useCase/getSegmentByStoreId/GetSegmentByStoreIdController";
-import { UnjoinStoreSegmentController } from "@modules/store/useCase/unjoinStoreSegment/UnjoinStoreSegmentController";
+import { SeparateStoreSegmentController } from "@modules/store/useCase/separateStoreSegment/SeparateStoreSegmentController";
 import { Router } from "express";
 import { isAuthenticated } from "../middlewares/isAuthenticated";
 
@@ -19,7 +19,7 @@ const updateStoreController = new UpdateStoreController();
 const getStoreByCNPJController = new GetStoreByCNPJController();
 const joinStoreSegmentController = new JoinStoreSegmentController();
 const getSegmentByStoreIdController = new GetSegmentByStoreIdController();
-const unjoinStoreSegmentController = new UnjoinStoreSegmentController();
+const separateStoreSegmentController = new SeparateStoreSegmentController();
 
 storeRoutes.post("/new", isAuthenticated, createStoreController.handle);
 storeRoutes.get("/", isAuthenticated, listStoreController.handle);
@@ -28,7 +28,7 @@ storeRoutes.put("/update/:id", isAuthenticated, updateStoreController.handle);
 storeRoutes.get("/:cnpj", isAuthenticated, getStoreByCNPJController.handle);
 storeRoutes.post("/joinStoreSegment", isAuthenticated, joinStoreSegmentController.handle)
 storeRoutes.get("/get-segment/:id", isAuthenticated, getSegmentByStoreIdController.handle)
-storeRoutes.post("/unjoinStoreSegment", isAuthenticated, unjoinStoreSegmentController.handle)
+storeRoutes.post("/separateStoreSegment", isAuthenticated, separateStoreSegmentController.handle)
 
 
 

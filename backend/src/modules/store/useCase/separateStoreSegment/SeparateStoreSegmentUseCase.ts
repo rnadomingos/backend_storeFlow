@@ -1,10 +1,11 @@
-import { IUnjoinStoreSegmentDTO } from "@modules/store/dtos/IUnjoinStoreSegmentDTO";
+
+import { ISeparateStoreSegmentDTO } from "@modules/store/dtos/ISeparateStoreSegmentDTO";
 import { IStoreRepository } from "@modules/store/repositories/IStoreRepository";
 import { inject, injectable } from "tsyringe";
 
 
 @injectable()
-export class UnjoinStoreSegmentUseCase {
+export class SeparateStoreSegmentUseCase {
 
   constructor(
     @inject("StoreRepository")
@@ -14,9 +15,9 @@ export class UnjoinStoreSegmentUseCase {
   async execute({
     storeId,
     segmentId
-  }: IUnjoinStoreSegmentDTO): Promise<void> {
+  }: ISeparateStoreSegmentDTO): Promise<void> {
 
-    await this.storeRepository.unjoinStoreSegment({
+    await this.storeRepository.separateStoreSegment({
       storeId,
       segmentId
     })

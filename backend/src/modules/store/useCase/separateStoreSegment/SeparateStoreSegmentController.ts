@@ -1,15 +1,15 @@
 import { Request, Response } from "express";
 import { container } from "tsyringe";
-import { UnjoinStoreSegmentUseCase } from "./UnjoinStoreSegmentUseCase";
+import { SeparateStoreSegmentUseCase } from "./SeparateStoreSegmentUseCase";
 
 
-export class UnjoinStoreSegmentController {
+export class SeparateStoreSegmentController {
   async handle(req: Request, res: Response): Promise<Response> {
 
     const { storeId, segmentId } = req.body;
 
-    const unjoinStoreSegmentUseCase = container.resolve(UnjoinStoreSegmentUseCase);
-    await unjoinStoreSegmentUseCase.execute({
+    const separateStoreSegmentUseCase = container.resolve(SeparateStoreSegmentUseCase);
+    await separateStoreSegmentUseCase.execute({
       storeId,
       segmentId
     })

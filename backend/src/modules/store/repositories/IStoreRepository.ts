@@ -2,7 +2,7 @@ import { Store } from "../entities/Store";
 import { ICreateStoreDTO } from "../dtos/ICreateStoreDTO";
 import { IUpdateStoreDto } from "../dtos/IUpdateStoreDTO";
 import { IJoinStoreSegmentDTO } from "../dtos/IJoinStoreSegmentDTO";
-import { IUnjoinStoreSegmentDTO } from "../dtos/IUnjoinStoreSegmentDTO";
+import { ISeparateStoreSegmentDTO } from "../dtos/ISeparateStoreSegmentDTO";
 
 export interface IStoreRepository {
   findById(id: string): Promise<Store>;
@@ -13,5 +13,5 @@ export interface IStoreRepository {
   update(data: IUpdateStoreDto): Promise<void>;
   joinStoreSegment(data: IJoinStoreSegmentDTO): Promise<void>;
   getSegmentByStoreId(id: string): Promise<Store[]>;
-  unjoinStoreSegment(data: IUnjoinStoreSegmentDTO): Promise<void>;
+  separateStoreSegment(data: ISeparateStoreSegmentDTO): Promise<void>;
 }

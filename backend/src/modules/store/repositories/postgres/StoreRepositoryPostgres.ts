@@ -4,7 +4,7 @@ import { ICreateStoreDTO } from "../../dtos/ICreateStoreDTO";
 import { Store } from "@modules/store/entities/Store";
 import { IUpdateStoreDto } from "@modules/store/dtos/IUpdateStoreDTO";
 import { IJoinStoreSegmentDTO } from "@modules/store/dtos/IJoinStoreSegmentDTO";
-import { IUnjoinStoreSegmentDTO } from "@modules/store/dtos/IUnjoinStoreSegmentDTO";
+import { ISeparateStoreSegmentDTO } from "@modules/store/dtos/ISeparateStoreSegmentDTO";
 
 
 export class StoreRepositoryPostgres implements IStoreRepository {
@@ -84,17 +84,16 @@ export class StoreRepositoryPostgres implements IStoreRepository {
     })
   }
 
-  async unjoinStoreSegment({
+  async separateStoreSegment({
     storeId,
     segmentId
 
-  }: IUnjoinStoreSegmentDTO): Promise<void> {
-
+  }: ISeparateStoreSegmentDTO): Promise<void> {
     //Implementar Corretamente a deleção da tabela de ManyToMany
-    await this.repository.delete([storeId, segmentId])
-
+    await this.repository.createQueryBuilder()
+      .relation(Store, "segments")
+      .of(storeId)
+      .remove(segmentId)
   }
-
-
 }
 
