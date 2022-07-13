@@ -32,13 +32,14 @@ export class AuthenticateUseCase {
     const user = await this.userRepository.findByUserDms(user_dms);
 
     if (!user) {
-      throw new ErrorHandler("Email or password incorrect !");
+      throw new ErrorHandler("user_dms or password incorrect !");
     }
+
 
     const passwordMatch = await compare(password, user.password);
 
     if (!passwordMatch) {
-      throw new ErrorHandler("Email or password incorrect !");
+      throw new ErrorHandler("user_dms or password incorrect !");
     }
 
     const token = generateToken(user);
