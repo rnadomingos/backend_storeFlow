@@ -11,23 +11,25 @@ export class CreateSocialMediaUseCase {
         private socialMediaRepository: ISocialMediaRepository
     ) { }
 
-    async execute({
-        name,
-        description,
-        id_prospection
-    }: ICreateSocialMediaDTO): Promise<void> {
-        name = name.toLocaleLowerCase()
-        const socialMediaExists = await this.socialMediaRepository.findByName(name);
-        console.log(id_prospection);
+    async execute(socialMediaData: ICreateSocialMediaDTO): Promise<void> {
+
+        for (const field of [
+            "name",
+            "description",
+            "id_prospection"
+        ]) {
+            if (!socialMediaData[field]) {
+                throw new ErrorHandler(`Params ${field} Missing`)
+            }
+        }
+
+        socialMediaData.name = socialMediaData.name.toLocaleLowerCase()
+        const socialMediaExists = await this.socialMediaRepository.findByName(socialMediaData.name);
 
         if (socialMediaExists) {
             throw new ErrorHandler("This social media already exists!")
         }
 
-        await this.socialMediaRepository.create({
-            name,
-            description,
-            id_prospection
-        });
+        await this.socialMediaRepository.create(socialMediaData);
     }
 }

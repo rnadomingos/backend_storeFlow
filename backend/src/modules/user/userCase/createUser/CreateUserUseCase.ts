@@ -33,7 +33,12 @@ export class CreateUserUseCase {
 
   async execute(userData: ICreateUserDTO): Promise<IResponse> {
 
-    for (const field of ["name", "email", "password", "user_dms", "id_store"]) {
+    for (const field of [
+      "name",
+      "email",
+      "password",
+      "user_dms",
+      "id_store"]) {
       if (!userData[field]) {
         throw new ErrorHandler(`Params ${field} Missing`)
       }

@@ -8,9 +8,10 @@ import { IEmailValidator } from "./validators/IEmailValidator";
 import { EmailValidator } from "./validators/implementations/EmailValidator";
 
 
-container.registerSingleton<IDateProvider>(
+
+container.registerInstance<IDateProvider>(
   "DateProvider",
-  DateProviderDayjs
+  new DateProviderDayjs()
 )
 
 container.registerInstance<IMailProvider>(

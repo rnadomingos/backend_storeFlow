@@ -1,5 +1,6 @@
 import { IUpdateStoreDto } from "@modules/store/dtos/IUpdateStoreDTO";
 import { IStoreRepository } from "@modules/store/repositories/IStoreRepository";
+import { ErrorHandler } from "@shared/errors/ErrorHandler";
 import { inject, injectable } from "tsyringe";
 
 
@@ -13,6 +14,10 @@ export class UpdateStoreUseCase {
   async execute(storeData: IUpdateStoreDto): Promise<void> {
 
     const store = await this.storeRepository.findById(storeData.id);
+
+    if (!store) {
+      throw new ErrorHandler(`This ID:(${storeData.id}) was not found!`)
+    }
 
     for (const field of ["cnpj", "name", "brand", "is_active"]) {
       if (storeData[field]) {

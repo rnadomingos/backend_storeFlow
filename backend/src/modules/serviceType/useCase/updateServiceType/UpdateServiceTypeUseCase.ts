@@ -12,31 +12,27 @@ export class UpdateServiceTypeUseCase {
         @inject("ServiceTypeRepository")
         private serviceTypeRepository: IServiceTypeRepository
     ) { }
-    async execute({
-        id,
-        name,
-        description,
-        is_active
-    }: IUpdateSegmentByIdDTO): Promise<void> {
+    async execute(serviceTypeData: IUpdateSegmentByIdDTO): Promise<void> {
 
 
-        const serviceType = await this.serviceTypeRepository.findById(id);
+        const serviceType = await this.serviceTypeRepository.findById(serviceTypeData.id);
 
         if (!serviceType) {
-            throw new ErrorHandler(`This ID:(${id}) was not found!`)
+            throw new ErrorHandler(`This ID:(${serviceTypeData.id}) was not found!`)
         }
 
-        if (name) {
-            serviceType.name = name.toLocaleLowerCase()
+        for (const field of [
+            "name",
+            "description",
+            "is_active"
+        ]) {
+            if (serviceTypeData[field]) {
+                serviceType[field] = serviceTypeData[field]
+            } else {
+                serviceType.is_active = serviceTypeData.is_active
+            }
         }
 
-        if (description) {
-            serviceType.description = description
-        }
-
-        if (is_active != null) {
-            serviceType.is_active = is_active
-        }
 
         return await this.serviceTypeRepository.updateById(serviceType);
     }
