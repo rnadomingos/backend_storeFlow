@@ -6,7 +6,7 @@ import {
 } from '../constants/storeConstants'
 
 
-export const storesDetailActions = (cnpj) => async (dispatch, getState) => {
+export const storesDetailActions = (storeId) => async (dispatch, getState) => {
   try {
 
     dispatch({ type: STORE_DETAIL_REQUEST })
@@ -23,7 +23,7 @@ export const storesDetailActions = (cnpj) => async (dispatch, getState) => {
     }
 
     const { data } = await axios.get(
-      `http://localhost:3333/stores/${cnpj}`,
+      `/stores/detail/${storeId}`,
       config
     )
 

@@ -17,7 +17,7 @@ function UpdateStoreScreen({ history, match }) {
   const [brand, setBrand] = useState('')
   const [is_active, setIsActive] = useState(true)
 
-  const storeCNPJ = match.params.cnpj
+  const storeId = match.params.id
 
   const { error: errorDetail, store } = useSelector(state => state.storesDetailReducer)
 
@@ -27,8 +27,8 @@ function UpdateStoreScreen({ history, match }) {
 
   useEffect(() => {
 
-    if (!store || storeCNPJ !== store.cnpj) {
-      dispatch(storesDetailActions(storeCNPJ))
+    if (!store || storeId !== store.id) {
+      dispatch(storesDetailActions(storeId))
 
     } else {
       setCNPJ(store.cnpj)
@@ -54,7 +54,7 @@ function UpdateStoreScreen({ history, match }) {
       history.push('/admin/stores')
 
     }
-  }, [error, dispatch, success, history, store, storeCNPJ, errorDetail])
+  }, [error, dispatch, success, history, store, storeId, errorDetail])
 
   const submitHandler = (e) => {
     e.preventDefault()
