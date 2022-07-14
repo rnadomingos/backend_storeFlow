@@ -9,7 +9,8 @@ export const segmentListReducer = (state = { segment: [] }, action) => {
   switch (action.type) {
     case SEGMENT_LIST_REQUEST:
       return {
-        loading: true
+        loading: true,
+        segment: []
       }
     case SEGMENT_LIST_SUCCESS:
       return {
