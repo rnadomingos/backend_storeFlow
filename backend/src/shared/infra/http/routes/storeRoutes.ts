@@ -1,4 +1,5 @@
 import { CreateStoreController } from "@modules/store/useCase/createStore/CreateStoreController";
+import { FindStoreByIdController } from "@modules/store/useCase/findStoreByID/FindStoreByIdController";
 import { GetStoreByCNPJController } from "@modules/store/useCase/getStoreByCNPJ/GetStoreByCNPJController";
 import { ListSellersStoreController } from "@modules/store/useCase/listSellersFromStore/ListSellersStoreController";
 import { ListStoreController } from "@modules/store/useCase/listStore/ListStoreController";
@@ -14,12 +15,13 @@ const listStoreController = new ListStoreController();
 const listSellersStoreController = new ListSellersStoreController();
 const updateStoreController = new UpdateStoreController();
 const getStoreByCNPJController = new GetStoreByCNPJController();
+const findStoreByIdController = new FindStoreByIdController();
 
 storeRoutes.post("/new", isAuthenticated, createStoreController.handle);
 storeRoutes.get("/", isAuthenticated, listStoreController.handle);
 storeRoutes.get("/list-sellers/:storeId", isAuthenticated, listSellersStoreController.handle);
 storeRoutes.put("/update/:id", isAuthenticated, updateStoreController.handle);
 storeRoutes.get("/:cnpj", isAuthenticated, getStoreByCNPJController.handle);
-
+storeRoutes.get("/detail/:storeId", isAuthenticated, findStoreByIdController.handle);
 
 export { storeRoutes }

@@ -3,6 +3,7 @@ import { IStoreRepository } from "../IStoreRepository";
 import { ICreateStoreDTO } from "../../dtos/ICreateStoreDTO";
 import { Store } from "@modules/store/entities/Store";
 import { IUpdateStoreDto } from "@modules/store/dtos/IUpdateStoreDTO";
+import { Seller } from "@modules/seller/entities/Seller";
 
 
 export class StoreRepositoryPostgres implements IStoreRepository {
@@ -14,11 +15,13 @@ export class StoreRepositoryPostgres implements IStoreRepository {
   }
 
   async findById(id: string): Promise<Store> {
-    return await this.repository.findOne(id)
+    return await this.repository.findOne({ id })
   }
 
   async findByCNPJ(cnpj: string): Promise<Store> {
-    return this.repository.findOne({ cnpj })
+    return this.repository.findOne({
+      where: { cnpj, is_active: true }
+    })
   }
   async create({
     cnpj,
@@ -39,9 +42,10 @@ export class StoreRepositoryPostgres implements IStoreRepository {
 
   async listSellers(id: string): Promise<Store[]> {
     return await this.repository.find({
-      where: { id },
-      relations: ["sellers"]
+      relations: ["sellers"],
+      where: { id }
     });
+
   }
 
   async update({
