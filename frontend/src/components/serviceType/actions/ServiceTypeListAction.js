@@ -1,9 +1,5 @@
 import axios from 'axios'
-import {
-  SERVICE_TYPE_LIST_FAIL,
-  SERVICE_TYPE_LIST_REQUEST,
-  SERVICE_TYPE_LIST_SUCCESS
-} from '../../constants/serviceTypeConstant'
+import { SERVICE_TYPE_LIST_FAIL, SERVICE_TYPE_LIST_REQUEST, SERVICE_TYPE_LIST_SUCCESS } from '../constants/serviceTypeConstant'
 
 
 export const serviceTypeListAction = () => async (dispatch, getState) => {

@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 import { FormContainer } from "../../../layout/FormContainer";
 import { Loader } from "../../../layout/Loader";
 import { Message } from "../../../layout/Message";
-import { prospectionListAction } from '../../../prospection/actions/admin/prospectionListAction'
+import { prospectionListAction } from '../../../prospection/actions/prospectionListAction'
 import { socialMediaCreateAction } from '../../action/admin/socialMediaCreateAction'
 import { cleanErrors } from "../../action/cleanErrors";
 import { SOCIAL_MEDIA_CREATE_RESET } from "../../constants/socialMediaConstants";

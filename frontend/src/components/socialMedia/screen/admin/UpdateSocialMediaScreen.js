@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { socialMediaDetailAction } from "../../action/admin/socialMediaDetailAction";
-import { prospectionListAction } from "../../../prospection/actions/admin/prospectionListAction"
+import { prospectionListAction } from "../../../prospection/actions/prospectionListAction"
 import { cleanErrors } from "../../action/cleanErrors"
 import { SOCIAL_MEDIA_DETAIL_RESET, SOCIAL_MEDIA_UPDATE_RESET } from "../../constants/socialMediaConstants";
 import { socialMediaUpdateAction } from "../../action/admin/socialMediaUpdateAction"
