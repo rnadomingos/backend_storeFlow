@@ -4,7 +4,6 @@ import {
   STORE_CREATE_SUCCESS,
   STORE_CREATE_FAIL,
   STORE_CREATE_RESET,
-  CLEAN_ERRORS
 } from '../../constants/storeConstants'
 
 export const storeCreateReducer = (state = {}, action) => {

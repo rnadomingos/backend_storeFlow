@@ -31,6 +31,7 @@ import { UpdateUserScreen } from './components/account/screens/admin/UpdateUserS
 import { UpdatePasswordScreen } from './components/account/screens/UpdatePasswordScreen';
 import { UpdateSegmentScreen } from './components/segment/screens/admin/UpdateSegmentScreen'
 import { ProfileDetailScreen } from './components/account/screens/ProfileDetailScreen';
+import { CreateStoreFlowScreen } from './components/storeFlow/screens/CreateStoreFlowScreen';
 
 
 function App() {
@@ -76,6 +77,9 @@ function App() {
           <ProtectRoute path='/admin/segments' isAdmin={true} component={SegmentScreen} />
           <ProtectRoute isAdmin={true} path='/admin/segment/new' component={CreateSegmentScreen} />
           <ProtectRoute isAdmin={true} path='/admin/segment/:id/edit' component={UpdateSegmentScreen} />
+
+          <ProtectRoute path='/store-flow/new' component={CreateStoreFlowScreen} />
+
         </Container>
       </main>
 

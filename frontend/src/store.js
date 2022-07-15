@@ -34,6 +34,8 @@ import { userUpdatePasswordReducer } from './components/account/reducers/userUpd
 import { segmentDetailReducer } from './components/segment/reducers/admin/segmentDetailReducer'
 import { segmentUpdateReducer } from './components/segment/reducers/admin/segmentUpdateReducer'
 import { userStoreDetailReducer } from './components/account/reducers/userStoreDetailReducer'
+import { storeFlowCreateReducer } from './components/storeFlow/reducers/storeFlowCreateReducer'
+import { storeSellersReducer } from './components/store/reducers/storeSellersReducer'
 
 const reducer = combineReducers({
   //Account
@@ -51,6 +53,7 @@ const reducer = combineReducers({
   storeCreateReducer: storeCreateReducer,
   storesDetailReducer: storesDetailReducer,
   storesUpdateReducer: storesUpdateReducer,
+  storeSellersReducer: storeSellersReducer,
 
   //Sellers
   sellersListReducer: sellersListReducer,
@@ -70,7 +73,7 @@ const reducer = combineReducers({
   prospectionDetailUpdateReducer: prospectionDetailUpdateReducer,
   prospectionUpdateReducer: prospectionUpdateReducer,
 
-  //SocialMidia
+  //Social Media
   socialMediaListReducer: socialMediaListReducer,
   socialMediaCreateReducer: socialMediaCreateReducer,
   socialMediaDetailReducer: socialMediaDetailReducer,
@@ -80,7 +83,10 @@ const reducer = combineReducers({
   segmentListReducer: segmentListReducer,
   segmentCreateReducer: segmentCreateReducer,
   segmentDetailReducer: segmentDetailReducer,
-  segmentUpdateReducer: segmentUpdateReducer
+  segmentUpdateReducer: segmentUpdateReducer,
+
+  //Store Flow
+  storeFlowCreateReducer: storeFlowCreateReducer
 
 })
 
