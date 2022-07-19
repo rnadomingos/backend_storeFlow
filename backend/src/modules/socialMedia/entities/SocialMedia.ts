@@ -1,3 +1,4 @@
+
 import { Prospection } from "@modules/prospection/entities/Prospection";
 import { randomUUID } from "crypto"
 import { Column, CreateDateColumn, Entity, JoinColumn, ManyToOne, PrimaryColumn } from "typeorm";

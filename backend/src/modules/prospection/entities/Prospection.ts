@@ -1,6 +1,6 @@
 import { SocialMedia } from "@modules/socialMedia/entities/SocialMedia";
 import { randomUUID } from "crypto"
-import { Column, CreateDateColumn, Entity, OneToMany, PrimaryColumn, Unique } from "typeorm";
+import { Column, CreateDateColumn, Entity, OneToMany, PrimaryColumn } from "typeorm";
 
 @Entity("prospection")
 

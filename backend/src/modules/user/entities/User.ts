@@ -33,7 +33,7 @@ export class User {
   store: Store;
 
 
-  @Column()
+  @Column({ nullable: true })
   id_store: string;
 
   constructor() {

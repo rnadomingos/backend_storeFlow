@@ -1,4 +1,3 @@
-import { ICreateSegmentDTO } from "@modules/segment/dtos/ICreateSegmentDTO";
 import { ICreateSocialMediaDTO } from "@modules/socialMedia/dtos/ICreateSocialMediaDTO";
 import { ErrorHandler } from "@shared/errors/ErrorHandler";
 import { inject, injectable } from "tsyringe";
