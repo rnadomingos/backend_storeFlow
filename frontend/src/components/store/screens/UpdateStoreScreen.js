@@ -10,7 +10,8 @@ import { cleanErrors } from '../actions/cleanErrors'
 import { storesDetailActions } from '../actions/storeDetailActions'
 import { segmentListAction } from '../../segment/actions/admin/segmentListAction'
 import { storeSegmentListAction } from '../../store/actions/admin/storeSegmentListAction'
-import { STORE_DETAIL_RESET, STORE_SEGMENT_LIST_RESET, STORE_UPDATE_RESET } from '../constants/storeConstants'
+import { storeJoinSegmentAction } from '../../store/actions/admin/storeJoinSegmentAction'
+import { STORE_DETAIL_RESET, STORE_SEGMENT_JOIN_RESET, STORE_SEGMENT_LIST_RESET, STORE_UPDATE_RESET } from '../constants/storeConstants'
 import '../../../css/formJoinSegment.css';
 
 function UpdateStoreScreen({ history, match }) {
@@ -19,7 +20,7 @@ function UpdateStoreScreen({ history, match }) {
   const [name, setName] = useState('')
   const [brand, setBrand] = useState('')
   const [is_active, setIsActive] = useState(true)
-  //const [segments, setSegment] = useState([{ name: 'Sem Dados.', description: 'Não há Segmentos vinculados a esta loja.', as: 'ul' }])
+  const [id_segment, setIdSegment] = useState('')
   const [list, setList] = useState()
 
 
@@ -68,6 +69,7 @@ function UpdateStoreScreen({ history, match }) {
       dispatch({ type: STORE_DETAIL_RESET })
       dispatch({ type: STORE_SEGMENT_LIST_RESET })
       dispatch({ type: STORE_UPDATE_RESET })
+      dispatch({ type: STORE_SEGMENT_JOIN_RESET })
       history.push('/admin/stores')
 
     }
@@ -77,6 +79,12 @@ function UpdateStoreScreen({ history, match }) {
   const submitHandler = (e) => {
     e.preventDefault()
     dispatch(storeUpdateAction({ id: store.id, cnpj, name, brand, is_active }))
+  }
+
+  const joinStoreSegment = (e) => {
+    e.preventDefault()
+    dispatch(storeJoinSegmentAction({ storeId, segmentId: id_segment }))
+    dispatch(storeSegmentListAction(storeId))
   }
 
   return (
@@ -149,7 +157,11 @@ function UpdateStoreScreen({ history, match }) {
         <h3>Segmentos da Loja</h3>
         <Col md>
           <FloatingLabel controlId="floatingSelectGrid" label="Segmentos disponíveis">
-            <Form.Select aria-label="Floating label select example">
+            <Form.Select
+              aria-label="Floating label select example"
+              value={id_segment}
+              onChange={(e) => setIdSegment(e.target.value)}
+            >
               <option></option>
               {segment.map(segment => (
                 <option
@@ -162,26 +174,26 @@ function UpdateStoreScreen({ history, match }) {
 
         </Col>
         <Col md={1}>
-          <Button className='my-3' >
+          <Button className='my-3'
+            onClick={joinStoreSegment}>
             <i className='fas fa-arrow-right'></i>
           </Button>
         </Col>
         <Col>
           <ListGroup as="ol" numbered>
-            <ListGroup.Item
-              as="li"
-              className="d-flex justify-content-between align-items-start"
-            >
-              {storeSegment.map(segment => (
-
+            {storeSegment.map(segment => (
+              <ListGroup.Item
+                as="li"
+                className="d-flex justify-content-between align-items-start"
+                key={segment.id}>
                 < div className="ms-2 me-auto" >
-                  <div className="fw-bold" key={segment.id}>
+                  <div className="fw-bold" >
                     {segment.name.toUpperCase()}
                   </div>
                   {segment.description}
                 </div>
-              ))}
-            </ListGroup.Item>
+              </ListGroup.Item>
+            ))}
           </ListGroup>
         </Col>
       </Row>

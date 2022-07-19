@@ -34,6 +34,7 @@ import { userUpdatePasswordReducer } from './components/account/reducers/userUpd
 import { segmentDetailReducer } from './components/segment/reducers/admin/segmentDetailReducer'
 import { segmentUpdateReducer } from './components/segment/reducers/admin/segmentUpdateReducer'
 import { storeSegmentListReducer } from './components/store/reducers/admin/storeSegmentListReducer'
+import { storeJoinSegmentReducer } from './components/store/reducers/admin/storeJoinSegmentReducer'
 
 const reducer = combineReducers({
   //Account
@@ -51,6 +52,7 @@ const reducer = combineReducers({
   storesDetailReducer: storesDetailReducer,
   storesUpdateReducer: storesUpdateReducer,
   storeSegmentListReducer: storeSegmentListReducer,
+  storeJoinSegmentReducer: storeJoinSegmentReducer,
 
   //Sellers
   sellersListReducer: sellersListReducer,
