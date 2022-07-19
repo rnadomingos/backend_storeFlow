@@ -52,7 +52,7 @@ function App() {
 
           <ProtectRoute path='/admin/stores' isAdmin={true} component={StoresScreen} />
           <ProtectRoute path='/admin/store/new' component={CreateStoreScreen} />
-          <ProtectRoute path='/admin/store/:cnpj/edit' component={UpdateStoreScreen} />
+          <ProtectRoute path='/admin/store/:id/edit' component={UpdateStoreScreen} />
 
           <ProtectRoute path='/admin/sellers' isAdmin={true} component={SellerScreen} />
           <ProtectRoute path='/admin/seller/:user_dms/edit' component={UpdateSellerScreen} />

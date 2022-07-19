@@ -62,7 +62,7 @@ function StoresScreen() {
                       }</td>
 
                       <td>
-                        <Link to={`/admin/store/${store.cnpj}/edit`}>
+                        <Link to={`/admin/store/${store.id}/edit`}>
                           <Button variant='light' className='btn-sm'>
                             <i className='fas fa-edit'></i>
                           </Button>

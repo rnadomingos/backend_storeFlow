@@ -9,7 +9,8 @@ import { storeUpdateAction } from '../actions/admin/storeUpdateAction'
 import { cleanErrors } from '../actions/cleanErrors'
 import { storesDetailActions } from '../actions/storeDetailActions'
 import { segmentListAction } from '../../segment/actions/admin/segmentListAction'
-import { STORE_DETAIL_RESET, STORE_UPDATE_RESET } from '../constants/storeConstants'
+import { storeSegmentListAction } from '../../store/actions/admin/storeSegmentListAction'
+import { STORE_DETAIL_RESET, STORE_SEGMENT_LIST_RESET, STORE_UPDATE_RESET } from '../constants/storeConstants'
 import '../../../css/formJoinSegment.css';
 
 function UpdateStoreScreen({ history, match }) {
@@ -18,44 +19,21 @@ function UpdateStoreScreen({ history, match }) {
   const [name, setName] = useState('')
   const [brand, setBrand] = useState('')
   const [is_active, setIsActive] = useState(true)
+  //const [segments, setSegment] = useState([{ name: 'Sem Dados.', description: 'Não há Segmentos vinculados a esta loja.', as: 'ul' }])
+  const [list, setList] = useState()
 
 
-  const storeCNPJ = match.params.cnpj
+
+  const storeId = match.params.id
 
   const { error: errorDetail, store } = useSelector(state => state.storesDetailReducer)
   const { segment } = useSelector(state => state.segmentListReducer)
 
-  // EM CORREÇÃO
-  // const { segments } = store;
-  // let comp
-  // if (segments.length > 0) {
-  //   comp = segments.map(segment => (
-  //     <ListGroup.Item
-  //       as="li"
-  //       className="d-flex justify-content-between align-items-start"
-  //     >
-  //       <div className="ms-2 me-auto">
-  //         <div className="fw-bold">{segment.name.toUpperCase()}</div>
-  //         {segment.description}
-  //       </div>
-  //       <Button className='my-close'>
-  //         <i className='fa fa-trash'></i>
-  //       </Button>
-  //     </ListGroup.Item>
-  //   ))
-  // } else {
-  //   comp = <ListGroup.Item
-  //     as="ul"
-  //     className="d-flex justify-content-between align-items-start"
-  //   >
-  //     <div className="ms-2 me-auto">
-  //       <div className="fw-bold">
-  //         Sem dados.
-  //       </div>
-  //       Não há Segmentos vinculados a esta loja.
-  //     </div>
-  //   </ListGroup.Item>
-  // }
+  const { storeSegment } = useSelector(state => state.storeSegmentListReducer)
+
+  if (storeSegment.length === 0) {
+    storeSegment.push({ id: 1, name: 'Sem Dados.', description: 'Não há Segmentos vinculados a esta loja.', as: 'ul' })
+  }
 
   const { error, loading, success } = useSelector(state => state.storesUpdateReducer)
 
@@ -64,9 +42,10 @@ function UpdateStoreScreen({ history, match }) {
   useEffect(() => {
 
     dispatch(segmentListAction())
+    dispatch(storeSegmentListAction(storeId))
 
-    if (!store || storeCNPJ !== store.cnpj) {
-      dispatch(storesDetailActions(storeCNPJ))
+    if (!store || storeId !== store.id) {
+      dispatch(storesDetailActions(storeId))
 
     } else {
       setCNPJ(store.cnpj)
@@ -87,17 +66,18 @@ function UpdateStoreScreen({ history, match }) {
 
     if (success) {
       dispatch({ type: STORE_DETAIL_RESET })
+      dispatch({ type: STORE_SEGMENT_LIST_RESET })
       dispatch({ type: STORE_UPDATE_RESET })
       history.push('/admin/stores')
 
     }
-  }, [error, dispatch, success, history, store, storeCNPJ, errorDetail])
+
+  }, [error, dispatch, success, history, store, storeId, errorDetail])
 
   const submitHandler = (e) => {
     e.preventDefault()
     dispatch(storeUpdateAction({ id: store.id, cnpj, name, brand, is_active }))
   }
-
 
   return (
     <div>
@@ -173,6 +153,7 @@ function UpdateStoreScreen({ history, match }) {
               <option></option>
               {segment.map(segment => (
                 <option
+                  key={segment.id}
                   value={segment.id}
                 >{segment.name.toUpperCase()}</option>
               ))}
@@ -187,12 +168,25 @@ function UpdateStoreScreen({ history, match }) {
         </Col>
         <Col>
           <ListGroup as="ol" numbered>
-            comp
+            <ListGroup.Item
+              as="li"
+              className="d-flex justify-content-between align-items-start"
+            >
+              {storeSegment.map(segment => (
+
+                < div className="ms-2 me-auto" >
+                  <div className="fw-bold" key={segment.id}>
+                    {segment.name.toUpperCase()}
+                  </div>
+                  {segment.description}
+                </div>
+              ))}
+            </ListGroup.Item>
           </ListGroup>
         </Col>
       </Row>
 
-    </div>
+    </div >
   )
 }
 

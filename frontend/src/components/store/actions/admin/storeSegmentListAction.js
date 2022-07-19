@@ -1,15 +1,16 @@
-import axios from 'axios'
+import axios from "axios"
 import {
-  STORE_DETAIL_FAIL,
-  STORE_DETAIL_REQUEST,
-  STORE_DETAIL_SUCCESS
-} from '../constants/storeConstants'
+  STORE_SEGMENT_LIST_FAIL,
+  STORE_SEGMENT_LIST_REQUEST,
+  STORE_SEGMENT_LIST_SUCCESS
+} from "../../constants/storeConstants"
 
 
-export const storesDetailActions = (id) => async (dispatch, getState) => {
+
+export const storeSegmentListAction = (id) => async (dispatch, getState) => {
   try {
 
-    dispatch({ type: STORE_DETAIL_REQUEST })
+    dispatch({ type: STORE_SEGMENT_LIST_REQUEST })
 
     const {
       userLogin: { userInfo },
@@ -22,25 +23,21 @@ export const storesDetailActions = (id) => async (dispatch, getState) => {
       }
     }
 
-    // const dados = await axios.get(
-    //   `http://localhost:3333/stores/${cnpj}`,
-    //   config
-    // )
-
     const { data } = await axios.get(
       `http://localhost:3333/stores/get-segment/${id}`,
       config
     )
 
     dispatch({
-      type: STORE_DETAIL_SUCCESS,
-      payload: data
+      type: STORE_SEGMENT_LIST_SUCCESS,
+      payload: data.segments
     })
 
   } catch (error) {
     dispatch({
-      type: STORE_DETAIL_FAIL,
+      type: STORE_SEGMENT_LIST_FAIL,
       payload: error.response.data
     })
+
   }
 }
