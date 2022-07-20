@@ -4,6 +4,8 @@ import { IUpdateProspectionDTO } from "@domain/prospection/dto/IUpdateProspectio
 import { IProspection } from "@domain/prospection/model/IProspection"
 import { IProspectionRepository } from "@domain/prospection/repository/IProspectionRepository"
 import { CreateProspectionUseCase } from "@modules/prospection/useCase/createProspection/CreateProspectionUseCase"
+import { FindAllProspectionUseCase } from "@modules/prospection/useCase/findAllProspection/FindAllProspectionUseCase"
+import { UpdateProspectionUseCase } from "@modules/prospection/useCase/updateProspectionById/UpdateProspectionUseCase"
 
 
 const makeFakeProspection = (): IProspection => ({
@@ -15,26 +17,60 @@ const makeFakeProspection = (): IProspection => ({
   socialMedia: 'any_id_social_media'
 })
 
+const makeFakeProspections = (): IProspection[] => [
+  {
+  id: 'first_uuid',
+  name: 'first_name',
+  description: 'first_description',
+  is_active: true,
+  created_at: new Date('2022-05-02T22:02:50.641Z'),
+  socialMedia: 'first_id_social_media'
+},
+{
+  id: 'second_uuid',
+  name: 'second_name',
+  description: 'second_description',
+  is_active: true,
+  created_at: new Date('2022-05-02T22:02:50.641Z'),
+  socialMedia: 'second_id_social_media'
+},
+{
+  id: 'third_uuid',
+  name: 'third_name',
+  description: 'third_description',
+  is_active: true,
+  created_at: new Date('2022-05-02T22:02:50.641Z'),
+  socialMedia: 'third_id_social_media'
+}
+]
+
+
 const makeProspectionRepository = (): IProspectionRepository => {
   class ProspectionRepositoryStub implements IProspectionRepository {
     async create(data: ICreateProspectionDTO): Promise<IProspection> {
       return await new Promise(resolve => resolve(makeFakeProspection()))
     }
-    list(): Promise<IProspection[]> {
-      throw new Error("Method not implemented.")
+
+    async list(): Promise<IProspection[]> {
+      return await new Promise(resolve => resolve(makeFakeProspections()))
     }
-    findById(id: string): Promise<IProspection> {
-      throw new Error("Method not implemented.")
+
+    async findById(id: string): Promise<IProspection> {
+      return await new Promise(resolve => resolve(makeFakeProspection()))
     }
+
     async findByName(name: string): Promise<IProspection> {
       return await new Promise(resolve => resolve(null))
     }
-    updateById(data: IUpdateProspectionDTO): Promise<void> {
-      throw new Error("Method not implemented.")
+
+    async update(data: IUpdateProspectionDTO): Promise<IProspection> {
+      return await new Promise(resolve => resolve(makeFakeProspection()))
     }
+
     deleteById(id: string): Promise<void> {
       throw new Error("Method not implemented.")
     }
+
     disableEnableById( id: string, is_active: boolean): Promise<void> {
       throw new Error("Method not implemented.")
     }
@@ -47,14 +83,20 @@ const makeProspectionRepository = (): IProspectionRepository => {
 class SutTypes {
   createProspectionUseCase: CreateProspectionUseCase;
   prospectionRepositoryStub: IProspectionRepository;
+  findAllProspectionUseCase: FindAllProspectionUseCase;
+  updateProspectionUseCase: UpdateProspectionUseCase;
 }
 
 const makeSut = (): SutTypes => {
   const prospectionRepositoryStub = makeProspectionRepository();
- const sut = new CreateProspectionUseCase(prospectionRepositoryStub);
+ const createProspectionUseCase = new CreateProspectionUseCase(prospectionRepositoryStub);
+ const findAllProspectionUseCase = new FindAllProspectionUseCase(prospectionRepositoryStub);
+ const updateProspectionUseCase = new UpdateProspectionUseCase(prospectionRepositoryStub)
  return {
-  createProspectionUseCase: sut,
-  prospectionRepositoryStub
+  createProspectionUseCase,
+  prospectionRepositoryStub,
+  findAllProspectionUseCase,
+  updateProspectionUseCase
  }
   
 }
@@ -67,12 +109,12 @@ describe('Prospection use cases' , () => {
     await createProspectionUseCase.execute({
       name: 'any_name',
       description: 'any_description'
-    })
+    });
     expect(executeSpy).toHaveBeenCalledWith({
       name: 'any_name',
       description: 'any_description'
     });
-   })
+   });
 
    test('Should not be able to  create a prospection if already exist', async () => {
     const {createProspectionUseCase, prospectionRepositoryStub} = makeSut()
@@ -82,8 +124,44 @@ describe('Prospection use cases' , () => {
     const prospection = createProspectionUseCase.execute({
       name:'any_name', 
       description:'any_description'
-    })
+    });
     await expect(prospection).rejects.toThrow();
-   })
+   });
+
+   test('Should be able to list all prospections', async () => {
+    const {findAllProspectionUseCase} = makeSut()
+    const prospections = await findAllProspectionUseCase.execute();
+    expect(prospections.length).toBe(3);
+   });
+
+   test('Should be able to update a prospection', async () => {
+    const {updateProspectionUseCase, prospectionRepositoryStub} = makeSut()
+    const executeSpy = jest.spyOn(prospectionRepositoryStub, 'update')
+    await updateProspectionUseCase.execute({
+      id: 'any_uuid',
+      name: 'update_name',
+      is_active: false
+    });
+    expect(executeSpy).toHaveBeenCalledWith({
+      id: 'any_uuid',
+      name: 'update_name',
+      description: 'any_description',
+      is_active: false,
+      created_at: new Date('2022-05-02T22:02:50.641Z'),
+      socialMedia: 'any_id_social_media'
+    });
+   });
+
+   test('Should not be able to update a prospection if id not found', async () => {
+    const {updateProspectionUseCase, prospectionRepositoryStub} = makeSut()
+    jest.spyOn(prospectionRepositoryStub, 'findById').mockReturnValueOnce(
+      new Promise((resolve, reject) => reject(new Error()))
+    )
+    const prospection =  updateProspectionUseCase.execute({
+      id: 'invalid_uuid',
+      is_active: false
+    });
+    await expect(prospection).rejects.toThrow();
+   });
 
 })

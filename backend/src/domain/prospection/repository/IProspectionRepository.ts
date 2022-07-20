@@ -9,7 +9,7 @@ export interface IProspectionRepository {
     list(): Promise<IProspection[]>;
     findById(id: string): Promise<IProspection>;
     findByName(name: string): Promise<IProspection>;
-    updateById(data: IUpdateProspectionDTO): Promise<void>;
+    update(data: IUpdateProspectionDTO): Promise<IProspection>;
     deleteById(id: string): Promise<void>;
     disableEnableById(id: string, is_active: boolean): Promise<void>;
 }

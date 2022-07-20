@@ -38,19 +38,19 @@ export class ProspectionRepositoryPostgres implements IProspectionRepository {
         return await this.repository.findOne({ name })
     }
 
-    async updateById({
+    async update({
         id,
         name,
         description,
         is_active
-    }: IUpdateProspectionDTO): Promise<void> {
+    }: IUpdateProspectionDTO): Promise<IProspection> {
         const updateProspection = this.repository.create({
             id,
             name,
             description,
             is_active
         })
-        await this.repository.save(updateProspection);
+        return await this.repository.save(updateProspection);
     }
 
     async deleteById(id: string): Promise<void> {

@@ -1,8 +1,8 @@
 import { Request, Response } from "express";
 import { container } from "tsyringe";
-import { UpdateProspectionByIdUseCase } from "./UpdateProspectionByIdUseCase";
+import { UpdateProspectionUseCase } from "./UpdateProspectionUseCase";
 
-export class UpdateProspectionByIdController {
+export class UpdateProspectionController {
     async handle(req: Request, res: Response): Promise<Response> {
 
         const { id } = req.params;
@@ -13,7 +13,7 @@ export class UpdateProspectionByIdController {
             is_active
         } = req.body;
 
-        const updateProspectionByIdController = container.resolve(UpdateProspectionByIdUseCase)
+        const updateProspectionByIdController = container.resolve(UpdateProspectionUseCase)
 
         await updateProspectionByIdController.execute({
             id,

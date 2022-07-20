@@ -5,7 +5,7 @@ import { DisableEnableProspectionByIdController } from "@modules/prospection/use
 import { FindAllProspectionController } from "@modules/prospection/useCase/findAllProspection/FindAllProspectionController";
 import { FindProspectionByIdController } from "@modules/prospection/useCase/findProspectionById/FindProspectionByIdController";
 import { FindProspectionByNameController } from "@modules/prospection/useCase/findProspectionByName/FindProspectionByNameController";
-import { UpdateProspectionByIdController } from "@modules/prospection/useCase/updateProspectionById/UpdateProspectionByIdController";
+import { UpdateProspectionController } from "@modules/prospection/useCase/updateProspectionById/UpdateProspectionController";
 import { Router } from "express";
 import { isAuthenticated } from "../middlewares/isAuthenticated";
 
@@ -15,7 +15,7 @@ const createProspectionController = new CreateProspectionController();
 const findAllProspectionController = new FindAllProspectionController();
 const findProspectionByIdController = new FindProspectionByIdController();
 const findProspectionByNameController = new FindProspectionByNameController();
-const updateProspectionByIdController = new UpdateProspectionByIdController();
+const updateProspectionController = new UpdateProspectionController();
 const disableProspectionEnableByIdController = new DisableEnableProspectionByIdController();
 const deleteProspectionByIdController = new DeleteProspectionByIdController();
 
@@ -23,8 +23,8 @@ prospectionRoutes.post("/new", isAuthenticated, createProspectionController.hand
 prospectionRoutes.get("/list", isAuthenticated, findAllProspectionController.handle);
 prospectionRoutes.get("/get-id/:id", isAuthenticated, findProspectionByIdController.handle);
 prospectionRoutes.get("/get-name/:name", isAuthenticated, findProspectionByNameController.handle);
-prospectionRoutes.patch("/update/:id", isAuthenticated, updateProspectionByIdController.handle);
-prospectionRoutes.patch("/update-status/:id", isAuthenticated, disableProspectionEnableByIdController.handle);
+prospectionRoutes.put("/update/:id", isAuthenticated, updateProspectionController.handle);
+prospectionRoutes.put("/update-status/:id", isAuthenticated, disableProspectionEnableByIdController.handle);
 prospectionRoutes.delete("/delete/:id", isAuthenticated, deleteProspectionByIdController.handle);
 
 export { prospectionRoutes }
