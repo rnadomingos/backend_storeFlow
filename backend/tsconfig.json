@@ -6,6 +6,9 @@
     "baseUrl": "./src",
     "outDir": "./dist",
     "paths": {
+      "@domain/*": [
+        "domain/*"
+      ],
       "@modules/*": [
         "modules/*"
       ],
@@ -17,14 +20,19 @@
       ],
       "@errors": [
         "errors/*"
-      ]
+      ],
+      "@/tests/*": 
+      ["../tests/*"]
     },
     "esModuleInterop": true,
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true,
     "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true,
-    "resolveJsonModule": true                               
-    
+    "resolveJsonModule": true,                              
+    "typeRoots": [
+      "./src/@types",
+      "./node_modules/@types"
+    ]
   }
 }

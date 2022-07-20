@@ -1,5 +1,5 @@
 
-import { IProspectionRepository } from "@modules/prospection/repositories/IProspectionRepository";
+import { IProspectionRepository } from "domain/prospection/repository/IProspectionRepository";
 import { inject, injectable } from "tsyringe";
 
 
@@ -7,12 +7,12 @@ import { inject, injectable } from "tsyringe";
 export class DisableEnableProspectionByIdUseCase {
     constructor(
         @inject("ProspectionRepository")
-        private prospectionRespository: IProspectionRepository
+        private prospectionRepository: IProspectionRepository
     ) { }
 
     async execute(id: string): Promise<void> {
 
-        const prospectionExists = await this.prospectionRespository.findById(id);
+        const prospectionExists = await this.prospectionRepository.findById(id);
 
         if (!prospectionExists) {
             throw new Error(`This ID:(${id}) was not found!`)
@@ -26,7 +26,7 @@ export class DisableEnableProspectionByIdUseCase {
 
         const is_active = prospectionExists.is_active;
 
-        return await this.prospectionRespository.disableEnableById({
+        return await this.prospectionRepository.disableEnableById({
             id,
             is_active
         });

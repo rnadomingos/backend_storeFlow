@@ -1,10 +1,11 @@
 import { SocialMedia } from "@modules/socialMedia/entities/SocialMedia";
 import { randomUUID } from "crypto"
+import { IProspection } from "domain/prospection/model/IProspection";
 import { Column, CreateDateColumn, Entity, OneToMany, PrimaryColumn } from "typeorm";
 
 @Entity("prospection")
 
-export class Prospection {
+export class Prospection implements IProspection{
     @PrimaryColumn()
     id: string;
 

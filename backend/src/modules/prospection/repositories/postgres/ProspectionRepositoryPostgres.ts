@@ -1,10 +1,10 @@
 
-import { ICreateProspectionDTO } from '@modules/prospection/dtos/ICreateProspectionDTO'
-import { IDisableEnableProspectionDTO } from '@modules/prospection/dtos/IDisableEnableProspectionDTO'
-import { IUpdateProspectionDTO } from '@modules/prospection/dtos/IUpdateProspection'
+import { ICreateProspectionDTO } from '@domain/prospection/dto/ICreateProspectionDTO';
+import { IUpdateProspectionDTO } from '@domain/prospection/dto/IUpdateProspection';
+import { IProspection } from '@domain/prospection/model/IProspection';
 import { Prospection } from '@modules/prospection/entities/Prospection'
+import { IProspectionRepository } from 'domain/prospection/repository/IProspectionRepository'
 import { getRepository, Repository } from 'typeorm'
-import { IProspectionRepository } from '../IProspectionRepository'
 
 
 export class ProspectionRepositoryPostgres implements IProspectionRepository {
@@ -18,12 +18,12 @@ export class ProspectionRepositoryPostgres implements IProspectionRepository {
     async create({
         name,
         description
-    }: ICreateProspectionDTO): Promise<void> {
+    }: ICreateProspectionDTO): Promise<IProspection> {
         const newProspection = this.repository.create({
             name,
             description
         })
-        await this.repository.save(newProspection)
+        return await this.repository.save(newProspection)
     }
 
     async list(): Promise<Prospection[]> {
@@ -57,10 +57,7 @@ export class ProspectionRepositoryPostgres implements IProspectionRepository {
         await this.repository.delete({ id })
     }
 
-    async disableEnableById({
-        id,
-        is_active
-    }: IDisableEnableProspectionDTO): Promise<void> {
+    async disableEnableById(id: string, is_active: boolean ): Promise<void> {
         await this.repository.update({
             id
         }, {
