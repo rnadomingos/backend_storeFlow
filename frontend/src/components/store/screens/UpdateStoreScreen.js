@@ -11,7 +11,8 @@ import { storesDetailActions } from '../actions/storeDetailActions'
 import { segmentListAction } from '../../segment/actions/admin/segmentListAction'
 import { storeSegmentListAction } from '../../store/actions/admin/storeSegmentListAction'
 import { storeJoinSegmentAction } from '../../store/actions/admin/storeJoinSegmentAction'
-import { STORE_DETAIL_RESET, STORE_SEGMENT_JOIN_RESET, STORE_SEGMENT_LIST_RESET, STORE_UPDATE_RESET } from '../constants/storeConstants'
+import { storeSeparateSegmentAction } from '../../store/actions/admin/storeSeparateSegmentAction'
+import { STORE_DETAIL_RESET, STORE_SEGMENT_JOIN_RESET, STORE_SEGMENT_LIST_RESET, STORE_SEGMENT_SEPARATE_RESET, STORE_UPDATE_RESET } from '../constants/storeConstants'
 import '../../../css/formJoinSegment.css';
 
 function UpdateStoreScreen({ history, match }) {
@@ -21,6 +22,7 @@ function UpdateStoreScreen({ history, match }) {
   const [brand, setBrand] = useState('')
   const [is_active, setIsActive] = useState(true)
   const [id_segment, setIdSegment] = useState('')
+  const [del_segment, setDelSegment] = useState('')
   const [list, setList] = useState()
 
 
@@ -70,6 +72,7 @@ function UpdateStoreScreen({ history, match }) {
       dispatch({ type: STORE_SEGMENT_LIST_RESET })
       dispatch({ type: STORE_UPDATE_RESET })
       dispatch({ type: STORE_SEGMENT_JOIN_RESET })
+      dispatch({ type: STORE_SEGMENT_SEPARATE_RESET })
       history.push('/admin/stores')
 
     }
@@ -85,6 +88,15 @@ function UpdateStoreScreen({ history, match }) {
     e.preventDefault()
     dispatch(storeJoinSegmentAction({ storeId, segmentId: id_segment }))
     dispatch(storeSegmentListAction(storeId))
+  }
+
+  const separateStoreSegment = () => {
+    // setDelSegment(segment.id)
+    // dispatch(storeSeparateSegmentAction({ storeId, segmentId: del_segment }))
+    dispatch(storeSeparateSegmentAction({
+      "storeId": "647406d2-ad75-4a53-8da4-6d95a3d8e738",
+      "segmentId": "9f6484d4-34e0-4477-85af-74256d0599a3"
+    }))
   }
 
   return (
@@ -192,6 +204,12 @@ function UpdateStoreScreen({ history, match }) {
                   </div>
                   {segment.description}
                 </div>
+                <Button
+                  className='my-close'
+                  onClick={separateStoreSegment}
+                >
+                  <i className='fa fa-trash'></i>
+                </Button>
               </ListGroup.Item>
             ))}
           </ListGroup>

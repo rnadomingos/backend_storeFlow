@@ -35,6 +35,7 @@ import { segmentDetailReducer } from './components/segment/reducers/admin/segmen
 import { segmentUpdateReducer } from './components/segment/reducers/admin/segmentUpdateReducer'
 import { storeSegmentListReducer } from './components/store/reducers/admin/storeSegmentListReducer'
 import { storeJoinSegmentReducer } from './components/store/reducers/admin/storeJoinSegmentReducer'
+import { storeSeparateSegmentReducer } from './components/store/reducers/admin/storeSeparateSegmentReducer'
 
 const reducer = combineReducers({
   //Account
@@ -53,6 +54,7 @@ const reducer = combineReducers({
   storesUpdateReducer: storesUpdateReducer,
   storeSegmentListReducer: storeSegmentListReducer,
   storeJoinSegmentReducer: storeJoinSegmentReducer,
+  storeSeparateSegmentReducer: storeSeparateSegmentReducer,
 
   //Sellers
   sellersListReducer: sellersListReducer,
