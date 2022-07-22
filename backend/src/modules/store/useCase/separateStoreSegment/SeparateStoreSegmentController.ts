@@ -8,6 +8,8 @@ export class SeparateStoreSegmentController {
 
     const { storeId, segmentId } = req.body;
 
+    console.log('teste:', req.body);
+
     const separateStoreSegmentUseCase = container.resolve(SeparateStoreSegmentUseCase);
     await separateStoreSegmentUseCase.execute({
       storeId,

@@ -28,7 +28,7 @@ storeRoutes.put("/update/:id", isAuthenticated, updateStoreController.handle);
 storeRoutes.get("/:cnpj", isAuthenticated, getStoreByCNPJController.handle);
 storeRoutes.post("/joinStoreSegment", isAuthenticated, joinStoreSegmentController.handle)
 storeRoutes.get("/get-segment/:id_store", isAuthenticated, getSegmentByStoreIdController.handle)
-storeRoutes.delete("/separateStoreSegment", separateStoreSegmentController.handle)
+storeRoutes.post("/separateStoreSegment", separateStoreSegmentController.handle)
 
 
 

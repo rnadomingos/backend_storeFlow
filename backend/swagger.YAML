@@ -356,7 +356,7 @@ paths:
         401:
           $ref: "#/components/responses/UnauthorizedError"        
   /stores/separateStoreSegment:
-    delete:
+    post:
       tags:
       - "Store"
       summary: "Separate Store and Segment relationship"

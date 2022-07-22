@@ -21,10 +21,11 @@ export const storeSeparateSegmentAction = (storeSegmentDelete) => async (dispatc
       }
     }
 
-    const { data } = await axios.delete(
+    const { data } = await axios.post(
       `http://localhost:3333/stores/separateStoreSegment`,
       storeSegmentDelete,
       config
+
     )
 
     dispatch({

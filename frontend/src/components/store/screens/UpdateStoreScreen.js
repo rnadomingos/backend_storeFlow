@@ -199,6 +199,7 @@ function UpdateStoreScreen({ history, match }) {
             {storeSegment.map(segment => (
               <ListGroup.Item
                 as="li"
+                key={segment.id}
                 className="d-flex justify-content-between align-items-start">
                 < div className="ms-2 me-auto">
                   <div className="fw-bold">
@@ -210,6 +211,7 @@ function UpdateStoreScreen({ history, match }) {
                   type="radio"
                   aria-label="radio 1"
                   name="groupDelete"
+                  label="Remover"
                   id={segment.id}
                   onChange={(e) => setDelSegment(e.target.id)}
                 />
