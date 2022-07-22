@@ -21,8 +21,6 @@ export const storeSeparateSegmentAction = (storeSegmentDelete) => async (dispatc
       }
     }
 
-    console.log(`Bearer ${userInfo.token}`);
-
     const { data } = await axios.delete(
       `http://localhost:3333/stores/separateStoreSegment`,
       storeSegmentDelete,

@@ -23,7 +23,6 @@ function UpdateStoreScreen({ history, match }) {
   const [is_active, setIsActive] = useState(true)
   const [id_segment, setIdSegment] = useState('')
   const [del_segment, setDelSegment] = useState('')
-  const [list, setList] = useState()
 
 
 
@@ -90,14 +89,12 @@ function UpdateStoreScreen({ history, match }) {
     dispatch(storeSegmentListAction(storeId))
   }
 
-  const separateStoreSegment = () => {
-    // setDelSegment(segment.id)
-    // dispatch(storeSeparateSegmentAction({ storeId, segmentId: del_segment }))
-    dispatch(storeSeparateSegmentAction({
-      "storeId": "647406d2-ad75-4a53-8da4-6d95a3d8e738",
-      "segmentId": "9f6484d4-34e0-4477-85af-74256d0599a3"
-    }))
+  const separateStoreSegment = (e) => {
+    e.preventDefault()
+    dispatch(storeSeparateSegmentAction({ storeId, segmentId: del_segment }))
+    dispatch(storeSegmentListAction(storeId))
   }
+
 
   return (
     <div>
@@ -187,8 +184,14 @@ function UpdateStoreScreen({ history, match }) {
         </Col>
         <Col md={1}>
           <Button className='my-3'
+            title='Adiciona o segmento selecionado à loja'
             onClick={joinStoreSegment}>
             <i className='fas fa-arrow-right'></i>
+          </Button>
+          <Button className='my-3'
+            title='Remove o segmento vinculado à loja'
+            onClick={separateStoreSegment}>
+            <i className='fas fa-trash'></i>
           </Button>
         </Col>
         <Col>
@@ -196,20 +199,20 @@ function UpdateStoreScreen({ history, match }) {
             {storeSegment.map(segment => (
               <ListGroup.Item
                 as="li"
-                className="d-flex justify-content-between align-items-start"
-                key={segment.id}>
-                < div className="ms-2 me-auto" >
-                  <div className="fw-bold" >
+                className="d-flex justify-content-between align-items-start">
+                < div className="ms-2 me-auto">
+                  <div className="fw-bold">
                     {segment.name.toUpperCase()}
                   </div>
                   {segment.description}
                 </div>
-                <Button
-                  className='my-close'
-                  onClick={separateStoreSegment}
-                >
-                  <i className='fa fa-trash'></i>
-                </Button>
+                <Form.Check
+                  type="radio"
+                  aria-label="radio 1"
+                  name="groupDelete"
+                  id={segment.id}
+                  onChange={(e) => setDelSegment(e.target.id)}
+                />
               </ListGroup.Item>
             ))}
           </ListGroup>

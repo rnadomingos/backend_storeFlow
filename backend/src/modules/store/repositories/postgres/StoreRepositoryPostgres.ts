@@ -89,7 +89,6 @@ export class StoreRepositoryPostgres implements IStoreRepository {
     segmentId
 
   }: ISeparateStoreSegmentDTO): Promise<void> {
-    //Implementar Corretamente a deleção da tabela de ManyToMany
     await this.repository.createQueryBuilder()
       .relation(Store, "segments")
       .of(storeId)
