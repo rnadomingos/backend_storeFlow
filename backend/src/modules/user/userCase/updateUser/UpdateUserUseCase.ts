@@ -10,40 +10,19 @@ export class UpdateUserUseCase {
     private userRepository: IUserRepository
   ) { }
 
-  async execute({
-    id,
-    name,
-    email,
-    password,
-    user_dms,
-    id_store,
-    is_admin,
-    is_active
-  }: IUpdateUserDTO): Promise<void> {
+  async execute(userData: IUpdateUserDTO): Promise<void> {
 
-    const user = await this.userRepository.findById(id);
+    const user = await this.userRepository.findById(userData.id);
 
-    if (name) {
-      user.name = name
-    }
-    if (email) {
-      user.email = email
-    }
-    if (user_dms) {
-      user.user_dms = user_dms
-    }
-    if (password) {
-      user.password = password
-    }
-    if (id_store) {
-      user.id_store = id_store
-    }
-    if (is_admin !== null) {
-      user.is_admin = is_admin
-    }
+    for (const field of ["name", "email", "password", "user_dms", "id_store", "is_admin", "is_active"]) {
 
-    if (is_active !== null) {
-      user.is_active = is_active
+      if (userData[field]) {
+        user[field] = userData[field]
+      } else {
+        user.is_admin = userData.is_admin
+        user.is_active = userData.is_active
+      }
+
     }
 
     await this.userRepository.update(user);

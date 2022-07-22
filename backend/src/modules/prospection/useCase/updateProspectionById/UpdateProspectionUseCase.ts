@@ -1,12 +1,14 @@
-import { IUpdateProspectionDTO } from "@modules/prospection/dtos/IUpdateProspection";
-import { IProspectionRepository } from "@modules/prospection/repositories/IProspectionRepository";
+
+import { IUpdateProspectionDTO } from "@domain/prospection/dto/IUpdateProspection";
+import { IProspectionRepository } from "@domain/prospection/repository/IProspectionRepository";
 import { ErrorHandler } from "@shared/errors/ErrorHandler";
+
 import { inject, injectable } from "tsyringe";
 
 
 
 @injectable()
-export class UpdateProspectionByIdUseCase {
+export class UpdateProspectionUseCase {
     constructor(
         @inject("ProspectionRepository")
         private prospectionRepository: IProspectionRepository
@@ -36,7 +38,7 @@ export class UpdateProspectionByIdUseCase {
             prospectionExists.is_active = is_active
         }
 
-        return await this.prospectionRepository.updateById(prospectionExists)
+        await this.prospectionRepository.update(prospectionExists)
 
     }
 }

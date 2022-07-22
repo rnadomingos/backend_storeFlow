@@ -4,6 +4,7 @@ import { inject, injectable } from "tsyringe";
 import { hash } from "bcrypt";
 import { generateToken, optionsToCookie } from "@shared/container/providers/utils/helpersToken";
 import { ErrorHandler } from "@shared/errors/ErrorHandler";
+import { IEmailValidator } from "@shared/container/providers/validators/IEmailValidator";
 
 
 interface IResponse {
@@ -25,31 +26,44 @@ export class CreateUserUseCase {
 
   constructor(
     @inject("UserRepository")
-    private userRepository: IUserRepository
+    private userRepository: IUserRepository,
+    @inject("EmailValidator")
+    private emailValidator: IEmailValidator
   ) { }
 
-  async execute({
-    name,
-    email,
-    password,
-    user_dms,
-    id_store
-  }: ICreateUserDTO): Promise<IResponse> {
+  async execute(userData: ICreateUserDTO): Promise<IResponse> {
 
-    const userExists = await this.userRepository.findByUserDms(user_dms);
+    for (const field of [
+      "name",
+      "email",
+      "password",
+      "user_dms",
+      "id_store"]) {
+      if (!userData[field]) {
+        throw new ErrorHandler(`Params ${field} Missing`)
+      }
+    }
+
+    const userExists = await this.userRepository.findByUserDms(userData.user_dms);
 
     if (userExists) {
       throw new ErrorHandler("User Already Exists !")
     }
 
-    const passwordHash = await hash(password, 10);
+    const emailIsValid = this.emailValidator.isValid(userData.email)
+
+    if (!emailIsValid) {
+      throw new ErrorHandler("Invalid Email !")
+    }
+
+    const passwordHash = await hash(userData.password, 10);
 
     const user = await this.userRepository.create({
-      name,
-      email,
+      name: userData.name,
+      email: userData.email,
       password: passwordHash,
-      user_dms,
-      id_store
+      user_dms: userData.user_dms,
+      id_store: userData.id_store
     });
 
     const token = generateToken(user);

@@ -27,7 +27,8 @@ export class FindUserByIdUseCase {
       user_dms: user.user_dms,
       create_at: user.create_at,
       is_active: user.is_active,
-      is_admin: user.is_admin
+      is_admin: user.is_admin,
+      id_store: user.id_store
     }
   }
 }

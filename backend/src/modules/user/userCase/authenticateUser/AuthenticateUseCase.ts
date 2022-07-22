@@ -9,7 +9,9 @@ interface IResponse {
   user: {
     name: string;
     user_dms: string;
+    email: string;
     is_admin: boolean;
+    id_store: string;
   },
   token: string;
   options: {
@@ -30,13 +32,14 @@ export class AuthenticateUseCase {
     const user = await this.userRepository.findByUserDms(user_dms);
 
     if (!user) {
-      throw new ErrorHandler("Email or password incorrect !");
+      throw new ErrorHandler("user_dms or password incorrect !");
     }
+
 
     const passwordMatch = await compare(password, user.password);
 
     if (!passwordMatch) {
-      throw new ErrorHandler("Email or password incorrect !");
+      throw new ErrorHandler("user_dms or password incorrect !");
     }
 
     const token = generateToken(user);
@@ -49,7 +52,9 @@ export class AuthenticateUseCase {
       user: {
         name: user.name,
         user_dms: user.user_dms,
-        is_admin: user.is_admin
+        email: user.email,
+        is_admin: user.is_admin,
+        id_store: user.id_store
       }
     }
 

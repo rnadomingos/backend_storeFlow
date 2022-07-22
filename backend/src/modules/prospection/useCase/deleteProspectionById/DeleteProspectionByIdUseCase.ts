@@ -1,6 +1,6 @@
 
-import { IProspectionRepository } from "@modules/prospection/repositories/IProspectionRepository";
 import { ErrorHandler } from "@shared/errors/ErrorHandler";
+import { IProspectionRepository } from "domain/prospection/repository/IProspectionRepository";
 import { inject, injectable } from "tsyringe";
 
 

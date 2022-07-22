@@ -11,32 +11,26 @@ export class UpdateSocialMediaByIdUseCase {
         @inject("SocialMediaRepository")
         private socialMediaRepository: ISocialMediaRepository
     ) { }
-    async execute({
-        id,
-        name,
-        description,
-        is_active
-    }: IUpdateSocialMediaDTO): Promise<void> {
+    async execute(socialMediaData: IUpdateSocialMediaDTO): Promise<void> {
 
-        const socialMediaExists = await this.socialMediaRepository.findById(id);
+        const socialMedia = await this.socialMediaRepository.findById(socialMediaData.id);
 
-        if (!socialMediaExists) {
-            throw new ErrorHandler(`This ID:(${id}) was not found!`)
+        if (!socialMedia) {
+            throw new ErrorHandler(`This ID:(${socialMediaData.id}) was not found!`)
         }
 
-        if (name) {
-            socialMediaExists.name = name.toLocaleLowerCase();
+        for (const field of [
+            "name",
+            "description",
+            "is_active"]) {
+            if (socialMediaData[field]) {
+                socialMedia[field] = socialMediaData[field]
+            } else {
+                socialMedia.is_active = socialMediaData.is_active
+            }
         }
 
-        if (description) {
-            socialMediaExists.description = description
-        }
-
-        if (is_active != null) {
-            socialMediaExists.is_active = is_active
-        }
-
-        return await this.socialMediaRepository.updateById(socialMediaExists)
+        return await this.socialMediaRepository.updateById(socialMedia)
 
     }
 }

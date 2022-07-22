@@ -11,7 +11,7 @@ import { sellersListReducer } from './components/seller/reducers/admin/sellersLi
 import { sellerDetailReducer } from './components/seller/reducers/sellerDetailReducer'
 import { sellerUpdateReducer } from './components/seller/reducers/admin/sellerUpdateReduce'
 import { sellerCreateReducer } from './components/seller/reducers/admin/sellerCreateReducer'
-import { serviceTypeListReducer } from './components/serviceType/reducers/admin/serviceTypeListReducer'
+import { serviceTypeListReducer } from './components/serviceType/reducers/serviceTypeListReducer'
 import { serviceTypeCreateReducer } from './components/serviceType/reducers/admin/serviceTypeCreateReducer'
 import { serviceTypeDetailReducer } from './components/serviceType/reducers/serviceTypeDatailReducer'
 import { serviceTypeUpdateReducer } from './components/serviceType/reducers/admin/serviceTypeUpdateReducer'
@@ -36,6 +36,9 @@ import { segmentUpdateReducer } from './components/segment/reducers/admin/segmen
 import { storeSegmentListReducer } from './components/store/reducers/admin/storeSegmentListReducer'
 import { storeJoinSegmentReducer } from './components/store/reducers/admin/storeJoinSegmentReducer'
 import { storeSeparateSegmentReducer } from './components/store/reducers/admin/storeSeparateSegmentReducer'
+import { userStoreDetailReducer } from './components/account/reducers/userStoreDetailReducer'
+import { storeFlowCreateReducer } from './components/storeFlow/reducers/storeFlowCreateReducer'
+import { storeSellersReducer } from './components/store/reducers/storeSellersReducer'
 
 const reducer = combineReducers({
   //Account
@@ -46,6 +49,7 @@ const reducer = combineReducers({
   userDetailReducer: userDetailReducer,
   userUpdateReducer: userUpdateReducer,
   userUpdatePasswordReducer: userUpdatePasswordReducer,
+  userStoreDetailReducer: userStoreDetailReducer,
 
   //Stores
   storesListReducer: storesListReducer,
@@ -55,6 +59,7 @@ const reducer = combineReducers({
   storeSegmentListReducer: storeSegmentListReducer,
   storeJoinSegmentReducer: storeJoinSegmentReducer,
   storeSeparateSegmentReducer: storeSeparateSegmentReducer,
+  storeSellersReducer: storeSellersReducer,
 
   //Sellers
   sellersListReducer: sellersListReducer,
@@ -74,7 +79,7 @@ const reducer = combineReducers({
   prospectionDetailUpdateReducer: prospectionDetailUpdateReducer,
   prospectionUpdateReducer: prospectionUpdateReducer,
 
-  //SocialMidia
+  //Social Media
   socialMediaListReducer: socialMediaListReducer,
   socialMediaCreateReducer: socialMediaCreateReducer,
   socialMediaDetailReducer: socialMediaDetailReducer,
@@ -84,7 +89,10 @@ const reducer = combineReducers({
   segmentListReducer: segmentListReducer,
   segmentCreateReducer: segmentCreateReducer,
   segmentDetailReducer: segmentDetailReducer,
-  segmentUpdateReducer: segmentUpdateReducer
+  segmentUpdateReducer: segmentUpdateReducer,
+
+  //Store Flow
+  storeFlowCreateReducer: storeFlowCreateReducer
 
 })
 

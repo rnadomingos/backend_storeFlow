@@ -2,7 +2,7 @@ import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Button, Col, Row, Table } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
-import { serviceTypeListAction } from '../../actions/admin/ServiceTypeListAction'
+import { serviceTypeListAction } from '../../actions/ServiceTypeListAction'
 import { Loader } from '../../../layout/Loader'
 import { Message } from '../../../layout/Message'
 

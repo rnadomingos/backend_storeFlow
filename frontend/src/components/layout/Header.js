@@ -22,7 +22,8 @@ function Header() {
           </Link>
           <Nav className="me-auto">
             <NavDropdown title="Cliente" id="navbarScrollingDropdown">
-              <NavDropdown.Item>Nova Passagem</NavDropdown.Item>
+
+              <Link className="dropdown-item" to="/store-flow/new">Finalizar Venda</Link>
             </NavDropdown>
             <NavDropdown title="Loja" id="navbarScrollingDropdown">
               <NavDropdown.Item>

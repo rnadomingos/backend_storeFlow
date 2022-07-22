@@ -1,6 +1,7 @@
-import { Prospection } from "@modules/prospection/entities/Prospection";
-import { IProspectionRepository } from "@modules/prospection/repositories/IProspectionRepository";
+
 import { ErrorHandler } from "@shared/errors/ErrorHandler";
+import { IProspection } from "domain/prospection/model/IProspection";
+import { IProspectionRepository } from "domain/prospection/repository/IProspectionRepository";
 import { inject, injectable } from "tsyringe";
 
 @injectable()
@@ -12,7 +13,7 @@ export class FindProspectionByIdUseCase {
 
     ) { }
 
-    async execute(id: string): Promise<Prospection> {
+    async execute(id: string): Promise<IProspection> {
 
         const prospection = await this.prospectionRepository.findById(id);
 

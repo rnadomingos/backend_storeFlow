@@ -26,9 +26,9 @@ export async function isAuthenticated(req: Request, res: Response, next: NextFun
       const decoded = verify(token, auth.secret_token) as IPayload
 
 
-      const userExists = await userRepository.findById(decoded.sub)
+      const user = await userRepository.findById(decoded.sub)
 
-      if (!userExists) {
+      if (!user) {
         throw new ErrorHandler('User does not exists', 401);
       }
 

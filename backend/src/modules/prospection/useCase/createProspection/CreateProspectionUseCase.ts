@@ -1,6 +1,6 @@
-import { ICreateProspectionDTO } from "@modules/prospection/dtos/ICreateProspectionDTO";
-import { IProspectionRepository } from "@modules/prospection/repositories/IProspectionRepository";
 import { ErrorHandler } from "@shared/errors/ErrorHandler";
+import { ICreateProspectionDTO } from "domain/prospection/dto/ICreateProspectionDTO";
+import { IProspectionRepository } from "domain/prospection/repository/IProspectionRepository";
 import { inject, injectable } from "tsyringe";
 
 

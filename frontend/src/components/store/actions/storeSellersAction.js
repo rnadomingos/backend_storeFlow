@@ -1,15 +1,14 @@
-import axios from 'axios'
+import axios from "axios"
 import {
-  SERVICE_TYPE_LIST_FAIL,
-  SERVICE_TYPE_LIST_REQUEST,
-  SERVICE_TYPE_LIST_SUCCESS
-} from '../../constants/serviceTypeConstant'
+  STORE_LIST_SELLERS_FAIL,
+  STORE_LIST_SELLERS_REQUEST,
+  STORE_LIST_SELLERS_SUCCESS
+} from "../constants/storeConstants"
 
-
-export const serviceTypeListAction = () => async (dispatch, getState) => {
+export const storeSellersAction = (storeId) => async (dispatch, getState) => {
   try {
 
-    dispatch({ type: SERVICE_TYPE_LIST_REQUEST })
+    dispatch({ type: STORE_LIST_SELLERS_REQUEST })
 
     const {
       userLogin: { userInfo },
@@ -23,18 +22,18 @@ export const serviceTypeListAction = () => async (dispatch, getState) => {
     }
 
     const { data } = await axios.get(
-      `http://localhost:3333/service-type/list`,
+      `/stores/list-sellers/${storeId}`,
       config
     )
 
     dispatch({
-      type: SERVICE_TYPE_LIST_SUCCESS,
+      type: STORE_LIST_SELLERS_SUCCESS,
       payload: data
     })
 
   } catch (error) {
     dispatch({
-      type: SERVICE_TYPE_LIST_FAIL,
+      type: STORE_LIST_SELLERS_FAIL,
       payload: error.response.data
     })
   }

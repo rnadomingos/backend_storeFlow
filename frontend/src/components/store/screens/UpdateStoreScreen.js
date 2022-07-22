@@ -24,8 +24,6 @@ function UpdateStoreScreen({ history, match }) {
   const [id_segment, setIdSegment] = useState('')
   const [del_segment, setDelSegment] = useState('')
 
-
-
   const storeId = match.params.id
 
   const { error: errorDetail, store } = useSelector(state => state.storesDetailReducer)
@@ -75,7 +73,6 @@ function UpdateStoreScreen({ history, match }) {
       history.push('/admin/stores')
 
     }
-
   }, [error, dispatch, success, history, store, storeId, errorDetail])
 
   const submitHandler = (e) => {

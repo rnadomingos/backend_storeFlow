@@ -22,8 +22,8 @@ socialMediaRoutes.post("/new", isAuthenticated, createSocialMediaController.hand
 socialMediaRoutes.get("/get-id/:id", isAuthenticated, findSocialMediaByIdController.handle);
 socialMediaRoutes.get("/get-name/:name", isAuthenticated, findSocialMediaByNameController.handle);
 socialMediaRoutes.get("/list", isAuthenticated, findAllSocialMediaController.handle);
-socialMediaRoutes.patch("/update/:id", isAuthenticated, updateSocialMediaController.handle);
+socialMediaRoutes.put("/update/:id", isAuthenticated, updateSocialMediaController.handle);
 socialMediaRoutes.delete("/delete/:id", isAuthenticated, deleteSocialMediaByIdController.handle);
-socialMediaRoutes.patch("/update-status/:id", isAuthenticated, disableEnableSocialMediaByIdController.handle);
+socialMediaRoutes.put("/update-status/:id", isAuthenticated, disableEnableSocialMediaByIdController.handle);
 
 export { socialMediaRoutes }

@@ -1,5 +1,5 @@
-import { Prospection } from "@modules/prospection/entities/Prospection";
-import { IProspectionRepository } from "@modules/prospection/repositories/IProspectionRepository";
+import { IProspection } from "domain/prospection/model/IProspection";
+import { IProspectionRepository } from "domain/prospection/repository/IProspectionRepository";
 import { inject, injectable } from "tsyringe";
 
 @injectable()
@@ -11,7 +11,7 @@ export class FindAllProspectionUseCase {
 
     ) { }
 
-    async execute(): Promise<Prospection[]> {
+    async execute(): Promise<IProspection[]> {
         return await this.prospectionRepository.list()
 
     }

@@ -1,5 +1,5 @@
 import axios from "axios"
-import { PROSPECTION_LIST_FAIL, PROSPECTION_LIST_REQUEST, PROSPECTION_LIST_SUCCESS } from "../../constants/prospectionConstants"
+import { PROSPECTION_LIST_FAIL, PROSPECTION_LIST_REQUEST, PROSPECTION_LIST_SUCCESS } from "../constants/prospectionConstants"
 
 
 

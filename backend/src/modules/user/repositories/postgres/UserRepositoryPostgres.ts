@@ -13,7 +13,6 @@ export class UserRepositoryPostgres implements IUserRepository {
     this.repository = getRepository(User)
   }
 
-
   async findStoreByUser(user_dms: string): Promise<User[]> {
     return await this.repository.find({
       where: { user_dms },
@@ -40,7 +39,9 @@ export class UserRepositoryPostgres implements IUserRepository {
   }
 
   async findByUserDms(user_dms: string): Promise<User> {
-    return this.repository.findOne({ user_dms })
+    return await this.repository.findOne({
+      where: { user_dms, is_active: true }
+    });
   }
 
   async list(): Promise<User[]> {
@@ -76,6 +77,10 @@ export class UserRepositoryPostgres implements IUserRepository {
   }
 
   async findByEmail(email: string): Promise<User> {
-    return this.repository.findOne({ email })
+    return await this.repository.findOne({
+      where: { email, is_active: true }
+    });
   }
+
+
 }

@@ -36,7 +36,5 @@ export const segmentListAction = () => async (dispatch, getState) => {
       type: SEGMENT_LIST_FAIL,
       payload: error.response.data
     })
-
-    console.log('error: ', error);
   }
 }
