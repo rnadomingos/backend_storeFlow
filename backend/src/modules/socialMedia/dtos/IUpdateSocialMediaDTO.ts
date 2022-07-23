@@ -3,4 +3,5 @@ export interface IUpdateSocialMediaDTO {
     name?: string;
     description?: string;
     is_active?: boolean;
+    id_prospection?: string;
 }

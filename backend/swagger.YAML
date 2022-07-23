@@ -596,7 +596,7 @@ paths:
         401:
           $ref: "#/components/responses/UnauthorizedError"
   /segment/update/{id}:
-    patch:
+    put:
       tags: 
       - "Segment"
       summary: "Update segment"
@@ -706,7 +706,7 @@ paths:
         401:
           $ref: "#/components/responses/UnauthorizedError"
   /serviceType/update/{id}:
-    patch:
+    put:
       tags: 
       - "Service Type"
       summary: "Update a service Type"
@@ -839,7 +839,7 @@ paths:
         401:
           $ref: "#/components/responses/UnauthorizedError"          
   /social-media/update/{id}:
-    patch:
+    put:
       tags: 
       - "Social Media"
       summary: "Update a Social Media"
@@ -870,7 +870,7 @@ paths:
         401:
           $ref: "#/components/responses/UnauthorizedError"
   /social-media/update-status/{id}:
-    patch:
+    put:
       tags: 
       - "Social Media"
       summary: "Enable or Disable Social Media by Id"
@@ -989,7 +989,7 @@ paths:
         401:
           $ref: "#/components/responses/UnauthorizedError"          
   /prospection/update/{id}:
-    patch:
+    put:
       tags: 
       - "Prospection"
       summary: "Update a Prospection"
@@ -1020,7 +1020,7 @@ paths:
         401:
           $ref: "#/components/responses/UnauthorizedError"
   /prospection/update-status/{id}:
-    patch:
+    put:
       tags: 
       - "Prospection"
       summary: "Enable or Disable Prospection Status"

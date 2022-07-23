@@ -44,13 +44,15 @@ export class SocialMediaRepositoryPostgres implements ISocialMediaRepository {
         id,
         name,
         description,
-        is_active
+        is_active,
+        id_prospection
     }: IUpdateSocialMediaDTO): Promise<void> {
         const updateSocialMedia = this.repository.create({
             id,
             name,
             description,
-            is_active
+            is_active,
+            id_prospection
         })
 
         await this.repository.save(updateSocialMedia);

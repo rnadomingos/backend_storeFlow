@@ -20,7 +20,7 @@ segmentRoutes.post("/new", isAuthenticated, createSegmentController.handle);
 segmentRoutes.get("/get-segment-name/:name", isAuthenticated, findSegmentByNameController.handle);
 segmentRoutes.get("/get-segment-id/:id", isAuthenticated, findSegmentByIdController.handle);
 segmentRoutes.get("/list", isAuthenticated, listSegmentController.handle);
-segmentRoutes.patch("/update/:id", isAuthenticated, updateSegmentById.handle)
+segmentRoutes.put("/update/:id", isAuthenticated, updateSegmentById.handle)
 segmentRoutes.delete("/del/:id", isAuthenticated, deleteSegmentByIdController.handle)
 
 export { segmentRoutes }

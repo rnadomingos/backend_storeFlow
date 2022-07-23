@@ -21,7 +21,7 @@ export const socialMediaUpdateAction = (socialMedia) => async (dispatch, getStat
       }
     }
 
-    const { data } = await axios.patch(
+    const { data } = await axios.put(
       `http://localhost:3333/social-media/update/${socialMedia.id}`,
       socialMedia,
       config

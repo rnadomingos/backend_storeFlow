@@ -9,7 +9,7 @@ import { storesListActions } from '../../../store/actions/admin/storesListAction
 import { sellerUpdateAction } from '../../actions/admin/sellerUpdateAction'
 import { cleanErrors } from '../../actions/cleanErrors'
 import { sellerDetailAction } from '../../actions/sellerDetailAction'
-import { SELLER_UPDATE_RESET } from '../../constants/sellerConstants'
+import { SELLER_UPDATE_RESET, SELLER_DETAIL_RESET } from '../../constants/sellerConstants'
 
 
 function UpdateSellerScreen({ history, match }) {
@@ -55,6 +55,7 @@ function UpdateSellerScreen({ history, match }) {
     if (success) {
       history.push('/admin/sellers')
       dispatch({ type: SELLER_UPDATE_RESET })
+      dispatch({ type: SELLER_DETAIL_RESET })
     }
 
   }, [dispatch, seller, userDMS, error, errorDetail, success, history])
@@ -97,6 +98,7 @@ function UpdateSellerScreen({ history, match }) {
               <Form.Group>
                 <Form.Label>Disabled select menu</Form.Label>
                 <Form.Select
+                  key={id_store}
                   value={id_store}
                   onChange={(e) => setIdstore(e.target.value)}
                 >

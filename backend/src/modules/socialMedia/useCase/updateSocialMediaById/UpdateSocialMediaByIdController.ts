@@ -10,7 +10,8 @@ export class UpdateSocialMediaByIdController {
         const {
             name,
             description,
-            is_active
+            is_active,
+            id_prospection
         } = req.body;
 
         const updateSocialMediaByIdController = container.resolve(UpdateSocialMediaByIdUseCase)
@@ -19,7 +20,8 @@ export class UpdateSocialMediaByIdController {
             id,
             name,
             description,
-            is_active
+            is_active,
+            id_prospection
         })
 
         return res.json({

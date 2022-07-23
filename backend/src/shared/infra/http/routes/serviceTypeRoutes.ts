@@ -17,7 +17,7 @@ const deleteServiceTypeController = new DeleteServiceTypeByIdController();
 serviceTypeRoutes.post("/new", isAuthenticated, createServiceTypeController.handle);
 serviceTypeRoutes.get("/list", isAuthenticated, listServiceTypeController.handle);
 serviceTypeRoutes.get("/get-service/:id", isAuthenticated, findServiceTypeByIidController.handle);
-serviceTypeRoutes.patch("/update/:id", isAuthenticated, updateServiceTypeController.handle);
+serviceTypeRoutes.put("/update/:id", isAuthenticated, updateServiceTypeController.handle);
 serviceTypeRoutes.delete("/delete/:id", isAuthenticated, deleteServiceTypeController.handle);
 
 

@@ -22,7 +22,9 @@ export class UpdateSocialMediaByIdUseCase {
         for (const field of [
             "name",
             "description",
-            "is_active"]) {
+            "is_active",
+            "id_prospection"
+        ]) {
             if (socialMediaData[field]) {
                 socialMedia[field] = socialMediaData[field]
             } else {
