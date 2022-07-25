@@ -1,4 +1,4 @@
-import { ISegmentRepository } from "@modules/segment/repositories/ISegmentRepository";
+import { ISegmentRepository } from "@domain/segment/repository/ISegmentRepository";
 import { ErrorHandler } from "@shared/errors/ErrorHandler";
 import { inject, injectable } from "tsyringe";
 

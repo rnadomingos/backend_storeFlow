@@ -1,9 +1,9 @@
-import { ICreateSegmentDTO } from "../../dtos/ICreateSegmentDTO";
+import { ICreateSegmentDTO } from "../../../../domain/segment/dto/ICreateSegmentDTO";
 import { getRepository, Repository } from "typeorm";
-import { ISegmentRepository } from "../ISegmentRepository";
+import { ISegmentRepository } from "../../../../domain/segment/repository/ISegmentRepository";
 import { Segment } from "@modules/segment/entities/Segment";
 import { Store } from "@modules/store/entities/Store";
-import { IUpdateSegmentByIdDTO } from "@modules/segment/dtos/IUpdateSegmentByIdDTO";
+import { IUpdateSegmentByIdDTO } from "@domain/segment/dto/IUpdateSegmentByIdDTO";
 
 
 

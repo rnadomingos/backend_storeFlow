@@ -1,5 +1,5 @@
-import { IUpdateSegmentByIdDTO } from "@modules/segment/dtos/IUpdateSegmentByIdDTO";
-import { ISegmentRepository } from "@modules/segment/repositories/ISegmentRepository";
+import { IUpdateSegmentByIdDTO } from "@domain/segment/dto/IUpdateSegmentByIdDTO";
+import { ISegmentRepository } from "@domain/segment/repository/ISegmentRepository";
 import { inject, injectable } from "tsyringe";
 
 @injectable()

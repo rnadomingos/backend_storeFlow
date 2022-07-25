@@ -1,7 +1,7 @@
 import { Segment } from "@modules/segment/entities/Segment";
-import { ICreateSegmentDTO } from "../../dtos/ICreateSegmentDTO";
+import { ICreateSegmentDTO } from "../../../../domain/segment/dto/ICreateSegmentDTO";
 
-import { ISegmentRepository } from "../ISegmentRepository";
+import { ISegmentRepository } from "../../../../domain/segment/repository/ISegmentRepository";
 
 
 export class SegmentRepositoryInMemory implements ISegmentRepository {

@@ -1,4 +1,4 @@
-import { ISegmentRepository } from '../../repositories/ISegmentRepository';
+import { ISegmentRepository } from '../../../../domain/segment/repository/ISegmentRepository';
 import { inject, injectable } from 'tsyringe';
 import { Segment } from '@modules/segment/entities/Segment';
 

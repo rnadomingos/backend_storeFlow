@@ -1,5 +1,5 @@
-import { ICreateSegmentDTO } from "modules/segment/dtos/ICreateSegmentDTO";
-import { ISegmentRepository } from "../../repositories/ISegmentRepository";
+import { ICreateSegmentDTO } from "@domain/segment/dto/ICreateSegmentDTO";
+import { ISegmentRepository } from "../../../../domain/segment/repository/ISegmentRepository";
 import { inject, injectable } from "tsyringe";
 import { ErrorHandler } from "@shared/errors/ErrorHandler";
 

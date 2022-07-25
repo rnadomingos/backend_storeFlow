@@ -1,6 +1,6 @@
-import { ICreateSegmentDTO } from "../dtos/ICreateSegmentDTO";
-import { IUpdateSegmentByIdDTO } from "../dtos/IUpdateSegmentByIdDTO";
-import { Segment } from "../entities/Segment";
+import { ICreateSegmentDTO } from "../dto/ICreateSegmentDTO";
+import { IUpdateSegmentByIdDTO } from "../dto/IUpdateSegmentByIdDTO";
+import { Segment } from "../../../modules/segment/entities/Segment";
 
 
 

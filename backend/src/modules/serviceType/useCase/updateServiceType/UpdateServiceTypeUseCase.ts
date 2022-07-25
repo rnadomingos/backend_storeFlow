@@ -1,4 +1,4 @@
-import { IUpdateSegmentByIdDTO } from "@modules/segment/dtos/IUpdateSegmentByIdDTO";
+import { IUpdateSegmentByIdDTO } from "@domain/segment/dto/IUpdateSegmentByIdDTO";
 import { IServiceTypeRepository } from "@modules/serviceType/repositories/IServiceTypeRepository";
 import { ErrorHandler } from "@shared/errors/ErrorHandler";
 import { container, inject, injectable } from "tsyringe";

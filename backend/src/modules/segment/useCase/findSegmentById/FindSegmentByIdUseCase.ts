@@ -1,7 +1,7 @@
 import { Segment } from "@modules/segment/entities/Segment";
 import { ErrorHandler } from "@shared/errors/ErrorHandler";
 import { inject, injectable } from "tsyringe";
-import { ISegmentRepository } from "../../repositories/ISegmentRepository";
+import { ISegmentRepository } from "../../../../domain/segment/repository/ISegmentRepository";
 
 
 @injectable()
