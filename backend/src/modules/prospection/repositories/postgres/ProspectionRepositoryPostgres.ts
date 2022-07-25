@@ -18,12 +18,12 @@ export class ProspectionRepositoryPostgres implements IProspectionRepository {
     async create({
         name,
         description
-    }: ICreateProspectionDTO): Promise<IProspection> {
+    }: ICreateProspectionDTO): Promise<void> {
         const newProspection = this.repository.create({
             name,
             description
         })
-        return await this.repository.save(newProspection)
+        await this.repository.save(newProspection)
     }
 
     async list(): Promise<Prospection[]> {
@@ -43,14 +43,14 @@ export class ProspectionRepositoryPostgres implements IProspectionRepository {
         name,
         description,
         is_active
-    }: IUpdateProspectionDTO): Promise<IProspection> {
+    }: IUpdateProspectionDTO): Promise<void> {
         const updateProspection = this.repository.create({
             id,
             name,
             description,
             is_active
         })
-        return await this.repository.save(updateProspection);
+        await this.repository.save(updateProspection);
     }
 
     async deleteById(id: string): Promise<void> {

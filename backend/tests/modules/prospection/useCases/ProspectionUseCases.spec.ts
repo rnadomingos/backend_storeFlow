@@ -47,8 +47,8 @@ const makeFakeProspections = (): IProspection[] => [
 
 const makeProspectionRepository = (): IProspectionRepository => {
   class ProspectionRepositoryStub implements IProspectionRepository {
-    async create(data: ICreateProspectionDTO): Promise<IProspection> {
-      return await new Promise(resolve => resolve(makeFakeProspection()))
+    async create(data: ICreateProspectionDTO): Promise<void> {
+      return await new Promise(resolve => resolve(null))
     }
 
     async list(): Promise<IProspection[]> {
@@ -63,8 +63,8 @@ const makeProspectionRepository = (): IProspectionRepository => {
       return await new Promise(resolve => resolve(null))
     }
 
-    async update(data: IUpdateProspectionDTO): Promise<IProspection> {
-      return await new Promise(resolve => resolve(makeFakeProspection()))
+    async update(data: IUpdateProspectionDTO): Promise<void> {
+      return await new Promise(resolve => resolve(null))
     }
 
     deleteById(id: string): Promise<void> {
@@ -116,16 +116,18 @@ describe('Prospection use cases' , () => {
     });
    });
 
-   test('Should not be able to  create a prospection if already exist', async () => {
-    const {createProspectionUseCase, prospectionRepositoryStub} = makeSut()
+   test('Should not be able to  create a prospection if already exist', () => {
+   expect(async () => {
+      const {createProspectionUseCase, prospectionRepositoryStub} = makeSut()
     jest.spyOn(prospectionRepositoryStub, 'findByName').mockReturnValueOnce(
-      new Promise((resolve, reject) => reject(new Error()))
+      new Promise((resolve, reject) => resolve(makeFakeProspection()))
     )
-    const prospection = createProspectionUseCase.execute({
+   await createProspectionUseCase.execute({
       name:'any_name', 
       description:'any_description'
     });
-    await expect(prospection).rejects.toThrow();
+    }).rejects.toEqual({"message": "Prospection already exists!", "statusCode": 400});
+  
    });
 
    test('Should be able to list all prospections', async () => {
@@ -153,15 +155,16 @@ describe('Prospection use cases' , () => {
    });
 
    test('Should not be able to update a prospection if id not found', async () => {
-    const {updateProspectionUseCase, prospectionRepositoryStub} = makeSut()
-    jest.spyOn(prospectionRepositoryStub, 'findById').mockReturnValueOnce(
-      new Promise((resolve, reject) => reject(new Error()))
-    )
-    const prospection =  updateProspectionUseCase.execute({
-      id: 'invalid_uuid',
-      is_active: false
-    });
-    await expect(prospection).rejects.toThrow();
+      expect(async () => {
+        const {updateProspectionUseCase, prospectionRepositoryStub} = makeSut()
+        jest.spyOn(prospectionRepositoryStub, 'findById').mockReturnValueOnce(
+          new Promise((resolve) => resolve(null))
+        )
+        await updateProspectionUseCase.execute({
+          id: 'invalid_uuid',
+          is_active: false
+        });
+      }).rejects.toEqual({"message": "This ID:(invalid_uuid) was not found!", "statusCode": 400});
    });
 
 })
