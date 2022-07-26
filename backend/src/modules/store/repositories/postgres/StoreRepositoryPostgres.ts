@@ -42,8 +42,8 @@ export class StoreRepositoryPostgres implements IStoreRepository {
     return await this.repository.find()
   }
 
-  async listSellers(id: string): Promise<Store[]> {
-    return await this.repository.find({
+  async listSellers(id: string): Promise<Store> {
+    return await this.repository.findOne({
       relations: ["sellers"],
       where: { id }
     });

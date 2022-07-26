@@ -9,7 +9,7 @@ export interface IStoreRepository {
   findByCNPJ(cnpj: string): Promise<Store>;
   create(data: ICreateStoreDTO): Promise<void>;
   list(): Promise<Store[]>
-  listSellers(id: string): Promise<Store[]>;
+  listSellers(id: string): Promise<Store>;
   update(data: IUpdateStoreDto): Promise<void>;
   joinStoreSegment(data: IJoinStoreSegmentDTO): Promise<void>;
   getSegmentByStoreId(id: string): Promise<Store>;
