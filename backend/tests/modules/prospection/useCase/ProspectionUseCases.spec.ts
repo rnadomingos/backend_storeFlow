@@ -4,8 +4,8 @@ import { IUpdateProspectionDTO } from "@domain/prospection/dto/IUpdateProspectio
 import { IProspection } from "@domain/prospection/model/IProspection"
 import { IProspectionRepository } from "@domain/prospection/repository/IProspectionRepository"
 import { CreateProspectionUseCase } from "@modules/prospection/useCase/createProspection/CreateProspectionUseCase"
-import { FindAllProspectionUseCase } from "@modules/prospection/useCase/findAllProspection/FindAllProspectionUseCase"
 import { UpdateProspectionUseCase } from "@modules/prospection/useCase/updateProspectionById/UpdateProspectionUseCase"
+import { ListProspectionUseCase } from "@modules/prospection/useCase/listProspection/ListProspectionUseCase"
 
 
 const makeFakeProspection = (): IProspection => ({
@@ -83,14 +83,14 @@ const makeProspectionRepository = (): IProspectionRepository => {
 interface ISutTypes {
   createProspectionUseCase: CreateProspectionUseCase;
   prospectionRepositoryStub: IProspectionRepository;
-  findAllProspectionUseCase: FindAllProspectionUseCase;
+  findAllProspectionUseCase: ListProspectionUseCase;
   updateProspectionUseCase: UpdateProspectionUseCase;
 }
 
 const makeSut = (): ISutTypes => {
   const prospectionRepositoryStub = makeProspectionRepository();
  const createProspectionUseCase = new CreateProspectionUseCase(prospectionRepositoryStub);
- const findAllProspectionUseCase = new FindAllProspectionUseCase(prospectionRepositoryStub);
+ const findAllProspectionUseCase = new ListProspectionUseCase(prospectionRepositoryStub);
  const updateProspectionUseCase = new UpdateProspectionUseCase(prospectionRepositoryStub)
  return {
   createProspectionUseCase,

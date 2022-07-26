@@ -3,7 +3,7 @@ import { IProspectionRepository } from "domain/prospection/repository/IProspecti
 import { inject, injectable } from "tsyringe";
 
 @injectable()
-export class FindAllProspectionUseCase {
+export class ListProspectionUseCase {
 
     constructor(
         @inject("ProspectionRepository")
