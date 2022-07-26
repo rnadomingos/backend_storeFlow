@@ -19,8 +19,6 @@ export class CreateStoreFlowUseCase {
       "client_phone",
       "time",
       "date",
-      "test_driver",
-      "sold",
       "id_store",
       "id_seller",
       "id_store_segment",
