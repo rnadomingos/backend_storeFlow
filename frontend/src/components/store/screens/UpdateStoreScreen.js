@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { Button, Form, Col, Row, FloatingLabel, ListGroup, Badge, CloseButton } from 'react-bootstrap'
+import { Button, Form, Col, Row, FloatingLabel, ListGroup } from 'react-bootstrap'
 import { useDispatch, useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
 import { FormContainer } from '../../layout/FormContainer'

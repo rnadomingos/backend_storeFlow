@@ -4,9 +4,10 @@ import { useDispatch, useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
 import { FormContainer } from '../../layout/FormContainer'
 import { Loader } from '../../layout/Loader'
-import { cleanErrors, storeCreateAction } from '../actions/admin/storeCreateAction'
+import { storeCreateAction } from '../actions/admin/storeCreateAction'
 import { Message } from '../../layout/Message'
 import { STORE_CREATE_RESET } from '../constants/storeConstants'
+import { useAlert } from 'react-alert'
 
 function CreateStoreScreen({ history }) {
 
@@ -14,6 +15,7 @@ function CreateStoreScreen({ history }) {
   const [name, setName] = useState('')
   const [brand, setBrand] = useState('')
 
+  const alert = useAlert()
   const dispatch = useDispatch()
 
   const { error, loading, success } = useSelector(state => state.storeCreateReducer)
@@ -28,11 +30,11 @@ function CreateStoreScreen({ history }) {
 
 
     if (error) {
-      alert(error)
+      alert.error(error)
       dispatch({ type: STORE_CREATE_RESET })
     }
 
-  }, [error, dispatch, success, history])
+  }, [error, dispatch, success, history, alert])
 
   const submitHandler = (e) => {
     e.preventDefault()

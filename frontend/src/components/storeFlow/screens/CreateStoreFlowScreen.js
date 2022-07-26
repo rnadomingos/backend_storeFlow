@@ -7,8 +7,10 @@ import { FormContainer } from '../../layout/FormContainer'
 import { Loader } from '../../layout/Loader'
 import { prospectionListAction } from '../../prospection/actions/prospectionListAction'
 import { serviceTypeListAction } from '../../serviceType/actions/ServiceTypeListAction'
+import { storeSegmentListAction } from '../../store/actions/admin/storeSegmentListAction'
 import { storeSellersAction } from '../../store/actions/storeSellersAction'
 import { storeCreateAction } from '../actions/storeFlowAction'
+import { STORE_FLOW_CREATE_RESET } from '../constants/storeFlowConstants'
 
 function CreateStoreFlowScreen({ history }) {
 
@@ -22,28 +24,45 @@ function CreateStoreFlowScreen({ history }) {
   const [id_seller, setId_seller] = useState('')
   const [id_type_service, setId_type_service] = useState('')
   const [id_prospection, setId_prospection] = useState('')
+  const [id_store_segment, setId_segment] = useState('')
 
   const { userInfo } = useSelector(state => state.userLogin)
   const { error, loading, success } = useSelector(state => state.storeFlowCreateReducer)
   const { storeSellers } = useSelector(state => state.storeSellersReducer)
   const { serviceTypes } = useSelector(state => state.serviceTypeListReducer)
   const { prospection } = useSelector(state => state.prospectionListReducer)
+  const { storeSegment } = useSelector(state => state.storeSegmentListReducer)
 
   const alert = useAlert()
   const dispatch = useDispatch()
   const id_store = userInfo.user.id_store
+  const storeSegmentActive = storeSegment.filter(ss => ss.is_active === true)
   const serviceTypesActive = serviceTypes.filter(st => st.is_active === true)
   const prospectionActive = prospection.filter(pp => pp.is_active === true)
 
 
   useEffect(() => {
+
+    if (success) {
+      history.push('/home')
+      dispatch({ type: STORE_FLOW_CREATE_RESET })
+    }
+
+    if (error) {
+      alert.error(error)
+      dispatch({ type: STORE_FLOW_CREATE_RESET })
+    }
+
+
     dispatch(storeSellersAction(id_store))
+    dispatch(storeSegmentListAction(id_store))
     dispatch(serviceTypeListAction())
     dispatch(prospectionListAction())
-  }, [dispatch, id_store])
+  }, [alert, dispatch, error, history, id_store, success])
 
   const submitHandler = (e) => {
     e.preventDefault()
+   
     dispatch(storeCreateAction({
       client_name,
       client_email,
@@ -54,7 +73,9 @@ function CreateStoreFlowScreen({ history }) {
       sold,
       id_seller,
       id_type_service,
-      id_prospection
+      id_prospection,
+      id_store_segment,
+      id_store
     }))
   }
 
@@ -170,17 +191,17 @@ function CreateStoreFlowScreen({ history }) {
 
             <Form.Group>
               <Form.Label>Segmento</Form.Label>
-              {/* <Form.Select
-                value={id_store}
-                onChange={(e) => setIdstore(e.target.value)}
+              <Form.Select
+                value={id_store_segment}
+                onChange={(e) => setId_segment(e.target.value)}
               >
-                {stores.map(store => (
-                  <option
-                    value={store.id}
-                  >{store.name}</option>
+                {storeSegmentActive.map(segment => (
+                  <option key={segment.id}
+                    value={segment.id}
+                  >{segment.name}</option>
                 ))}
 
-              </Form.Select> */}
+              </Form.Select>
             </Form.Group>
 
             <Form.Group>
