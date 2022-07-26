@@ -36,7 +36,7 @@ function CreateStoreFlowScreen({ history }) {
   const alert = useAlert()
   const dispatch = useDispatch()
   const id_store = userInfo.user.id_store
-  const storeSegmentActive = storeSegment.filter(ss => ss.is_active === true)
+
   const serviceTypesActive = serviceTypes.filter(st => st.is_active === true)
   const prospectionActive = prospection.filter(pp => pp.is_active === true)
 
@@ -195,7 +195,7 @@ function CreateStoreFlowScreen({ history }) {
                 value={id_store_segment}
                 onChange={(e) => setId_segment(e.target.value)}
               >
-                {storeSegmentActive.map(segment => (
+                {storeSegment.map(segment => (
                   <option key={segment.id}
                     value={segment.id}
                   >{segment.name}</option>

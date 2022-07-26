@@ -30,7 +30,7 @@ export const storeSegmentListAction = (id) => async (dispatch, getState) => {
 
     dispatch({
       type: STORE_SEGMENT_LIST_SUCCESS,
-      payload: data.segments
+      payload: data
     })
 
   } catch (error) {

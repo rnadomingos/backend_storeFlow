@@ -10,15 +10,10 @@ export const storeSellersReducer = (state = { storeSellers: [] }, action) => {
       return { loading: true, storeSellers: [] }
 
     case STORE_LIST_SELLERS_SUCCESS:
-      const stores = action.payload
-      let sellers = []
-      for (const store of stores) {
-        sellers = store.sellers.filter(seller => seller.is_active === true)
-
-      }
+     
       return {
         loading: false,
-        storeSellers: sellers
+        storeSellers: action.payload.sellers.filter(seller => seller.is_active === true)
       }
 
     case STORE_LIST_SELLERS_FAIL:

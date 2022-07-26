@@ -16,7 +16,7 @@ export const storeSegmentListReducer = (state = { storeSegment: [] }, action) =>
     case STORE_SEGMENT_LIST_SUCCESS:
       return {
         loading: false,
-        storeSegment: action.payload
+        storeSegment: action.payload.segments.filter(ss => ss.is_active === true)
       }
 
     case STORE_SEGMENT_LIST_RESET:
