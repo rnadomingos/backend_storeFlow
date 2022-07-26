@@ -120,7 +120,7 @@ describe('Prospection use cases' , () => {
    expect(async () => {
       const {createProspectionUseCase, prospectionRepositoryStub} = makeSut()
     jest.spyOn(prospectionRepositoryStub, 'findByName').mockReturnValueOnce(
-      new Promise((resolve, reject) => resolve(makeFakeProspection()))
+      new Promise((resolve) => resolve(makeFakeProspection()))
     )
    await createProspectionUseCase.execute({
       name:'any_name', 

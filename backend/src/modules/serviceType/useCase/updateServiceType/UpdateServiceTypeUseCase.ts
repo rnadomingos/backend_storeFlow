@@ -1,4 +1,4 @@
-import { IUpdateSegmentByIdDTO } from "@domain/segment/dto/IUpdateSegmentByIdDTO";
+import { IUpdateDTO } from "@domain/segment/dto/IUpdateSegmentDTO";
 import { IServiceTypeRepository } from "@modules/serviceType/repositories/IServiceTypeRepository";
 import { ErrorHandler } from "@shared/errors/ErrorHandler";
 import { container, inject, injectable } from "tsyringe";
@@ -12,7 +12,7 @@ export class UpdateServiceTypeUseCase {
         @inject("ServiceTypeRepository")
         private serviceTypeRepository: IServiceTypeRepository
     ) { }
-    async execute(serviceTypeData: IUpdateSegmentByIdDTO): Promise<void> {
+    async execute(serviceTypeData: IUpdateDTO): Promise<void> {
 
 
         const serviceType = await this.serviceTypeRepository.findById(serviceTypeData.id);

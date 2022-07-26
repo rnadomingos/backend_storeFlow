@@ -3,19 +3,17 @@ import { getRepository, Repository } from "typeorm";
 import { ISegmentRepository } from "../../../../domain/segment/repository/ISegmentRepository";
 import { Segment } from "@modules/segment/entities/Segment";
 import { Store } from "@modules/store/entities/Store";
-import { IUpdateSegmentByIdDTO } from "@domain/segment/dto/IUpdateSegmentByIdDTO";
+import { IUpdateDTO } from "@domain/segment/dto/IUpdateSegmentDTO";
+import { ISegment } from "@domain/segment/model/ISegment";
 
 
 
 export class SegmentRepositoryPostgres implements ISegmentRepository {
 
     private repository: Repository<Segment>;
-    private storeRepository: Repository<Store>;
 
     constructor() {
         this.repository = getRepository(Segment)
-        this.storeRepository = getRepository(Store)
-
     }
 
     async create({
@@ -30,24 +28,24 @@ export class SegmentRepositoryPostgres implements ISegmentRepository {
         await this.repository.save(newSegment);
     }
 
-    async findByName(name: string): Promise<Segment> {
+    async findByName(name: string): Promise<ISegment> {
         return this.repository.findOne({ name })
     }
 
-    async findById(id: string): Promise<Segment> {
+    async findById(id: string): Promise<ISegment> {
         return this.repository.findOne({ id })
     }
 
-    async list(): Promise<Segment[]> {
+    async list(): Promise<ISegment[]> {
         return this.repository.find()
     }
 
-    async updateSegmentById({
+    async update({
         id,
         name,
         description,
         is_active
-    }: IUpdateSegmentByIdDTO): Promise<void> {
+    }: IUpdateDTO): Promise<void> {
         name = name.toLocaleLowerCase()
         const newSegment = this.repository.create({
             id,

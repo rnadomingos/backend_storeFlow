@@ -20,7 +20,7 @@ export class CreateSegmentUseCase {
     const segmentExists = await this.segmentRepository.findByName(name);
 
     if (segmentExists) {
-      throw new ErrorHandler("Segment Already exists.")
+      throw new ErrorHandler("Segment Already exists !")
     }
 
     await this.segmentRepository.create({

@@ -1,10 +1,10 @@
 import { Request, Response } from "express";
 import { container } from "tsyringe";
-import { UpdateSegmentByIdUseCase } from "./UpdateSegmentByIdUseCase";
+import { UpdateSegmentUseCase } from "./UpdateSegmentUseCase";
 
 
 
-export class UpdateSegmentByIdController {
+export class UpdateSegmentController {
     async handle(req: Request, res: Response) {
 
 
@@ -21,7 +21,7 @@ export class UpdateSegmentByIdController {
 
 
 
-        const updateSegmentByIdUseCase = container.resolve(UpdateSegmentByIdUseCase)
+        const updateSegmentByIdUseCase = container.resolve(UpdateSegmentUseCase)
 
         await updateSegmentByIdUseCase.execute({
             id,

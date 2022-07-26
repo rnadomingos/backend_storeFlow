@@ -1,4 +1,4 @@
-export interface IUpdateSegmentByIdDTO {
+export interface IUpdateDTO {
     id: string;
     name?: string;
     description?: string;

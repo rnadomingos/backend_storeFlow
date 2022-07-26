@@ -1,14 +1,14 @@
 import { ICreateSegmentDTO } from "../dto/ICreateSegmentDTO";
-import { IUpdateSegmentByIdDTO } from "../dto/IUpdateSegmentByIdDTO";
-import { Segment } from "../../../modules/segment/entities/Segment";
+import { IUpdateDTO } from "../dto/IUpdateSegmentDTO";
+import { ISegment } from "../model/ISegment";
 
 
 
 export interface ISegmentRepository {
   create(data: ICreateSegmentDTO): Promise<void>;
-  findByName(name: string): Promise<Segment>;
-  findById(id: string): Promise<Segment>;
-  list(): Promise<Segment[]>;
-  updateSegmentById(data: IUpdateSegmentByIdDTO): Promise<void>;
+  findByName(name: string): Promise<ISegment>;
+  findById(id: string): Promise<ISegment>;
+  list(): Promise<ISegment[]>;
+  update(data: IUpdateDTO): Promise<void>;
   deleteSegmentById(id: string): Promise<void>;
 }

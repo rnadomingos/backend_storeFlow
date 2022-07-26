@@ -1,9 +1,10 @@
-import { IUpdateSegmentByIdDTO } from "@domain/segment/dto/IUpdateSegmentByIdDTO";
+import { IUpdateDTO } from "@domain/segment/dto/IUpdateSegmentDTO";
 import { ISegmentRepository } from "@domain/segment/repository/ISegmentRepository";
+import { ErrorHandler } from "@shared/errors/ErrorHandler";
 import { inject, injectable } from "tsyringe";
 
 @injectable()
-export class UpdateSegmentByIdUseCase {
+export class UpdateSegmentUseCase {
 
     constructor(
         @inject("SegmentRepository")
@@ -14,9 +15,14 @@ export class UpdateSegmentByIdUseCase {
         name,
         description,
         is_active
-    }: IUpdateSegmentByIdDTO): Promise<void> {
+    }: IUpdateDTO): Promise<void> {
 
         const segment = await this.segmentRepository.findById(id);
+
+        if (!segment) {
+            throw new ErrorHandler(`This ID:(${id}) was not found!`)
+        }
+
 
         if (name) {
             segment.name = name.toLocaleLowerCase()
@@ -28,7 +34,7 @@ export class UpdateSegmentByIdUseCase {
             segment.is_active = is_active
         }
 
-        return await this.segmentRepository.updateSegmentById(segment)
+        return await this.segmentRepository.update(segment)
 
     }
 }
