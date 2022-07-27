@@ -1,5 +1,7 @@
-import { IUpdateSellerDTO } from "@modules/seller/dtos/IUpdateSellerDTO";
-import { ISellerRepository } from "@modules/seller/repositories/ISellerRepository";
+
+import { IUpdateSellerDTO } from "@domain/seller/dto/IUpdateSellerDTO";
+import { ISellerRepository } from "@domain/seller/repository/ISellerRepository";
+import { ErrorHandler } from "@shared/errors/ErrorHandler";
 import { inject, injectable } from "tsyringe";
 
 
@@ -19,6 +21,10 @@ export class UpdateSellerUseCase {
   }: IUpdateSellerDTO): Promise<void> {
 
     const seller = await this.sellerRepository.findById(id);
+
+    if (!seller) {
+      throw new ErrorHandler(`This ID:(${seller.id}) was not found!`)
+    }
 
     if (name) {
       seller.name = name

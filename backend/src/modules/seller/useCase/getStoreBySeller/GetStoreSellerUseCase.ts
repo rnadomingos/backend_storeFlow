@@ -1,5 +1,5 @@
-import { Seller } from "@modules/seller/entities/Seller";
-import { ISellerRepository } from "@modules/seller/repositories/ISellerRepository";
+import { ISeller } from "@domain/seller/model/ISeller";
+import { ISellerRepository } from "@domain/seller/repository/ISellerRepository";
 import { inject, injectable } from "tsyringe";
 
 
@@ -13,7 +13,7 @@ export class GetStoreSellerUseCase {
     private sellerRepository: ISellerRepository
   ) { }
 
-  async execute(user_dms: string): Promise<Seller[]> {
+  async execute(user_dms: string): Promise<ISeller[]> {
     const store = await this.sellerRepository.findStoreBySeller(user_dms);
     return store;
   }

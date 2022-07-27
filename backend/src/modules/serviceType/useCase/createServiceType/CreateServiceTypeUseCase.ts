@@ -14,14 +14,7 @@ export class CreateServiceTypeUseCase {
     ) { }
 
     async execute(serviceTypeData: ICreateServiceTypeDTO): Promise<void> {
-        for (const field of [
-            "name",
-            "description"]) {
-            if (!serviceTypeData[field]) {
-                throw new ErrorHandler(`Params ${field} Missing`)
-            }
-        }
-
+        
         serviceTypeData.name = serviceTypeData.name.toLocaleLowerCase()
         const serviceTypeExists = await this.serviceTypeRepository.findByName(serviceTypeData.name)
 

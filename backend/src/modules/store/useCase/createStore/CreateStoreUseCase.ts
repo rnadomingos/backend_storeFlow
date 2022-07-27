@@ -14,12 +14,6 @@ export class CreateStoreUseCase {
 
   async execute(storeData: ICreateStoreDTO): Promise<void> {
 
-    for (const field of ["cnpj", "name", "brand"]) {
-      if (!storeData[field]) {
-        throw new ErrorHandler(`Params ${field} Missing`)
-      }
-    }
-
     const storeExists = await this.storeRepository.findByCNPJ(storeData.cnpj);
 
     if (storeExists) {

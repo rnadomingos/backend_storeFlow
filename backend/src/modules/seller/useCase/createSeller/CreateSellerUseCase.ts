@@ -1,5 +1,5 @@
-import { ICreateSellerDTO } from "@modules/seller/dtos/ICreateSellerDTO";
-import { ISellerRepository } from "@modules/seller/repositories/ISellerRepository";
+import { ICreateSellerDTO } from "@domain/seller/dto/ICreateSellerDTO";
+import { ISellerRepository } from "@domain/seller/repository/ISellerRepository";
 import { ErrorHandler } from "@shared/errors/ErrorHandler";
 import { inject, injectable } from "tsyringe";
 
@@ -14,16 +14,6 @@ export class CreateSellerUseCase {
   ) { }
 
   async execute(sellerData: ICreateSellerDTO): Promise<void> {
-
-    for (const field of [
-      "name",
-      "user_dms",
-      "id_store"]) {
-      if (!sellerData[field]) {
-        throw new ErrorHandler(`Params ${field} Missing`)
-      }
-    }
-
 
     const sellerExists = await this.sellerRepository.findByUserDms(sellerData.user_dms);
 

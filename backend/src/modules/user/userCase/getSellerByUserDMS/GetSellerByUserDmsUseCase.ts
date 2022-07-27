@@ -1,5 +1,5 @@
+import { ISellerRepository } from "@domain/seller/repository/ISellerRepository";
 import { Seller } from "@modules/seller/entities/Seller";
-import { ISellerRepository } from "@modules/seller/repositories/ISellerRepository";
 import { inject, injectable } from "tsyringe";
 
 

@@ -5,7 +5,6 @@ import { Store } from "@modules/store/entities/Store";
 import { IUpdateStoreDto } from "@modules/store/dtos/IUpdateStoreDTO";
 import { IJoinStoreSegmentDTO } from "@modules/store/dtos/IJoinStoreSegmentDTO";
 import { ISeparateStoreSegmentDTO } from "@modules/store/dtos/ISeparateStoreSegmentDTO";
-import { Seller } from "@modules/seller/entities/Seller";
 
 
 export class StoreRepositoryPostgres implements IStoreRepository {

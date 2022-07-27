@@ -12,16 +12,6 @@ export class CreateSocialMediaUseCase {
 
     async execute(socialMediaData: ICreateSocialMediaDTO): Promise<void> {
 
-        for (const field of [
-            "name",
-            "description",
-            "id_prospection"
-        ]) {
-            if (!socialMediaData[field]) {
-                throw new ErrorHandler(`Params ${field} Missing`)
-            }
-        }
-
         socialMediaData.name = socialMediaData.name.toLocaleLowerCase()
         const socialMediaExists = await this.socialMediaRepository.findByName(socialMediaData.name);
 

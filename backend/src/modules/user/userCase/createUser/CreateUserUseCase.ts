@@ -33,17 +33,6 @@ export class CreateUserUseCase {
 
   async execute(userData: ICreateUserDTO): Promise<IResponse> {
 
-    for (const field of [
-      "name",
-      "email",
-      "password",
-      "user_dms",
-      "id_store"]) {
-      if (!userData[field]) {
-        throw new ErrorHandler(`Params ${field} Missing`)
-      }
-    }
-
     const userExists = await this.userRepository.findByUserDms(userData.user_dms);
 
     if (userExists) {

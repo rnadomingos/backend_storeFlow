@@ -1,14 +1,15 @@
-import { ICreateSellerDTO } from "@modules/seller/dtos/ICreateSellerDTO";
-import { IUpdateSellerDTO } from "@modules/seller/dtos/IUpdateSellerDTO";
+import { ICreateSellerDTO } from "@domain/seller/dto/ICreateSellerDTO";
+import { IUpdateSellerDTO } from "@domain/seller/dto/IUpdateSellerDTO";
+import { ISeller } from "@domain/seller/model/ISeller";
+import { ISellerRepository } from "@domain/seller/repository/ISellerRepository";
 import { Seller } from "@modules/seller/entities/Seller";
 import { getRepository, Repository } from "typeorm";
-import { ISellerRepository } from "../ISellerRepository";
 
 
 
 export class SellerRepositoryPostgres implements ISellerRepository {
 
-  private repository: Repository<Seller>;
+  private repository: Repository<ISeller>;
 
   constructor() {
     this.repository = getRepository(Seller)
@@ -32,18 +33,18 @@ export class SellerRepositoryPostgres implements ISellerRepository {
     await this.repository.save(updateSeller)
   }
 
-  async findStoreBySeller(user_dms: string): Promise<Seller[]> {
+  async findStoreBySeller(user_dms: string): Promise<ISeller[]> {
     return await this.repository.find({
       where: { user_dms },
       relations: ["store"]
     });
   }
 
-  async findById(id: string): Promise<Seller> {
+  async findById(id: string): Promise<ISeller> {
     return this.repository.findOne(id)
   }
 
-  async findByUserDms(user_dms: string): Promise<Seller> {
+  async findByUserDms(user_dms: string): Promise<ISeller> {
     return this.repository.findOne({ user_dms })
   }
 
@@ -61,7 +62,7 @@ export class SellerRepositoryPostgres implements ISellerRepository {
     await this.repository.save(newSeller)
   }
 
-  async list(): Promise<Seller[]> {
+  async list(): Promise<ISeller[]> {
     return await this.repository.find()
   }
 

@@ -1,3 +1,4 @@
+import { ErrorHandler } from "@shared/errors/ErrorHandler";
 import { Request, Response } from "express";
 import { container } from "tsyringe";
 import { CreateServiceTypeUseCase } from "./CreateServiceTypeUseCase";
@@ -9,6 +10,14 @@ export class CreateServiceTypeController {
             name,
             description
         } = req.body;
+
+        for (const field of [
+            "name",
+            "description"]) {
+            if (!req.body[field]) {
+                throw new ErrorHandler(`Params ${field} Missing`)
+            }
+        }
 
         const createServiceTypeUseCase = container.resolve(CreateServiceTypeUseCase);
 

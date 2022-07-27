@@ -1,3 +1,4 @@
+import { ErrorHandler } from "@shared/errors/ErrorHandler";
 import { Request, Response } from "express";
 import { container } from "tsyringe";
 import { CreateSocialMediaUseCase } from "./CreateSocialMediaUseCase";
@@ -10,7 +11,17 @@ export class CreateSocialMediaController {
             name,
             description,
             id_prospection
-        } = req.body
+        } = req.body;
+
+        for (const field of [
+            "name",
+            "description",
+            "id_prospection"
+        ]) {
+            if (!req.body[field]) {
+                throw new ErrorHandler(`Params ${field} Missing`)
+            }
+        }
 
         const createSocialMediaController = container.resolve(CreateSocialMediaUseCase)
 
