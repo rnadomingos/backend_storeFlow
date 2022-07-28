@@ -19,29 +19,29 @@ const makeFakeProspection = (): IProspection => ({
 
 const makeFakeProspections = (): IProspection[] => [
   {
-  id: 'first_uuid',
-  name: 'first_name',
-  description: 'first_description',
-  is_active: true,
-  created_at: new Date('2022-05-02T22:02:50.641Z'),
-  socialMedia: 'first_id_social_media'
-},
-{
-  id: 'second_uuid',
-  name: 'second_name',
-  description: 'second_description',
-  is_active: true,
-  created_at: new Date('2022-05-02T22:02:50.641Z'),
-  socialMedia: 'second_id_social_media'
-},
-{
-  id: 'third_uuid',
-  name: 'third_name',
-  description: 'third_description',
-  is_active: true,
-  created_at: new Date('2022-05-02T22:02:50.641Z'),
-  socialMedia: 'third_id_social_media'
-}
+    id: 'first_uuid',
+    name: 'first_name',
+    description: 'first_description',
+    is_active: true,
+    created_at: new Date('2022-05-02T22:02:50.641Z'),
+    socialMedia: 'first_id_social_media'
+  },
+  {
+    id: 'second_uuid',
+    name: 'second_name',
+    description: 'second_description',
+    is_active: true,
+    created_at: new Date('2022-05-02T22:02:50.641Z'),
+    socialMedia: 'second_id_social_media'
+  },
+  {
+    id: 'third_uuid',
+    name: 'third_name',
+    description: 'third_description',
+    is_active: true,
+    created_at: new Date('2022-05-02T22:02:50.641Z'),
+    socialMedia: 'third_id_social_media'
+  }
 ]
 
 
@@ -67,16 +67,16 @@ const makeProspectionRepository = (): IProspectionRepository => {
       return await new Promise(resolve => resolve(null))
     }
 
-    deleteById(id: string): Promise<void> {
+    delete(id: string): Promise<void> {
       throw new Error("Method not implemented.")
     }
 
-    disableEnableById( id: string, is_active: boolean): Promise<void> {
+    disableEnableById(id: string, is_active: boolean): Promise<void> {
       throw new Error("Method not implemented.")
     }
 
   }
-  
+
   return new ProspectionRepositoryStub()
 }
 
@@ -89,22 +89,22 @@ interface ISutTypes {
 
 const makeSut = (): ISutTypes => {
   const prospectionRepositoryStub = makeProspectionRepository();
- const createProspectionUseCase = new CreateProspectionUseCase(prospectionRepositoryStub);
- const findAllProspectionUseCase = new ListProspectionUseCase(prospectionRepositoryStub);
- const updateProspectionUseCase = new UpdateProspectionUseCase(prospectionRepositoryStub)
- return {
-  createProspectionUseCase,
-  prospectionRepositoryStub,
-  findAllProspectionUseCase,
-  updateProspectionUseCase
- }
-  
+  const createProspectionUseCase = new CreateProspectionUseCase(prospectionRepositoryStub);
+  const findAllProspectionUseCase = new ListProspectionUseCase(prospectionRepositoryStub);
+  const updateProspectionUseCase = new UpdateProspectionUseCase(prospectionRepositoryStub)
+  return {
+    createProspectionUseCase,
+    prospectionRepositoryStub,
+    findAllProspectionUseCase,
+    updateProspectionUseCase
+  }
+
 }
 
 
-describe('Prospection use cases' , () => { 
+describe('Prospection use cases', () => {
   test('Should be able to  create a prospection', async () => {
-    const {createProspectionUseCase, prospectionRepositoryStub} = makeSut()
+    const { createProspectionUseCase, prospectionRepositoryStub } = makeSut()
     const executeSpy = jest.spyOn(prospectionRepositoryStub, 'create')
     await createProspectionUseCase.execute({
       name: 'any_name',
@@ -114,30 +114,30 @@ describe('Prospection use cases' , () => {
       name: 'any_name',
       description: 'any_description'
     });
-   });
+  });
 
-   test('Should not be able to  create a prospection if already exist', () => {
-   expect(async () => {
-      const {createProspectionUseCase, prospectionRepositoryStub} = makeSut()
-    jest.spyOn(prospectionRepositoryStub, 'findByName').mockReturnValueOnce(
-      new Promise((resolve) => resolve(makeFakeProspection()))
-    )
-   await createProspectionUseCase.execute({
-      name:'any_name', 
-      description:'any_description'
-    });
-    }).rejects.toEqual({"message": "Prospection already exists!", "statusCode": 400});
-  
-   });
+  test('Should not be able to  create a prospection if already exist', () => {
+    expect(async () => {
+      const { createProspectionUseCase, prospectionRepositoryStub } = makeSut()
+      jest.spyOn(prospectionRepositoryStub, 'findByName').mockReturnValueOnce(
+        new Promise((resolve) => resolve(makeFakeProspection()))
+      )
+      await createProspectionUseCase.execute({
+        name: 'any_name',
+        description: 'any_description'
+      });
+    }).rejects.toEqual({ "message": "Prospection already exists!", "statusCode": 400 });
 
-   test('Should be able to list all prospections', async () => {
-    const {findAllProspectionUseCase} = makeSut()
+  });
+
+  test('Should be able to list all prospections', async () => {
+    const { findAllProspectionUseCase } = makeSut()
     const prospections = await findAllProspectionUseCase.execute();
     expect(prospections.length).toBe(3);
-   });
+  });
 
-   test('Should be able to update a prospection', async () => {
-    const {updateProspectionUseCase, prospectionRepositoryStub} = makeSut()
+  test('Should be able to update a prospection', async () => {
+    const { updateProspectionUseCase, prospectionRepositoryStub } = makeSut()
     const executeSpy = jest.spyOn(prospectionRepositoryStub, 'update')
     await updateProspectionUseCase.execute({
       id: 'any_uuid',
@@ -152,19 +152,19 @@ describe('Prospection use cases' , () => {
       created_at: new Date('2022-05-02T22:02:50.641Z'),
       socialMedia: 'any_id_social_media'
     });
-   });
+  });
 
-   test('Should not be able to update a prospection if id not found', async () => {
-      expect(async () => {
-        const {updateProspectionUseCase, prospectionRepositoryStub} = makeSut()
-        jest.spyOn(prospectionRepositoryStub, 'findById').mockReturnValueOnce(
-          new Promise((resolve) => resolve(null))
-        )
-        await updateProspectionUseCase.execute({
-          id: 'invalid_uuid',
-          is_active: false
-        });
-      }).rejects.toEqual({"message": "This ID:(invalid_uuid) was not found!", "statusCode": 400});
-   });
+  test('Should not be able to update a prospection if id not found', async () => {
+    expect(async () => {
+      const { updateProspectionUseCase, prospectionRepositoryStub } = makeSut()
+      jest.spyOn(prospectionRepositoryStub, 'findById').mockReturnValueOnce(
+        new Promise((resolve) => resolve(null))
+      )
+      await updateProspectionUseCase.execute({
+        id: 'invalid_uuid',
+        is_active: false
+      });
+    }).rejects.toEqual({ "message": "This Prospection ID was not found!", "statusCode": 400 });
+  });
 
 })

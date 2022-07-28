@@ -19,6 +19,6 @@ export class DeleteProspectionByIdUseCase {
             throw new ErrorHandler(`This ID:(${id}) was not found!`)
         }
 
-        return await this.prospectionRespository.deleteById(id);
+        return await this.prospectionRespository.delete(id);
     }
 }

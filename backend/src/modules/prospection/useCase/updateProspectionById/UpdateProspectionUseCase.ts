@@ -23,7 +23,7 @@ export class UpdateProspectionUseCase {
         const prospectionExists = await this.prospectionRepository.findById(id);
 
         if (!prospectionExists) {
-            throw new ErrorHandler(`This ID:(${id}) was not found!`)
+            throw new ErrorHandler(`This Prospection ID was not found!`)
         }
 
         if (name) {

@@ -1,13 +1,13 @@
 import { Request, Response } from "express";
 import { container } from "tsyringe";
-import { GetSellerByUserDmsUseCase } from "./GetSellerByUserDmsUseCase";
+import { FindSellerByUserDmsUseCase } from "./FindSellerByUserDmsUseCase";
 
 
-export class GetSellerByUserDmsController {
+export class FindSellerByUserDmsController {
   async handle(req: Request, res: Response): Promise<Response> {
     const { user_dms } = req.params
 
-    const getSellerByUserDmsUseCase = container.resolve(GetSellerByUserDmsUseCase);
+    const getSellerByUserDmsUseCase = container.resolve(FindSellerByUserDmsUseCase);
     const sellers = await getSellerByUserDmsUseCase.execute(user_dms);
 
     return res.json(sellers)

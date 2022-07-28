@@ -4,7 +4,7 @@ import { inject, injectable } from "tsyringe";
 
 
 @injectable()
-export class GetSellerByUserDmsUseCase {
+export class FindSellerByUserDmsUseCase {
 
   constructor(
     @inject("SellerRepository")

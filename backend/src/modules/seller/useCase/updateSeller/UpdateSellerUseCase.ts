@@ -23,7 +23,7 @@ export class UpdateSellerUseCase {
     const seller = await this.sellerRepository.findById(id);
 
     if (!seller) {
-      throw new ErrorHandler(`This ID:(${seller.id}) was not found!`)
+      throw new ErrorHandler(`This Seller was not found!`)
     }
 
     if (name) {

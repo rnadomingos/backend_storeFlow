@@ -53,11 +53,11 @@ export class ProspectionRepositoryPostgres implements IProspectionRepository {
         await this.repository.save(updateProspection);
     }
 
-    async deleteById(id: string): Promise<void> {
+    async delete(id: string): Promise<void> {
         await this.repository.delete({ id })
     }
 
-    async disableEnableById(id: string, is_active: boolean ): Promise<void> {
+    async disableEnableById(id: string, is_active: boolean): Promise<void> {
         await this.repository.update({
             id
         }, {

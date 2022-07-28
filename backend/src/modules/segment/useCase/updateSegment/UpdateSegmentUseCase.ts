@@ -20,7 +20,7 @@ export class UpdateSegmentUseCase {
         const segment = await this.segmentRepository.findById(id);
 
         if (!segment) {
-            throw new ErrorHandler(`This ID:(${id}) was not found!`)
+            throw new ErrorHandler(`This Segment ID was not found!`)
         }
 
 

@@ -10,6 +10,6 @@ export interface IProspectionRepository {
     findById(id: string): Promise<IProspection>;
     findByName(name: string): Promise<IProspection>;
     update(data: IUpdateProspectionDTO): Promise<void>;
-    deleteById(id: string): Promise<void>;
+    delete(id: string): Promise<void>;
     disableEnableById(id: string, is_active: boolean): Promise<void>;
 }

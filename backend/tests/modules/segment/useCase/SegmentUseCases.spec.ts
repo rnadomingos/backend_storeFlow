@@ -8,7 +8,7 @@ import { ListSegmentUseCase } from "@modules/segment/useCase/listSegment/ListSeg
 import { UpdateSegmentUseCase } from "@modules/segment/useCase/updateSegment/UpdateSegmentUseCase";
 
 
-const makeFakeSegment= (): ISegment => ({
+const makeFakeSegment = (): ISegment => ({
   id: 'any_uuid',
   name: 'any_name',
   description: 'any_description',
@@ -17,7 +17,7 @@ const makeFakeSegment= (): ISegment => ({
   store: 'any_id_store'
 });
 
-const makeFakeSegments= (): ISegment[] => [
+const makeFakeSegments = (): ISegment[] => [
   {
     id: 'first_uuid',
     name: 'first_name',
@@ -69,21 +69,21 @@ interface ISutTypes {
 }
 
 const makeSut = (): ISutTypes => {
-const segmentRepositoryStub = makeSegmentRepository()
-const createSegmentUseCase = new CreateSegmentUseCase(segmentRepositoryStub)
-const listSegmentUseCase = new ListSegmentUseCase(segmentRepositoryStub)
-const updateSegmentUseCase = new UpdateSegmentUseCase(segmentRepositoryStub)
-return {
-  createSegmentUseCase,
-  segmentRepositoryStub,
-  listSegmentUseCase,
-  updateSegmentUseCase
+  const segmentRepositoryStub = makeSegmentRepository()
+  const createSegmentUseCase = new CreateSegmentUseCase(segmentRepositoryStub)
+  const listSegmentUseCase = new ListSegmentUseCase(segmentRepositoryStub)
+  const updateSegmentUseCase = new UpdateSegmentUseCase(segmentRepositoryStub)
+  return {
+    createSegmentUseCase,
+    segmentRepositoryStub,
+    listSegmentUseCase,
+    updateSegmentUseCase
+  }
 }
-} 
 
-describe('Segment use cases' , () => { 
-  test('Should be able to create a segment', async () => { 
-    const {createSegmentUseCase, segmentRepositoryStub} = makeSut()
+describe('Segment use cases', () => {
+  test('Should be able to create a segment', async () => {
+    const { createSegmentUseCase, segmentRepositoryStub } = makeSut()
     const createSpy = jest.spyOn(segmentRepositoryStub, 'create')
     await createSegmentUseCase.execute({
       name: 'any_name',
@@ -97,52 +97,52 @@ describe('Segment use cases' , () => {
 
   test('Should not be able to  create a segment if already exist', () => {
     expect(async () => {
-       const {createSegmentUseCase, segmentRepositoryStub} = makeSut()
-     jest.spyOn(segmentRepositoryStub, 'findByName').mockReturnValueOnce(
-       new Promise((resolve) => resolve(makeFakeSegment()))
-     )
-    await createSegmentUseCase.execute({
-       name:'any_name', 
-       description:'any_description'
-     });
-     }).rejects.toEqual({"message": "Segment Already exists !", "statusCode": 400});
+      const { createSegmentUseCase, segmentRepositoryStub } = makeSut()
+      jest.spyOn(segmentRepositoryStub, 'findByName').mockReturnValueOnce(
+        new Promise((resolve) => resolve(makeFakeSegment()))
+      )
+      await createSegmentUseCase.execute({
+        name: 'any_name',
+        description: 'any_description'
+      });
+    }).rejects.toEqual({ "message": "Segment Already exists !", "statusCode": 400 });
+  });
+
+  test('Should be able to list all segments', async () => {
+    const { listSegmentUseCase } = makeSut()
+    const segments = await listSegmentUseCase.execute();
+    expect(segments.length).toBe(2);
+  });
+
+  test('Should be able to update a segment', async () => {
+    const { updateSegmentUseCase, segmentRepositoryStub } = makeSut()
+    const executeSpy = jest.spyOn(segmentRepositoryStub, 'update')
+    await updateSegmentUseCase.execute({
+      id: 'any_uuid',
+      name: 'update_name',
+      is_active: false
     });
+    expect(executeSpy).toHaveBeenCalledWith({
+      id: 'any_uuid',
+      name: 'update_name',
+      description: 'any_description',
+      is_active: false,
+      create_at: new Date('2022-05-02T22:02:50.641Z'),
+      store: 'any_id_store'
+    });
+  });
 
-    test('Should be able to list all segments', async () => {
-      const {listSegmentUseCase} = makeSut()
-      const segments = await listSegmentUseCase.execute();
-      expect(segments.length).toBe(2);
-     });
-
-     test('Should be able to update a segment', async () => {
-      const {updateSegmentUseCase, segmentRepositoryStub} = makeSut()
-      const executeSpy = jest.spyOn(segmentRepositoryStub, 'update')
+  test('Should not be able to update a prospection if id not found', async () => {
+    expect(async () => {
+      const { updateSegmentUseCase, segmentRepositoryStub } = makeSut()
+      jest.spyOn(segmentRepositoryStub, 'findById').mockReturnValueOnce(
+        new Promise((resolve) => resolve(null))
+      )
       await updateSegmentUseCase.execute({
-        id: 'any_uuid',
-        name: 'update_name',
+        id: 'invalid_uuid',
         is_active: false
       });
-      expect(executeSpy).toHaveBeenCalledWith({
-        id: 'any_uuid',
-        name: 'update_name',
-        description: 'any_description',
-        is_active: false,
-        create_at: new Date('2022-05-02T22:02:50.641Z'),
-        store: 'any_id_store'
-      });
-     });
+    }).rejects.toEqual({ "message": "This Segment ID was not found!", "statusCode": 400 });
+  });
 
-     test('Should not be able to update a prospection if id not found', async () => {
-      expect(async () => {
-         const {updateSegmentUseCase, segmentRepositoryStub} = makeSut()
-        jest.spyOn(segmentRepositoryStub, 'findById').mockReturnValueOnce(
-          new Promise((resolve) => resolve(null))
-        )
-        await updateSegmentUseCase.execute({
-          id: 'invalid_uuid',
-          is_active: false
-        });
-      }).rejects.toEqual({"message": "This ID:(invalid_uuid) was not found!", "statusCode": 400});
-   });
-  
 })
