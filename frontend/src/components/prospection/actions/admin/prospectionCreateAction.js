@@ -1,6 +1,5 @@
 import axios from 'axios'
 import {
-  CLEAN_ERRORS,
   PROSPECTION_CREATE_FAIL,
   PROSPECTION_CREATE_REQUEST, PROSPECTION_CREATE_SUCCESS
 } from '../../constants/prospectionConstants'
@@ -24,7 +23,7 @@ export const prospectionCreateAction = (newProspection) => async (dispatch, getS
     const {
       data
     } = await axios.post(
-      `http://localhost:3333/prospection/new`,
+      `http://localhost:3333/prospections/`,
       newProspection,
       config
     )

@@ -22,7 +22,7 @@ export const prospectionUpdateAction = (prospection) => async (dispatch, getStat
     }
 
     const { data } = await axios.put(
-      `http://localhost:3333/prospection/update/${prospection.id}`,
+      `http://localhost:3333/prospections/${prospection.id}`,
       prospection,
       config
     )

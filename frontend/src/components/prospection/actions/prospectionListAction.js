@@ -20,7 +20,7 @@ export const prospectionListAction = () => async (dispatch, getState) => {
     }
 
     const { data } = await axios.get(
-      `http://localhost:3333/prospection/list`,
+      'http://localhost:3333/prospections/',
       config
     )
 

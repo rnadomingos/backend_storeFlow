@@ -28,7 +28,7 @@ export const prospectionDetailUpdateAction = (id) => async (dispatch, getState) 
     const {
       data
     } = await axios.get(
-      `http://localhost:3333/prospection/get-id/${id}`,
+      `http://localhost:3333/prospections/${id}`,
       config
     )
 

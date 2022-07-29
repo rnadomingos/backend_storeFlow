@@ -8,7 +8,7 @@ import { Loader } from "../../../layout/Loader"
 import {
   prospectionCreateAction
 } from "../../actions/admin/prospectionCreateAction"
-import { CLEAN_ERRORS } from "../../constants/prospectionConstants"
+import { CLEAN_ERRORS, PROSPECTION_CREATE_RESET } from "../../constants/prospectionConstants"
 
 
 function CreateProspectionScreen({ history }) {
@@ -35,6 +35,7 @@ function CreateProspectionScreen({ history }) {
 
     if (success) {
       history.push('/admin/prospections')
+      dispatch({ type: PROSPECTION_CREATE_RESET })
     }
   }, [error, dispatch, success, history, alert])
 

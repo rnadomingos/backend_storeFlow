@@ -7,8 +7,7 @@ import { Loader } from "../../../layout/Loader";
 import { Message } from "../../../layout/Message";
 import { prospectionDetailUpdateAction } from '../../actions/admin/prospectionDetailUpdateAction'
 import { prospectionUpdateAction } from "../../actions/admin/prospectionUpdateAction";
-import { cleanErrors } from "../../actions/prospectionCleanErrors"
-import { PROSPECTION_DETAIL_RESET, PROSPECTION_UPDATE_RESET } from "../../constants/prospectionConstants";
+import { CLEAN_ERRORS, PROSPECTION_DETAIL_RESET, PROSPECTION_UPDATE_RESET } from "../../constants/prospectionConstants";
 
 
 function UpdateProspectionScreen({ history, match }) {
@@ -42,11 +41,12 @@ function UpdateProspectionScreen({ history, match }) {
     }
     if (errorDetail) {
       alert(`Problema ${errorDetail} ao retornar os detalhes`)
-      dispatch(cleanErrors)
+      dispatch({ type: CLEAN_ERRORS })
     }
 
     if (error) {
       alert(`Problema ${error} ao gravar prospecção`)
+      dispatch({ type: CLEAN_ERRORS })
     }
 
     if (success) {
