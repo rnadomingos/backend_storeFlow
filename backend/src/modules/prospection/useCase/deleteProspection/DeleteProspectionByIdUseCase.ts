@@ -5,20 +5,20 @@ import { inject, injectable } from "tsyringe";
 
 
 @injectable()
-export class DeleteProspectionByIdUseCase {
+export class DeleteProspectionUseCase {
     constructor(
         @inject("ProspectionRepository")
-        private prospectionRespository: IProspectionRepository
+        private prospectionRepository: IProspectionRepository
     ) { }
 
     async execute(id: string): Promise<void> {
 
-        const prospectionExists = await this.prospectionRespository.findById(id);
+        const prospectionExists = await this.prospectionRepository.findById(id);
 
         if (!prospectionExists) {
-            throw new ErrorHandler(`This ID:(${id}) was not found!`)
+            throw new ErrorHandler(`This Prospection ID was not found!`)
         }
 
-        return await this.prospectionRespository.delete(id);
+        return await this.prospectionRepository.delete(id);
     }
 }

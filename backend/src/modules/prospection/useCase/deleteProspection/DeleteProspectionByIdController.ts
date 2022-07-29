@@ -1,17 +1,17 @@
 import { Request, Response } from "express";
 import { container } from "tsyringe";
-import { DeleteProspectionByIdUseCase } from "./DeleteProspectionByIdUseCase";
+import { DeleteProspectionUseCase } from "./DeleteProspectionByIdUseCase";
 
 
 
 
 
-export class DeleteProspectionByIdController {
+export class DeleteProspectionIdController {
     async handle(req: Request, res: Response): Promise<Response> {
 
         const { id } = req.params;
 
-        const deleteProspectionByIdController = container.resolve(DeleteProspectionByIdUseCase)
+        const deleteProspectionByIdController = container.resolve(DeleteProspectionUseCase)
 
         await deleteProspectionByIdController.execute(id);
 

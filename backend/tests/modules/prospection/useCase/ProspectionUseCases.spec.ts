@@ -6,6 +6,7 @@ import { IProspectionRepository } from "@domain/prospection/repository/IProspect
 import { CreateProspectionUseCase } from "@modules/prospection/useCase/createProspection/CreateProspectionUseCase"
 import { UpdateProspectionUseCase } from "@modules/prospection/useCase/updateProspectionById/UpdateProspectionUseCase"
 import { ListProspectionUseCase } from "@modules/prospection/useCase/listProspection/ListProspectionUseCase"
+import { DeleteProspectionUseCase } from "@modules/prospection/useCase/deleteProspection/DeleteProspectionByIdUseCase"
 
 
 const makeFakeProspection = (): IProspection => ({
@@ -67,8 +68,8 @@ const makeProspectionRepository = (): IProspectionRepository => {
       return await new Promise(resolve => resolve(null))
     }
 
-    delete(id: string): Promise<void> {
-      throw new Error("Method not implemented.")
+    async delete(id: string): Promise<void> {
+      return await new Promise(resolve => resolve(null))
     }
 
     disableEnableById(id: string, is_active: boolean): Promise<void> {
@@ -85,18 +86,21 @@ interface ISutTypes {
   prospectionRepositoryStub: IProspectionRepository;
   findAllProspectionUseCase: ListProspectionUseCase;
   updateProspectionUseCase: UpdateProspectionUseCase;
+  deleteProspectionUseCase: DeleteProspectionUseCase;
 }
 
 const makeSut = (): ISutTypes => {
   const prospectionRepositoryStub = makeProspectionRepository();
   const createProspectionUseCase = new CreateProspectionUseCase(prospectionRepositoryStub);
   const findAllProspectionUseCase = new ListProspectionUseCase(prospectionRepositoryStub);
-  const updateProspectionUseCase = new UpdateProspectionUseCase(prospectionRepositoryStub)
+  const updateProspectionUseCase = new UpdateProspectionUseCase(prospectionRepositoryStub);
+  const deleteProspectionUseCase = new DeleteProspectionUseCase(prospectionRepositoryStub);
   return {
     createProspectionUseCase,
     prospectionRepositoryStub,
     findAllProspectionUseCase,
-    updateProspectionUseCase
+    updateProspectionUseCase,
+    deleteProspectionUseCase
   }
 
 }
@@ -155,6 +159,26 @@ describe('Prospection use cases', () => {
   });
 
   test('Should not be able to update a prospection if id not found', async () => {
+    expect(async () => {
+      const { updateProspectionUseCase, prospectionRepositoryStub } = makeSut()
+      jest.spyOn(prospectionRepositoryStub, 'findById').mockReturnValueOnce(
+        new Promise((resolve) => resolve(null))
+      )
+      await updateProspectionUseCase.execute({
+        id: 'invalid_uuid',
+        is_active: false
+      });
+    }).rejects.toEqual({ "message": "This Prospection ID was not found!", "statusCode": 400 });
+  });
+
+  test('Should be able to delete a prospection', async () => {
+    const { deleteProspectionUseCase, prospectionRepositoryStub } = makeSut()
+    const executeSpy = jest.spyOn(prospectionRepositoryStub, 'delete')
+    await deleteProspectionUseCase.execute('any_uuid');
+    expect(executeSpy).toHaveBeenCalled();
+  });
+
+  test('Should not be able to delete a prospection if id not found', async () => {
     expect(async () => {
       const { updateProspectionUseCase, prospectionRepositoryStub } = makeSut()
       jest.spyOn(prospectionRepositoryStub, 'findById').mockReturnValueOnce(
