@@ -17,7 +17,7 @@ router.use("/seller", sellerRoutes);
 router.use("/segment", segmentRoutes);
 router.use("/service-type", serviceTypeRoutes);
 router.use("/social-media", socialMediaRoutes);
-router.use("/prospection", prospectionRoutes);
+router.use("/prospections", prospectionRoutes);
 router.use("/account", userRoutes);
 router.use("/", authenticateRoutes);
 router.use("/store-flow", storeFlowRoutes);

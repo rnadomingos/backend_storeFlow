@@ -6,10 +6,10 @@ import { FindProspectionByNameUseCase } from "./FindProspectionByNameUseCase";
 export class FindProspectionByNameController {
     async handle(req: Request, res: Response): Promise<Response> {
 
-        const { name } = req.params;
+        const { name } = req.query;
 
         const findProspectionByNameController = container.resolve(FindProspectionByNameUseCase);
-        const prospection = await findProspectionByNameController.execute(name);
+        const prospection = await findProspectionByNameController.execute(name.toString());
 
         return res.json(prospection)
     }

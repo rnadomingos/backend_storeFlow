@@ -45,7 +45,7 @@ tags:
   description: "Create, Update, Disable-Enable, List All and List by Social Media"
 
 - name: "Prospection"
-  description: "Create, Update, Disable-Enable, List All and List by Prospection"
+  description: "Create, Update, Delete, List All and List by Prospection ID"
   
 paths:
   /login:
@@ -155,8 +155,6 @@ paths:
                 password:
                   type: string
                 user_dms:
-                  type: string
-                name:
                   type: string
                 id_store:
                   type: string
@@ -909,7 +907,7 @@ paths:
           description: "Success"
         401:
           $ref: "#/components/responses/UnauthorizedError"                       
-  /prospection/new:
+  /prospections:
     post:
       tags:
       - "Prospection"
@@ -935,7 +933,6 @@ paths:
           description: "Success"
         401:
           $ref: "#/components/responses/UnauthorizedError"
-  /prospection/list:
     get:
       tags: 
       - "Prospection"
@@ -948,12 +945,13 @@ paths:
           description: "Success"
         401:
           $ref: "#/components/responses/UnauthorizedError"
-  /prospection/get-id/{id}:
+
+  /prospections/{id}:
     get:
       tags: 
       - "Prospection"
-      summary: "List Prospection by Id"
-      description: "List Prospection by Id"
+      summary: "Find Prospection by Id"
+      description: "Find Prospection by prospection Id"
       security:
         - bearerAuth: []
       parameters: 
@@ -968,27 +966,7 @@ paths:
           description: "Success"
         401:
           $ref: "#/components/responses/UnauthorizedError"
-  /prospection/get-name/{name}:
-    get:
-      tags: 
-      - "Prospection"
-      summary: "List Prospection by name"
-      description: "List Social Media by name"
-      security:
-        - bearerAuth: []
-      parameters: 
-        - in: path
-          name: ID
-          description: "Prospection name"
-          schema:
-            type: string
-          required: true                  
-      responses:
-        200:
-          description: "Success"
-        401:
-          $ref: "#/components/responses/UnauthorizedError"          
-  /prospection/update/{id}:
+
     put:
       tags: 
       - "Prospection"
@@ -1018,28 +996,8 @@ paths:
         200:
           description: "Success"
         401:
-          $ref: "#/components/responses/UnauthorizedError"
-  /prospection/update-status/{id}:
-    put:
-      tags: 
-      - "Prospection"
-      summary: "Enable or Disable Prospection Status"
-      description: "Update Prospection status"
-      security:
-        - bearerAuth: []
-      parameters: 
-        - in: path
-          name: id
-          description: "Prospection Id"
-          schema:
-            type: string
-          required: true                  
-      responses:
-        200:
-          description: "Success"
-        401:
-          $ref: "#/components/responses/UnauthorizedError"          
-  /prospection/del/{id}:
+          $ref: "#/components/responses/UnauthorizedError"     
+ 
     delete:
       tags: 
       - "Prospection"
@@ -1058,4 +1016,27 @@ paths:
         200:
           description: "Success"
         401:
-          $ref: "#/components/responses/UnauthorizedError"             
+          $ref: "#/components/responses/UnauthorizedError"
+
+  /prospections/filter?name={name}:
+    get:
+      tags: 
+      - "Prospection"
+      summary: "List Prospection by name"
+      description: "List Prospection by prospection name"
+      security:
+        - bearerAuth: []
+      parameters: 
+        - in: path
+          name: name
+          description: "Prospection name"
+          schema:
+            type: string
+          required: true                  
+      responses:
+        200:
+          description: "Success"
+        401:
+          $ref: "#/components/responses/UnauthorizedError"          
+
+                 
