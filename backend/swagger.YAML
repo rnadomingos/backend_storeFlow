@@ -956,7 +956,7 @@ paths:
         - bearerAuth: []
       parameters: 
         - in: path
-          name: ID
+          name: id
           description: "Prospection Id"
           schema:
             type: string

@@ -19,7 +19,7 @@ const updateProspectionController = new UpdateProspectionController();
 const deleteProspectionController = new DeleteProspectionIdController();
 
 prospectionRoutes.post("/", isAuthenticated, isAdmin, createProspectionController.handle);
-prospectionRoutes.get("", isAuthenticated, listProspectionController.handle);
+prospectionRoutes.get("/", isAuthenticated, listProspectionController.handle);
 prospectionRoutes.get("/filter", isAuthenticated, findProspectionByNameController.handle);
 prospectionRoutes.get("/:id", isAuthenticated, findProspectionByIdController.handle)
 prospectionRoutes.put("/:id", isAuthenticated, isAdmin, updateProspectionController.handle)
