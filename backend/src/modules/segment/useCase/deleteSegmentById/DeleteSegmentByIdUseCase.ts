@@ -11,10 +11,10 @@ export class DeleteSegmentByIdUseCase {
     ) { }
     async execute(id: string): Promise<void> {
 
-        const segmentExsists = this.segmentRepository.findById(id);
+        const segmentExist = await this.segmentRepository.findById(id);
 
-        if (!segmentExsists) {
-            throw new ErrorHandler(`This ID:(${id}) was not found!`)
+        if (!segmentExist) {
+            throw new ErrorHandler(`Segment was not found!`)
         }
 
         return await this.segmentRepository.deleteSegmentById(id)

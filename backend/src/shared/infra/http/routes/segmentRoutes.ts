@@ -5,6 +5,7 @@ import { FindSegmentByNameController } from "@modules/segment/useCase/findSegmen
 import { ListSegmentController } from "@modules/segment/useCase/listSegment/ListSegmentController";
 import { UpdateSegmentController } from "@modules/segment/useCase/updateSegment/UpdateSegmentController";
 import { Router } from "express";
+import { isAdmin } from "../middlewares/isAdmin";
 import { isAuthenticated } from "../middlewares/isAuthenticated";
 
 const segmentRoutes = Router();
@@ -16,11 +17,11 @@ const listSegmentController = new ListSegmentController();
 const updateSegment = new UpdateSegmentController();
 const deleteSegmentByIdController = new DeleteSegmentByIdController();
 
-segmentRoutes.post("/new", isAuthenticated, createSegmentController.handle);
-segmentRoutes.get("/get-segment-name/:name", isAuthenticated, findSegmentByNameController.handle);
-segmentRoutes.get("/get-segment-id/:id", isAuthenticated, findSegmentByIdController.handle);
-segmentRoutes.get("/list", isAuthenticated, listSegmentController.handle);
-segmentRoutes.put("/update/:id", isAuthenticated, updateSegment.handle)
-segmentRoutes.delete("/del/:id", isAuthenticated, deleteSegmentByIdController.handle)
+segmentRoutes.post("/", isAuthenticated, isAdmin, createSegmentController.handle);
+segmentRoutes.get("/", isAuthenticated, listSegmentController.handle);
+segmentRoutes.get("/filter", isAuthenticated, findSegmentByNameController.handle);
+segmentRoutes.get("/:id", isAuthenticated, findSegmentByIdController.handle);
+segmentRoutes.put("/:id", isAuthenticated, updateSegment.handle)
+segmentRoutes.delete("/:id", isAuthenticated, deleteSegmentByIdController.handle)
 
 export { segmentRoutes }

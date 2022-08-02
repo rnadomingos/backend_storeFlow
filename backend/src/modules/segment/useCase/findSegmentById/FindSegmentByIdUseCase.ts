@@ -20,7 +20,7 @@ export class FindSegmentByIdUseCase {
         const segment = await this.segmentRepository.findById(id)
 
         if (!segment) {
-            throw new ErrorHandler(`Segment not found with this ID!`)
+            throw new ErrorHandler(`Segment was not found!`)
         }
         return segment;
     }

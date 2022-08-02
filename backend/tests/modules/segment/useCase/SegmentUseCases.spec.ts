@@ -142,7 +142,7 @@ describe('Segment use cases', () => {
         id: 'invalid_uuid',
         is_active: false
       });
-    }).rejects.toEqual({ "message": "This Segment ID was not found!", "statusCode": 400 });
+    }).rejects.toEqual({ "message": "Segment was not found!", "statusCode": 400 });
   });
 
 })
