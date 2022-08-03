@@ -514,7 +514,8 @@ paths:
           description: "Success"
         401:
           $ref: "#/components/responses/UnauthorizedError"   
-  /segment/new:
+          
+  /segments:
     post:
       tags:
       - "Segment"
@@ -539,8 +540,7 @@ paths:
         201: 
           description: "Success"
         401:
-          $ref: "#/components/responses/UnauthorizedError"                 
-  /segment/list:
+          $ref: "#/components/responses/UnauthorizedError"  
     get:
       tags: 
       - "Segment"
@@ -552,8 +552,9 @@ paths:
         201:
           description: "Success"
         401:
-          $ref: "#/components/responses/UnauthorizedError"
-  /segment/get-segment-name/{name}:
+          $ref: "#/components/responses/UnauthorizedError"               
+    
+  /segments/filter?name={name}:
     get:
       tags: 
       - "Segment"
@@ -573,7 +574,7 @@ paths:
           description: "Success"
         401:
           $ref: "#/components/responses/UnauthorizedError"                     
-  /segment/get-segment-id/{id}:
+  /segments/{id}:
     get:
       tags: 
       - "Segment"
@@ -583,7 +584,7 @@ paths:
         - bearerAuth: []
       parameters: 
         - in: path
-          name: ID
+          name: id
           description: "Segment Id"
           schema:
             type: string
@@ -593,7 +594,7 @@ paths:
           description: "Success"
         401:
           $ref: "#/components/responses/UnauthorizedError"
-  /segment/update/{id}:
+
     put:
       tags: 
       - "Segment"
@@ -623,8 +624,8 @@ paths:
         200:
           description: "Success"
         401:
-          $ref: "#/components/responses/UnauthorizedError"
-  /segment/del/{id}:
+          $ref: "#/components/responses/UnauthorizedError"  
+
     delete:
       tags: 
       - "Segment"
@@ -643,7 +644,8 @@ paths:
         200:
           description: "Success"
         401:
-          $ref: "#/components/responses/UnauthorizedError"          
+          $ref: "#/components/responses/UnauthorizedError"  
+
   /serviceType/new:
     post:
       tags:

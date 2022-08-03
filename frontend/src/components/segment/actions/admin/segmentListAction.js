@@ -22,7 +22,7 @@ export const segmentListAction = () => async (dispatch, getState) => {
     }
 
     const { data } = await axios.get(
-      `http://localhost:3333/segment/list`,
+      `http://localhost:3333/segments/`,
       config
     )
 

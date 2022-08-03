@@ -10,15 +10,11 @@ export class UpdateSegmentController {
 
         const id = req.params.id;
 
-        console.log("req.params", id);
-
-
         const {
             name,
             description,
             is_active
         } = req.body;
-
 
 
         const updateSegmentByIdUseCase = container.resolve(UpdateSegmentUseCase)
