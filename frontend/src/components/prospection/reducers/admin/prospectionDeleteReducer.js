@@ -1,8 +1,7 @@
 import {
   PROSPECTION_DELETE_FAIL,
   PROSPECTION_DELETE_SUCCESS,
-  PROSPECTION_DELETE_REQUEST,
-  PROSPECTION_DELETE_RESET
+  PROSPECTION_DELETE_REQUEST
 } from "../../constants/prospectionConstants"
 
 export const prospectionDeleteReducer = (state = { }, action) => {
@@ -20,12 +19,8 @@ export const prospectionDeleteReducer = (state = { }, action) => {
     case PROSPECTION_DELETE_FAIL:
       return {
         loading: false,
-        error: action.payload.error
+        error: action.payload.message
       }
-      
-    case PROSPECTION_DELETE_RESET:
-        return {}
-  
 
     default:
       return state

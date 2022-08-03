@@ -21,7 +21,7 @@ export const segmentUpdateReducer = (state = { segment: {} }, action) => {
     case SEGMENT_UPDATE_FAIL:
       return {
         loading: false,
-        error: action.payload.error
+        error: action.payload.message
       }
     case SEGMENT_UPDATE_RESET:
       return {}

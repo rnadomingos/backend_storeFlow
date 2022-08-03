@@ -38,7 +38,7 @@ function ProspectionScreen() {
   }, [dispatch, success])
 
   const deleteHandler = (id) => {
-    if (window.confirm('Deseja Deletar está prospecção?')) {
+    if (window.confirm('Deseja deletar esta prospecção?')) {
         dispatch(prospectionDeleteAction(id))
     }
 }

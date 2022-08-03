@@ -40,7 +40,7 @@ import { userStoreDetailReducer } from './components/account/reducers/userStoreD
 import { storeFlowCreateReducer } from './components/storeFlow/reducers/storeFlowCreateReducer'
 import { storeSellersReducer } from './components/store/reducers/storeSellersReducer'
 import { prospectionDeleteReducer } from './components/prospection/reducers/admin/prospectionDeleteReducer'
-
+import { segmentDeleteReducer } from './components/segment/reducers/admin/segmentDeleteReducer'
 
 const reducer = combineReducers({
   //Account
@@ -93,6 +93,7 @@ const reducer = combineReducers({
   segmentCreateReducer: segmentCreateReducer,
   segmentDetailReducer: segmentDetailReducer,
   segmentUpdateReducer: segmentUpdateReducer,
+  segmentDeleteReducer: segmentDeleteReducer,
 
   //Store Flow
   storeFlowCreateReducer: storeFlowCreateReducer

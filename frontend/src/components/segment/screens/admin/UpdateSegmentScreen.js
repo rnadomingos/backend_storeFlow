@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react"
+import { useAlert } from "react-alert"
 import { Button, Form } from "react-bootstrap"
 import { useDispatch, useSelector } from "react-redux"
 import { Link } from "react-router-dom"
@@ -7,7 +8,6 @@ import { Loader } from "../../../layout/Loader"
 import { Message } from "../../../layout/Message"
 import { segmentDetailAction } from '../../actions/admin/segmentDetailAction'
 import { segmentUpdateAction } from '../../actions/admin/segmentUpdateAction'
-import { cleanErrors } from '../../actions/cleanErrors'
 import { SEGMENT_DETAIL_RESET, SEGMENT_UPDATE_RESET } from "../../constants/segmentConstants"
 
 function UpdateSegmentScreen({ history, match }) {
@@ -21,6 +21,7 @@ function UpdateSegmentScreen({ history, match }) {
   const { error: errorDetail, segment } = useSelector(state => state.segmentDetailReducer)
   const { error, loading, success } = useSelector(state => state.segmentUpdateReducer)
 
+  const alert = useAlert()
   const dispatch = useDispatch()
 
   useEffect(() => {
@@ -33,12 +34,13 @@ function UpdateSegmentScreen({ history, match }) {
     }
 
     if (errorDetail) {
-      alert(`Problema ${errorDetail} ao alterar o Segmento`)
-      dispatch(cleanErrors)
+      alert.error(errorDetail)
+      dispatch({ type: SEGMENT_DETAIL_RESET })
     }
 
     if (error) {
-      alert(`Problema ${error} ao alterar o Segmento.`)
+      alert.error(error)
+      dispatch({ type: SEGMENT_UPDATE_RESET })
     }
 
     if (success) {
@@ -46,7 +48,7 @@ function UpdateSegmentScreen({ history, match }) {
       dispatch({ type: SEGMENT_DETAIL_RESET })
       history.push('/admin/segments')
     }
-  }, [error, errorDetail, dispatch, success, history, segment, segmentId])
+  }, [error, errorDetail, dispatch, success, history, segment, segmentId, alert])
 
   const submitHandler = (e) => {
     e.preventDefault()

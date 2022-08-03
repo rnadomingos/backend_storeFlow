@@ -24,7 +24,11 @@ export const prospectionDetailUpdateReducer = (state = { prospection: {} }, acti
         error: action.payload.error
       }
     case PROSPECTION_DETAIL_RESET:
-      return {}
+      return {
+        ...state,
+        prospection: null,
+        error: null
+      }
 
     default:
       return state

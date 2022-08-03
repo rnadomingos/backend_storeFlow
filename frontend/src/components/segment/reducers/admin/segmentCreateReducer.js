@@ -19,10 +19,15 @@ export const segmentCreateReducer = (state = {}, action) => {
     case SEGMENT_CREATE_FAIL:
       return {
         loading: false,
-        error: action.payload.error
+        error: action.payload.message
       }
     case SEGMENT_CREATE_RESET:
-      return {}
+      return {
+        ...state,
+        success: false,
+        error: null
+      }
+
     default:
       return state
   }

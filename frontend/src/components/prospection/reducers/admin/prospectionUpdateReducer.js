@@ -20,10 +20,14 @@ export const prospectionUpdateReducer = (state = { prospection: {} }, action) =>
     case PROSPECTION_UPDATE_FAIL:
       return {
         loading: false,
-        error: action.payload.error
+        error: action.payload.message
       }
     case PROSPECTION_UPDATE_RESET:
-      return {}
+      return {
+        ...state,
+        success: false,
+        error: null
+      }
 
     default:
       return state

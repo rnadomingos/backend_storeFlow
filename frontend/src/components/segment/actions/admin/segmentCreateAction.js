@@ -22,7 +22,7 @@ export const segmentCreateAction = (newSegment) => async (dispatch, getState) =>
     }
 
     const { data } = await axios.post(
-      'http://localhost:3333/segments/',
+      '/segments/',
       newSegment,
       config
     )

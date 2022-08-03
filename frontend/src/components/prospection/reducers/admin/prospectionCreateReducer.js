@@ -24,7 +24,11 @@ export const prospectionCreateReducer = (state = {}, action) => {
       }
 
     case PROSPECTION_CREATE_RESET:
-      return {}
+      return {
+        ...state,
+        success: false,
+        error: null
+      }
 
     default:
       return state
