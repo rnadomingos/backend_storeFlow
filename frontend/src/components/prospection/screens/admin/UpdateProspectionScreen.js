@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { useAlert } from "react-alert"
 import { Button, Form } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
@@ -7,7 +8,7 @@ import { Loader } from "../../../layout/Loader";
 import { Message } from "../../../layout/Message";
 import { prospectionDetailUpdateAction } from '../../actions/admin/prospectionDetailUpdateAction'
 import { prospectionUpdateAction } from "../../actions/admin/prospectionUpdateAction";
-import { CLEAN_ERRORS, PROSPECTION_DETAIL_RESET, PROSPECTION_UPDATE_RESET } from "../../constants/prospectionConstants";
+import { PROSPECTION_DETAIL_RESET, PROSPECTION_UPDATE_RESET } from "../../constants/prospectionConstants";
 
 
 function UpdateProspectionScreen({ history, match }) {
@@ -29,6 +30,7 @@ function UpdateProspectionScreen({ history, match }) {
     success
   } = useSelector(state => state.prospectionUpdateReducer)
 
+  const alert = useAlert()
   const dispatch = useDispatch()
 
   useEffect(() => {
@@ -41,12 +43,12 @@ function UpdateProspectionScreen({ history, match }) {
     }
     if (errorDetail) {
       alert(`Problema ${errorDetail} ao retornar os detalhes`)
-      dispatch({ type: CLEAN_ERRORS })
+      dispatch({ type: PROSPECTION_DETAIL_RESET })
     }
 
     if (error) {
-      alert(`Problema ${error} ao gravar prospecção`)
-      dispatch({ type: CLEAN_ERRORS })
+      alert.error(`Problema ${error} ao gravar prospecção`)
+      dispatch({ type: PROSPECTION_UPDATE_RESET })
     }
 
     if (success) {
@@ -54,7 +56,7 @@ function UpdateProspectionScreen({ history, match }) {
       dispatch({ type: PROSPECTION_DETAIL_RESET })
       history.push('/admin/prospections')
     }
-  }, [error, dispatch, success, history, prospection, prospectionID, errorDetail])
+  }, [error, dispatch, success, history, prospection, prospectionID, errorDetail, alert])
 
   const submitHandler = (e) => {
     e.preventDefault()

@@ -23,7 +23,7 @@ export const prospectionCreateAction = (newProspection) => async (dispatch, getS
     const {
       data
     } = await axios.post(
-      `http://localhost:3333/prospections/`,
+      `/prospections/`,
       newProspection,
       config
     )

@@ -8,7 +8,7 @@ import { Loader } from "../../../layout/Loader"
 import {
   prospectionCreateAction
 } from "../../actions/admin/prospectionCreateAction"
-import { CLEAN_ERRORS, PROSPECTION_CREATE_RESET } from "../../constants/prospectionConstants"
+import { PROSPECTION_CREATE_RESET } from "../../constants/prospectionConstants"
 
 
 function CreateProspectionScreen({ history }) {
@@ -30,7 +30,7 @@ function CreateProspectionScreen({ history }) {
   useEffect(() => {
     if (error) {
       alert.error(`Error: ${error}`)
-      dispatch({ type: CLEAN_ERRORS })
+      dispatch({ type: PROSPECTION_CREATE_RESET })
     }
 
     if (success) {

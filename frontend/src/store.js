@@ -39,6 +39,8 @@ import { storeSeparateSegmentReducer } from './components/store/reducers/admin/s
 import { userStoreDetailReducer } from './components/account/reducers/userStoreDetailReducer'
 import { storeFlowCreateReducer } from './components/storeFlow/reducers/storeFlowCreateReducer'
 import { storeSellersReducer } from './components/store/reducers/storeSellersReducer'
+import { prospectionDeleteReducer } from './components/prospection/reducers/admin/prospectionDeleteReducer'
+
 
 const reducer = combineReducers({
   //Account
@@ -78,6 +80,7 @@ const reducer = combineReducers({
   prospectionCreateReducer: prospectionCreateReducer,
   prospectionDetailUpdateReducer: prospectionDetailUpdateReducer,
   prospectionUpdateReducer: prospectionUpdateReducer,
+  prospectionDeleteReducer: prospectionDeleteReducer,
 
   //Social Media
   socialMediaListReducer: socialMediaListReducer,
