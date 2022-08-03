@@ -6,6 +6,7 @@ import { ISegmentRepository } from "@domain/segment/repository/ISegmentRepositor
 import { CreateSegmentUseCase } from "@modules/segment/useCase/createSegment/CreateSegmentUseCase"
 import { ListSegmentUseCase } from "@modules/segment/useCase/listSegment/ListSegmentUseCase";
 import { UpdateSegmentUseCase } from "@modules/segment/useCase/updateSegment/UpdateSegmentUseCase";
+import { DeleteSegmentUseCase } from "@modules/segment/useCase/deleteSegmentById/DeleteSegmentUseCase";
 
 
 const makeFakeSegment = (): ISegment => ({
@@ -53,8 +54,8 @@ const makeSegmentRepository = (): ISegmentRepository => {
     async update(data: IUpdateDTO): Promise<void> {
       return await new Promise(resolve => resolve(null))
     }
-    deleteSegmentById(id: string): Promise<void> {
-      throw new Error("Method not implemented.");
+    async delete(id: string): Promise<void> {
+      return await new Promise(resolve => resolve(null))
     }
 
   }
@@ -66,6 +67,7 @@ interface ISutTypes {
   segmentRepositoryStub: ISegmentRepository;
   listSegmentUseCase: ListSegmentUseCase;
   updateSegmentUseCase: UpdateSegmentUseCase;
+  deleteSegmentUseCase: DeleteSegmentUseCase;
 }
 
 const makeSut = (): ISutTypes => {
@@ -73,11 +75,13 @@ const makeSut = (): ISutTypes => {
   const createSegmentUseCase = new CreateSegmentUseCase(segmentRepositoryStub)
   const listSegmentUseCase = new ListSegmentUseCase(segmentRepositoryStub)
   const updateSegmentUseCase = new UpdateSegmentUseCase(segmentRepositoryStub)
+  const deleteSegmentUseCase = new DeleteSegmentUseCase(segmentRepositoryStub)
   return {
     createSegmentUseCase,
     segmentRepositoryStub,
     listSegmentUseCase,
-    updateSegmentUseCase
+    updateSegmentUseCase,
+    deleteSegmentUseCase
   }
 }
 
@@ -143,6 +147,23 @@ describe('Segment use cases', () => {
         is_active: false
       });
     }).rejects.toEqual({ "message": "This Segment ID was not found!", "statusCode": 400 });
+  });
+
+  test('Should be able to delete a prospection', async () => {
+    const { deleteSegmentUseCase, segmentRepositoryStub } = makeSut()
+    const deleteSpy = jest.spyOn(segmentRepositoryStub, 'delete')
+    await deleteSegmentUseCase.execute('any_uuid');
+    expect(deleteSpy).toHaveBeenCalled();
+  });
+
+  test('Should not be able to delete a prospection if id not found', async () => {
+    expect(async () => {
+      const { deleteSegmentUseCase, segmentRepositoryStub } = makeSut()
+      jest.spyOn(segmentRepositoryStub, 'findById').mockReturnValueOnce(
+        new Promise((resolve) => resolve(null))
+      )
+      await deleteSegmentUseCase.execute('invalid_uuid');
+    }).rejects.toEqual({ "message": "Segment was not found!", "statusCode": 400 });
   });
 
 })
