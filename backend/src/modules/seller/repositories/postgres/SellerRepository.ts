@@ -66,4 +66,8 @@ export class SellerRepositoryPostgres implements ISellerRepository {
     return await this.repository.find()
   }
 
+  async delete(id: string): Promise<void> {
+    await this.repository.delete(id)
+  }
+
 }

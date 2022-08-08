@@ -399,7 +399,7 @@ paths:
           description: "Success"
         401:
           $ref: "#/components/responses/UnauthorizedError"
-  /seller/new:
+  /sellers:
     post:
       tags:
       - "Seller"
@@ -428,7 +428,7 @@ paths:
           description: "Success"
         401:
           $ref: "#/components/responses/UnauthorizedError"
-  /seller/list:
+  
     get:
       tags: 
       - "Seller"
@@ -441,7 +441,8 @@ paths:
           description: "Success"
         401:
           $ref: "#/components/responses/UnauthorizedError"
-  /seller/get-store/{user_dms}:
+
+  /sellers/{user_dms}/store:
     get:
       tags: 
       - "Seller"
@@ -461,7 +462,7 @@ paths:
           description: "Success"
         401:
           $ref: "#/components/responses/UnauthorizedError" 
-  /seller/get-seller/{user_dms}:
+  /sellers/{user_dms}/seller:
     get:
       tags: 
       - "Seller"
@@ -481,7 +482,7 @@ paths:
           description: "Success"
         401:
           $ref: "#/components/responses/UnauthorizedError"                   
-  /seller/update/{id}:
+  /sellers/{id}:
     put:
       tags: 
       - "Seller"
@@ -515,6 +516,45 @@ paths:
         401:
           $ref: "#/components/responses/UnauthorizedError"   
           
+    delete:
+      tags: 
+      - "Seller"
+      summary: "Delete seller by Id"
+      description: "Delete seller by Id"
+      security:
+        - bearerAuth: []
+      parameters: 
+        - in: path
+          name: id
+          description: "Seller Id"
+          schema:
+            type: string
+          required: true                  
+      responses:
+        200:
+          description: "Success"
+        401:
+          $ref: "#/components/responses/UnauthorizedError"  
+    get:
+      tags: 
+      - "Seller"
+      summary: "List seller by Id"
+      description: "List seller by Id"
+      security:
+        - bearerAuth: []
+      parameters: 
+        - in: path
+          name: id
+          description: "Seller Id"
+          schema:
+            type: string
+          required: true                  
+      responses:
+        200:
+          description: "Success"
+        401:
+          $ref: "#/components/responses/UnauthorizedError"
+
   /segments:
     post:
       tags:

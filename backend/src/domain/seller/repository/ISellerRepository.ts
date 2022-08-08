@@ -13,4 +13,5 @@ export interface ISellerRepository {
   list(): Promise<ISeller[]>;
   findStoreBySeller(user_dms: string): Promise<ISeller[]>;
   update(data: IUpdateSellerDTO): Promise<void>;
+  delete(id: string): Promise<void>;
 }
