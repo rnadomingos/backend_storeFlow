@@ -97,6 +97,7 @@ function CreateUserScreen({ history }) {
                   value={id_store}
                   onChange={(e) => setIdstore(e.target.value)}
                 >
+                  <option value=""></option>
                   {stores.map(store => (
                     <option
                       value={store.id}
