@@ -66,7 +66,7 @@ const makeSellerRepository = (): ISellerRepository => {
     async list(): Promise<ISeller[]> {
       return await new Promise(resolve => resolve(makeFakeSellers()))
     }
-    findStoreBySeller(user_dms: string): Promise<ISeller[]> {
+    findStoreBySeller(user_dms: string): Promise<ISeller> {
       throw new Error("Method not implemented.");
     }
     async update(data: IUpdateSellerDTO): Promise<void> {

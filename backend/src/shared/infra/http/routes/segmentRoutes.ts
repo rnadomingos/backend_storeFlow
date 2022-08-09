@@ -21,7 +21,7 @@ segmentRoutes.post("/", isAuthenticated, isAdmin, createSegmentController.handle
 segmentRoutes.get("/", isAuthenticated, listSegmentController.handle);
 segmentRoutes.get("/filter", isAuthenticated, findSegmentByNameController.handle);
 segmentRoutes.get("/:id", isAuthenticated, findSegmentByIdController.handle);
-segmentRoutes.put("/:id", isAuthenticated, updateSegment.handle)
-segmentRoutes.delete("/:id", isAuthenticated, deleteSegmentController.handle)
+segmentRoutes.put("/:id", isAuthenticated, isAdmin, updateSegment.handle)
+segmentRoutes.delete("/:id", isAuthenticated, isAdmin, deleteSegmentController.handle)
 
 export { segmentRoutes }
