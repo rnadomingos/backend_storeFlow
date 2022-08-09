@@ -3,11 +3,11 @@ import {
   PROSPECTION_DETAIL_FAIL,
   PROSPECTION_DETAIL_REQUEST,
   PROSPECTION_DETAIL_SUCCESS
-} from "../../constants/prospectionConstants"
+} from "../constants/prospectionConstants"
 
 
 
-export const prospectionDetailUpdateAction = (id) => async (dispatch, getState) => {
+export const prospectionDetailAction = (id) => async (dispatch, getState) => {
   try {
 
     dispatch({

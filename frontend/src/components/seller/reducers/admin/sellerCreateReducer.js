@@ -21,7 +21,7 @@ export const sellerCreateReducer = (state = {}, action) => {
     case SELLER_CREATE_FAIL:
       return {
         loading: false,
-        error: action.payload.error
+        error: action.payload.message
       }
 
     case SELLER_CLEAN_ERRORS:

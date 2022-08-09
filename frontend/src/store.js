@@ -7,7 +7,7 @@ import { storesListReducer } from './components/store/reducers/admin/storesListR
 import { loginReducer } from './components/account/reducers/loginReducer'
 import { storesUpdateReducer } from './components/store/reducers/admin/storeUpdateReducer'
 import { storesDetailReducer } from './components/store/reducers/storeDetailReducer'
-import { sellersListReducer } from './components/seller/reducers/admin/sellersListReducer'
+import { sellersListReducer } from './components/seller/reducers/sellersListReducer'
 import { sellerDetailReducer } from './components/seller/reducers/sellerDetailReducer'
 import { sellerUpdateReducer } from './components/seller/reducers/admin/sellerUpdateReduce'
 import { sellerCreateReducer } from './components/seller/reducers/admin/sellerCreateReducer'
@@ -15,9 +15,9 @@ import { serviceTypeListReducer } from './components/serviceType/reducers/servic
 import { serviceTypeCreateReducer } from './components/serviceType/reducers/admin/serviceTypeCreateReducer'
 import { serviceTypeDetailReducer } from './components/serviceType/reducers/serviceTypeDatailReducer'
 import { serviceTypeUpdateReducer } from './components/serviceType/reducers/admin/serviceTypeUpdateReducer'
-import { prospectionListReducer } from './components/prospection/reducers/admin/prospectionListReducer'
+import { prospectionListReducer } from './components/prospection/reducers/prospectionListReducer'
 import { prospectionCreateReducer } from './components/prospection/reducers/admin/prospectionCreateReducer'
-import { prospectionDetailUpdateReducer } from './components/prospection/reducers/admin/prospectionDetailUpdateReducer'
+import { prospectionDetailReducer } from './components/prospection/reducers/prospectionDetailReducer'
 import { prospectionUpdateReducer } from './components/prospection/reducers/admin/prospectionUpdateReducer'
 import { socialMediaListReducer } from './components/socialMedia/reducers/admin/socialMediaListReducer'
 import { socialMediaCreateReducer } from './components/socialMedia/reducers/admin/socialMediaCreateReducer'
@@ -41,6 +41,7 @@ import { storeFlowCreateReducer } from './components/storeFlow/reducers/storeFlo
 import { storeSellersReducer } from './components/store/reducers/storeSellersReducer'
 import { prospectionDeleteReducer } from './components/prospection/reducers/admin/prospectionDeleteReducer'
 import { segmentDeleteReducer } from './components/segment/reducers/admin/segmentDeleteReducer'
+import {sellerDeleteReducer} from './components/seller/reducers/admin/sellerDeleteReducer'
 
 const reducer = combineReducers({
   //Account
@@ -68,6 +69,7 @@ const reducer = combineReducers({
   sellerDetailReducer: sellerDetailReducer,
   sellerUpdateReducer: sellerUpdateReducer,
   sellerCreateReducer: sellerCreateReducer,
+  sellerDeleteReducer: sellerDeleteReducer,
 
   //Service Types
   serviceTypeListReducer: serviceTypeListReducer,
@@ -78,7 +80,7 @@ const reducer = combineReducers({
   //Prospection
   prospectionListReducer: prospectionListReducer,
   prospectionCreateReducer: prospectionCreateReducer,
-  prospectionDetailUpdateReducer: prospectionDetailUpdateReducer,
+  prospectionDetailReducer: prospectionDetailReducer,
   prospectionUpdateReducer: prospectionUpdateReducer,
   prospectionDeleteReducer: prospectionDeleteReducer,
 

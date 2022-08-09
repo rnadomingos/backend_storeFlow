@@ -3,9 +3,9 @@ import {
   PROSPECTION_DETAIL_REQUEST,
   PROSPECTION_DETAIL_SUCCESS,
   PROSPECTION_DETAIL_RESET
-} from '../../constants/prospectionConstants'
+} from '../constants/prospectionConstants'
 
-export const prospectionDetailUpdateReducer = (state = { prospection: {} }, action) => {
+export const prospectionDetailReducer = (state = { prospection: {} }, action) => {
 
   switch (action.type) {
     case PROSPECTION_DETAIL_REQUEST:

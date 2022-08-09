@@ -6,9 +6,9 @@ import { Link } from "react-router-dom";
 import { FormContainer } from "../../../layout/FormContainer";
 import { Loader } from "../../../layout/Loader";
 import { Message } from "../../../layout/Message";
-import { prospectionDetailUpdateAction } from '../../actions/admin/prospectionDetailUpdateAction'
 import { prospectionUpdateAction } from "../../actions/admin/prospectionUpdateAction";
-import { PROSPECTION_DETAIL_RESET, PROSPECTION_UPDATE_RESET } from "../../constants/prospectionConstants";
+import { prospectionDetailAction } from "../../actions/prospectionDetailAction";
+import { PROSPECTION_CLEAN_ERRORS, PROSPECTION_DETAIL_RESET, PROSPECTION_UPDATE_RESET } from "../../constants/prospectionConstants";
 
 
 function UpdateProspectionScreen({ history, match }) {
@@ -22,7 +22,7 @@ function UpdateProspectionScreen({ history, match }) {
   const {
     error: errorDetail,
     prospection
-  } = useSelector(state => state.prospectionDetailUpdateReducer)
+  } = useSelector(state => state.prospectionDetailReducer)
 
   const {
     error,
@@ -35,7 +35,7 @@ function UpdateProspectionScreen({ history, match }) {
 
   useEffect(() => {
     if (!prospection || prospectionID !== prospection.id) {
-      dispatch(prospectionDetailUpdateAction(prospectionID))
+      dispatch(prospectionDetailAction(prospectionID))
     } else {
       setName(prospection.name)
       setDescription(prospection.description)
@@ -43,12 +43,11 @@ function UpdateProspectionScreen({ history, match }) {
     }
     if (errorDetail) {
       alert(`Problema ${errorDetail} ao retornar os detalhes`)
-      dispatch({ type: PROSPECTION_DETAIL_RESET })
     }
 
     if (error) {
       alert.error(`Problema ${error} ao gravar prospecção`)
-      dispatch({ type: PROSPECTION_UPDATE_RESET })
+      dispatch({ type: PROSPECTION_CLEAN_ERRORS })
     }
 
     if (success) {

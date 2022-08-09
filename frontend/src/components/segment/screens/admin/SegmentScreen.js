@@ -2,10 +2,10 @@ import { useEffect } from "react";
 import { Button, Col, Row, Table } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-import { Loader } from "../../layout/Loader";
-import { Message } from "../../layout/Message";
-import { segmentDeleteAction } from "../actions/admin/segmentDeleteAction";
-import { segmentListAction } from "../actions/segmentListAction";
+import { Loader } from "../../../layout/Loader";
+import { Message } from "../../../layout/Message";
+import { segmentDeleteAction } from "../../actions/admin/segmentDeleteAction";
+import { segmentListAction } from "../../actions/segmentListAction";
 
 
 
@@ -19,15 +19,15 @@ function SegmentScreen() {
   } = useSelector(state => state.segmentListReducer)
 
   const {
-    success
+    success: deleteSuccess
   } = useSelector(state => state.segmentDeleteReducer)
 
   useEffect(() => {
     dispatch(segmentListAction())
-    if (success) {
+    if (deleteSuccess) {
       dispatch(segmentListAction())
     }
-  }, [dispatch, success])
+  }, [dispatch, deleteSuccess])
 
   const deleteHandler = (id) => {
     if (window.confirm('Deseja deletar este segmento?')) {

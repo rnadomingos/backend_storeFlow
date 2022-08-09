@@ -10,7 +10,7 @@ import { ForgotPasswordScreen } from './components/account/screens/ForgotPasswor
 import { Container } from 'react-bootstrap';
 import ProtectRoute from './components/route/ProtectRoute';
 import { UpdateStoreScreen } from './components/store/screens/UpdateStoreScreen';
-import { SellerScreen } from './components/seller/screens/SellerScreen';
+import { SellerScreen } from './components/seller/screens/admin/SellerScreen';
 import { UpdateSellerScreen } from './components/seller/screens/admin/UpdateSellerScreen';
 import { CreateSellerScreen } from './components/seller/screens/admin/CreateSellerScreen';
 import { ServiceTypesScreen } from './components/serviceType/screens/admin/ServiceTypesScreen';
@@ -22,7 +22,7 @@ import { UpdateProspectionScreen } from './components/prospection/screens/admin/
 import { SocialMediaListScreen } from './components/socialMedia/screen/admin/ListSocialMediaScreen';
 import { CreateSocialMediaScreen } from './components/socialMedia/screen/admin/CreateSocialMediaScreen';
 import { UpdateSocialMediaScreen } from './components/socialMedia/screen/admin/UpdateSocialMediaScreen';
-import { SegmentScreen } from './components/segment/screens/SegmentScreen';
+import { SegmentScreen } from './components/segment/screens/admin/SegmentScreen';
 import { CreateSegmentScreen } from './components/segment/screens/admin/CreateSegmentScreen';
 import { ResetPasswordScreen } from './components/account/screens/ResetPasswordScreen';
 import { UsersScreen } from './components/account/screens/admin/UsersScreen';

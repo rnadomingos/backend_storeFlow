@@ -1,4 +1,5 @@
 import {
+  PROSPECTION_CLEAN_ERRORS,
   PROSPECTION_CREATE_FAIL,
   PROSPECTION_CREATE_REQUEST,
   PROSPECTION_CREATE_RESET,
@@ -23,12 +24,15 @@ export const prospectionCreateReducer = (state = {}, action) => {
         error: action.payload.message
       }
 
-    case PROSPECTION_CREATE_RESET:
+    case PROSPECTION_CLEAN_ERRORS:
       return {
         ...state,
         success: false,
         error: null
       }
+
+    case PROSPECTION_CREATE_RESET:
+      return { }
 
     default:
       return state

@@ -25,17 +25,17 @@ function ProspectionScreen() {
   } = useSelector(state => state.prospectionListReducer)
 
   const {
-    success
+    success: deleteSuccess
   } = useSelector(state => state.prospectionDeleteReducer)
   
   const dispatch = useDispatch()
   
   useEffect(() => {
     dispatch(prospectionListAction())
-    if (success) {
+    if (deleteSuccess) {
       dispatch(prospectionListAction())
     }
-  }, [dispatch, success])
+  }, [dispatch, deleteSuccess])
 
   const deleteHandler = (id) => {
     if (window.confirm('Deseja deletar esta prospecção?')) {

@@ -2,7 +2,7 @@ import {
   PROSPECTION_LIST_FAIL,
   PROSPECTION_LIST_REQUEST,
   PROSPECTION_LIST_SUCCESS
-} from '../../constants/prospectionConstants'
+} from '../constants/prospectionConstants'
 
 export const prospectionListReducer = (state = { prospection: [] }, action) => {
   switch (action.type) {
