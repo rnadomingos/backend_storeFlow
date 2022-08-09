@@ -2,7 +2,7 @@ import {
   SEGMENT_LIST_SUCCESS,
   SEGMENT_LIST_FAIL,
   SEGMENT_LIST_REQUEST,
-} from '../../constants/segmentConstants'
+} from '../constants/segmentConstants'
 
 export const segmentListReducer = (state = { segment: [] }, action) => {
 

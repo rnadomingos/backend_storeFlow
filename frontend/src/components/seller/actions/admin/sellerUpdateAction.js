@@ -23,7 +23,7 @@ export const sellerUpdateAction = (seller) => async (dispatch, getState) => {
     }
 
     const { data } = await axios.put(
-      `http://localhost:3333/seller/update/${seller.id}`,
+      `http://localhost:3333/sellers/${seller.id}`,
       seller,
       config
     )

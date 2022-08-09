@@ -10,7 +10,7 @@ import { ForgotPasswordScreen } from './components/account/screens/ForgotPasswor
 import { Container } from 'react-bootstrap';
 import ProtectRoute from './components/route/ProtectRoute';
 import { UpdateStoreScreen } from './components/store/screens/UpdateStoreScreen';
-import { SellerScreen } from './components/seller/screens/admin/SellerScreen';
+import { SellerScreen } from './components/seller/screens/SellerScreen';
 import { UpdateSellerScreen } from './components/seller/screens/admin/UpdateSellerScreen';
 import { CreateSellerScreen } from './components/seller/screens/admin/CreateSellerScreen';
 import { ServiceTypesScreen } from './components/serviceType/screens/admin/ServiceTypesScreen';
@@ -22,7 +22,7 @@ import { UpdateProspectionScreen } from './components/prospection/screens/admin/
 import { SocialMediaListScreen } from './components/socialMedia/screen/admin/ListSocialMediaScreen';
 import { CreateSocialMediaScreen } from './components/socialMedia/screen/admin/CreateSocialMediaScreen';
 import { UpdateSocialMediaScreen } from './components/socialMedia/screen/admin/UpdateSocialMediaScreen';
-import { SegmentScreen } from './components/segment/screens/admin/SegmentScreen';
+import { SegmentScreen } from './components/segment/screens/SegmentScreen';
 import { CreateSegmentScreen } from './components/segment/screens/admin/CreateSegmentScreen';
 import { ResetPasswordScreen } from './components/account/screens/ResetPasswordScreen';
 import { UsersScreen } from './components/account/screens/admin/UsersScreen';
@@ -59,7 +59,7 @@ function App() {
           <ProtectRoute path='/admin/store/:id/edit' component={UpdateStoreScreen} />
 
           <ProtectRoute path='/admin/sellers' isAdmin={true} component={SellerScreen} />
-          <ProtectRoute path='/admin/seller/:user_dms/edit' component={UpdateSellerScreen} />
+          <ProtectRoute path='/admin/seller/:id/edit' component={UpdateSellerScreen} />
           <ProtectRoute path='/admin/seller/new' component={CreateSellerScreen} />
 
           <ProtectRoute path='/admin/service-types' isAdmin={true} component={ServiceTypesScreen} />

@@ -1,5 +1,5 @@
 import axios from "axios"
-import { SEGMENT_DETAIL_FAIL, SEGMENT_DETAIL_REQUEST, SEGMENT_DETAIL_SUCCESS } from "../../constants/segmentConstants"
+import { SEGMENT_DETAIL_FAIL, SEGMENT_DETAIL_REQUEST, SEGMENT_DETAIL_SUCCESS } from "../constants/segmentConstants"
 
 
 export const segmentDetailAction = (id) => async (dispatch, getState) => {

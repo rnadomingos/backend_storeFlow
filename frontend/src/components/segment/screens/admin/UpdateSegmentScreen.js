@@ -6,9 +6,9 @@ import { Link } from "react-router-dom"
 import { FormContainer } from "../../../layout/FormContainer"
 import { Loader } from "../../../layout/Loader"
 import { Message } from "../../../layout/Message"
-import { segmentDetailAction } from '../../actions/admin/segmentDetailAction'
+import { segmentDetailAction } from '../../actions/segmentDetailAction'
 import { segmentUpdateAction } from '../../actions/admin/segmentUpdateAction'
-import { SEGMENT_DETAIL_RESET, SEGMENT_UPDATE_RESET } from "../../constants/segmentConstants"
+import { SEGMENT_CLEAN_ERRORS, SEGMENT_DETAIL_RESET, SEGMENT_UPDATE_RESET } from "../../constants/segmentConstants"
 
 function UpdateSegmentScreen({ history, match }) {
 
@@ -35,12 +35,11 @@ function UpdateSegmentScreen({ history, match }) {
 
     if (errorDetail) {
       alert.error(errorDetail)
-      dispatch({ type: SEGMENT_DETAIL_RESET })
     }
 
     if (error) {
+      dispatch({ type: SEGMENT_CLEAN_ERRORS })
       alert.error(error)
-      dispatch({ type: SEGMENT_UPDATE_RESET })
     }
 
     if (success) {

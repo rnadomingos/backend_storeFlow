@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
-import { SEGMENT_CREATE_RESET } from "../../constants/segmentConstants"
+import { SEGMENT_CLEAN_ERRORS, SEGMENT_CREATE_RESET } from "../../constants/segmentConstants"
 import { segmentCreateAction } from "../../actions/admin/segmentCreateAction"
 import { FormContainer } from "../../../layout/FormContainer"
 import { Loader } from "../../../layout/Loader"
@@ -22,7 +22,7 @@ function CreateSegmentScreen({ history }) {
 
     if (error) {
       alert.error(error)
-      dispatch({ type: SEGMENT_CREATE_RESET })
+      dispatch({ type: SEGMENT_CLEAN_ERRORS })
     }
 
     if (success) {

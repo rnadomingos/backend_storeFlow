@@ -2,10 +2,9 @@ import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Button, Col, Row, Table } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
-
-import { Loader } from '../../../layout/Loader'
-import { Message } from '../../../layout/Message'
-import { sellerListAction } from '../../actions/sellerListAction'
+import { Loader } from '../../layout/Loader'
+import { Message } from '../../layout/Message'
+import { sellerListAction } from '../actions/sellerListAction'
 
 
 function SellerScreen() {
@@ -63,7 +62,7 @@ function SellerScreen() {
                       }</td>
 
                       <td>
-                        <Link to={`/admin/seller/${seller.user_dms}/edit`}>
+                        <Link to={`/admin/seller/${seller.id}/edit`}>
                           <Button variant='light' className='btn-sm'>
                             <i className='fas fa-edit'></i>
                           </Button>

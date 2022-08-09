@@ -7,8 +7,7 @@ import { Loader } from '../../../layout/Loader'
 import { Message } from '../../../layout/Message'
 import { storesListActions } from '../../../store/actions/admin/storesListActions'
 import { sellerCreateAction } from '../../actions/admin/sellerCreateAction'
-import { cleanErrors } from '../../actions/cleanErrors'
-import { SELLER_CREATE_RESET } from '../../constants/sellerConstants'
+import { SELLER_CLEAN_ERRORS, SELLER_CREATE_RESET } from '../../constants/sellerConstants'
 
 
 function CreateSellerScreen({ history }) {
@@ -28,7 +27,7 @@ function CreateSellerScreen({ history }) {
 
     if (error) {
       alert(`Problema ${error} ao gravar novo vendendor`)
-      dispatch(cleanErrors())
+      dispatch({type: SELLER_CLEAN_ERRORS})
     }
 
     if (success) {

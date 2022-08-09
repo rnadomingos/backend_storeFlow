@@ -1,4 +1,5 @@
 import {
+  SELLER_CLEAN_ERRORS,
   SELLER_CREATE_FAIL,
   SELLER_CREATE_REQUEST,
   SELLER_CREATE_RESET,
@@ -22,6 +23,13 @@ export const sellerCreateReducer = (state = {}, action) => {
         loading: false,
         error: action.payload.error
       }
+
+    case SELLER_CLEAN_ERRORS:
+        return {
+          ...state,
+          success: false,
+          error: null
+        }
 
     case SELLER_CREATE_RESET:
       return {}

@@ -3,6 +3,7 @@ import { IUpdateSellerDTO } from "@domain/seller/dto/IUpdateSellerDTO";
 import { ISeller } from "@domain/seller/model/ISeller";
 import { ISellerRepository } from "@domain/seller/repository/ISellerRepository";
 import { Seller } from "@modules/seller/entities/Seller";
+import { Store } from "@modules/store/entities/Store";
 import { getRepository, Repository } from "typeorm";
 
 
@@ -33,8 +34,8 @@ export class SellerRepositoryPostgres implements ISellerRepository {
     await this.repository.save(updateSeller)
   }
 
-  async findStoreBySeller(user_dms: string): Promise<ISeller[]> {
-    return await this.repository.find({
+  async findStoreBySeller(user_dms: string): Promise<ISeller> {
+    return await this.repository.findOne({
       where: { user_dms },
       relations: ["store"]
     });

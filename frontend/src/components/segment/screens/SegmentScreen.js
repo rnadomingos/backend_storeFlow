@@ -2,10 +2,11 @@ import { useEffect } from "react";
 import { Button, Col, Row, Table } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-import { Loader } from "../../../layout/Loader";
-import { Message } from "../../../layout/Message";
-import { segmentDeleteAction } from "../../actions/admin/segmentDeleteAction";
-import { segmentListAction } from '../../actions/admin/segmentListAction'
+import { Loader } from "../../layout/Loader";
+import { Message } from "../../layout/Message";
+import { segmentDeleteAction } from "../actions/admin/segmentDeleteAction";
+import { segmentListAction } from "../actions/segmentListAction";
+
 
 
 function SegmentScreen() {

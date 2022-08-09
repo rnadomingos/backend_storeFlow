@@ -2,8 +2,8 @@ import axios from 'axios'
 import {
   SEGMENT_LIST_FAIL,
   SEGMENT_LIST_REQUEST,
-  SEGMENT_LIST_SUCCESS,
-} from '../../constants/segmentConstants'
+  SEGMENT_LIST_SUCCESS
+} from '../constants/segmentConstants'
 
 export const segmentListAction = () => async (dispatch, getState) => {
   try {

@@ -3,7 +3,7 @@ import {
   SEGMENT_DETAIL_SUCCESS,
   SEGMENT_DETAIL_FAIL,
   SEGMENT_DETAIL_RESET
-} from '../../constants/segmentConstants'
+} from '../constants/segmentConstants'
 
 export const segmentDetailReducer = (state = { segment: {} }, action) => {
   switch (action.type) {
