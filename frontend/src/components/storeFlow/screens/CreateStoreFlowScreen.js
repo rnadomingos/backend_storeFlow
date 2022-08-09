@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { useAlert } from 'react-alert'
-import { Button, Form } from 'react-bootstrap'
+import { Button, Col, Form, Row } from 'react-bootstrap'
 import { useDispatch, useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
 import { FormContainer } from '../../layout/FormContainer'
@@ -81,12 +81,65 @@ function CreateStoreFlowScreen({ history }) {
 
 
   return (
-    <div> <FormContainer>
+    <div>
       <h1>Finalizar Venda</h1>
       {loading ? <Loader />
         : (
+    //       <Form>
+    //   <Row className="mb-3">
+    //     <Form.Group as={Col} controlId="formGridEmail">
+    //       <Form.Label>Email</Form.Label>
+    //       <Form.Control type="email" placeholder="Enter email" />
+    //     </Form.Group>
+
+    //     <Form.Group as={Col} controlId="formGridPassword">
+    //       <Form.Label>Password</Form.Label>
+    //       <Form.Control type="password" placeholder="Password" />
+    //     </Form.Group>
+    //   </Row>
+
+    //   <Form.Group className="mb-3" controlId="formGridAddress1">
+    //     <Form.Label>Address</Form.Label>
+    //     <Form.Control placeholder="1234 Main St" />
+    //   </Form.Group>
+
+    //   <Form.Group className="mb-3" controlId="formGridAddress2">
+    //     <Form.Label>Address 2</Form.Label>
+    //     <Form.Control placeholder="Apartment, studio, or floor" />
+    //   </Form.Group>
+
+    //   <Row className="mb-3">
+    //     <Form.Group as={Col} controlId="formGridCity">
+    //       <Form.Label>City</Form.Label>
+    //       <Form.Control />
+    //     </Form.Group>
+
+    //     <Form.Group as={Col} controlId="formGridState">
+    //       <Form.Label>State</Form.Label>
+    //       <Form.Select defaultValue="Choose...">
+    //         <option>Choose...</option>
+    //         <option>...</option>
+    //       </Form.Select>
+    //     </Form.Group>
+
+    //     <Form.Group as={Col} controlId="formGridZip">
+    //       <Form.Label>Zip</Form.Label>
+    //       <Form.Control />
+    //     </Form.Group>
+    //   </Row>
+
+    //   <Form.Group className="mb-3" id="formGridCheckbox">
+    //     <Form.Check type="checkbox" label="Check me out" />
+    //   </Form.Group>
+
+    //   <Button variant="primary" type="submit">
+    //     Submit
+    //   </Button>
+    // </Form>
+
           <Form onSubmit={submitHandler}>
-            <Form.Group className="mb-3">
+            <Form.Group>
+              <Row className="mb-3">
               <Form.Label>Nome</Form.Label>
               <Form.Control
                 type="string"
@@ -95,6 +148,16 @@ function CreateStoreFlowScreen({ history }) {
                 value={client_name}
                 onChange={(e) => setName(e.target.value)}
               />
+              <Form.Label>Email</Form.Label>
+              <Form.Control
+                type="string"
+                placeholder="Digite o e-mail do(a) cliente(a)"
+                required
+                value={client_email}
+                onChange={(e) => setEmail(e.target.value)}
+
+              />
+              </Row>
             </Form.Group>
             <Form.Group className="mb-3">
               <Form.Label>Email</Form.Label>
@@ -235,7 +298,6 @@ function CreateStoreFlowScreen({ history }) {
           </Form>
         )
       }
-    </FormContainer >
     </div>
   )
 }
