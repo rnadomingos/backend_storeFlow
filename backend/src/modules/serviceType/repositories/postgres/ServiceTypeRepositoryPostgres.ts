@@ -1,9 +1,10 @@
 
 import { ServiceType } from "@modules/serviceType/entities/ServiceType";
-import { ICreateServiceTypeDTO } from "../../dtos/ICreateServiceTypeDTO";
+import { ICreateServiceTypeDTO } from "../../../../domain/serviceType/dto/ICreateServiceTypeDTO";
 import { getRepository, Repository } from "typeorm";
-import { IServiceTypeRepository } from "../IServiceTypeRepository";
-import { IUpdateServiceTypeByIdDTO } from "@modules/serviceType/dtos/IUpdateServiceTypeByIdDTO";
+import { IUpdateServiceTypeDTO } from "@domain/serviceType/dto/IUpdateServiceTypeDTO";
+import { IServiceTypeRepository } from "@domain/serviceType/repository/IServiceTypeRepository";
+import { IServiceType } from "@domain/serviceType/model/IServiceType";
 
 
 
@@ -28,16 +29,16 @@ export class ServiceTypeRepositoryPostgres implements IServiceTypeRepository {
 
     }
 
-    async list(): Promise<ServiceType[]> {
+    async list(): Promise<IServiceType[]> {
         return await this.repository.find();
     }
 
-    async findById(id: string): Promise<ServiceType> {
+    async findById(id: string): Promise<IServiceType> {
 
         return await this.repository.findOne({ id });
     }
 
-    async findByName(name: string): Promise<ServiceType> {
+    async findByName(name: string): Promise<IServiceType> {
         return await this.repository.findOne({ name });
     }
 
@@ -45,7 +46,7 @@ export class ServiceTypeRepositoryPostgres implements IServiceTypeRepository {
         name,
         description,
         is_active
-    }: IUpdateServiceTypeByIdDTO): Promise<void> {
+    }: IUpdateServiceTypeDTO): Promise<void> {
 
         const updateServiceType = this.repository.create({
             id,
