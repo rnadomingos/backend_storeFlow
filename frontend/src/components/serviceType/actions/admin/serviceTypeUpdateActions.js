@@ -22,7 +22,7 @@ export const serviceTypeUpdateAction = (serviceType) => async (dispatch, getStat
     }
 
     const { data } = await axios.put(
-      `http://localhost:3333/service-type/update/${serviceType.id}`,
+      `/service-types/${serviceType.id}`,
       serviceType,
       config
     )

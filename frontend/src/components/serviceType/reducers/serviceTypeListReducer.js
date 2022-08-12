@@ -18,7 +18,7 @@ export const serviceTypeListReducer = (state = { serviceTypes: [] }, action) => 
         case SERVICE_TYPE_LIST_FAIL:
             return {
                 loading: false,
-                error: action.payload.error
+                error: action.payload.message
             }
 
         default:

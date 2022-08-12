@@ -4,30 +4,31 @@ import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { FormContainer } from "../../../layout/FormContainer";
 import { Loader } from "../../../layout/Loader";
-import { cleanErrors, serviceTypeCreateAction } from "../../actions/admin/serviceTypeCreateAction";
-import { Message } from "../../../layout/Message";
-import { SERVICE_TYPE_CREATE_RESET } from "../../constants/serviceTypeConstant";
+import { serviceTypeCreateAction } from "../../actions/admin/serviceTypeCreateAction";
+import { SERVICE_TYPE_CLEAN_ERRORS, SERVICE_TYPE_CREATE_RESET } from "../../constants/serviceTypeConstant";
+import { useAlert } from "react-alert";
 
 function CreateServiceTypeScreen({ history }) {
 
   const [name, setName] = useState('')
   const [description, setDescription] = useState('')
 
+  const alert = useAlert()
   const dispatch = useDispatch()
 
   const { error, loading, success } = useSelector(state => state.serviceTypeCreateReducer)
 
   useEffect(() => {
     if (error) {
-      alert(`Problema ${error} ao gravar novo Tipo de Serviço`)
-      dispatch(cleanErrors())
+      alert.error(error)
+      dispatch({type: SERVICE_TYPE_CLEAN_ERRORS})
     }
 
     if (success) {
       history.push('/admin/service-types')
       dispatch({ type: SERVICE_TYPE_CREATE_RESET })
     }
-  }, [error, dispatch, success, history])
+  }, [error, dispatch, success, history, alert])
 
   const submitHandler = (e) => {
     e.preventDefault()
@@ -38,7 +39,6 @@ function CreateServiceTypeScreen({ history }) {
     <div>
       <FormContainer>
         <h1>Novo Tipo de Serviço</h1>
-        {error && <Message>Problema {error} ao gravar novo Tipo de Serviço</Message>}
         {loading ? <Loader />
           : (
             <Form onSubmit={submitHandler}>
