@@ -18,7 +18,7 @@ export class FindProspectionByIdUseCase {
         const prospection = await this.prospectionRepository.findById(id);
 
         if (!prospection) {
-            throw new ErrorHandler(`Prospection not found with this ID!`)
+            throw new ErrorHandler('Prospection was not found!')
         }
 
         return prospection;

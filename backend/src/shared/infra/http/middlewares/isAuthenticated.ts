@@ -45,7 +45,7 @@ export async function isAuthenticated(req: Request, res: Response, next: NextFun
 
   }
 
-  throw new ErrorHandler("Token is missing or invalid !")
+  throw new ErrorHandler("Token is missing!", 401)
 
 
 }
