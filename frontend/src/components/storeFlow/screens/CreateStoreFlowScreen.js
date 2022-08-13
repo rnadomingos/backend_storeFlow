@@ -228,6 +228,7 @@ function CreateStoreFlowScreen({ history }) {
                 value={id_seller}
                 onChange={(e) => setId_seller(e.target.value)}
               >
+                <option>Selecione um(a) Vendedor(a)</option>
                 {storeSellers.map(seller => (
                   <option key={seller.id}
                     value={seller.id}
@@ -243,6 +244,7 @@ function CreateStoreFlowScreen({ history }) {
                 value={id_type_service}
                 onChange={(e) => setId_type_service(e.target.value)}
               >
+                <option>Selecione um tipo de serviço</option>
                 {serviceTypesActive.map(st => (
                   <option key={st.id}
                     value={st.id}
@@ -258,6 +260,7 @@ function CreateStoreFlowScreen({ history }) {
                 value={id_store_segment}
                 onChange={(e) => setId_segment(e.target.value)}
               >
+                <option>Selecione um segmento</option>
                 {storeSegment.map(segment => (
                   <option key={segment.id}
                     value={segment.id}
@@ -273,6 +276,7 @@ function CreateStoreFlowScreen({ history }) {
                 value={id_prospection}
                 onChange={(e) => setId_prospection(e.target.value)}
               >
+                <option>Selecione uma prospecção</option>
                 {prospectionActive.map(pp => (
                   <option key={pp.id}
                     value={pp.id}

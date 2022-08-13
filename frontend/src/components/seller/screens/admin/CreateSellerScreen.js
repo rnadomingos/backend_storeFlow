@@ -7,19 +7,19 @@ import { Loader } from '../../../layout/Loader'
 import { Message } from '../../../layout/Message'
 import { storesListActions } from '../../../store/actions/admin/storesListActions'
 import { sellerCreateAction } from '../../actions/admin/sellerCreateAction'
-import { cleanErrors } from '../../actions/cleanErrors'
-import { SELLER_CREATE_RESET } from '../../constants/sellerConstants'
-
+import { SELLER_CLEAN_ERRORS, SELLER_CREATE_RESET } from '../../constants/sellerConstants'
+import { useAlert } from "react-alert"
 
 function CreateSellerScreen({ history }) {
 
   const [name, setName] = useState('')
   const [user_dms, setUser_dms] = useState('')
-  const [id_store, setIdstore] = useState('')
+  const [id_store, setIdStore] = useState('')
 
   const { error, loading, success } = useSelector(state => state.sellerCreateReducer)
   const { stores } = useSelector(state => state.storesListReducer)
 
+  const alert = useAlert()
   const dispatch = useDispatch()
 
   useEffect(() => {
@@ -27,8 +27,8 @@ function CreateSellerScreen({ history }) {
 
 
     if (error) {
-      alert(`Problema ${error} ao gravar novo vendendor`)
-      dispatch(cleanErrors())
+      alert.error(`Problema ${error} ao gravar novo vendendor`)
+      dispatch({type: SELLER_CLEAN_ERRORS})
     }
 
     if (success) {
@@ -36,7 +36,7 @@ function CreateSellerScreen({ history }) {
       dispatch({ type: SELLER_CREATE_RESET })
     }
 
-  }, [dispatch, error, success, history])
+  }, [dispatch, error, success, history, alert])
 
   const submitHandler = (e) => {
     e.preventDefault()
@@ -77,8 +77,9 @@ function CreateSellerScreen({ history }) {
                 <Form.Label>Lojas</Form.Label>
                 <Form.Select
                   value={id_store}
-                  onChange={(e) => setIdstore(e.target.value)}
+                  onChange={(e) => setIdStore(e.target.value)}
                 >
+                  <option>Selecione uma loja</option>
                   {stores.map(store => (
                     <option
                       value={store.id}

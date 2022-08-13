@@ -1,25 +1,32 @@
+import { Router } from "express";
 import { CreateSellerController } from "@modules/seller/useCase/createSeller/CreateSellerController";
+import { DeleteSellerByController } from "@modules/seller/useCase/deleteSeller/DeleteSellerByController";
 import { FindSellerByUserDmsController } from "@modules/seller/useCase/findSellerByUserDMS/FindSellerByUserDmsController";
-import { GetStoreSellerController } from "@modules/seller/useCase/getStoreBySeller/GetStoreSellerController";
+import { FindStoreSellerController } from "@modules/seller/useCase/findStoreBySeller/FindStoreSellerController";
 import { ListSellerController } from "@modules/seller/useCase/listSeller/ListSellerController";
 import { UpdateSellerController } from "@modules/seller/useCase/updateSeller/UpdateSellerController";
-import { Router } from "express";
+import { isAdmin } from "../middlewares/isAdmin";
 import { isAuthenticated } from "../middlewares/isAuthenticated";
+import { FindSellerByIdController } from "@modules/seller/useCase/findSellerById/FindSellerByIdController";
 
 
 const sellerRoutes = Router();
 
 const createSellerController = new CreateSellerController();
-const getStoreSellerController = new GetStoreSellerController();
+const findStoreSellerController = new FindStoreSellerController();
 const listSellerController = new ListSellerController();
 const findSellerByUserDmsController = new FindSellerByUserDmsController();
 const updateSellerController = new UpdateSellerController();
+const deleteSellerByController = new DeleteSellerByController();
+const findSellerByIdController = new FindSellerByIdController();
 
-sellerRoutes.post("/new", isAuthenticated, createSellerController.handle);
-sellerRoutes.get("/get-store/:user_dms", isAuthenticated, getStoreSellerController.handle);
-sellerRoutes.get("/list", isAuthenticated, listSellerController.handle);
-sellerRoutes.get("/get-seller/:user_dms", isAuthenticated, findSellerByUserDmsController.handle);
-sellerRoutes.put("/update/:id", isAuthenticated, updateSellerController.handle);
+sellerRoutes.post("/", isAuthenticated, isAdmin, createSellerController.handle);
+sellerRoutes.get("/", isAuthenticated, listSellerController.handle);
+sellerRoutes.get("/:user_dms/store", isAuthenticated, findStoreSellerController.handle);
+sellerRoutes.get("/:user_dms/seller", isAuthenticated, findSellerByUserDmsController.handle);
+sellerRoutes.get("/:id", isAuthenticated, findSellerByIdController.handle);
+sellerRoutes.put("/:id", isAuthenticated, isAdmin, updateSellerController.handle);
+sellerRoutes.delete("/:id", isAuthenticated, isAdmin, deleteSellerByController.handle);
 
 
 export { sellerRoutes }

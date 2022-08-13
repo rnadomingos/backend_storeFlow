@@ -23,7 +23,7 @@ export const sellerListAction = () => async (dispatch, getState) => {
     }
 
     const { data } = await axios.get(
-      `/seller/list`,
+      '/sellers',
       config
     )
 

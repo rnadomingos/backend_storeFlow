@@ -4,7 +4,9 @@ import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { Loader } from "../../../layout/Loader";
 import { Message } from "../../../layout/Message";
-import { segmentListAction } from '../../actions/admin/segmentListAction'
+import { segmentDeleteAction } from "../../actions/admin/segmentDeleteAction";
+import { segmentListAction } from "../../actions/segmentListAction";
+
 
 
 function SegmentScreen() {
@@ -16,9 +18,22 @@ function SegmentScreen() {
     segment
   } = useSelector(state => state.segmentListReducer)
 
+  const {
+    success: deleteSuccess
+  } = useSelector(state => state.segmentDeleteReducer)
+
   useEffect(() => {
     dispatch(segmentListAction())
-  }, [dispatch])
+    if (deleteSuccess) {
+      dispatch(segmentListAction())
+    }
+  }, [dispatch, deleteSuccess])
+
+  const deleteHandler = (id) => {
+    if (window.confirm('Deseja deletar este segmento?')) {
+        dispatch(segmentDeleteAction(id))
+    }
+}
 
   return (
     <div>
@@ -69,6 +84,9 @@ function SegmentScreen() {
                             <i className='fas fa-edit'></i>
                           </Button>
                         </Link>
+                        <Button variant='danger' className='btn-sm' onClick={() => deleteHandler(segment.id)}>
+                          <i className='fas fa-trash'></i>
+                      </Button>
                       </td>
                     </tr>
                   ))}

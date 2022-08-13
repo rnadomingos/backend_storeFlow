@@ -1,13 +1,12 @@
 import { useEffect, useState } from "react"
 import { useDispatch, useSelector } from "react-redux"
-import { cleanErrors } from "../../actions/cleanErrors"
-import { SEGMENT_CREATE_RESET } from "../../constants/segmentConstants"
+import { SEGMENT_CLEAN_ERRORS, SEGMENT_CREATE_RESET } from "../../constants/segmentConstants"
 import { segmentCreateAction } from "../../actions/admin/segmentCreateAction"
 import { FormContainer } from "../../../layout/FormContainer"
-import { Message } from "../../../layout/Message"
 import { Loader } from "../../../layout/Loader"
 import { Button, Form } from "react-bootstrap"
 import { Link } from "react-router-dom"
+import { useAlert } from "react-alert"
 
 function CreateSegmentScreen({ history }) {
 
@@ -16,13 +15,14 @@ function CreateSegmentScreen({ history }) {
 
   const { error, loading, success } = useSelector(state => state.segmentCreateReducer)
 
+  const alert = useAlert()
   const dispatch = useDispatch()
 
   useEffect(() => {
 
     if (error) {
-      alert(`Problema ${error} ao gravar novo Segmento de Vendas`)
-      dispatch(cleanErrors())
+      alert.error(error)
+      dispatch({ type: SEGMENT_CLEAN_ERRORS })
     }
 
     if (success) {
@@ -30,7 +30,7 @@ function CreateSegmentScreen({ history }) {
       dispatch({ type: SEGMENT_CREATE_RESET })
     }
 
-  }, [dispatch, error, success, history])
+  }, [dispatch, error, success, history, alert])
 
   const submitHandler = (e) => {
     e.preventDefault()
@@ -41,7 +41,6 @@ function CreateSegmentScreen({ history }) {
     <div>
       <FormContainer>
         <h1>Novo Segmento</h1>
-        {error && <Message>Problema {error} ao gravar novo registro</Message>}
         {loading ? <Loader />
           : (
             <Form onSubmit={submitHandler}>

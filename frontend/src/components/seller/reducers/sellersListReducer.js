@@ -2,7 +2,7 @@ import {
   SELLER_LIST_FAIL,
   SELLER_LIST_REQUEST,
   SELLER_LIST_SUCCESS
-} from "../../constants/sellerConstants"
+} from "../constants/sellerConstants"
 
 
 export const sellersListReducer = (state = { sellers: [] }, action) => {

@@ -173,21 +173,18 @@ describe('Prospection use cases', () => {
 
   test('Should be able to delete a prospection', async () => {
     const { deleteProspectionUseCase, prospectionRepositoryStub } = makeSut()
-    const executeSpy = jest.spyOn(prospectionRepositoryStub, 'delete')
+    const deleteSpy = jest.spyOn(prospectionRepositoryStub, 'delete')
     await deleteProspectionUseCase.execute('any_uuid');
-    expect(executeSpy).toHaveBeenCalled();
+    expect(deleteSpy).toHaveBeenCalled();
   });
 
   test('Should not be able to delete a prospection if id not found', async () => {
     expect(async () => {
-      const { updateProspectionUseCase, prospectionRepositoryStub } = makeSut()
+      const { deleteProspectionUseCase, prospectionRepositoryStub } = makeSut()
       jest.spyOn(prospectionRepositoryStub, 'findById').mockReturnValueOnce(
         new Promise((resolve) => resolve(null))
       )
-      await updateProspectionUseCase.execute({
-        id: 'invalid_uuid',
-        is_active: false
-      });
+      await deleteProspectionUseCase.execute('invalid_uuid');
     }).rejects.toEqual({ "message": "This Prospection ID was not found!", "statusCode": 400 });
   });
 

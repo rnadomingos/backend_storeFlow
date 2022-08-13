@@ -23,7 +23,7 @@ export const sellerCreateAction = (newSeller) => async (dispatch, getState) => {
     }
 
     const { data } = await axios.post(
-      `http://localhost:3333/seller/new`,
+      'http://localhost:3333/sellers',
       newSeller,
       config
     )

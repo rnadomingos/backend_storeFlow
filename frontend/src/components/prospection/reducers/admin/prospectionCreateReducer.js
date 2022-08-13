@@ -1,9 +1,9 @@
 import {
+  PROSPECTION_CLEAN_ERRORS,
   PROSPECTION_CREATE_FAIL,
   PROSPECTION_CREATE_REQUEST,
   PROSPECTION_CREATE_RESET,
-  PROSPECTION_CREATE_SUCCESS,
-  CLEAN_ERRORS
+  PROSPECTION_CREATE_SUCCESS
 } from '../../constants/prospectionConstants'
 
 export const prospectionCreateReducer = (state = {}, action) => {
@@ -24,14 +24,15 @@ export const prospectionCreateReducer = (state = {}, action) => {
         error: action.payload.message
       }
 
-    case CLEAN_ERRORS:
+    case PROSPECTION_CLEAN_ERRORS:
       return {
         ...state,
+        success: false,
         error: null
       }
 
     case PROSPECTION_CREATE_RESET:
-      return {}
+      return { }
 
     default:
       return state

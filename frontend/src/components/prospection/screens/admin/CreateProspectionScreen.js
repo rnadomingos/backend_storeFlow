@@ -5,10 +5,8 @@ import { useDispatch, useSelector } from "react-redux"
 import { Link } from "react-router-dom"
 import { FormContainer } from "../../../layout/FormContainer"
 import { Loader } from "../../../layout/Loader"
-import {
-  prospectionCreateAction
-} from "../../actions/admin/prospectionCreateAction"
-import { CLEAN_ERRORS, PROSPECTION_CREATE_RESET } from "../../constants/prospectionConstants"
+import { prospectionCreateAction } from "../../actions/admin/prospectionCreateAction"
+import { PROSPECTION_CLEAN_ERRORS, PROSPECTION_CREATE_RESET } from "../../constants/prospectionConstants"
 
 
 function CreateProspectionScreen({ history }) {
@@ -30,7 +28,7 @@ function CreateProspectionScreen({ history }) {
   useEffect(() => {
     if (error) {
       alert.error(`Error: ${error}`)
-      dispatch({ type: CLEAN_ERRORS })
+      dispatch({ type: PROSPECTION_CLEAN_ERRORS })
     }
 
     if (success) {

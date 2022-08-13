@@ -10,5 +10,5 @@ export interface ISegmentRepository {
   findById(id: string): Promise<ISegment>;
   list(): Promise<ISegment[]>;
   update(data: IUpdateDTO): Promise<void>;
-  deleteSegmentById(id: string): Promise<void>;
+  delete(id: string): Promise<void>;
 }

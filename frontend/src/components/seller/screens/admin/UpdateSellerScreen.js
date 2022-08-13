@@ -7,7 +7,6 @@ import { Loader } from '../../../layout/Loader'
 import { Message } from '../../../layout/Message'
 import { storesListActions } from '../../../store/actions/admin/storesListActions'
 import { sellerUpdateAction } from '../../actions/admin/sellerUpdateAction'
-import { cleanErrors } from '../../actions/cleanErrors'
 import { sellerDetailAction } from '../../actions/sellerDetailAction'
 import { SELLER_UPDATE_RESET, SELLER_DETAIL_RESET } from '../../constants/sellerConstants'
 
@@ -17,9 +16,9 @@ function UpdateSellerScreen({ history, match }) {
   const [name, setName] = useState('')
   const [user_dms, setUser_dms] = useState('')
   const [is_active, setIsActive] = useState(true)
-  const [id_store, setIdstore] = useState('')
+  const [id_store, setIdStore] = useState('')
 
-  const userDMS = match.params.user_dms
+  const sellerId = match.params.id
 
   const { error: errorDetail, seller } = useSelector(state => state.sellerDetailReducer)
   const { stores } = useSelector(state => state.storesListReducer)
@@ -30,26 +29,24 @@ function UpdateSellerScreen({ history, match }) {
 
   useEffect(() => {
 
-    if (!seller || userDMS !== seller.user_dms) {
-      dispatch(sellerDetailAction(userDMS))
+    if (!seller || sellerId !== seller.id) {
+      dispatch(sellerDetailAction(sellerId))
       dispatch(storesListActions())
 
     } else {
       setName(seller.name)
       setUser_dms(seller.user_dms)
       setIsActive(seller.is_active)
-      setIdstore(seller.id_store)
+      setIdStore(seller.id_store)
     }
 
 
     if (errorDetail) {
       alert(`Problema ${errorDetail}`)
-      dispatch(cleanErrors())
     }
 
     if (error) {
       alert(`Problema ${error} ao atualizar`)
-      dispatch(cleanErrors())
     }
 
     if (success) {
@@ -58,7 +55,7 @@ function UpdateSellerScreen({ history, match }) {
       dispatch({ type: SELLER_DETAIL_RESET })
     }
 
-  }, [dispatch, seller, userDMS, error, errorDetail, success, history])
+  }, [dispatch, seller, sellerId, error, errorDetail, success, history])
 
   const submitHandler = (e) => {
     e.preventDefault()
@@ -100,7 +97,7 @@ function UpdateSellerScreen({ history, match }) {
                 <Form.Select
                   key={id_store}
                   value={id_store}
-                  onChange={(e) => setIdstore(e.target.value)}
+                  onChange={(e) => setIdStore(e.target.value)}
                 >
                   {stores.map(store => (
                     <option

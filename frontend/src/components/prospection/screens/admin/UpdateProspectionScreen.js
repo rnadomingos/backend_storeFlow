@@ -1,13 +1,14 @@
 import { useEffect, useState } from "react";
+import { useAlert } from "react-alert"
 import { Button, Form } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { FormContainer } from "../../../layout/FormContainer";
 import { Loader } from "../../../layout/Loader";
 import { Message } from "../../../layout/Message";
-import { prospectionDetailUpdateAction } from '../../actions/admin/prospectionDetailUpdateAction'
 import { prospectionUpdateAction } from "../../actions/admin/prospectionUpdateAction";
-import { CLEAN_ERRORS, PROSPECTION_DETAIL_RESET, PROSPECTION_UPDATE_RESET } from "../../constants/prospectionConstants";
+import { prospectionDetailAction } from "../../actions/prospectionDetailAction";
+import { PROSPECTION_CLEAN_ERRORS, PROSPECTION_DETAIL_RESET, PROSPECTION_UPDATE_RESET } from "../../constants/prospectionConstants";
 
 
 function UpdateProspectionScreen({ history, match }) {
@@ -21,7 +22,7 @@ function UpdateProspectionScreen({ history, match }) {
   const {
     error: errorDetail,
     prospection
-  } = useSelector(state => state.prospectionDetailUpdateReducer)
+  } = useSelector(state => state.prospectionDetailReducer)
 
   const {
     error,
@@ -29,11 +30,12 @@ function UpdateProspectionScreen({ history, match }) {
     success
   } = useSelector(state => state.prospectionUpdateReducer)
 
+  const alert = useAlert()
   const dispatch = useDispatch()
 
   useEffect(() => {
     if (!prospection || prospectionID !== prospection.id) {
-      dispatch(prospectionDetailUpdateAction(prospectionID))
+      dispatch(prospectionDetailAction(prospectionID))
     } else {
       setName(prospection.name)
       setDescription(prospection.description)
@@ -41,12 +43,11 @@ function UpdateProspectionScreen({ history, match }) {
     }
     if (errorDetail) {
       alert(`Problema ${errorDetail} ao retornar os detalhes`)
-      dispatch({ type: CLEAN_ERRORS })
     }
 
     if (error) {
-      alert(`Problema ${error} ao gravar prospecção`)
-      dispatch({ type: CLEAN_ERRORS })
+      alert.error(`Problema ${error} ao gravar prospecção`)
+      dispatch({ type: PROSPECTION_CLEAN_ERRORS })
     }
 
     if (success) {
@@ -54,7 +55,7 @@ function UpdateProspectionScreen({ history, match }) {
       dispatch({ type: PROSPECTION_DETAIL_RESET })
       history.push('/admin/prospections')
     }
-  }, [error, dispatch, success, history, prospection, prospectionID, errorDetail])
+  }, [error, dispatch, success, history, prospection, prospectionID, errorDetail, alert])
 
   const submitHandler = (e) => {
     e.preventDefault()

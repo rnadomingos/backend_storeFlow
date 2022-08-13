@@ -2,7 +2,8 @@ import {
   PROSPECTION_UPDATE_FAIL,
   PROSPECTION_UPDATE_RESET,
   PROSPECTION_UPDATE_SUCCESS,
-  PROSPECTION_UPDATE_REQUEST
+  PROSPECTION_UPDATE_REQUEST,
+  PROSPECTION_CLEAN_ERRORS
 } from "../../constants/prospectionConstants"
 
 export const prospectionUpdateReducer = (state = { prospection: {} }, action) => {
@@ -20,10 +21,18 @@ export const prospectionUpdateReducer = (state = { prospection: {} }, action) =>
     case PROSPECTION_UPDATE_FAIL:
       return {
         loading: false,
-        error: action.payload.error
+        error: action.payload.message
       }
+
+    case PROSPECTION_CLEAN_ERRORS:
+        return {
+          ...state,
+          success: false,
+          error: null
+        }
+  
     case PROSPECTION_UPDATE_RESET:
-      return {}
+      return { }
 
     default:
       return state

@@ -1,15 +1,15 @@
 import { Request, Response } from "express";
 import { container } from "tsyringe";
-import { DeleteSegmentByIdUseCase } from "./DeleteSegmentByIdUseCase";
+import { DeleteSegmentUseCase } from "./DeleteSegmentUseCase";
 
-export class DeleteSegmentByIdController {
+export class DeleteSegmentController {
     async handle(req: Request, res: Response) {
 
         const {
             id
         } = req.params
 
-        const deleteSegmentByIdUseCase = container.resolve(DeleteSegmentByIdUseCase)
+        const deleteSegmentByIdUseCase = container.resolve(DeleteSegmentUseCase)
 
         await deleteSegmentByIdUseCase.execute(id)
 

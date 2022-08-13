@@ -4,7 +4,7 @@ import { inject, injectable } from "tsyringe";
 
 
 @injectable()
-export class DeleteSegmentByIdUseCase {
+export class DeleteSegmentUseCase {
     constructor(
         @inject("SegmentRepository")
         private segmentRepository: ISegmentRepository
@@ -17,7 +17,7 @@ export class DeleteSegmentByIdUseCase {
             throw new ErrorHandler(`Segment was not found!`)
         }
 
-        return await this.segmentRepository.deleteSegmentById(id)
+        return await this.segmentRepository.delete(id)
 
     }
 }

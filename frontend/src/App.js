@@ -59,7 +59,7 @@ function App() {
           <ProtectRoute path='/admin/store/:id/edit' component={UpdateStoreScreen} />
 
           <ProtectRoute path='/admin/sellers' isAdmin={true} component={SellerScreen} />
-          <ProtectRoute path='/admin/seller/:user_dms/edit' component={UpdateSellerScreen} />
+          <ProtectRoute path='/admin/seller/:id/edit' component={UpdateSellerScreen} />
           <ProtectRoute path='/admin/seller/new' component={CreateSellerScreen} />
 
           <ProtectRoute path='/admin/service-types' isAdmin={true} component={ServiceTypesScreen} />

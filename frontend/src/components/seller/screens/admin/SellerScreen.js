@@ -2,22 +2,31 @@ import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Button, Col, Row, Table } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
-
 import { Loader } from '../../../layout/Loader'
 import { Message } from '../../../layout/Message'
 import { sellerListAction } from '../../actions/sellerListAction'
+import { sellerDeleteAction } from '../../actions/admin/sellerDeleteAction'
 
 
 function SellerScreen() {
+
   const dispatch = useDispatch()
-  const sellersList = useSelector(state => state.sellersListReducer)
-  const { error, loading, sellers } = sellersList
+  const { error, loading, sellers }  = useSelector(state => state.sellersListReducer)
+  const {  success: deleteSuccess } = useSelector(state => state.sellerDeleteReducer)
 
 
   useEffect(() => {
     dispatch(sellerListAction())
-  }, [dispatch])
+    if(deleteSuccess) {
+      dispatch(sellerListAction())
+    }
+  }, [dispatch, deleteSuccess])
 
+  const deleteHandler = (id) => {
+    if (window.confirm('Deseja deletar este segmento?')) {
+        dispatch(sellerDeleteAction(id))
+    }
+  }
 
   return (
     <div>
@@ -63,11 +72,14 @@ function SellerScreen() {
                       }</td>
 
                       <td>
-                        <Link to={`/admin/seller/${seller.user_dms}/edit`}>
+                        <Link to={`/admin/seller/${seller.id}/edit`}>
                           <Button variant='light' className='btn-sm'>
                             <i className='fas fa-edit'></i>
                           </Button>
                         </Link>
+                        <Button variant='danger' className='btn-sm' onClick={() => deleteHandler(seller.id)}>
+                          <i className='fas fa-trash'></i>
+                      </Button>
                       </td>
                     </tr>
                   ))}

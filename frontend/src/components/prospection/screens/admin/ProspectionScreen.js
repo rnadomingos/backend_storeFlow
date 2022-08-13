@@ -12,22 +12,36 @@ import {
 import { Link } from "react-router-dom";
 import { Loader } from "../../../layout/Loader";
 import { Message } from "../../../layout/Message";
+import { prospectionDeleteAction } from "../../actions/admin/prospectionDeleteAction";
 import { prospectionListAction } from "../../actions/prospectionListAction";
 
 
 function ProspectionScreen() {
 
-  const dispatch = useDispatch()
   const {
     error,
     loading,
     prospection
   } = useSelector(state => state.prospectionListReducer)
 
+  const {
+    success: deleteSuccess
+  } = useSelector(state => state.prospectionDeleteReducer)
+  
+  const dispatch = useDispatch()
+  
   useEffect(() => {
     dispatch(prospectionListAction())
-  }, [dispatch])
+    if (deleteSuccess) {
+      dispatch(prospectionListAction())
+    }
+  }, [dispatch, deleteSuccess])
 
+  const deleteHandler = (id) => {
+    if (window.confirm('Deseja deletar esta prospecção?')) {
+        dispatch(prospectionDeleteAction(id))
+    }
+}
 
   return (
     <div>
@@ -76,6 +90,9 @@ function ProspectionScreen() {
                           <i className='fas fa-edit'></i>
                         </Button>
                       </Link>
+                      <Button variant='danger' className='btn-sm' onClick={() => deleteHandler(prospection.id)}>
+                          <i className='fas fa-trash'></i>
+                      </Button>
                     </td>
                   </tr>
                 ))}
