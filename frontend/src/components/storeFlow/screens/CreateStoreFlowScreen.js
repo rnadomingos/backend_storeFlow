@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import { useAlert } from 'react-alert'
 import { Button, Col, FloatingLabel, Form, Row } from 'react-bootstrap'
+import { Link } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
-import { FormContainer } from '../../layout/FormContainer'
 import { Loader } from '../../layout/Loader'
 import { prospectionListAction } from '../../prospection/actions/prospectionListAction'
 import { serviceTypeListAction } from '../../serviceType/actions/ServiceTypeListAction'
@@ -84,330 +84,182 @@ function CreateStoreFlowScreen({ history }) {
   return (
     <div>
       <h1>Nova Passagem</h1>
+
       {loading ? <Loader />
         : (
           <div className='flow'>
-            <FormContainer>
-              <Form>
-                <Row>
-                  <Form.Group as={Col} xs={4} controlId="formGridDate">
-                    <Form.Label>Data</Form.Label>
-                    <Form.Control
-                      type="date"
-                      placeholder="Data da Passagem"
-                      required
-                      value={date}
-                      onChange={(e) => setDate(e.target.value)}
-                    />
-                  </Form.Group>
-                  <Form.Group as={Col} xs={3} controlId="formGridTime">
-                    <Form.Label>Hora</Form.Label>
-                    <Form.Control
-                      type="time"
-                      placeholder="Hora da finalização"
-                      required
-                      value={time}
-                      onChange={(e) => setTime(e.target.value)}
-                    >
-                    </Form.Control>
-                  </Form.Group>
-                </Row>
-                <Row className="mb-3">
-                  <Form.Group as={Col} controlId="formGridName">
-                    <Form.Label>Nome</Form.Label>
-                    <Form.Control
-                      type="string"
-                      placeholder="Digite o nome do(a) cliente(a)"
-                      required
-                      value={client_name}
-                      onChange={(e) => setName(e.target.value.toUpperCase())}
-                    />
-                  </Form.Group>
-                </Row>
-                <Row className='mb-3'>
-                  <Form.Group as={Col} xs={8} controlId="formGridEmail">
-                    <Form.Label>Email</Form.Label>
-                    <Form.Control className='lg'
-                      type="string"
-                      placeholder="Digite o e-mail do(a) cliente(a)"
-                      required
-                      value={client_email}
-                      onChange={(e) => setEmail(e.target.value.toLowerCase())}
-                    />
-                  </Form.Group>
-                  <Form.Group as={Col} xs={4} controlId="formGridPhone">
-                    <Form.Label>Telefone</Form.Label>
-                    <Form.Control
-                      type="tel"
-                      placeholder="Digite o telefone do(a) cliente(a)"
-                      required
-                      value={client_phone}
-                      onChange={(e) => setPhone(e.target.value)}
-                    />
-                  </Form.Group>
-                </Row>
+            <Form onSubmit={submitHandler}>
+              <Row>
+                <Form.Group as={Col} xs={4} controlId="formGridDate">
+                  <Form.Label>Data</Form.Label>
+                  <Form.Control
+                    type="date"
+                    placeholder="Data da Passagem"
+                    required
+                    value={date}
+                    onChange={(e) => setDate(e.target.value)}
+                  />
+                </Form.Group>
+                <Form.Group as={Col} xs={3} controlId="formGridTime">
+                  <Form.Label>Hora</Form.Label>
+                  <Form.Control
+                    type="time"
+                    placeholder="Hora da finalização"
+                    required
+                    value={time}
+                    onChange={(e) => setTime(e.target.value)}
+                  >
+                  </Form.Control>
+                </Form.Group>
+              </Row>
+              <Row className="mb-3">
+                <Form.Group as={Col} controlId="formGridName">
+                  <Form.Label>Nome</Form.Label>
+                  <Form.Control
+                    type="string"
+                    placeholder="Digite o nome do(a) cliente(a)"
+                    required
+                    value={client_name}
+                    onChange={(e) => setName(e.target.value.toUpperCase())}
+                  />
+                </Form.Group>
+              </Row>
+              <Row className='mb-3'>
+                <Form.Group as={Col} xs={8} controlId="formGridEmail">
+                  <Form.Label>Email</Form.Label>
+                  <Form.Control className='lg'
+                    type="string"
+                    placeholder="Digite o e-mail do(a) cliente(a)"
+                    required
+                    value={client_email}
+                    onChange={(e) => setEmail(e.target.value.toLowerCase())}
+                  />
+                </Form.Group>
+                <Form.Group as={Col} xs={4} controlId="formGridPhone">
+                  <Form.Label>Telefone</Form.Label>
+                  <Form.Control
+                    type="tel"
+                    placeholder="Digite o telefone do(a) cliente(a)"
+                    required
+                    value={client_phone}
+                    onChange={(e) => setPhone(e.target.value)}
+                  />
+                </Form.Group>
+              </Row>
 
-                <Row className="mb-3">
-                  <Form.Group as={Col} xs={4}>
-                    <FloatingLabel controlId="floatingSelectGrid" label="Tipo de Serviço">
-                      <Form.Select
-                        value={id_type_service}
-                        onChange={(e) => setId_type_service(e.target.value)}
-                      >
-                        <option></option>
-                        {serviceTypesActive.map(st => (
-                          <option key={st.id}
-                            value={st.id}
-                          >{st.name.toUpperCase()}</option>
-                        ))}
-                      </Form.Select>
-                    </FloatingLabel>
-                  </Form.Group>
-                  <Form.Group as={Col}>
-                    <FloatingLabel controlId="floatingSelectProspection" label="Prospecção">
-                      <Form.Select
-                        value={id_prospection}
-                        onChange={(e) => setId_prospection(e.target.value)}
-                      >
-                        <option></option>
-                        {prospectionActive.map(pp => (
-                          <option key={pp.id}
-                            value={pp.id}
-                          >{pp.name.toUpperCase()}</option>
-                        ))}
-                      </Form.Select >
-                    </FloatingLabel>
-                  </Form.Group>
-                  <Form.Group as={Col}>
-                    <FloatingLabel controlId="floatingSelectProspection" label="Mídia Social">
-                      <Form.Select
-                        value=""
-                        onChange={(e) => setId_social_media(e.target.value)}
-                      >
-                        <option></option>
-                        {/* {socialMediaActive.map(pp => (
+              <Row className="mb-3">
+                <Form.Group as={Col} xs={4}>
+                  <FloatingLabel controlId="floatingSelectGrid" label="Tipo de Serviço">
+                    <Form.Select
+                      value={id_type_service}
+                      onChange={(e) => setId_type_service(e.target.value)}
+                    >
+                      <option></option>
+                      {serviceTypesActive.map(st => (
+                        <option key={st.id}
+                          value={st.id}
+                        >{st.name.toUpperCase()}</option>
+                      ))}
+                    </Form.Select>
+                  </FloatingLabel>
+                </Form.Group>
+                <Form.Group as={Col}>
+                  <FloatingLabel controlId="floatingSelectProspection" label="Prospecção">
+                    <Form.Select
+                      value={id_prospection}
+                      onChange={(e) => setId_prospection(e.target.value)}
+                    >
+                      <option></option>
+                      {prospectionActive.map(pp => (
+                        <option key={pp.id}
+                          value={pp.id}
+                        >{pp.name.toUpperCase()}</option>
+                      ))}
+                    </Form.Select >
+                  </FloatingLabel>
+                </Form.Group>
+                <Form.Group as={Col}>
+                  <FloatingLabel controlId="floatingSelectProspection" label="Mídia Social">
+                    <Form.Select disabled
+                      value={id_social_media}
+                      onChange={(e) => setId_social_media(e.target.value)}
+                    >
+                      <option></option>
+                      {/* {socialMediaActive.map(pp => (
                       <option key={pp.id}
                         value={pp.id}
                       >{pp.name.toUpperCase()}</option>
                     ))} */}
-                      </Form.Select>
-                    </FloatingLabel>
-                  </Form.Group>
-                </Row>
-                <Row className='mb-3'>
-                  <Form.Group as={Col}>
-                    <FloatingLabel controlId="floatingSelectSeller" label="Segmento">
-                      <Form.Select
-                        value={id_store_segment}
-                        onChange={(e) => setId_segment(e.target.value)}
-                      >
-                        <option></option>
-                        {storeSegment.map(segment => (
-                          <option key={segment.id}
-                            value={segment.id}
-                          >{segment.name.toUpperCase()}</option>
-                        ))}
-                      </Form.Select>
-                    </FloatingLabel>
-                  </Form.Group>
-                  <Form.Group as={Col}>
-                    <FloatingLabel controlId="floatingSelectSeller" label="Vendedor">
-                      <Form.Select
-                        value={id_seller}
-                        onChange={(e) => setId_seller(e.target.value)}
-                      >
-                        <option></option>
-                        {storeSellers.map(seller => (
-                          <option key={seller.id}
-                            value={seller.id}
-                          >{seller.name.toUpperCase()}</option>
-                        ))}
-                      </Form.Select>
-                    </FloatingLabel>
-                  </Form.Group>
-                </Row>
-                <Row className='mb-3'>
-                  <Form.Group controlId="test_drive">
-                    <Form.Check
-                      type='checkbox'
-                      label='Test Drive Realizado'
-                      checked={test_drive}
-                      onChange={(e) => setTest_drive(e.target.checked)}
-                    />
-                  </Form.Group>
-                  <Form.Group controId="sold">
-                    <Form.Check
-                      type='checkbox'
-                      label='Venda Efetuada'
-                      checked={sold}
-                      onChange={(e) => setSold(e.target.checked)}
-                    />
-                  </Form.Group>
-                </Row>
-                <Button variant="primary" type="submit">
-                  Submit
+                    </Form.Select>
+                  </FloatingLabel>
+                </Form.Group>
+              </Row>
+              <Row className='mb-3'>
+                <Form.Group as={Col}>
+                  <FloatingLabel controlId="floatingSelectSeller" label="Segmento">
+                    <Form.Select
+                      value={id_store_segment}
+                      onChange={(e) => setId_segment(e.target.value)}
+                    >
+                      <option></option>
+                      {storeSegment.map(segment => (
+                        <option key={segment.id}
+                          value={segment.id}
+                        >{segment.name.toUpperCase()}</option>
+                      ))}
+                    </Form.Select>
+                  </FloatingLabel>
+                </Form.Group>
+                <Form.Group as={Col}>
+                  <FloatingLabel controlId="floatingSelectSeller" label="Vendedor">
+                    <Form.Select
+                      value={id_seller}
+                      onChange={(e) => setId_seller(e.target.value)}
+                    >
+                      <option></option>
+                      {storeSellers.map(seller => (
+                        <option key={seller.id}
+                          value={seller.id}
+                        >{seller.name.toUpperCase()}</option>
+                      ))}
+                    </Form.Select>
+                  </FloatingLabel>
+                </Form.Group>
+              </Row>
+              <Row className='mb-3'>
+                <Form.Group controlId="test_drive">
+                  <Form.Check
+                    type='checkbox'
+                    label='Test Drive Realizado'
+                    checked={test_drive}
+                    onChange={(e) => setTest_drive(e.target.checked)}
+                  />
+                </Form.Group>
+                <Form.Group controlId="sold">
+                  <Form.Check
+                    type='checkbox'
+                    label='Venda Efetuada'
+                    checked={sold}
+                    onChange={(e) => setSold(e.target.checked)}
+                  />
+                </Form.Group>
+              </Row>
+              <Row>
+                <Button
+                  variant="primary"
+                  type="submit"
+                >
+                  Salvar
                 </Button>
-              </Form>
-            </FormContainer>
+                <Link to={`/home`}>
+                  <Button
+                    variant="secondary">
+                    Cancelar
+                  </Button>
+                </Link>
+              </Row>
+            </Form>
           </div>
-
-          // <Form onSubmit={submitHandler}>
-          //   <Form.Group>
-          //     <Row className="mb-3">
-          //     <Form.Label>Nome</Form.Label>
-          //     <Form.Control
-          //       type="string"
-          //       placeholder="Digite o nome do(a) cliente(a)"
-          //       required
-          //       value={client_name}
-          //       onChange={(e) => setName(e.target.value)}
-          //     />
-          //     <Form.Label>Email</Form.Label>
-          //     <Form.Control
-          //       type="string"
-          //       placeholder="Digite o e-mail do(a) cliente(a)"
-          //       required
-          //       value={client_email}
-          //       onChange={(e) => setEmail(e.target.value)}
-
-          //     />
-          //     </Row>
-          //   </Form.Group>
-          //   <Form.Group className="mb-3">
-          //     <Form.Label>Email</Form.Label>
-          //     <Form.Control
-          //       type="string"
-          //       placeholder="Digite o e-mail do(a) cliente(a)"
-          //       required
-          //       value={client_email}
-          //       onChange={(e) => setEmail(e.target.value)}
-
-          //     />
-          //   </Form.Group>
-          //   <Form.Group className="mb-3">
-          //     <Form.Label>Telefone</Form.Label>
-          //     <Form.Control
-          //       type="string"
-          //       placeholder="Digite o telefone do(a) cliente(a)"
-          //       required
-          //       value={client_phone}
-          //       onChange={(e) => setPhone(e.target.value)}
-          //     />
-          //   </Form.Group>
-
-          //   <Form.Group className="mb-3">
-          //     <Form.Label>Data</Form.Label>
-          //     <Form.Control
-          //       type="string"
-          //       placeholder="Data da compra"
-          //       required
-          //       value={date}
-          //       onChange={(e) => setDate(e.target.value)}
-          //     />
-          //   </Form.Group>
-
-          //   <Form.Group className="mb-3">
-          //     <Form.Label>Hora</Form.Label>
-          //     <Form.Control
-          //       type="string"
-          //       placeholder="Hora da finalização"
-          //       required
-          //       value={time}
-          //       onChange={(e) => setTime(e.target.value)}
-          //     />
-          //   </Form.Group>
-          //   <Form.Group controlId='test_driver'>
-          //     <Form.Check
-          //       type='checkbox'
-          //       label='Test Driver'
-          //       checked={test_driver}
-          //       onChange={(e) => setTest_driver(e.target.checked)}
-          //     >
-          //     </Form.Check>
-          //   </Form.Group>
-
-
-          //   <Form.Group controlId='sold'>
-          //     <Form.Check
-          //       type='checkbox'
-          //       label='Venda Efetuada'
-          //       checked={sold}
-          //       onChange={(e) => setSold(e.target.checked)}
-          //     >
-          //   <Form.Group>
-          //     <Form.Label>Vendedor</Form.Label>
-          //     <Form.Select
-          //       value={id_seller}
-          //       onChange={(e) => setId_seller(e.target.value)}
-          //     >
-          //       {storeSellers.map(seller => (
-          //         <option key={seller.id}
-          //           value={seller.id}
-          //         >{seller.name}</option>
-          //       ))}
-
-          //     </Form.Select>
-          //   </Form.Group>
-
-          //   <Form.Group>
-          //     <Form.Label>Tipo de Serviço</Form.Label>
-          //     <Form.Select
-          //       value={id_type_service}
-          //       onChange={(e) => setId_type_service(e.target.value)}
-          //     >
-          //       {serviceTypesActive.map(st => (
-          //         <option key={st.id}
-          //           value={st.id}
-          //         >{st.name}</option>
-          //       ))}
-
-          //     </Form.Select>
-          //   </Form.Group>
-
-          //   <Form.Group>
-          //     <Form.Label>Segmento</Form.Label>
-          //     <Form.Select
-          //       value={id_store_segment}
-          //       onChange={(e) => setId_segment(e.target.value)}
-          //     >
-          //       {storeSegment.map(segment => (
-          //         <option key={segment.id}
-          //           value={segment.id}
-          //         >{segment.name}</option>
-          //       ))}
-
-          //     </Form.Select>
-          //   </Form.Group>
-
-          //   <Form.Group>
-          //     <Form.Label>Tipo de Prospecção</Form.Label>
-          //     <Form.Select
-          //       value={id_prospection}
-          //       onChange={(e) => setId_prospection(e.target.value)}
-          //     >
-          //       {prospectionActive.map(pp => (
-          //         <option key={pp.id}
-          //           value={pp.id}
-          //         >{pp.name}</option>
-          //       ))}
-
-          //     </Form.Select>
-          //   </Form.Group>
-
-          //   <Button
-          //     className='btn-space'
-          //     variant="primary"
-          //     type="submit"
-          //   >
-          //     Salvar
-          //   </Button>
-          //   <Link to={`/home`}>
-          //     <Button
-          //       variant="secondary">
-          //       Cancelar
-          //     </Button>
-          //   </Link>
-          // </Form>
         )
       }
     </div>
