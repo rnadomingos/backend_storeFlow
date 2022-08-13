@@ -27,7 +27,9 @@ export class ProspectionRepositoryPostgres implements IProspectionRepository {
     }
 
     async list(): Promise<Prospection[]> {
-        return await this.repository.find();
+        return await this.repository.find({
+            relations: ["socialMedia"]
+        });
     }
 
     async findById(id: string): Promise<Prospection> {

@@ -39,7 +39,6 @@ function CreateStoreFlowScreen({ history }) {
 
   const serviceTypesActive = serviceTypes.filter(st => st.is_active === true)
   const prospectionActive = prospection.filter(pp => pp.is_active === true)
-  const socialMediaActive = ''
 
 
   useEffect(() => {
@@ -180,16 +179,16 @@ function CreateStoreFlowScreen({ history }) {
                 </Form.Group>
                 <Form.Group as={Col}>
                   <FloatingLabel controlId="floatingSelectProspection" label="Mídia Social">
-                    <Form.Select disabled
+                    <Form.Select
                       value={id_social_media}
                       onChange={(e) => setId_social_media(e.target.value)}
                     >
                       <option></option>
-                      {/* {socialMediaActive.map(pp => (
-                      <option key={pp.id}
-                        value={pp.id}
-                      >{pp.name.toUpperCase()}</option>
-                    ))} */}
+                      {/* {prospectionActive.socialMedia.map(pp => (
+                        <option key={pp.id}
+                          value={pp.id}
+                        >{pp.name.toUpperCase()}</option>
+                      ))} */}
                     </Form.Select>
                   </FloatingLabel>
                 </Form.Group>
