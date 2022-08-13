@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useCallback, useEffect, useState } from 'react'
 import { useAlert } from 'react-alert'
 import { Button, Col, FloatingLabel, Form, Row } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
@@ -39,7 +39,6 @@ function CreateStoreFlowScreen({ history }) {
 
   const serviceTypesActive = serviceTypes.filter(st => st.is_active === true)
   const prospectionActive = prospection.filter(pp => pp.is_active === true)
-  const socialMediaActive = ''
 
 
   useEffect(() => {
@@ -60,6 +59,11 @@ function CreateStoreFlowScreen({ history }) {
     dispatch(serviceTypeListAction())
     dispatch(prospectionListAction())
   }, [alert, dispatch, error, history, id_store, success])
+
+  const changeProspectionHandler = useCallback((e) => {
+    setId_prospection(e.target.value)
+    console.log(id_prospection)
+  })
 
   const submitHandler = (e) => {
     e.preventDefault()
@@ -167,7 +171,8 @@ function CreateStoreFlowScreen({ history }) {
                   <FloatingLabel controlId="floatingSelectProspection" label="Prospecção">
                     <Form.Select
                       value={id_prospection}
-                      onChange={(e) => setId_prospection(e.target.value)}
+                      // onChange={(e) => setId_prospection(e.target.value)}
+                      onChange={changeProspectionHandler}
                     >
                       <option></option>
                       {prospectionActive.map(pp => (
@@ -180,16 +185,16 @@ function CreateStoreFlowScreen({ history }) {
                 </Form.Group>
                 <Form.Group as={Col}>
                   <FloatingLabel controlId="floatingSelectProspection" label="Mídia Social">
-                    <Form.Select disabled
+                    <Form.Select
                       value={id_social_media}
                       onChange={(e) => setId_social_media(e.target.value)}
                     >
                       <option></option>
-                      {/* {socialMediaActive.map(pp => (
-                      <option key={pp.id}
-                        value={pp.id}
-                      >{pp.name.toUpperCase()}</option>
-                    ))} */}
+                      {/* {prospectionActive.socialMedia.map(pp => (
+                        <option key={pp.id}
+                          value={pp.id}
+                        >{pp.name.toUpperCase()}</option>
+                      ))} */}
                     </Form.Select>
                   </FloatingLabel>
                 </Form.Group>
