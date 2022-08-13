@@ -1,5 +1,5 @@
 main {
-  min-height: 80vh;
+  /*min-height: 80vh;*/
 }
 
 .link-header {
@@ -64,4 +64,20 @@ main {
 
 .form-select {
   margin-bottom: 10px;
+}
+
+.flow form {
+  display: flex;
+  flex-direction: column;
+  padding: 0 10%;
+}
+
+.flow button {
+  width: 100px;
+  align-items: center;
+}
+
+.flow a {
+  width: 100px;
+  align-items: center;
 }
