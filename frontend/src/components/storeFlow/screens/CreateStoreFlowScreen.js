@@ -18,7 +18,7 @@ function CreateStoreFlowScreen({ history }) {
   const [client_phone, setPhone] = useState('')
   const [date, setDate] = useState(new Date())
   const [time, setTime] = useState('')
-  const [test_drive, setTest_drive] = useState(false)
+  const [test_driver, setTest_drive] = useState(false)
   const [sold, setSold] = useState(false)
   const [id_seller, setId_seller] = useState('')
   const [id_type_service, setId_type_service] = useState('')
@@ -51,7 +51,6 @@ function CreateStoreFlowScreen({ history }) {
 
     if (error) {
       alert.error(error)
-      dispatch({ type: STORE_FLOW_CREATE_RESET })
     }
 
 
@@ -63,14 +62,14 @@ function CreateStoreFlowScreen({ history }) {
 
   const submitHandler = (e) => {
     e.preventDefault()
-
+   
     dispatch(storeCreateAction({
       client_name,
       client_email,
       client_phone,
       date,
       time,
-      test_drive,
+      test_driver,
       sold,
       id_seller,
       id_type_service,
@@ -79,6 +78,8 @@ function CreateStoreFlowScreen({ history }) {
       id_store
     }))
   }
+
+  
 
 
   return (
@@ -231,7 +232,7 @@ function CreateStoreFlowScreen({ history }) {
                   <Form.Check
                     type='checkbox'
                     label='Test Drive Realizado'
-                    checked={test_drive}
+                    checked={test_driver}
                     onChange={(e) => setTest_drive(e.target.checked)}
                   />
                 </Form.Group>

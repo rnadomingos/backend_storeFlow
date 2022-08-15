@@ -22,7 +22,7 @@ export const storeCreateAction = (storeFlowData) => async (dispatch, getState) =
     }
 
     const { data } = await axios.post(
-      `http://localhost:3333/store-flow/new`,
+      '/store-flow/new',
       storeFlowData,
       config
     )
