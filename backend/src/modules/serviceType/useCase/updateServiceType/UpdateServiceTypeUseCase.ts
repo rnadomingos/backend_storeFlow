@@ -1,8 +1,7 @@
 import { IUpdateDTO } from "@domain/segment/dto/IUpdateSegmentDTO";
-import { IServiceTypeRepository } from "@modules/serviceType/repositories/IServiceTypeRepository";
+import { IServiceTypeRepository } from "@domain/serviceType/repository/IServiceTypeRepository";
 import { ErrorHandler } from "@shared/errors/ErrorHandler";
-import { container, inject, injectable } from "tsyringe";
-import { FindServiceTypeByIdUseCase } from "../findServiceTypeById/FindServiceTypeByIdUseCase";
+import { inject, injectable } from "tsyringe";
 
 
 @injectable()
@@ -18,7 +17,7 @@ export class UpdateServiceTypeUseCase {
         const serviceType = await this.serviceTypeRepository.findById(serviceTypeData.id);
 
         if (!serviceType) {
-            throw new ErrorHandler(`This ID:(${serviceTypeData.id}) was not found!`)
+            throw new ErrorHandler(`Service Types was not found!`)
         }
 
         for (const field of [

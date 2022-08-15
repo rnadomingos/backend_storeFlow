@@ -1,5 +1,6 @@
 import { ISeller } from "@domain/seller/model/ISeller";
 import { ISellerRepository } from "@domain/seller/repository/ISellerRepository";
+import { ErrorHandler } from "@shared/errors/ErrorHandler";
 import { inject, injectable } from "tsyringe";
 
 
@@ -13,7 +14,13 @@ export class FindSellerByUserDmsUseCase {
 
 
   async execute(user_dms: string): Promise<ISeller> {
-    return await this.sellerRepository.findByUserDms(user_dms);
+    const seller = await this.sellerRepository.findByUserDms(user_dms);
+
+    if (!seller) {
+      throw new ErrorHandler('Seller was not found!')
+    }
+
+    return seller;
   }
 
 }

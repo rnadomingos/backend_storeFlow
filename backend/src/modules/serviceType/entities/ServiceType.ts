@@ -1,9 +1,10 @@
 import { randomUUID } from "crypto";
+import { IServiceType } from "@domain/serviceType/model/IServiceType";
 import { Column, CreateDateColumn, Entity, PrimaryColumn } from "typeorm";
 
 
 @Entity("service_type")
-export class ServiceType {
+export class ServiceType implements IServiceType {
     @PrimaryColumn()
     id: string;
 

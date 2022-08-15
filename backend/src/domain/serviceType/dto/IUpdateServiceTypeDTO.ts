@@ -1,4 +1,4 @@
-export interface IUpdateServiceTypeByIdDTO {
+export interface IUpdateServiceTypeDTO {
     id: string;
     name?: string;
     description?: string;

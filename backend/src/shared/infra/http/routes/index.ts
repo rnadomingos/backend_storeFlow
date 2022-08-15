@@ -15,7 +15,7 @@ const router = Router();
 router.use("/stores", storeRoutes);
 router.use("/sellers", sellerRoutes);
 router.use("/segments", segmentRoutes);
-router.use("/service-type", serviceTypeRoutes);
+router.use("/service-types", serviceTypeRoutes);
 router.use("/social-media", socialMediaRoutes);
 router.use("/prospections", prospectionRoutes);
 router.use("/account", userRoutes);

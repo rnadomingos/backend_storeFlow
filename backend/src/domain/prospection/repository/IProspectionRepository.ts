@@ -11,5 +11,4 @@ export interface IProspectionRepository {
     findByName(name: string): Promise<IProspection>;
     update(data: IUpdateProspectionDTO): Promise<void>;
     delete(id: string): Promise<void>;
-    disableEnableById(id: string, is_active: boolean): Promise<void>;
 }

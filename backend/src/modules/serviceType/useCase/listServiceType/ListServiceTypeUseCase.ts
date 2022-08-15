@@ -1,5 +1,5 @@
+import { IServiceTypeRepository } from "@domain/serviceType/repository/IServiceTypeRepository";
 import { ServiceType } from "@modules/serviceType/entities/ServiceType";
-import { IServiceTypeRepository } from "@modules/serviceType/repositories/IServiceTypeRepository";
 import { inject, injectable } from "tsyringe";
 
 

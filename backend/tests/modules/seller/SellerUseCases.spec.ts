@@ -7,6 +7,9 @@ import { CreateSellerUseCase } from "@modules/seller/useCase/createSeller/Create
 import { ListSellerUseCase } from "@modules/seller/useCase/listSeller/ListSellerUseCase";
 import { UpdateSellerUseCase } from "@modules/seller/useCase/updateSeller/UpdateSellerUseCase";
 import { DeleteSellerUseCase } from "@modules/seller/useCase/deleteSeller/DeleteSellerUseCase";
+import { FindSellerByIdUseCase } from "@modules/seller/useCase/findSellerById/FindSellerByIdUseCase";
+import { FindSellerByUserDmsUseCase } from "@modules/seller/useCase/findSellerByUserDMS/FindSellerByUserDmsUseCase";
+import { FindStoreSellerUseCase } from "@modules/seller/useCase/findStoreBySeller/FindStoreSellerUseCase";
 
 
 const makeFakeSeller = (): ISeller => ({
@@ -16,6 +19,23 @@ const makeFakeSeller = (): ISeller => ({
   is_active: true,
   create_at: new Date('2022-05-02T22:02:50.641Z'),
   id_store: "any_id_store"
+});
+
+const makeFakeSellerStore = (): ISeller => ({
+  id: "any_store_seller_uuid",
+  name: "any_store_seller_name",
+  user_dms: "any_store_user_dms",
+  is_active: true,
+  create_at: new Date('2022-05-02T22:02:50.641Z'),
+  id_store: "any_store_id_store",
+  store: {
+		id: "any_store_uuid",
+		is_active: true,
+		cnpj: "01236",
+		name: "any_store_name",
+		brand: "any_brand",
+		create_at: new Date('2022-05-02T22:02:50.641Z')
+	}
 });
 
 const makeFakeSellers = (): ISeller[] => [
@@ -66,8 +86,8 @@ const makeSellerRepository = (): ISellerRepository => {
     async list(): Promise<ISeller[]> {
       return await new Promise(resolve => resolve(makeFakeSellers()))
     }
-    findStoreBySeller(user_dms: string): Promise<ISeller> {
-      throw new Error("Method not implemented.");
+    async findStoreBySeller(user_dms: string): Promise<ISeller> {
+      return await new Promise(resolve => resolve(makeFakeSellerStore()))
     }
     async update(data: IUpdateSellerDTO): Promise<void> {
       return await new Promise(resolve => resolve(null))
@@ -86,6 +106,10 @@ interface ISutTypes {
   listSellerUseCase: ListSellerUseCase
   updateSellerUseCase: UpdateSellerUseCase
   deleteSellerUseCase: DeleteSellerUseCase
+  findSellerByIdUseCase: FindSellerByIdUseCase;
+  findSellerByUserDmsUseCase: FindSellerByUserDmsUseCase;
+  findStoreSellerUseCase: FindStoreSellerUseCase;
+  
 }
 
 const makeSut = (): ISutTypes => {
@@ -94,12 +118,18 @@ const makeSut = (): ISutTypes => {
   const listSellerUseCase = new ListSellerUseCase(sellerRepositoryStub)
   const updateSellerUseCase = new UpdateSellerUseCase(sellerRepositoryStub)
   const deleteSellerUseCase = new DeleteSellerUseCase(sellerRepositoryStub)
+  const findSellerByIdUseCase = new FindSellerByIdUseCase(sellerRepositoryStub);
+  const findSellerByUserDmsUseCase = new FindSellerByUserDmsUseCase(sellerRepositoryStub);
+  const findStoreSellerUseCase = new FindStoreSellerUseCase(sellerRepositoryStub);
   return {
     sellerRepositoryStub,
     createSellerUseCase,
     listSellerUseCase,
     updateSellerUseCase,
-    deleteSellerUseCase
+    deleteSellerUseCase,
+    findSellerByIdUseCase,
+    findSellerByUserDmsUseCase,
+    findStoreSellerUseCase
   }
 }
 
@@ -175,4 +205,41 @@ describe('Seller use cases', () => {
     }).rejects.toEqual({ "message": "Seller was not found!", "statusCode": 400 });
   });
 
+  test('Should be able to find seller by Id', async () => {
+    const { findSellerByIdUseCase } = makeSut()
+    const segment = await findSellerByIdUseCase.execute('any_uuid');
+    expect(segment.name).toBe('any_seller_name');
+  });
+
+  test('Should not be able to find a seller if id not found', async () => {
+    expect(async () => {
+      const { findSellerByIdUseCase, sellerRepositoryStub } = makeSut()
+      jest.spyOn(sellerRepositoryStub, 'findById').mockReturnValueOnce(
+        new Promise((resolve) => resolve(null))
+      )
+      await findSellerByIdUseCase.execute('invalid_uuid');
+    }).rejects.toEqual({ "message": "Seller was not found!", "statusCode": 400 });
+  });
+
+  test('Should be able to find seller by User DMS', async () => {
+    const { findSellerByUserDmsUseCase, sellerRepositoryStub} = makeSut();
+    jest.spyOn(sellerRepositoryStub, 'findByUserDms').mockReturnValueOnce(
+      new Promise((resolve) => resolve(makeFakeSeller()))
+    )
+    const segment = await findSellerByUserDmsUseCase.execute('any_seller_name');
+    expect(segment.id).toBe('any_uuid');
+  });
+
+  test('Should not be able to find a seller if User DMS not found', async () => {
+    expect(async () => {
+      const { findSellerByUserDmsUseCase } = makeSut()
+      await findSellerByUserDmsUseCase.execute('any_seller_name');
+    }).rejects.toEqual({ "message": "Seller was not found!", "statusCode": 400 });
+  });
+
+  test('Should be able to find seller by Id', async () => {
+    const { findStoreSellerUseCase } = makeSut()
+    const segment = await findStoreSellerUseCase.execute('any_store_user_dms');
+    expect(segment.store.cnpj).toBe('01236');
+  });
 })

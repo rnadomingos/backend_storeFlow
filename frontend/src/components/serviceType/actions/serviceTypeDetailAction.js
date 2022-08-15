@@ -24,7 +24,7 @@ export const serviceTypeDetailActions = (id) => async (dispatch, getState) => {
     }
 
     const { data } = await axios.get(
-      `http://localhost:3333/service-type/get-service/${id}`,
+      `/service-types/${id}`,
       config
     )
 

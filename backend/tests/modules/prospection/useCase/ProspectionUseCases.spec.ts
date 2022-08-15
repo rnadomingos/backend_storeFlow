@@ -7,6 +7,8 @@ import { CreateProspectionUseCase } from "@modules/prospection/useCase/createPro
 import { UpdateProspectionUseCase } from "@modules/prospection/useCase/updateProspectionById/UpdateProspectionUseCase"
 import { ListProspectionUseCase } from "@modules/prospection/useCase/listProspection/ListProspectionUseCase"
 import { DeleteProspectionUseCase } from "@modules/prospection/useCase/deleteProspection/DeleteProspectionByIdUseCase"
+import { FindProspectionByIdUseCase } from "@modules/prospection/useCase/findProspectionById/FindProspectionByIdUseCase"
+import { FindProspectionByNameUseCase } from "@modules/prospection/useCase/findProspectionByName/FindProspectionByNameUseCase"
 
 
 const makeFakeProspection = (): IProspection => ({
@@ -87,6 +89,8 @@ interface ISutTypes {
   findAllProspectionUseCase: ListProspectionUseCase;
   updateProspectionUseCase: UpdateProspectionUseCase;
   deleteProspectionUseCase: DeleteProspectionUseCase;
+  findProspectionByIdUseCase: FindProspectionByIdUseCase;
+  findProspectionByNameUseCase: FindProspectionByNameUseCase;
 }
 
 const makeSut = (): ISutTypes => {
@@ -95,12 +99,16 @@ const makeSut = (): ISutTypes => {
   const findAllProspectionUseCase = new ListProspectionUseCase(prospectionRepositoryStub);
   const updateProspectionUseCase = new UpdateProspectionUseCase(prospectionRepositoryStub);
   const deleteProspectionUseCase = new DeleteProspectionUseCase(prospectionRepositoryStub);
+  const findProspectionByIdUseCase = new FindProspectionByIdUseCase(prospectionRepositoryStub);
+  const findProspectionByNameUseCase = new FindProspectionByNameUseCase(prospectionRepositoryStub);
   return {
     createProspectionUseCase,
     prospectionRepositoryStub,
     findAllProspectionUseCase,
     updateProspectionUseCase,
-    deleteProspectionUseCase
+    deleteProspectionUseCase,
+    findProspectionByIdUseCase,
+    findProspectionByNameUseCase
   }
 
 }
@@ -168,7 +176,7 @@ describe('Prospection use cases', () => {
         id: 'invalid_uuid',
         is_active: false
       });
-    }).rejects.toEqual({ "message": "This Prospection ID was not found!", "statusCode": 400 });
+    }).rejects.toEqual({ "message": "Prospection was not found!", "statusCode": 400 });
   });
 
   test('Should be able to delete a prospection', async () => {
@@ -185,7 +193,40 @@ describe('Prospection use cases', () => {
         new Promise((resolve) => resolve(null))
       )
       await deleteProspectionUseCase.execute('invalid_uuid');
-    }).rejects.toEqual({ "message": "This Prospection ID was not found!", "statusCode": 400 });
+    }).rejects.toEqual({ "message": "Prospection was not found!", "statusCode": 400 });
   });
+
+  test('Should be able to find prospection by ID', async () => {
+    const { findProspectionByIdUseCase } = makeSut()
+    const prospection = await findProspectionByIdUseCase.execute('any_uuid');
+    expect(prospection.name).toBe('any_name');
+  });
+
+  test('Should not be able to find prospection if ID not found', async () => {
+    expect(async () => {
+      const { findProspectionByIdUseCase, prospectionRepositoryStub } = makeSut()
+      jest.spyOn(prospectionRepositoryStub, 'findById').mockReturnValueOnce(
+        new Promise((resolve) => resolve(null))
+      )
+      await findProspectionByIdUseCase.execute('invalid_uuid');
+    }).rejects.toEqual({ "message": "Prospection was not found!", "statusCode": 400 });
+  });
+
+  test('Should be able to find prospection by name', async () => {
+    const { findProspectionByNameUseCase, prospectionRepositoryStub } = makeSut()
+    jest.spyOn(prospectionRepositoryStub, 'findByName').mockReturnValueOnce(
+      new Promise((resolve) => resolve(makeFakeProspection()))
+    )
+    const prospection = await findProspectionByNameUseCase.execute('any_name');
+    expect(prospection.id).toBe('any_uuid');
+  });
+
+  test('Should not be able to find prospection if prospection name not found', async () => {
+    expect(async () => {
+      const { findProspectionByNameUseCase } = makeSut()
+      await findProspectionByNameUseCase.execute('invalid_name');
+    }).rejects.toEqual({ "message": "Prospection was not found!", "statusCode": 400 });
+  });
+
 
 })

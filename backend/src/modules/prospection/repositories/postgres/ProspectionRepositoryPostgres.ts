@@ -32,11 +32,11 @@ export class ProspectionRepositoryPostgres implements IProspectionRepository {
         });
     }
 
-    async findById(id: string): Promise<Prospection> {
+    async findById(id: string): Promise<IProspection> {
         return await this.repository.findOne({ id })
     }
 
-    async findByName(name: string): Promise<Prospection> {
+    async findByName(name: string): Promise<IProspection> {
         return await this.repository.findOne({ name })
     }
 
@@ -57,14 +57,6 @@ export class ProspectionRepositoryPostgres implements IProspectionRepository {
 
     async delete(id: string): Promise<void> {
         await this.repository.delete({ id })
-    }
-
-    async disableEnableById(id: string, is_active: boolean): Promise<void> {
-        await this.repository.update({
-            id
-        }, {
-            is_active
-        })
     }
 
 }

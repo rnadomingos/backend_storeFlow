@@ -18,7 +18,7 @@ export class FindSellerByIdUseCase {
     const seller = await this.sellerRepository.findById(id)
 
     if (!seller) {
-      throw new ErrorHandler('Seller not found !')
+      throw new ErrorHandler('Seller was not found!')
     }
 
     return seller;
