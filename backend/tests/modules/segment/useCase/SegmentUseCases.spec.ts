@@ -7,6 +7,8 @@ import { CreateSegmentUseCase } from "@modules/segment/useCase/createSegment/Cre
 import { ListSegmentUseCase } from "@modules/segment/useCase/listSegment/ListSegmentUseCase";
 import { UpdateSegmentUseCase } from "@modules/segment/useCase/updateSegment/UpdateSegmentUseCase";
 import { DeleteSegmentUseCase } from "@modules/segment/useCase/deleteSegmentById/DeleteSegmentUseCase";
+import { FindSegmentByIdUseCase } from "@modules/segment/useCase/findSegmentById/FindSegmentByIdUseCase";
+import { FindSegmentByNameUseCase } from "@modules/segment/useCase/findSegmentByName/FindSegmentByNameUseCase";
 
 
 const makeFakeSegment = (): ISegment => ({
@@ -68,6 +70,8 @@ interface ISutTypes {
   listSegmentUseCase: ListSegmentUseCase;
   updateSegmentUseCase: UpdateSegmentUseCase;
   deleteSegmentUseCase: DeleteSegmentUseCase;
+  findSegmentByIdUseCase: FindSegmentByIdUseCase;
+  findSegmentByNameUseCase: FindSegmentByNameUseCase;
 }
 
 const makeSut = (): ISutTypes => {
@@ -76,12 +80,16 @@ const makeSut = (): ISutTypes => {
   const listSegmentUseCase = new ListSegmentUseCase(segmentRepositoryStub)
   const updateSegmentUseCase = new UpdateSegmentUseCase(segmentRepositoryStub)
   const deleteSegmentUseCase = new DeleteSegmentUseCase(segmentRepositoryStub)
+  const findSegmentByIdUseCase = new FindSegmentByIdUseCase(segmentRepositoryStub);
+  const findSegmentByNameUseCase = new FindSegmentByNameUseCase(segmentRepositoryStub);
   return {
     createSegmentUseCase,
     segmentRepositoryStub,
     listSegmentUseCase,
     updateSegmentUseCase,
-    deleteSegmentUseCase
+    deleteSegmentUseCase,
+    findSegmentByIdUseCase,
+    findSegmentByNameUseCase
   }
 }
 
@@ -136,7 +144,7 @@ describe('Segment use cases', () => {
     });
   });
 
-  test('Should not be able to update a prospection if id not found', async () => {
+  test('Should not be able to update a segment if id not found', async () => {
     expect(async () => {
       const { updateSegmentUseCase, segmentRepositoryStub } = makeSut()
       jest.spyOn(segmentRepositoryStub, 'findById').mockReturnValueOnce(
@@ -149,20 +157,52 @@ describe('Segment use cases', () => {
     }).rejects.toEqual({ "message": "Segment was not found!", "statusCode": 400 });
   });
 
-  test('Should be able to delete a prospection', async () => {
+  test('Should be able to delete a segment', async () => {
     const { deleteSegmentUseCase, segmentRepositoryStub } = makeSut()
     const deleteSpy = jest.spyOn(segmentRepositoryStub, 'delete')
     await deleteSegmentUseCase.execute('any_uuid');
     expect(deleteSpy).toHaveBeenCalled();
   });
 
-  test('Should not be able to delete a prospection if id not found', async () => {
+  test('Should not be able to delete a segment if id not found', async () => {
     expect(async () => {
       const { deleteSegmentUseCase, segmentRepositoryStub } = makeSut()
       jest.spyOn(segmentRepositoryStub, 'findById').mockReturnValueOnce(
         new Promise((resolve) => resolve(null))
       )
       await deleteSegmentUseCase.execute('invalid_uuid');
+    }).rejects.toEqual({ "message": "Segment was not found!", "statusCode": 400 });
+  });
+
+  test('Should be able to find a segment by ID', async () => {
+    const { findSegmentByIdUseCase } = makeSut()
+    const segment = await findSegmentByIdUseCase.execute('any_uuid');
+    expect(segment.name).toBe('any_name');
+  });
+
+  test('Should not be able to find a segment if id not found', async () => {
+    expect(async () => {
+      const { findSegmentByIdUseCase, segmentRepositoryStub } = makeSut()
+      jest.spyOn(segmentRepositoryStub, 'findById').mockReturnValueOnce(
+        new Promise((resolve) => resolve(null))
+      )
+      await findSegmentByIdUseCase.execute('invalid_uuid');
+    }).rejects.toEqual({ "message": "Segment was not found!", "statusCode": 400 });
+  });
+
+  test('Should be able to find a segment by name', async () => {
+    const { findSegmentByNameUseCase, segmentRepositoryStub } = makeSut()
+    jest.spyOn(segmentRepositoryStub, 'findByName').mockReturnValueOnce(
+      new Promise((resolve) => resolve(makeFakeSegment()))
+    )
+    const segment = await findSegmentByNameUseCase.execute('any_name');
+    expect(segment.id).toBe('any_uuid');
+  });
+
+  test('Should not be able to find a segment if name not found', async () => {
+    expect(async () => {
+      const { findSegmentByNameUseCase } = makeSut()
+      await findSegmentByNameUseCase.execute('invalid_uuid');
     }).rejects.toEqual({ "message": "Segment was not found!", "statusCode": 400 });
   });
 

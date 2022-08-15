@@ -212,7 +212,7 @@ describe('Prospection use cases', () => {
     }).rejects.toEqual({ "message": "Prospection was not found!", "statusCode": 400 });
   });
 
-  test('Should be able to find prospection by ID', async () => {
+  test('Should be able to find prospection by name', async () => {
     const { findProspectionByNameUseCase, prospectionRepositoryStub } = makeSut()
     jest.spyOn(prospectionRepositoryStub, 'findByName').mockReturnValueOnce(
       new Promise((resolve) => resolve(makeFakeProspection()))
