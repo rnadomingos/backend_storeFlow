@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from 'react'
+import React, { useCallback, useEffect, useRef, useState } from 'react'
 import { useAlert } from 'react-alert'
 import { Button, Col, FloatingLabel, Form, Row } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
@@ -25,6 +25,9 @@ function CreateStoreFlowScreen({ history }) {
   const [id_prospection, setId_prospection] = useState('')
   const [id_store_segment, setId_segment] = useState('')
   const [id_social_media, setId_social_media] = useState('')
+  const [socialMedia, setSocialMedia] = useState([])
+  const [disabled, setDisabled] = useState(true)
+
 
   const { userInfo } = useSelector(state => state.userLogin)
   const { error, loading, success } = useSelector(state => state.storeFlowCreateReducer)
@@ -40,7 +43,6 @@ function CreateStoreFlowScreen({ history }) {
   const serviceTypesActive = serviceTypes.filter(st => st.is_active === true)
   const prospectionActive = prospection.filter(pp => pp.is_active === true)
 
-
   useEffect(() => {
 
     if (success) {
@@ -53,16 +55,25 @@ function CreateStoreFlowScreen({ history }) {
       dispatch({ type: STORE_FLOW_CREATE_RESET })
     }
 
-
     dispatch(storeSellersAction(id_store))
     dispatch(storeSegmentListAction(id_store))
     dispatch(serviceTypeListAction())
     dispatch(prospectionListAction())
+
   }, [alert, dispatch, error, history, id_store, success])
 
-  const changeProspectionHandler = useCallback((e) => {
+  const changeProspectionHandler = ((e) => {
     setId_prospection(e.target.value)
-    console.log(id_prospection)
+    let [prospMedia] = prospection.filter(pp => pp.id === e.target.value)
+    const { socialMedia } = prospMedia
+    setSocialMedia(socialMedia)
+    if (socialMedia.length) {
+      setDisabled(false)
+    } else {
+      setId_social_media('')
+      setDisabled(true)
+
+    }
   })
 
   const submitHandler = (e) => {
@@ -171,7 +182,6 @@ function CreateStoreFlowScreen({ history }) {
                   <FloatingLabel controlId="floatingSelectProspection" label="Prospecção">
                     <Form.Select
                       value={id_prospection}
-                      // onChange={(e) => setId_prospection(e.target.value)}
                       onChange={changeProspectionHandler}
                     >
                       <option></option>
@@ -186,18 +196,20 @@ function CreateStoreFlowScreen({ history }) {
                 <Form.Group as={Col}>
                   <FloatingLabel controlId="floatingSelectProspection" label="Mídia Social">
                     <Form.Select
+                      disabled={disabled}
                       value={id_social_media}
                       onChange={(e) => setId_social_media(e.target.value)}
                     >
                       <option></option>
-                      {/* {prospectionActive.socialMedia.map(pp => (
-                        <option key={pp.id}
-                          value={pp.id}
-                        >{pp.name.toUpperCase()}</option>
-                      ))} */}
+                      {socialMedia.map(sm => (
+                        <option key={sm.id}
+                          value={sm.id}
+                        >{sm.name.toUpperCase()}</option>
+                      ))}
                     </Form.Select>
                   </FloatingLabel>
                 </Form.Group>
+
               </Row>
               <Row className='mb-3'>
                 <Form.Group as={Col}>
