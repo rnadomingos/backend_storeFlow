@@ -13,6 +13,6 @@ export interface ICreateStoreFlowDTO {
   id_type_service: string;
   id_user: string;
   id_prospection: string;
-  id_social_media: string;
+  id_social_media?: string;
 
 }

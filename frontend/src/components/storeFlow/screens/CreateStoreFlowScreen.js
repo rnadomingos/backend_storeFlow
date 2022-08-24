@@ -77,7 +77,7 @@ function CreateStoreFlowScreen({ history }) {
 
   const submitHandler = (e) => {
     e.preventDefault()
-   
+
     dispatch(storeCreateAction({
       client_name,
       client_email,
@@ -90,11 +90,12 @@ function CreateStoreFlowScreen({ history }) {
       id_type_service,
       id_prospection,
       id_store_segment,
-      id_store
+      id_store,
+      id_social_media
     }))
   }
 
-  
+
 
 
   return (
