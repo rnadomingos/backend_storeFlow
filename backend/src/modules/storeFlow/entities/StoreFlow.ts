@@ -2,6 +2,7 @@ import { Prospection } from "@modules/prospection/entities/Prospection";
 import { Segment } from "@modules/segment/entities/Segment";
 import { Seller } from "@modules/seller/entities/Seller";
 import { ServiceType } from "@modules/serviceType/entities/ServiceType";
+import { SocialMedia } from "@modules/socialMedia/entities/SocialMedia";
 import { Store } from "@modules/store/entities/Store";
 import { User } from "@modules/user/entities/User";
 import { randomUUID } from "crypto";
@@ -78,7 +79,14 @@ export class StoreFlow {
   @Column()
   id_prospection: string;
 
+  @ManyToOne(() => SocialMedia)
+  @JoinColumn({ name: "id_social_media" })
+  socialMedia: SocialMedia;
 
+  @Column({
+    nullable: true
+  })
+  id_social_media: string
 
   constructor() {
     if (!this.id) {
