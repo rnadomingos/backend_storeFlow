@@ -24,7 +24,8 @@ export class CreateStoreFlowUseCase {
       "id_store_segment",
       "id_type_service",
       "id_user",
-      "id_prospection"]) {
+      "id_prospection",
+      "id_social_media"]) {
       if (!storeFlowData[field]) {
         throw new ErrorHandler(`Params ${field} Missing`)
       }

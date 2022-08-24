@@ -20,7 +20,8 @@ export class UpdateStoreFlowController {
       id_store_segment,
       id_type_service,
       id_user,
-      id_prospection
+      id_prospection,
+      id_social_media
     } = req.body;
 
     const updateStoreFlowUseCase = container.resolve(UpdateStoreFlowUseCase);
@@ -38,7 +39,8 @@ export class UpdateStoreFlowController {
       id_store_segment,
       id_type_service,
       id_user,
-      id_prospection
+      id_prospection,
+      id_social_media
     })
 
     return res.status(200).json({

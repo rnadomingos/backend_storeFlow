@@ -26,7 +26,8 @@ export class UpdateStoreFlowUseCase {
     id_store_segment,
     id_type_service,
     id_user,
-    id_prospection
+    id_prospection,
+    id_social_media
   }: IUpdateStoreFlowDTO): Promise<void> {
 
     const storeFlow = await this.storeFlowRepository.findById(id)
@@ -73,6 +74,9 @@ export class UpdateStoreFlowUseCase {
     }
     if (id_prospection) {
       storeFlow.id_prospection = id_prospection
+    }
+    if (id_social_media) {
+      storeFlow.id_social_media = id_social_media
     }
 
     await this.storeFlowRepository.update(storeFlow)
