@@ -41,7 +41,8 @@ import { storeFlowCreateReducer } from './components/storeFlow/reducers/storeFlo
 import { storeSellersReducer } from './components/store/reducers/storeSellersReducer'
 import { prospectionDeleteReducer } from './components/prospection/reducers/admin/prospectionDeleteReducer'
 import { segmentDeleteReducer } from './components/segment/reducers/admin/segmentDeleteReducer'
-import {sellerDeleteReducer} from './components/seller/reducers/admin/sellerDeleteReducer'
+import { sellerDeleteReducer } from './components/seller/reducers/admin/sellerDeleteReducer'
+import { serviceTypeDeleteReducer } from './components/serviceType/reducers/admin/serviceTypeDeleteReducer'
 
 const reducer = combineReducers({
   //Account
@@ -76,6 +77,7 @@ const reducer = combineReducers({
   serviceTypeCreateReducer: serviceTypeCreateReducer,
   serviceTypeDetailReducer: serviceTypeDetailReducer,
   serviceTypeUpdateReducer: serviceTypeUpdateReducer,
+  serviceTypeDeleteReducer: serviceTypeDeleteReducer,
 
   //Prospection
   prospectionListReducer: prospectionListReducer,

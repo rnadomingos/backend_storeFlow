@@ -686,7 +686,7 @@ paths:
         401:
           $ref: "#/components/responses/UnauthorizedError"  
 
-  /serviceType/new:
+  /service-types/:
     post:
       tags:
       - "Service Type"
@@ -712,7 +712,7 @@ paths:
           description: "Success"
         401:
           $ref: "#/components/responses/UnauthorizedError"
-  /serviceType/list:
+
     get:
       tags: 
       - "Service Type"
@@ -725,7 +725,8 @@ paths:
           description: "Success"
         401:
           $ref: "#/components/responses/UnauthorizedError"
-  /serviceType/get-service/{id}:
+
+  /service-types/{id}:
     get:
       tags: 
       - "Service Type"
@@ -735,7 +736,7 @@ paths:
         - bearerAuth: []
       parameters: 
         - in: path
-          name: ID
+          name: id
           description: "Service Type Id"
           schema:
             type: string
@@ -745,7 +746,6 @@ paths:
           description: "Success"
         401:
           $ref: "#/components/responses/UnauthorizedError"
-  /serviceType/update/{id}:
     put:
       tags: 
       - "Service Type"
@@ -776,7 +776,7 @@ paths:
           description: "Success"
         401:
           $ref: "#/components/responses/UnauthorizedError"
-  /serviceType/del/{id}:
+  
     delete:
       tags: 
       - "Service Type"
@@ -795,7 +795,8 @@ paths:
         200:
           description: "Success"
         401:
-          $ref: "#/components/responses/UnauthorizedError"          
+          $ref: "#/components/responses/UnauthorizedError"      
+
   /social-media/new:
     post:
       tags:

@@ -1,6 +1,5 @@
 import axios from 'axios'
 import {
-  CLEAN_ERRORS,
   SERVICE_TYPE_CREATE_FAIL,
   SERVICE_TYPE_CREATE_REQUEST,
   SERVICE_TYPE_CREATE_SUCCESS
@@ -24,7 +23,7 @@ export const serviceTypeCreateAction = (newServiceType) => async (dispatch, getS
     }
 
     const { data } = await axios.post(
-      `http://localhost:3333/service-type/new`,
+      '/service-types',
       newServiceType,
       config
     )
@@ -40,10 +39,4 @@ export const serviceTypeCreateAction = (newServiceType) => async (dispatch, getS
       payload: error.response.data
     })
   }
-}
-
-export const cleanErrors = () => async (dispatch) => {
-  dispatch({
-    type: CLEAN_ERRORS
-  })
 }

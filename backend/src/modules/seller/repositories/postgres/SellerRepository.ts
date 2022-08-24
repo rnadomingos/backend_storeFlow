@@ -3,7 +3,6 @@ import { IUpdateSellerDTO } from "@domain/seller/dto/IUpdateSellerDTO";
 import { ISeller } from "@domain/seller/model/ISeller";
 import { ISellerRepository } from "@domain/seller/repository/ISellerRepository";
 import { Seller } from "@modules/seller/entities/Seller";
-import { Store } from "@modules/store/entities/Store";
 import { getRepository, Repository } from "typeorm";
 
 

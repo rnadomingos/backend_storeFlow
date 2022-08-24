@@ -16,7 +16,7 @@ export class DeleteProspectionUseCase {
         const prospectionExists = await this.prospectionRepository.findById(id);
 
         if (!prospectionExists) {
-            throw new ErrorHandler(`This Prospection ID was not found!`)
+            throw new ErrorHandler('Prospection was not found!')
         }
 
         return await this.prospectionRepository.delete(id);

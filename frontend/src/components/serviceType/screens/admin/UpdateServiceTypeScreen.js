@@ -1,14 +1,17 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { cleanErrors } from "../../actions/serviceTypeCleanErrors";
 import { serviceTypeDetailActions } from '../../actions/serviceTypeDetailAction'
-import { SERVICE_TYPE_UPDATE_RESET, SERVICE_TYPE_DETAIL_RESET } from "../../constants/serviceTypeConstant";
 import { serviceTypeUpdateAction } from '../../actions/admin/serviceTypeUpdateActions'
 import { FormContainer } from "../../../layout/FormContainer";
-import { Message } from "../../../layout/Message";
 import { Loader } from "../../../layout/Loader";
 import { Button, Form } from "react-bootstrap";
 import { Link } from "react-router-dom";
+import { useAlert } from "react-alert"
+import { 
+  SERVICE_TYPE_UPDATE_RESET, 
+  SERVICE_TYPE_DETAIL_RESET, 
+  SERVICE_TYPE_CLEAN_ERRORS 
+} from "../../constants/serviceTypeConstant";
 
 function UpdateServiceTypeScreen({ history, match }) {
 
@@ -22,6 +25,7 @@ function UpdateServiceTypeScreen({ history, match }) {
 
   const { error, loading, success } = useSelector(state => state.serviceTypeUpdateReducer)
 
+  const alert = useAlert()
   const dispatch = useDispatch()
 
   useEffect(() => {
@@ -35,12 +39,12 @@ function UpdateServiceTypeScreen({ history, match }) {
     }
 
     if (errorDetail) {
-      alert(`Problema ${errorDetail} ao gravar tipo de serviço`)
-      dispatch(cleanErrors)
+      alert.error(errorDetail)
     }
 
     if (error) {
-      alert(`Problema ${error} ao gravar tipo de serviço`)
+      alert.error(error)
+      dispatch({type: SERVICE_TYPE_CLEAN_ERRORS})
     }
 
     if (success) {
@@ -48,7 +52,7 @@ function UpdateServiceTypeScreen({ history, match }) {
       dispatch({ type: SERVICE_TYPE_DETAIL_RESET })
       history.push('/admin/service-types')
     }
-  }, [error, dispatch, success, history, serviceType, serviceTypeID, errorDetail])
+  }, [error, dispatch, success, history, serviceType, serviceTypeID, errorDetail, alert])
 
 
   const submitHandler = (e) => {
@@ -60,7 +64,6 @@ function UpdateServiceTypeScreen({ history, match }) {
     <div>
       <FormContainer>
         <h1>Editar Tipo de Serviço</h1>
-        {error && <Message>Problema {error} ao gravar novo Tipo de Serviço</Message>}
         {loading ? <Loader />
           : (
             <Form onSubmit={submitHandler}>

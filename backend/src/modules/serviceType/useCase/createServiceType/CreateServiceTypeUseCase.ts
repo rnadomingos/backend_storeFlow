@@ -1,7 +1,7 @@
-import { ICreateServiceTypeDTO } from "@modules/serviceType/dtos/ICreateServiceTypeDTO";
-import { IServiceTypeRepository } from "../../repositories/IServiceTypeRepository";
+import { ICreateServiceTypeDTO } from "@domain/serviceType/dto/ICreateServiceTypeDTO";
 import { inject, injectable } from "tsyringe";
 import { ErrorHandler } from "@shared/errors/ErrorHandler";
+import { IServiceTypeRepository } from "@domain/serviceType/repository/IServiceTypeRepository";
 
 
 

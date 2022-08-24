@@ -18,7 +18,7 @@ export class FindProspectionByNameUseCase {
         const prospection = await this.prospectionRepository.findByName(name);
 
         if (!prospection) {
-            throw new ErrorHandler(`Prospection not found with this Name!`)
+            throw new ErrorHandler('Prospection was not found!')
         }
 
         return prospection;

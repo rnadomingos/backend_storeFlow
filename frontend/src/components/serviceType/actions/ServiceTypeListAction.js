@@ -19,7 +19,7 @@ export const serviceTypeListAction = () => async (dispatch, getState) => {
     }
 
     const { data } = await axios.get(
-      `http://localhost:3333/service-type/list`,
+      `/service-types/`,
       config
     )
 

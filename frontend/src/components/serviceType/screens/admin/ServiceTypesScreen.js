@@ -5,11 +5,13 @@ import { Link } from 'react-router-dom'
 import { serviceTypeListAction } from '../../actions/ServiceTypeListAction'
 import { Loader } from '../../../layout/Loader'
 import { Message } from '../../../layout/Message'
-
-
+import { serviceTypeDeleteAction } from '../../actions/admin/serviceTypeDeleteAction'
+import { useAlert } from 'react-alert'
 
 function ServiceTypesScreen() {
 
+
+    const alert = useAlert()
     const dispatch = useDispatch()
     const {
         error,
@@ -17,11 +19,23 @@ function ServiceTypesScreen() {
         serviceTypes
     } = useSelector(state => state.serviceTypeListReducer)
 
+    const { success: deleteSuccess, error: deleteError} = useSelector(state => state.serviceTypeDeleteReducer)
+
     useEffect(() => {
         dispatch(serviceTypeListAction())
-    }, [dispatch])
+        if(deleteSuccess) {
+        dispatch(serviceTypeListAction())
+        }
+        if (deleteError) {
+            alert.error('Error ao deletar registro')
+        }
+    }, [alert, deleteError, deleteSuccess, dispatch])
 
-
+    const deleteHandler = (id) => {
+        if (window.confirm('Deseja deletar este segmento?')) {
+            dispatch(serviceTypeDeleteAction(id))
+        }
+    }
 
     return (
         <div>
@@ -70,6 +84,9 @@ function ServiceTypesScreen() {
                                                     <i className='fas fa-edit'></i>
                                                 </Button>
                                             </Link>
+                                            <Button variant='danger' className='btn-sm' onClick={() => deleteHandler(serviceTypes.id)}>
+                                                <i className='fas fa-trash'></i>
+                                            </Button>
                                         </td>
                                     </tr>
                                 ))}

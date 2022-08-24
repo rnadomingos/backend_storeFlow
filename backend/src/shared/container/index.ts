@@ -5,7 +5,6 @@ import { StoreRepositoryPostgres } from "@modules/store/repositories/postgres/St
 import { SellerRepositoryPostgres } from "@modules/seller/repositories/postgres/SellerRepository";
 import { SegmentRepositoryPostgres } from "@modules/segment/repositories/postgres/SegmentRepositoryPostgres";
 import { ServiceTypeRepositoryPostgres } from "@modules/serviceType/repositories/postgres/ServiceTypeRepositoryPostgres";
-import { IServiceTypeRepository } from "@modules/serviceType/repositories/IServiceTypeRepository";
 import { ISocialMediaRepository } from "@modules/socialMedia/repositories/ISocialMediaRepository";
 import { SocialMediaRepositoryPostgres } from "@modules/socialMedia/repositories/postgres/SocialMediaRepositoryPostgres"
 import { ProspectionRepositoryPostgres } from "@modules/prospection/repositories/postgres/ProspectionRepositoryPostgres"
@@ -18,6 +17,7 @@ import { IStoreFlowRepository } from "@modules/storeFlow/repositories/IStoreFlow
 import { ISellerRepository } from "@domain/seller/repository/ISellerRepository";
 import { ISegmentRepository } from "@domain/segment/repository/ISegmentRepository";
 import { IProspectionRepository } from "@domain/prospection/repository/IProspectionRepository";
+import { IServiceTypeRepository } from "@domain/serviceType/repository/IServiceTypeRepository";
 
 
 

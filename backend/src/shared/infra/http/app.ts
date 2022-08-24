@@ -31,6 +31,12 @@ app.use(router);
 
 app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
     if (err instanceof ErrorHandler) {
+        if (err.message === "Invalid token!" || "Token is missing!") {
+            return res.status(401).json({
+              message: err.message
+            })
+          }
+
         return res.status(400).json({
             message: err.message
         })

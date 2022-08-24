@@ -1,4 +1,5 @@
 import {
+  SERVICE_TYPE_CLEAN_ERRORS,
   SERVICE_TYPE_UPDATE_FAIL,
   SERVICE_TYPE_UPDATE_REQUEST,
   SERVICE_TYPE_UPDATE_RESET,
@@ -22,9 +23,15 @@ export const serviceTypeUpdateReducer = (state = { serviceType: {} }, action) =>
     case SERVICE_TYPE_UPDATE_FAIL:
       return {
         loading: false,
-        error: action.payload.error
+        error: action.payload.message
       }
 
+    case SERVICE_TYPE_CLEAN_ERRORS:
+      return {
+        ...state,
+        success: false,
+        error: null
+      }
     case SERVICE_TYPE_UPDATE_RESET:
       return {}
 
