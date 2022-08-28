@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useRef, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useAlert } from 'react-alert'
 import { Button, Col, FloatingLabel, Form, Row } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
@@ -19,6 +19,7 @@ function CreateStoreFlowScreen({ history }) {
   const [date, setDate] = useState(new Date())
   const [time, setTime] = useState('')
   const [test_driver, setTest_drive] = useState(false)
+  const [comments, setComments] = useState('')
   const [sold, setSold] = useState(false)
   const [id_seller, setId_seller] = useState('')
   const [id_type_service, setId_type_service] = useState('')
@@ -63,21 +64,22 @@ function CreateStoreFlowScreen({ history }) {
 
   const changeProspectionHandler = ((e) => {
     setId_prospection(e.target.value)
+
     let [prospMedia] = prospection.filter(pp => pp.id === e.target.value)
     const { socialMedia } = prospMedia
     setSocialMedia(socialMedia)
+
     if (socialMedia.length) {
       setDisabled(false)
     } else {
       setId_social_media('')
       setDisabled(true)
-
     }
+
   })
 
   const submitHandler = (e) => {
     e.preventDefault()
-
     dispatch(storeCreateAction({
       client_name,
       client_email,
@@ -91,20 +93,18 @@ function CreateStoreFlowScreen({ history }) {
       id_prospection,
       id_store_segment,
       id_store,
-      id_social_media
+      id_social_media,
+      comments
     }))
   }
 
-
-
-
   return (
     <div>
-      <h1>Nova Passagem</h1>
-
+      <h2>Nova Passagem</h2>
       {loading ? <Loader />
         : (
           <div className='flow'>
+            <hr />
             <Form onSubmit={submitHandler}>
               <Row>
                 <Form.Group as={Col} xs={4} controlId="formGridDate">
@@ -129,7 +129,7 @@ function CreateStoreFlowScreen({ history }) {
                   </Form.Control>
                 </Form.Group>
               </Row>
-              <Row className="mb-3">
+              <Row className='mb-2'>
                 <Form.Group as={Col} controlId="formGridName">
                   <Form.Label>Nome</Form.Label>
                   <Form.Control
@@ -141,7 +141,7 @@ function CreateStoreFlowScreen({ history }) {
                   />
                 </Form.Group>
               </Row>
-              <Row className='mb-3'>
+              <Row className='mb-2'>
                 <Form.Group as={Col} xs={8} controlId="formGridEmail">
                   <Form.Label>Email</Form.Label>
                   <Form.Control className='lg'
@@ -163,8 +163,7 @@ function CreateStoreFlowScreen({ history }) {
                   />
                 </Form.Group>
               </Row>
-
-              <Row className="mb-3">
+              <Row className="mb-1">
                 <Form.Group as={Col} xs={4}>
                   <FloatingLabel controlId="floatingSelectGrid" label="Tipo de Serviço">
                     <Form.Select
@@ -211,10 +210,9 @@ function CreateStoreFlowScreen({ history }) {
                     </Form.Select>
                   </FloatingLabel>
                 </Form.Group>
-
               </Row>
-              <Row className='mb-3'>
-                <Form.Group as={Col}>
+              <Row className='mb-1'>
+                <Form.Group as={Col} xs={4}>
                   <FloatingLabel controlId="floatingSelectSeller" label="Segmento">
                     <Form.Select
                       value={id_store_segment}
@@ -229,7 +227,7 @@ function CreateStoreFlowScreen({ history }) {
                     </Form.Select>
                   </FloatingLabel>
                 </Form.Group>
-                <Form.Group as={Col}>
+                <Form.Group as={Col} xs={4}>
                   <FloatingLabel controlId="floatingSelectSeller" label="Vendedor">
                     <Form.Select
                       value={id_seller}
@@ -244,22 +242,34 @@ function CreateStoreFlowScreen({ history }) {
                     </Form.Select>
                   </FloatingLabel>
                 </Form.Group>
-              </Row>
-              <Row className='mb-3'>
-                <Form.Group controlId="test_drive">
-                  <Form.Check
-                    type='checkbox'
-                    label='Test Drive Realizado'
-                    checked={test_driver}
-                    onChange={(e) => setTest_drive(e.target.checked)}
-                  />
+                <Form.Group as={Col}
+                  xs={4}>
+                  <Form.Group controlId="test_drive">
+                    <Form.Check
+                      type='checkbox'
+                      label='Test Drive Realizado'
+                      checked={test_driver}
+                      onChange={(e) => setTest_drive(e.target.checked)}
+                    />
+                  </Form.Group>
+                  <Form.Group controlId="sold">
+                    <Form.Check
+                      type='checkbox'
+                      label='Venda Efetuada'
+                      checked={sold}
+                      onChange={(e) => setSold(e.target.checked)}
+                    />
+                  </Form.Group>
                 </Form.Group>
-                <Form.Group controlId="sold">
-                  <Form.Check
-                    type='checkbox'
-                    label='Venda Efetuada'
-                    checked={sold}
-                    onChange={(e) => setSold(e.target.checked)}
+              </Row>
+              <Row className='mb-2'>
+                <Form.Group className="mb-2" controlId="comments">
+                  <Form.Control
+                    as="textarea"
+                    rows={2}
+                    placeholder="Observações"
+                    value={comments}
+                    onChange={(e) => setComments(e.target.value)}
                   />
                 </Form.Group>
               </Row>

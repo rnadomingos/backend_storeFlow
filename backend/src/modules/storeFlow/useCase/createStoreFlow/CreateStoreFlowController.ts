@@ -18,7 +18,8 @@ export class CreateStoreFlowController {
       id_store_segment,
       id_type_service,
       id_prospection,
-      id_social_media
+      id_social_media,
+      comments
     } = req.body;
 
     const id_user = req.user.id
@@ -38,7 +39,8 @@ export class CreateStoreFlowController {
       id_type_service,
       id_user,
       id_prospection,
-      id_social_media
+      id_social_media,
+      comments
     })
 
     return res.status(201).json({

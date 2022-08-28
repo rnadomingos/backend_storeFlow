@@ -26,7 +26,8 @@ export class StoreFlowRepositoryPostgres implements IStoreFlowRepository {
     id_type_service,
     id_user,
     id_prospection,
-    id_social_media
+    id_social_media,
+    comments
   }: ICreateStoreFlowDTO): Promise<void> {
 
     const newStoreFlow = this.repository.create({
@@ -43,7 +44,8 @@ export class StoreFlowRepositoryPostgres implements IStoreFlowRepository {
       id_type_service,
       id_user,
       id_prospection,
-      id_social_media
+      id_social_media,
+      comments
     })
 
     await this.repository.save(newStoreFlow)
@@ -64,7 +66,8 @@ export class StoreFlowRepositoryPostgres implements IStoreFlowRepository {
     id_type_service,
     id_user,
     id_prospection,
-    id_social_media
+    id_social_media,
+    comments
   }: IUpdateStoreFlowDTO): Promise<void> {
     const updateStoreFlow = this.repository.create({
       id,
@@ -81,7 +84,8 @@ export class StoreFlowRepositoryPostgres implements IStoreFlowRepository {
       id_type_service,
       id_user,
       id_prospection,
-      id_social_media
+      id_social_media,
+      comments
     })
     await this.repository.save(updateStoreFlow)
   }

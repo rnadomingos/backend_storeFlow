@@ -70,6 +70,7 @@ main {
   display: flex;
   flex-direction: column;
   padding: 0 10%;
+  border-width: 1px;
 }
 
 .flow button {
@@ -80,4 +81,8 @@ main {
 .flow a {
   width: 100px;
   align-items: center;
+}
+
+.flow hr {
+  color: darkgray;
 }

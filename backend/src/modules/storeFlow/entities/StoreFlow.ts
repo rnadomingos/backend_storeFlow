@@ -88,6 +88,11 @@ export class StoreFlow {
   })
   id_social_media: string
 
+  @Column({
+    nullable: true
+  })
+  comments: string
+
   constructor() {
     if (!this.id) {
       this.id = randomUUID();

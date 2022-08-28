@@ -29,6 +29,9 @@ export class CreateStoreFlowUseCase {
       if (!storeFlowData["id_social_media"]) {
         storeFlowData.id_social_media = null
       }
+      if (!storeFlowData["comments"]) {
+        storeFlowData.comments = null
+      }
       if (!storeFlowData[field]) {
         throw new ErrorHandler(`Params ${field} Missing`)
       }

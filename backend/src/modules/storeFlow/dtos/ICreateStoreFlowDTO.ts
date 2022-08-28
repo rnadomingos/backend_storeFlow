@@ -14,5 +14,6 @@ export interface ICreateStoreFlowDTO {
   id_user: string;
   id_prospection: string;
   id_social_media?: string;
+  comments?: string;
 
 }
