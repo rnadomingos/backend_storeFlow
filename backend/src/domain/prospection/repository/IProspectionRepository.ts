@@ -6,7 +6,7 @@ import { IProspection } from "../model/IProspection";
 export interface IProspectionRepository {
 
     create(data: ICreateProspectionDTO): Promise<void>;
-    list(): Promise<IProspection[]>;
+    list(args?: any, page?: number, rowsPerPage?: number): Promise<IProspection[]>;
     findById(id: string): Promise<IProspection>;
     findByName(name: string): Promise<IProspection>;
     update(data: IUpdateProspectionDTO): Promise<void>;

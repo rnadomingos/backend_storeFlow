@@ -4,7 +4,7 @@ import { IUpdateProspectionDTO } from '@domain/prospection/dto/IUpdateProspectio
 import { IProspection } from '@domain/prospection/model/IProspection';
 import { Prospection } from '@modules/prospection/entities/Prospection'
 import { IProspectionRepository } from 'domain/prospection/repository/IProspectionRepository'
-import { getRepository, Repository } from 'typeorm'
+import { getRepository, ILike, Repository } from 'typeorm'
 
 
 export class ProspectionRepositoryPostgres implements IProspectionRepository {
@@ -26,9 +26,15 @@ export class ProspectionRepositoryPostgres implements IProspectionRepository {
         await this.repository.save(newProspection)
     }
 
-    async list(): Promise<Prospection[]> {
+    async list(args?: any, page?: number, rowsPerPage?: number): Promise<IProspection[]> {
         return await this.repository.find({
-            relations: ["socialMedia"]
+            where: [
+                {name: ILike(`%${args}%`)},
+                {description: ILike(`%${args}%`)}
+            ],
+            relations: ["socialMedia"],
+            skip: rowsPerPage * (page -1),
+            take: rowsPerPage
         });
     }
 
@@ -37,7 +43,9 @@ export class ProspectionRepositoryPostgres implements IProspectionRepository {
     }
 
     async findByName(name: string): Promise<IProspection> {
-        return await this.repository.findOne({ name })
+        return await this.repository.findOne({ 
+            name: ILike(`${name}`)
+         })
     }
 
     async update({

@@ -12,7 +12,7 @@ services:
       - POSTGRES_PASSWORD=docker123456
       - POSTGRES_DB=db_store_flow
     volumes:
-      - ~/postgres-data:/var/lib/postgresql/data
+      - ~/.postgres-data:/var/lib/postgresql/data
 
   app:
     build: .
