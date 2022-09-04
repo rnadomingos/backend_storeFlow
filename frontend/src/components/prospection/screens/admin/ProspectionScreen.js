@@ -67,8 +67,8 @@ function ProspectionScreen({history}) {
             </Button>
           </Link>
         </Col>
-        <SearchBox url='admin/prospections'/>
       </Row>
+      <SearchBox url='admin/prospections'/>
       {loading
         ? (<Loader />)
         : 
@@ -112,7 +112,7 @@ function ProspectionScreen({history}) {
             <Pagination
               activePage={page}
               itemsCountPerPage={limit_per_page}
-              totalItemsCount={total}
+              totalItemsCount={total ? total : 1}
               onChange={setCurrentPage}
               itemClass="page-item"
               linkClass="page-link"

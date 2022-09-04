@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Button, Form } from 'react-bootstrap'
+import { Button, Col, Form } from 'react-bootstrap'
 import { useHistory } from 'react-router-dom'
 
 function SearchBox({url}) {
@@ -16,17 +16,19 @@ function SearchBox({url}) {
         }
     }
     return (
-        <Form onSubmit={submitHandler} inline>
-            <Form.Control
-                type='text'
-                name='q'
-                onChange={(e) => setKeyword(e.target.value)}
-                className='form-control mr-sm-2'
-            ></Form.Control>
-  
+        
+        <Form onSubmit={submitHandler} className="input-group">
+            <Col sm="5">
+                <Form.Control
+                    type='text'
+                    name='q'
+                    onChange={(e) => setKeyword(e.target.value)}
+                    className='form-control mr-sm-2'
+                ></Form.Control>
+            </Col>
             <Button
                 type='submit'
-                variant='light'
+                variant='secondary'
                 className='btn btn-secondary'
             >
                 <i className="fas fa-search"></i>
