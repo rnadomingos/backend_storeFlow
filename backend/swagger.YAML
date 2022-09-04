@@ -949,7 +949,8 @@ paths:
         200:
           description: "Success"
         401:
-          $ref: "#/components/responses/UnauthorizedError"                       
+          $ref: "#/components/responses/UnauthorizedError"  
+
   /prospections:
     post:
       tags:
@@ -983,6 +984,18 @@ paths:
       description: "List all Prospections"
       security:
         - bearerAuth: []
+      parameters:
+        - in: query
+          name: keyword
+          schema:
+            type: string
+          description: Search for name or description
+        - in: query
+          name: page
+          schema:
+            type: integer
+          description: Page navigation
+
       responses:
         201:
           description: "Success"

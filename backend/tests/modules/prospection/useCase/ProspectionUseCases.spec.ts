@@ -144,7 +144,7 @@ describe('Prospection use cases', () => {
 
   test('Should be able to list all prospections', async () => {
     const { findAllProspectionUseCase } = makeSut()
-    const prospections = await findAllProspectionUseCase.execute();
+    const {prospections} = await findAllProspectionUseCase.execute();
     expect(prospections.length).toBe(3);
   });
 
