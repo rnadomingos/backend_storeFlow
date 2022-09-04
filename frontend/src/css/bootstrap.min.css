@@ -5703,7 +5703,7 @@ fieldset:disabled .btn {
   display: block;
   color: #fff;
   text-decoration: none;
-  background-color: #18bc9c;
+  background-color: #253544;
   border: 0 solid transparent;
   transition: color .15s ease-in-out, background-color .15s ease-in-out, border-color .15s ease-in-out, box-shadow .15s ease-in-out
 }
@@ -5736,14 +5736,14 @@ fieldset:disabled .btn {
 .page-item.active .page-link {
   z-index: 3;
   color: #fff;
-  background-color: #0f7864;
+  background-color: #95a5a6;
   border-color: transparent
 }
 
 .page-item.disabled .page-link {
   color: #ecf0f1;
   pointer-events: none;
-  background-color: #3be6c4;
+  background-color: #253544;
   border-color: transparent
 }
 

@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import {
   Button,
   Col,
@@ -11,18 +11,24 @@ import {
 } from "react-redux";
 import { Link } from "react-router-dom";
 import { Loader } from "../../../layout/Loader";
-import { Message } from "../../../layout/Message";
+import { SearchBox } from "../../../layout/SearchBox";
 import { prospectionDeleteAction } from "../../actions/admin/prospectionDeleteAction";
 import { prospectionListAction } from "../../actions/prospectionListAction";
+import Pagination from "react-js-pagination"
 
 
-function ProspectionScreen() {
+function ProspectionScreen({history}) {
+
+  const [page, setPage] = useState(1)
 
   const {
-    error,
     loading,
-    prospection
+    prospection,
+    total,
+    limit_per_page
   } = useSelector(state => state.prospectionListReducer)
+
+  let keyword = history.location.search.split('=')[1]
 
   const {
     success: deleteSuccess
@@ -31,17 +37,21 @@ function ProspectionScreen() {
   const dispatch = useDispatch()
   
   useEffect(() => {
-    dispatch(prospectionListAction())
+    dispatch(prospectionListAction(page,keyword))
     if (deleteSuccess) {
       dispatch(prospectionListAction())
     }
-  }, [dispatch, deleteSuccess])
+  }, [dispatch, deleteSuccess, keyword, page])
 
   const deleteHandler = (id) => {
     if (window.confirm('Deseja deletar esta prospecção?')) {
         dispatch(prospectionDeleteAction(id))
     }
-}
+  }
+
+  function setCurrentPage(pageNumber) {
+    setPage(pageNumber)
+  }
 
   return (
     <div>
@@ -57,12 +67,11 @@ function ProspectionScreen() {
             </Button>
           </Link>
         </Col>
+        <SearchBox url='admin/prospections'/>
       </Row>
       {loading
         ? (<Loader />)
-        : error
-          ? (<Message variant='danger'>{error}</Message>)
-          :
+        : 
           <div>
             <Table striped bordered hover responsive className='table-md'>
               <thead>
@@ -100,7 +109,14 @@ function ProspectionScreen() {
 
             </Table>
 
-
+            <Pagination
+              activePage={page}
+              itemsCountPerPage={limit_per_page}
+              totalItemsCount={total}
+              onChange={setCurrentPage}
+              itemClass="page-item"
+              linkClass="page-link"
+            />
           </div>
       }
     </div >

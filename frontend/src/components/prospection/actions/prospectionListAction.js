@@ -3,7 +3,7 @@ import { PROSPECTION_LIST_FAIL, PROSPECTION_LIST_REQUEST, PROSPECTION_LIST_SUCCE
 
 
 
-export const prospectionListAction = () => async (dispatch, getState) => {
+export const prospectionListAction = (page, keyword = '') => async (dispatch, getState) => {
   try {
 
     dispatch({ type: PROSPECTION_LIST_REQUEST })
@@ -18,9 +18,10 @@ export const prospectionListAction = () => async (dispatch, getState) => {
         Authorization: `Berear ${userInfo.token}`
       }
     }
-
+const url = `/prospections?page=${page}&keyword=${keyword}`
+console.log(url);
     const { data } = await axios.get(
-      '/prospections/',
+      url,
       config
     )
 

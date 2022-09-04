@@ -122,8 +122,9 @@ function UpdateUserScreen({ history, match }) {
                 <Form.Select
 
                   value={id_store}
-                  onChange={(e) => setIdStore(e.target.value)}
+                  onChange={(e) => setIdStore(e.target.value)}s
                 >
+                  <option></option>
                   {stores.map(store => (
                     <option key={store.id}
                       value={store.id}
