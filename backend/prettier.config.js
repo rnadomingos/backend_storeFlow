@@ -1,3 +1,1 @@
-module.exports = {
-  singleQuote: false,
-};
+export const singleQuote = false

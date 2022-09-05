@@ -3,8 +3,6 @@ import { ICreateProspectionDTO } from "domain/prospection/dto/ICreateProspection
 import { IProspectionRepository } from "domain/prospection/repository/IProspectionRepository";
 import { inject, injectable } from "tsyringe";
 
-
-
 @injectable()
 export class CreateProspectionUseCase {
     constructor(
@@ -27,7 +25,6 @@ export class CreateProspectionUseCase {
             name,
             description
         });
-
 
     }
 }
