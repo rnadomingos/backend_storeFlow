@@ -3,7 +3,7 @@ import { IUpdateSellerDTO } from "@domain/seller/dto/IUpdateSellerDTO";
 import { ISeller } from "@domain/seller/model/ISeller";
 import { ISellerRepository } from "@domain/seller/repository/ISellerRepository";
 import { Seller } from "@modules/seller/entities/Seller";
-import { getRepository, Repository } from "typeorm";
+import { getRepository, ILike, Repository } from "typeorm";
 
 
 
@@ -62,8 +62,15 @@ export class SellerRepositoryPostgres implements ISellerRepository {
     await this.repository.save(newSeller)
   }
 
-  async list(): Promise<ISeller[]> {
-    return await this.repository.find()
+  async list(args?: any, page?: number, rowsPerPage?: number): Promise<ISeller[]> {
+    return await this.repository.find({
+      where: [
+        {name: ILike(`%${args}%`)},
+        {user_dms: ILike(`%${args}%`)}
+      ],
+      skip: rowsPerPage * (page -1),
+      take: rowsPerPage
+    })
   }
 
   async delete(id: string): Promise<void> {
