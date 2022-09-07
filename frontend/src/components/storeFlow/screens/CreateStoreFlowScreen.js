@@ -27,8 +27,6 @@ function CreateStoreFlowScreen({ history }) {
   const [id_store_segment, setId_segment] = useState('')
   const [id_social_media, setId_social_media] = useState('')
   const [socialMedia, setSocialMedia] = useState([])
-  const [disabled, setDisabled] = useState(true)
-
 
   const { userInfo } = useSelector(state => state.userLogin)
   const { error, loading, success } = useSelector(state => state.storeFlowCreateReducer)
@@ -69,13 +67,9 @@ function CreateStoreFlowScreen({ history }) {
     const { socialMedia } = prospMedia
     setSocialMedia(socialMedia)
 
-    if (socialMedia.length) {
-      setDisabled(false)
-    } else {
+    if (!socialMedia.length)
       setId_social_media('')
-      setDisabled(true)
-    }
-
+      
   })
 
   const submitHandler = (e) => {
@@ -197,7 +191,7 @@ function CreateStoreFlowScreen({ history }) {
                 <Form.Group as={Col}>
                   <FloatingLabel controlId="floatingSelectProspection" label="Mídia Social">
                     <Form.Select
-                      disabled={disabled}
+                      disabled={socialMedia.length ? false : true} //{disabled}
                       value={id_social_media}
                       onChange={(e) => setId_social_media(e.target.value)}
                     >
