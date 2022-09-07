@@ -436,6 +436,17 @@ paths:
       description: "List all sellers"
       security:
         - bearerAuth: []
+      parameters:
+        - in: query
+          name: keyword
+          schema:
+            type: string
+          description: Search for name or description
+        - in: query
+          name: page
+          schema:
+            type: integer
+          description: Page navigation        
       responses:
         201:
           description: "Success"
@@ -1006,7 +1017,6 @@ paths:
           schema:
             type: integer
           description: Page navigation
-
       responses:
         201:
           description: "Success"
