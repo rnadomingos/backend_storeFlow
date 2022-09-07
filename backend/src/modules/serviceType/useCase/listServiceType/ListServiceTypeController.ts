@@ -4,10 +4,11 @@ import { ListServiceTypeUseCase } from "./ListServiceTypeUseCase";
 
 export class ListServiceTypeController {
     async handle(req: Request, res: Response): Promise<Response> {
+        const {keyword, page} = req.query
 
         const listServiceTypeUseCase = container.resolve(ListServiceTypeUseCase)
-        const listService = await listServiceTypeUseCase.execute();
-        return res.json(listService);
+        const listService = await listServiceTypeUseCase.execute(keyword, Number(page));
 
+        return res.json(listService);
     }
 }

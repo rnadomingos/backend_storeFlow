@@ -1,7 +1,7 @@
 
 import { ServiceType } from "@modules/serviceType/entities/ServiceType";
 import { ICreateServiceTypeDTO } from "../../../../domain/serviceType/dto/ICreateServiceTypeDTO";
-import { getRepository, Repository } from "typeorm";
+import { getRepository, ILike, Repository } from "typeorm";
 import { IUpdateServiceTypeDTO } from "@domain/serviceType/dto/IUpdateServiceTypeDTO";
 import { IServiceTypeRepository } from "@domain/serviceType/repository/IServiceTypeRepository";
 import { IServiceType } from "@domain/serviceType/model/IServiceType";
@@ -10,7 +10,7 @@ import { IServiceType } from "@domain/serviceType/model/IServiceType";
 
 export class ServiceTypeRepositoryPostgres implements IServiceTypeRepository {
 
-    private repository: Repository<ServiceType>;
+    private repository: Repository<IServiceType>;
 
     constructor() {
         this.repository = getRepository(ServiceType);
@@ -29,8 +29,15 @@ export class ServiceTypeRepositoryPostgres implements IServiceTypeRepository {
 
     }
 
-    async list(): Promise<IServiceType[]> {
-        return await this.repository.find();
+    async list(args?: any, page?: number, rowsPerPage?: number): Promise<IServiceType[]> {
+        return await this.repository.find({
+            where: [
+                {name: ILike (`%${args}%`)},
+                {description: ILike(`%${args}%`)}
+            ],
+            skip: rowsPerPage * (page -1),
+            take: rowsPerPage
+        });
     }
 
     async findById(id: string): Promise<IServiceType> {
