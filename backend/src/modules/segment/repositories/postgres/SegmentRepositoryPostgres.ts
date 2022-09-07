@@ -1,5 +1,5 @@
 import { ICreateSegmentDTO } from "../../../../domain/segment/dto/ICreateSegmentDTO";
-import { getRepository, Repository } from "typeorm";
+import { getRepository, ILike, Repository } from "typeorm";
 import { ISegmentRepository } from "../../../../domain/segment/repository/ISegmentRepository";
 import { Segment } from "@modules/segment/entities/Segment";
 import { Store } from "@modules/store/entities/Store";
@@ -36,8 +36,15 @@ export class SegmentRepositoryPostgres implements ISegmentRepository {
         return this.repository.findOne({ id })
     }
 
-    async list(): Promise<ISegment[]> {
-        return this.repository.find()
+    async list(args?: any, page?: number, rowsPerPage?: number): Promise<ISegment[]> {
+        return this.repository.find({
+            where: [
+                {name: ILike(`%${args}%`)},
+                {description: ILike(`%${args}%`)}
+            ],
+            skip: rowsPerPage * (page-1),
+            take: rowsPerPage
+        })
     }
 
     async update({
