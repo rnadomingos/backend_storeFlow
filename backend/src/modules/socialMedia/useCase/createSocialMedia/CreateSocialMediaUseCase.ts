@@ -1,7 +1,7 @@
-import { ICreateSocialMediaDTO } from "@modules/socialMedia/dtos/ICreateSocialMediaDTO";
+import { ICreateSocialMediaDTO } from "@domain/socialMedia/dtos/ICreateSocialMediaDTO";
 import { ErrorHandler } from "@shared/errors/ErrorHandler";
 import { inject, injectable } from "tsyringe";
-import { ISocialMediaRepository } from "../../repositories/ISocialMediaRepository";
+import { ISocialMediaRepository } from "../../../../domain/socialMedia/repository/ISocialMediaRepository";
 
 @injectable()
 export class CreateSocialMediaUseCase {

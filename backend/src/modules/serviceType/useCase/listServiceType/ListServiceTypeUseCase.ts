@@ -1,5 +1,4 @@
 import { IServiceTypeRepository } from "@domain/serviceType/repository/IServiceTypeRepository";
-import { ServiceType } from "@modules/serviceType/entities/ServiceType";
 import { inject, injectable } from "tsyringe";
 import env from '@config/env'
 import { IServiceType } from "@domain/serviceType/model/IServiceType";

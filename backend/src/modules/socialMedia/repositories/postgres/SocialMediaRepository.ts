@@ -1,14 +1,14 @@
 
 import { SocialMedia } from "@modules/socialMedia/entities/SocialMedia"
-import { ICreateSocialMediaDTO } from "../../dtos/ICreateSocialMediaDTO"
-import { IUpdateSocialMediaDTO } from "../../dtos/IUpdateSocialMediaDTO"
-import { getRepository, Repository } from "typeorm"
-import { ISocialMediaRepository } from "../ISocialMediaRepository"
-import { IDisableEnableSocialMediaDTO } from "@modules/socialMedia/dtos/IDisableEnableSocialMediaDTO"
+import { ICreateSocialMediaDTO } from "../../../../domain/socialMedia/dtos/ICreateSocialMediaDTO"
+import { IUpdateSocialMediaDTO } from "../../../../domain/socialMedia/dtos/IUpdateSocialMediaDTO"
+import { getRepository, ILike, Repository } from "typeorm"
+import { ISocialMediaRepository } from "../../../../domain/socialMedia/repository/ISocialMediaRepository"
+import { ISocialMedia } from "@domain/socialMedia/model/ISocialMedia"
 
 export class SocialMediaRepositoryPostgres implements ISocialMediaRepository {
 
-    private repository: Repository<SocialMedia>;
+    private repository: Repository<ISocialMedia>;
 
     constructor() {
         this.repository = getRepository(SocialMedia);
@@ -28,16 +28,27 @@ export class SocialMediaRepositoryPostgres implements ISocialMediaRepository {
         await this.repository.save(newSocialMedia);
     }
 
-    async list(): Promise<SocialMedia[]> {
-        return await this.repository.find();
+    async list(args?: any, page?: number, rowsPerPage?: number): Promise<ISocialMedia[]> {
+        return await this.repository.find({
+            where: [
+                {name: ILike(`%${args}%`)},
+                {description: ILike(`%${args}%`)}
+            ],
+            skip: rowsPerPage *(page-1),
+            take: rowsPerPage
+        });
     }
 
-    async findById(id: string): Promise<SocialMedia> {
+    async findById(id: string): Promise<ISocialMedia> {
         return await this.repository.findOne({ id });
     }
 
-    async findByName(name: string): Promise<SocialMedia> {
-        return await this.repository.findOne({ name });
+    async findByName(name: string): Promise<ISocialMedia> {
+        return await this.repository.findOne({ 
+            where: [
+                {name: ILike(`%${name}%`) }
+            ]
+        });
     }
 
     async updateById({
@@ -61,15 +72,5 @@ export class SocialMediaRepositoryPostgres implements ISocialMediaRepository {
     async deleteById(id: string): Promise<void> {
         await this.repository.delete(id)
 
-    }
-    async disableEnableById({
-        id,
-        is_active
-    }: IDisableEnableSocialMediaDTO): Promise<void> {
-        await this.repository.update({
-            id
-        }, {
-            is_active
-        })
     }
 }

@@ -36,13 +36,13 @@ tags:
   description: "Create, list, update and list by user DMS"
 
 - name: "Segment"
-  description: "Create, Update, Disable-Enable, List All and List by Segment"
+  description: "Create, Update, List All and List by Segment"
 
 - name: "Service Type"
-  description: "Create, Update, Disable-Enable, List All and List by Service Type"  
+  description: "Create, Update, List All and List by Service Type"  
 
 - name: "Social Media"
-  description: "Create, Update, Disable-Enable, List All and List by Social Media"
+  description: "Create, Update, List All and List by Social Media"
 
 - name: "Prospection"
   description: "Create, Update, Delete, List All and List by Prospection ID"
@@ -452,7 +452,6 @@ paths:
           description: "Success"
         401:
           $ref: "#/components/responses/UnauthorizedError"
-
   /sellers/{user_dms}/store:
     get:
       tags: 
@@ -525,8 +524,7 @@ paths:
         200:
           description: "Success"
         401:
-          $ref: "#/components/responses/UnauthorizedError"   
-          
+          $ref: "#/components/responses/UnauthorizedError"             
     delete:
       tags: 
       - "Seller"
@@ -614,8 +612,7 @@ paths:
         201:
           description: "Success"
         401:
-          $ref: "#/components/responses/UnauthorizedError"               
-    
+          $ref: "#/components/responses/UnauthorizedError"                   
   /segments/filter?name={name}:
     get:
       tags: 
@@ -707,7 +704,6 @@ paths:
           description: "Success"
         401:
           $ref: "#/components/responses/UnauthorizedError"  
-
   /service-types/:
     post:
       tags:
@@ -830,7 +826,7 @@ paths:
         401:
           $ref: "#/components/responses/UnauthorizedError"      
 
-  /social-media/new:
+  /social-media:
     post:
       tags:
       - "Social Media"
@@ -859,7 +855,6 @@ paths:
           description: "Success"
         401:
           $ref: "#/components/responses/UnauthorizedError"
-  /social-media/list:
     get:
       tags: 
       - "Social Media"
@@ -867,32 +862,23 @@ paths:
       description: "List all Social Medias"
       security:
         - bearerAuth: []
+      parameters:
+        - in: query
+          name: keyword
+          schema:
+            type: string
+          description: Search for name or description       
+        - in: query
+          name: page
+          schema:
+            type: integer
+          description: Page navigation          
       responses:
         201:
           description: "Success"
         401:
           $ref: "#/components/responses/UnauthorizedError"
-  /social-media/get-id/{id}:
-    get:
-      tags: 
-      - "Social Media"
-      summary: "List Social Media by Id"
-      description: "List Social Media by Id"
-      security:
-        - bearerAuth: []
-      parameters: 
-        - in: path
-          name: ID
-          description: "Social Media Id"
-          schema:
-            type: string
-          required: true                  
-      responses:
-        200:
-          description: "Success"
-        401:
-          $ref: "#/components/responses/UnauthorizedError"
-  /social-media/get-name/{name}:
+  /social-media/filter?name={name}:
     get:
       tags: 
       - "Social Media"
@@ -902,7 +888,7 @@ paths:
         - bearerAuth: []
       parameters: 
         - in: path
-          name: ID
+          name: name
           description: "Social Media name"
           schema:
             type: string
@@ -912,7 +898,26 @@ paths:
           description: "Success"
         401:
           $ref: "#/components/responses/UnauthorizedError"          
-  /social-media/update/{id}:
+  /social-media/{id}:
+    get:
+      tags: 
+      - "Social Media"
+      summary: "List Social Media by Id"
+      description: "List Social Media by Id"
+      security:
+        - bearerAuth: []
+      parameters: 
+        - in: path
+          name: id
+          description: "Social Media Id"
+          schema:
+            type: string
+          required: true                  
+      responses:
+        200:
+          description: "Success"
+        401:
+          $ref: "#/components/responses/UnauthorizedError"
     put:
       tags: 
       - "Social Media"
@@ -943,27 +948,6 @@ paths:
           description: "Success"
         401:
           $ref: "#/components/responses/UnauthorizedError"
-  /social-media/update-status/{id}:
-    put:
-      tags: 
-      - "Social Media"
-      summary: "Enable or Disable Social Media by Id"
-      description: "Update status Social Media"
-      security:
-        - bearerAuth: []
-      parameters: 
-        - in: path
-          name: id
-          description: "Delete Id"
-          schema:
-            type: string
-          required: true                  
-      responses:
-        200:
-          description: "Success"
-        401:
-          $ref: "#/components/responses/UnauthorizedError"
-  /social-media/del/{id}:
     delete:
       tags: 
       - "Social Media"
@@ -983,7 +967,6 @@ paths:
           description: "Success"
         401:
           $ref: "#/components/responses/UnauthorizedError"  
-
   /prospections:
     post:
       tags:

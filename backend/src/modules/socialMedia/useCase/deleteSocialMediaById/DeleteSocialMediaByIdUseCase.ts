@@ -1,4 +1,4 @@
-import { ISocialMediaRepository } from "@modules/socialMedia/repositories/ISocialMediaRepository";
+import { ISocialMediaRepository } from "@domain/socialMedia/repository/ISocialMediaRepository"
 import { ErrorHandler } from "@shared/errors/ErrorHandler";
 import { inject, injectable } from "tsyringe";
 

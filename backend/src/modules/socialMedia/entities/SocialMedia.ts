@@ -1,4 +1,5 @@
 
+import { ISocialMedia } from "@domain/socialMedia/model/ISocialMedia";
 import { Prospection } from "@modules/prospection/entities/Prospection";
 import { randomUUID } from "crypto"
 import { Column, CreateDateColumn, Entity, JoinColumn, ManyToOne, PrimaryColumn } from "typeorm";
@@ -7,7 +8,7 @@ import { Column, CreateDateColumn, Entity, JoinColumn, ManyToOne, PrimaryColumn 
 
 @Entity("social_media")
 
-export class SocialMedia {
+export class SocialMedia implements ISocialMedia {
     @PrimaryColumn()
     id: string;
 
