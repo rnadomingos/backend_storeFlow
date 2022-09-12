@@ -1,25 +1,26 @@
-import { getRepository, Repository } from "typeorm";
-import { IStoreRepository } from "../IStoreRepository";
-import { ICreateStoreDTO } from "../../dtos/ICreateStoreDTO";
+import { getRepository, ILike, Repository } from "typeorm";
+import { ICreateStoreDTO } from "@domain/store/dtos/ICreateStoreDTO";
 import { Store } from "@modules/store/entities/Store";
-import { IUpdateStoreDto } from "@modules/store/dtos/IUpdateStoreDTO";
-import { IJoinStoreSegmentDTO } from "@modules/store/dtos/IJoinStoreSegmentDTO";
-import { ISeparateStoreSegmentDTO } from "@modules/store/dtos/ISeparateStoreSegmentDTO";
+import { IUpdateStoreDto } from "@domain/store/dtos/IUpdateStoreDTO";
+import { IJoinStoreSegmentDTO } from "@domain/store/dtos/IJoinStoreSegmentDTO";
+import { ISeparateStoreSegmentDTO } from "@domain/store/dtos/ISeparateStoreSegmentDTO";
+import { IStoreRepository } from "@domain/store/repository/IStoreRepository";
+import { IStore } from "@domain/store/model/IStore"
 
 
 export class StoreRepositoryPostgres implements IStoreRepository {
 
-  private repository: Repository<Store>;
+  private repository: Repository<IStore>;
 
   constructor() {
     this.repository = getRepository(Store);
   }
 
-  async findById(id: string): Promise<Store> {
+  async findById(id: string): Promise<IStore> {
     return await this.repository.findOne({ id })
   }
 
-  async findByCNPJ(cnpj: string): Promise<Store> {
+  async findByCNPJ(cnpj: string): Promise<IStore> {
     return this.repository.findOne({
       where: { cnpj, is_active: true }
     })
@@ -37,11 +38,18 @@ export class StoreRepositoryPostgres implements IStoreRepository {
     await this.repository.save(newStore)
   }
 
-  async list(): Promise<Store[]> {
-    return await this.repository.find()
+  async list(args?: any, page?: number, rowsPerPage?: number): Promise<IStore[]> {
+    return await this.repository.find({
+      where: [
+        {name: ILike(`%${args}%`)},
+        {brand: ILike(`%${args}%`)}
+      ],
+      skip: rowsPerPage *(page-1),
+      take: rowsPerPage
+    })
   }
 
-  async listSellers(id: string): Promise<Store> {
+  async listSellers(id: string): Promise<IStore> {
     return await this.repository.findOne({
       relations: ["sellers"],
       where: { id }
@@ -78,7 +86,7 @@ export class StoreRepositoryPostgres implements IStoreRepository {
       .add(segmentId)
   }
 
-  async getSegmentByStoreId(id: string): Promise<Store> {
+  async getSegmentByStoreId(id: string): Promise<IStore> {
     return await this.repository.findOne({
       where: {
         id

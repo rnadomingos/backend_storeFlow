@@ -6,10 +6,10 @@ import { ListStoreUseCase } from "./ListStoreUseCase"
 export class ListStoreController {
 
   async handle(req: Request, res: Response): Promise<Response> {
+    const { keyword, page} = req.query
 
     const listStoreUseCase = container.resolve(ListStoreUseCase);
-
-    const list = await listStoreUseCase.execute();
+    const list = await listStoreUseCase.execute(keyword, Number(page));
     return res.json(list);
   }
 }

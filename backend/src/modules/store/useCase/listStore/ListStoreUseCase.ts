@@ -1,7 +1,14 @@
-import { Store } from "../../entities/Store";
-import { IStoreRepository } from "modules/store/repositories/IStoreRepository";
+import { IStoreRepository } from "@domain/store/repository/IStoreRepository";
 import { inject, injectable } from "tsyringe";
+import { ErrorHandler } from "@shared/errors/ErrorHandler";
+import { IStore } from "@domain/store/model/IStore";
+import env from "@config/env";
 
+interface IResponse {
+  total: number;
+  limit_per_page: number;
+  store: IStore[];
+}
 
 @injectable()
 export class ListStoreUseCase {
@@ -11,8 +18,18 @@ export class ListStoreUseCase {
     private storeRepository: IStoreRepository
   ) { }
 
-  async execute(): Promise<Store[]> {
-    const listStore = await this.storeRepository.list();
-    return listStore;
+  async execute(args: any = '', page: number = 1): Promise<IResponse> {
+    const rowsPerPage = env.register_per_page
+    const store = await this.storeRepository.list(args, page, rowsPerPage);
+    const total = (await this.storeRepository.list(args)).length
+
+    if (!store) {
+      throw new ErrorHandler('Store not found!');
+    }
+    return {
+      total,
+      limit_per_page: rowsPerPage,
+      store
+    }
   }
 }

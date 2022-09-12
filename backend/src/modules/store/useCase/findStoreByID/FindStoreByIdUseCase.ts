@@ -1,5 +1,5 @@
-import { Store } from "@modules/store/entities/Store";
-import { IStoreRepository } from "@modules/store/repositories/IStoreRepository";
+import { IStore } from "@domain/store/model/IStore";
+import { IStoreRepository } from "@domain/store/repository/IStoreRepository";
 import { inject, injectable } from "tsyringe";
 
 
@@ -10,7 +10,7 @@ export class FindStoreByIdUseCase {
     private storeRepository: IStoreRepository
   ) { }
 
-  async execute(id: string): Promise<Store> {
+  async execute(id: string): Promise<IStore> {
     const store = await this.storeRepository.findById(id);
     return store;
   }

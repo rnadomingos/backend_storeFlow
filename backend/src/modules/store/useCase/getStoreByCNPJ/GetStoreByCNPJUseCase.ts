@@ -1,5 +1,5 @@
-import { Store } from "@modules/store/entities/Store";
-import { IStoreRepository } from "@modules/store/repositories/IStoreRepository";
+import { IStore } from "@domain/store/model/IStore";
+import { IStoreRepository } from "@domain/store/repository/IStoreRepository";
 import { inject, injectable } from "tsyringe";
 
 
@@ -10,7 +10,7 @@ export class GetStoreByCNPJUseCase {
     private storeRepository: IStoreRepository
   ) { }
 
-  async execute(cnpj: string): Promise<Store> {
+  async execute(cnpj: string): Promise<IStore> {
     const store = await this.storeRepository.findByCNPJ(cnpj);
     return store;
   }

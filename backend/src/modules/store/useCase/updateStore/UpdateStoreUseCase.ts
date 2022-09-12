@@ -1,5 +1,5 @@
-import { IUpdateStoreDto } from "@modules/store/dtos/IUpdateStoreDTO";
-import { IStoreRepository } from "@modules/store/repositories/IStoreRepository";
+import { IUpdateStoreDto } from "@domain/store/dtos/IUpdateStoreDTO";
+import { IStoreRepository } from "@domain/store/repository/IStoreRepository";
 import { ErrorHandler } from "@shared/errors/ErrorHandler";
 import { inject, injectable } from "tsyringe";
 

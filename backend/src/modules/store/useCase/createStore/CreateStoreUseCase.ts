@@ -1,7 +1,7 @@
-import { ICreateStoreDTO } from "@modules/store/dtos/ICreateStoreDTO";
+import { ICreateStoreDTO } from "@domain/store/dtos/ICreateStoreDTO";
 import { ErrorHandler } from "@shared/errors/ErrorHandler";
 import { inject, injectable } from "tsyringe";
-import { IStoreRepository } from "../../repositories/IStoreRepository";
+import { IStoreRepository } from "../../../../domain/store/repository/IStoreRepository";
 
 
 @injectable()

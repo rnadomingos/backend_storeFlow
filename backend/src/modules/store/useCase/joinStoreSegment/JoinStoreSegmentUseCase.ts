@@ -1,5 +1,5 @@
-import { IJoinStoreSegmentDTO } from "@modules/store/dtos/IJoinStoreSegmentDTO";
-import { IStoreRepository } from "@modules/store/repositories/IStoreRepository";
+import { IJoinStoreSegmentDTO } from "@domain/store/dtos/IJoinStoreSegmentDTO";
+import { IStoreRepository } from '@domain/store/repository/IStoreRepository';
 import { inject, injectable } from "tsyringe";
 
 

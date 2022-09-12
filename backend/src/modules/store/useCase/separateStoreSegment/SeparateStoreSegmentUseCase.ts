@@ -1,6 +1,6 @@
 
-import { ISeparateStoreSegmentDTO } from "@modules/store/dtos/ISeparateStoreSegmentDTO";
-import { IStoreRepository } from "@modules/store/repositories/IStoreRepository";
+import { ISeparateStoreSegmentDTO } from "@domain/store/dtos/ISeparateStoreSegmentDTO";
+import { IStoreRepository } from "@domain/store/repository/IStoreRepository";
 import { inject, injectable } from "tsyringe";
 
 
