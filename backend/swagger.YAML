@@ -233,7 +233,7 @@ paths:
           success: true
         401:
           $ref: "#/components/responses/UnauthorizedError"                    
-  /stores/new:
+  /stores:
     post:
       tags: 
       - "Store"
@@ -261,7 +261,6 @@ paths:
           success: true
         401:
           $ref: "#/components/responses/UnauthorizedError"
-  /stores:
     get:
       tags: 
       - "Store"
@@ -269,11 +268,42 @@ paths:
       description: "List all stores"
       security:
         - bearerAuth: []
+      parameters:
+        - in: query
+          name: keyword
+          schema:
+            type: string
+          description: Search for name or description
+        - in: query
+          name: page
+          schema:
+            type: integer
+          description: Page navigation        
       responses:
         201:
           success: true
         401:
           $ref: "#/components/responses/UnauthorizedError"
+  /stores/{cnpj}:
+    get:
+      tags: 
+      - "Store"
+      summary: "List store by CNPJ"
+      description: "List store by CNPJ"
+      security:
+        - bearerAuth: []
+      parameters: 
+        - in: path
+          name: cnpj
+          description: "CNPJ Store"
+          schema:
+            type: string
+          required: true                  
+      responses:
+        200:
+          description: "Success"
+        401:
+          $ref: "#/components/responses/UnauthorizedError"      
   /stores/list-sellers/{id}:
     get:
       tags: 
@@ -294,7 +324,27 @@ paths:
           description: "Success"
         401:
           $ref: "#/components/responses/UnauthorizedError"      
-  /stores/update/{id}:
+  /stores/list-segment/{id_store}:
+    get:
+      tags: 
+      - "Store"
+      summary: "List Store and Segment Relationship by store Id"
+      description: "List Store and Segment by store Id"
+      security:
+        - bearerAuth: []
+      parameters: 
+        - in: path
+          name: id_store
+          description: "Store Id"
+          schema:
+            type: string
+          required: true                  
+      responses:
+        200:
+          description: "Success"
+        401:
+          $ref: "#/components/responses/UnauthorizedError"          
+  /stores/{id}:
     put:
       tags: 
       - "Store"
@@ -379,26 +429,6 @@ paths:
           description: "Success"
         401:
           $ref: "#/components/responses/UnauthorizedError"                  
-  /stores/get-segment/{id_store}:
-    get:
-      tags: 
-      - "Store"
-      summary: "List Store and Segment Relationship by store Id"
-      description: "List Store and Segment by store Id"
-      security:
-        - bearerAuth: []
-      parameters: 
-        - in: path
-          name: id_store
-          description: "Store Id"
-          schema:
-            type: string
-          required: true                  
-      responses:
-        200:
-          description: "Success"
-        401:
-          $ref: "#/components/responses/UnauthorizedError"
   /sellers:
     post:
       tags:

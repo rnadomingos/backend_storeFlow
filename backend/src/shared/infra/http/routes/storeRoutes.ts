@@ -23,16 +23,14 @@ const getSegmentByStoreIdController = new GetSegmentByStoreIdController();
 const separateStoreSegmentController = new SeparateStoreSegmentController();
 const findStoreByIdController = new FindStoreByIdController();
 
-storeRoutes.post("/new", isAuthenticated, createStoreController.handle);
+storeRoutes.post("/", isAuthenticated, createStoreController.handle);
 storeRoutes.get("/", isAuthenticated, listStoreController.handle);
 storeRoutes.get("/list-sellers/:storeId", isAuthenticated, listSellersStoreController.handle);
-storeRoutes.put("/update/:id", isAuthenticated, updateStoreController.handle);
+storeRoutes.put("/:id", isAuthenticated, updateStoreController.handle);
 storeRoutes.get("/:cnpj", isAuthenticated, getStoreByCNPJController.handle);
-storeRoutes.post("/joinStoreSegment", isAuthenticated, joinStoreSegmentController.handle)
-storeRoutes.get("/get-segment/:id_store", isAuthenticated, getSegmentByStoreIdController.handle)
-storeRoutes.post("/separateStoreSegment", isAuthenticated, separateStoreSegmentController.handle)
-
-
 storeRoutes.get("/detail/:storeId", isAuthenticated, findStoreByIdController.handle);
+storeRoutes.post("/joinStoreSegment", isAuthenticated, joinStoreSegmentController.handle)
+storeRoutes.get("/list-segment/:id_store", isAuthenticated, getSegmentByStoreIdController.handle)
+storeRoutes.post("/separateStoreSegment", isAuthenticated, separateStoreSegmentController.handle)
 
 export { storeRoutes }
