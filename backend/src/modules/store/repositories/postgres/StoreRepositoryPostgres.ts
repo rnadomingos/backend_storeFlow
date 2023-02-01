@@ -10,7 +10,7 @@ import { IStore } from "@domain/store/model/IStore"
 
 export class StoreRepositoryPostgres implements IStoreRepository {
 
-  private repository: Repository<IStore>;
+  private repository: Repository<Store>;
 
   constructor() {
     this.repository = getRepository(Store);

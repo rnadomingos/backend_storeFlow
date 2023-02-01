@@ -1,12 +1,13 @@
-import { ICreateStoreFlowDTO } from "@modules/storeFlow/dtos/ICreateStoreFlowDTO";
-import { IUpdateStoreFlowDTO } from "@modules/storeFlow/dtos/IUpdateStoreFlowDTO";
+import { IStoreFlowRepository } from "../../../../domain/storeFlow/repository/IStoreFlowReposiotry";
+import { ICreateStoreFlowDTO } from "@domain/storeFlow/dtos/ICreateStoreFlowDTO";
+import { IUpdateStoreFlowDTO } from "@domain/storeFlow/dtos/IUpdateStoreFlowDTO";
+import { IStoreFlow } from '@domain/storeFlow/model/IStoreFlow'
 import { StoreFlow } from "@modules/storeFlow/entities/StoreFlow";
-import { getRepository, Repository } from "typeorm";
-import { IStoreFlowRepository } from "../IStoreFlowReposiotry";
+import { getRepository, ILike, Repository } from "typeorm";
 
 export class StoreFlowRepositoryPostgres implements IStoreFlowRepository {
 
-  private repository: Repository<StoreFlow>;
+  private repository: Repository<IStoreFlow>;
 
   constructor() {
     this.repository = getRepository(StoreFlow);
@@ -90,12 +91,19 @@ export class StoreFlowRepositoryPostgres implements IStoreFlowRepository {
     await this.repository.save(updateStoreFlow)
   }
 
-  async findById(id: string): Promise<StoreFlow> {
+  async findById(id: string): Promise<IStoreFlow> {
     return await this.repository.findOne(id)
   }
 
-  async list(): Promise<StoreFlow[]> {
-    return await this.repository.find()
+  async list(args?: any, page?: number, rowsPerPage?: number): Promise<IStoreFlow[]> {
+    return await this.repository.find({
+      where: [
+        {name: ILike(`%${args}%`)},
+        {brand: ILike(`%${args}%`)}
+      ],
+      skip: rowsPerPage *(page-1),
+      take: rowsPerPage
+    })
   }
 
 }

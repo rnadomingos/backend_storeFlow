@@ -1,4 +1,4 @@
-import { IUpdateStoreFlowDTO } from "@modules/storeFlow/dtos/IUpdateStoreFlowDTO";
+import { IUpdateStoreFlowDTO } from "@domain/storeFlow/dtos/IUpdateStoreFlowDTO";
 import { IStoreFlowRepository } from "@modules/storeFlow/repositories/IStoreFlowReposiotry";
 import { ErrorHandler } from "@shared/errors/ErrorHandler";
 import { inject, injectable } from "tsyringe";

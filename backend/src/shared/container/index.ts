@@ -1,6 +1,6 @@
 import "@shared/container/providers";
 import { container } from "tsyringe";
-import { IStoreRepository } from "@modules/store/repositories/IStoreRepository";
+import { IStoreRepository } from "@domain/store/repository/IStoreRepository";
 import { StoreRepositoryPostgres } from "@modules/store/repositories/postgres/StoreRepositoryPostgres";
 import { SellerRepositoryPostgres } from "@modules/seller/repositories/postgres/SellerRepository";
 import { SegmentRepositoryPostgres } from "@modules/segment/repositories/postgres/SegmentRepositoryPostgres";
@@ -13,7 +13,7 @@ import { UserRepositoryPostgres } from "@modules/user/repositories/postgres/User
 import { IUserTokenRepository } from "@modules/user/repositories/IUserTokenRepositoryPostgres";
 import { UserTokenRepositoryPostgres } from "@modules/user/repositories/postgres/UserTokenRepositoryPostgres";
 import { StoreFlowRepositoryPostgres } from "@modules/storeFlow/repositories/postgres/StoreFlowRepositoryPostgres";
-import { IStoreFlowRepository } from "@modules/storeFlow/repositories/IStoreFlowReposiotry";
+import { IStoreFlowRepository } from "@domain/storeFlow/repository/IStoreFlowReposiotry";
 import { ISellerRepository } from "@domain/seller/repository/ISellerRepository";
 import { ISegmentRepository } from "@domain/segment/repository/ISegmentRepository";
 import { IProspectionRepository } from "@domain/prospection/repository/IProspectionRepository";
