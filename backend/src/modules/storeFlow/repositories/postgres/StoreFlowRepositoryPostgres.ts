@@ -98,8 +98,8 @@ export class StoreFlowRepositoryPostgres implements IStoreFlowRepository {
   async list(args?: any, page?: number, rowsPerPage?: number): Promise<IStoreFlow[]> {
     return await this.repository.find({
       where: [
-        {name: ILike(`%${args}%`)},
-        {brand: ILike(`%${args}%`)}
+        {client_name: ILike(`%${args}%`)},
+        {comments: ILike(`%${args}%`)}
       ],
       skip: rowsPerPage *(page-1),
       take: rowsPerPage
