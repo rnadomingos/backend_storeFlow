@@ -7,6 +7,7 @@ import { generateToken, optionsToCookie } from "@shared/container/providers/util
 
 interface IResponse {
   user: {
+    id: string;
     name: string;
     user_dms: string;
     email: string;
@@ -50,6 +51,7 @@ export class AuthenticateUseCase {
       token,
       options,
       user: {
+        id: user.id,
         name: user.name,
         user_dms: user.user_dms,
         email: user.email,
