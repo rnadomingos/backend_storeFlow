@@ -28,10 +28,14 @@ export class StoreFlow {
   @Column({ type: 'date' })
   date: string;
 
-  @Column()
-  test_driver: boolean;
+  @Column({
+    default: false
+  })
+  test_drive: boolean;
 
-  @Column()
+  @Column({
+    default: false
+  })
   sold: boolean;
 
   @CreateDateColumn()
