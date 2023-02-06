@@ -10,9 +10,9 @@ const createStoreFlowController = new CreateStoreFlowController()
 const listStoreFlowController = new ListStoreFlowController();
 const updateStoreFlowController = new UpdateStoreFlowController()
 
-storeFlowRoutes.post("/new", isAuthenticated, createStoreFlowController.handle);
-storeFlowRoutes.get("/list", isAuthenticated, listStoreFlowController.handle);
-storeFlowRoutes.patch("/update/:id", isAuthenticated, updateStoreFlowController.handle);
+storeFlowRoutes.post("/", isAuthenticated, createStoreFlowController.handle);
+storeFlowRoutes.get("/", isAuthenticated, listStoreFlowController.handle);
+storeFlowRoutes.patch("/:id", isAuthenticated, updateStoreFlowController.handle);
 
 
 export { storeFlowRoutes }
