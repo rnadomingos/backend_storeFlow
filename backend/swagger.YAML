@@ -593,7 +593,6 @@ paths:
           description: "Success"
         401:
           $ref: "#/components/responses/UnauthorizedError"
-
   /segments:
     post:
       tags:
@@ -784,7 +783,6 @@ paths:
           description: "Success"
         401:
           $ref: "#/components/responses/UnauthorizedError"
-
   /service-types/{id}:
     get:
       tags: 
@@ -855,7 +853,6 @@ paths:
           description: "Success"
         401:
           $ref: "#/components/responses/UnauthorizedError"      
-
   /social-media:
     post:
       tags:
@@ -1046,7 +1043,6 @@ paths:
           description: "Success"
         401:
           $ref: "#/components/responses/UnauthorizedError"
-
   /prospections/{id}:
     get:
       tags: 
@@ -1118,7 +1114,6 @@ paths:
           description: "Success"
         401:
           $ref: "#/components/responses/UnauthorizedError"
-
   /prospections/filter?name={name}:
     get:
       tags: 
@@ -1139,7 +1134,6 @@ paths:
           description: "Success"
         401:
           $ref: "#/components/responses/UnauthorizedError"          
-
   /store-flow:
     post:
       tags: 
