@@ -1140,4 +1140,143 @@ paths:
         401:
           $ref: "#/components/responses/UnauthorizedError"          
 
-                 
+  /store-flow:
+    post:
+      tags: 
+      - "Store Flow"
+      summary: "Create a new customer"
+      description: "Create a new customer record"
+      security:
+        - bearerAuth: []
+      requestBody:
+        content: 
+          application/json:
+            schema:
+              type: "object"
+              required:
+                - client_name
+                - client_email
+                - client_phone
+                - time
+                - date
+                - id_store
+                - id_seller
+                - id_store_segment
+                - id_type_service
+                - id_user
+                - id_prospection
+              properties: 
+                client_name: 
+                  type: string
+                client_email: 
+                  type: string
+                client_phone: 
+                  type: string
+                time: 
+                  type: time
+                date: 
+                  type: date
+                test_driver: 
+                  type: boolean
+                sold: 
+                  type: boolean
+                id_store: 
+                  type: string
+                id_seller: 
+                  type: string
+                id_store_segment: 
+                  type: string
+                id_type_service: 
+                  type: string
+                id_user: 
+                  type: string
+                id_prospection: 
+                  type: string
+                id_social_media: 
+                  type: string
+                comments: 
+                  type: string
+      responses:
+        201:
+          success: true
+        401:
+          $ref: "#/components/responses/UnauthorizedError"
+    get:
+      tags: 
+      - "Store Flow"
+      summary: "List StoreFlow"
+      description: "List all customers who passed by the store"
+      security:
+        - bearerAuth: []
+      parameters:
+        - in: query
+          name: keyword
+          schema:
+            type: string
+          description: Search for custumer name or comment
+        - in: query
+          name: page
+          schema:
+            type: integer
+          description: Page navigation        
+      responses:
+        201:
+          success: true
+        401:
+          $ref: "#/components/responses/UnauthorizedError"
+  /store-flow/{id}:
+    patch:
+      tags: 
+      - "Store Flow"
+      summary: "Updates customer data that passed by the store"
+      description: "Updates customer data that passed by the store"
+      security:
+        - bearerAuth: []
+      parameters: 
+        - in: path
+          name: id
+          description: Customer ID that passed the store
+          schema:
+            type: string
+          required: true       
+      requestBody:
+        content: 
+          application/json:
+            schema:
+              type: "object"
+              properties: 
+                client_name: 
+                  type: string
+                client_email: 
+                  type: string
+                client_phone: 
+                  type: string
+                time: 
+                  type: time
+                date: 
+                  type: date
+                test_driver: 
+                  type: boolean
+                sold: 
+                  type: boolean
+                id_store: 
+                  type: string
+                id_seller: 
+                  type: string
+                id_store_segment: 
+                  type: string
+                id_type_service: 
+                  type: string
+                id_user: 
+                  type: string
+                id_prospection: 
+                  type: string
+                id_social_media: 
+                  type: string
+                comments: 
+                  type: string
+      responses:
+        201:
+          success: true
+        401:
+          $ref: "#/components/responses/UnauthorizedError"
