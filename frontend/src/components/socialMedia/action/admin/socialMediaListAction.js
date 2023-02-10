@@ -3,8 +3,9 @@ import {
   SOCIAL_MEDIA_LIST_FAIL, SOCIAL_MEDIA_LIST_REQUEST, SOCIAL_MEDIA_LIST_SUCCESS
 } from '../../constants/socialMediaConstants'
 
-export const socialMediaListAction = () => async (dispatch, getState) => {
+export const socialMediaListAction = (page, keyword = '') => async (dispatch, getState) => {
   try {
+
     dispatch({
       type: SOCIAL_MEDIA_LIST_REQUEST
     })
@@ -20,10 +21,14 @@ export const socialMediaListAction = () => async (dispatch, getState) => {
       }
     }
 
+    const url = `/social-media?page=${page}&keyword=${keyword}`
+    
+    console.log(url);
+    
     const {
       data
     } = await axios.get(
-      `http://localhost:3333/social-media/list`,
+      url,
       config
     )
 

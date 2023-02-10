@@ -1,9 +1,7 @@
 import {
   SOCIAL_MEDIA_LIST_FAIL,
   SOCIAL_MEDIA_LIST_REQUEST,
-  SOCIAL_MEDIA_LIST_SUCCESS,
-  SOCIAL_MEDIA_LIST_RESET,
-  SOCIAL_MEDIA_CREATE_RESET
+  SOCIAL_MEDIA_LIST_SUCCESS
 } from '../../constants/socialMediaConstants'
 
 export const socialMediaListReducer = (state = { socialMedia: [] }, action) => {
@@ -17,7 +15,9 @@ export const socialMediaListReducer = (state = { socialMedia: [] }, action) => {
     case SOCIAL_MEDIA_LIST_SUCCESS:
       return {
         loading: false,
-        socialMedia: action.payload
+        socialMedia: action.payload,
+        total: action.payload.total,
+        limit_per_page: action.payload.limit_per_page
       }
 
     case SOCIAL_MEDIA_LIST_FAIL:

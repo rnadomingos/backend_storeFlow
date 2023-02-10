@@ -1,26 +1,34 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { Button, Col, Row, Table } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { Loader } from "../../../layout/Loader";
-import { Message } from "../../../layout/Message";
-import {
-  socialMediaListAction
-} from "../../action/admin/socialMediaListAction"
+import Pagination from "react-js-pagination"
+import { socialMediaListAction } from "../../action/admin/socialMediaListAction"
+import { SearchBox } from '../../../layout/SearchBox'
 
-function SocialMediaListScreen() {
+function SocialMediaListScreen({history}) {
 
-  const dispatch = useDispatch()
-  const socialMediaList = useSelector(state => state.socialMediaListReducer)
+  const[page, setPage] = useState(1)
+  
   const {
-    error,
     loading,
-    socialMedia
-  } = socialMediaList
+    socialMedia,
+    total,
+    limit_per_page
+  } = useSelector(state => state.socialMediaListReducer)
+
+  let keyword = history.location.search.split('=')[1]
+  
+  const dispatch = useDispatch()
 
   useEffect(() => {
-    dispatch(socialMediaListAction())
-  }, [dispatch])
+    dispatch(socialMediaListAction(page, keyword))
+  }, [dispatch, keyword, page])
+
+  function setCurrentPage(pageNumber) {
+    setPage(pageNumber)
+  }
 
   return (
     <div>
@@ -37,11 +45,10 @@ function SocialMediaListScreen() {
           </Link>
         </Col>
       </Row>
+      <SearchBox url='admin/social-medias'/>
       {loading
         ? (<Loader />)
-        : error
-          ? (<Message variant='danger'>{error}</Message>)
-          : (
+          : 
             <div>
               <Table striped bordered hover responsive className='table-md'>
                 <thead>
@@ -55,7 +62,7 @@ function SocialMediaListScreen() {
                 </thead>
 
                 <tbody>
-                  {socialMedia.map(socialMedia => (
+                  {socialMedia.socialMedia.map(socialMedia => (
                     <tr key={socialMedia.id}>
                       <td>{socialMedia.name.toUpperCase()}</td>
                       <td>{socialMedia.description}</td>
@@ -77,10 +84,15 @@ function SocialMediaListScreen() {
                 </tbody>
 
               </Table>
-
-
+              <Pagination
+              activePage={page}
+              itemsCountPerPage={limit_per_page}
+              totalItemsCount={total ? total : 1}
+              onChange={setCurrentPage}
+              itemClass="page-item"
+              linkClass="page-link"
+            />
             </div>
-          )
       }
     </div >
 
