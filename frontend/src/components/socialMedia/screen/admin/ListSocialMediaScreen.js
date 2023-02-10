@@ -18,8 +18,10 @@ function SocialMediaListScreen({history}) {
     limit_per_page
   } = useSelector(state => state.socialMediaListReducer)
 
+  const dataMedia = socialMedia.socialMedia
+
   let keyword = history.location.search.split('=')[1]
-  
+
   const dispatch = useDispatch()
 
   useEffect(() => {
@@ -62,7 +64,7 @@ function SocialMediaListScreen({history}) {
                 </thead>
 
                 <tbody>
-                  {socialMedia.socialMedia.map(socialMedia => (
+                  {dataMedia.map(socialMedia => (
                     <tr key={socialMedia.id}>
                       <td>{socialMedia.name.toUpperCase()}</td>
                       <td>{socialMedia.description}</td>

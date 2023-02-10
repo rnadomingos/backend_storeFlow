@@ -23,8 +23,6 @@ export const socialMediaListAction = (page, keyword = '') => async (dispatch, ge
 
     const url = `/social-media?page=${page}&keyword=${keyword}`
     
-    console.log(url);
-    
     const {
       data
     } = await axios.get(
