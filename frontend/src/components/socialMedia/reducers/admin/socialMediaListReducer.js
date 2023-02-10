@@ -15,7 +15,7 @@ export const socialMediaListReducer = (state = { socialMedia: [] }, action) => {
     case SOCIAL_MEDIA_LIST_SUCCESS:
       return {
         loading: false,
-        socialMedia: action.payload,
+        socialMedia: action.payload.socialMedia,
         total: action.payload.total,
         limit_per_page: action.payload.limit_per_page
       }
