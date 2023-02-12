@@ -2,7 +2,7 @@ import axios from 'axios'
 import { SERVICE_TYPE_LIST_FAIL, SERVICE_TYPE_LIST_REQUEST, SERVICE_TYPE_LIST_SUCCESS } from '../constants/serviceTypeConstant'
 
 
-export const serviceTypeListAction = () => async (dispatch, getState) => {
+export const serviceTypeListAction = (page, keyword = '') => async (dispatch, getState) => {
   try {
 
     dispatch({ type: SERVICE_TYPE_LIST_REQUEST })
@@ -19,7 +19,7 @@ export const serviceTypeListAction = () => async (dispatch, getState) => {
     }
 
     const { data } = await axios.get(
-      `/service-types/`,
+      `/service-types?page=${page}&keyword=${keyword}`,
       config
     )
 

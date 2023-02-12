@@ -1,35 +1,47 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
+import { useAlert } from 'react-alert'
 import { useDispatch, useSelector } from 'react-redux'
 import { Button, Col, Row, Table } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
+import { Loader, Message, SearchBox } from '../../../layout/'
 import { serviceTypeListAction } from '../../actions/ServiceTypeListAction'
-import { Loader } from '../../../layout/Loader'
-import { Message } from '../../../layout/Message'
 import { serviceTypeDeleteAction } from '../../actions/admin/serviceTypeDeleteAction'
-import { useAlert } from 'react-alert'
+import Pagination from 'react-js-pagination'
 
-function ServiceTypesScreen() {
-
+function ServiceTypesScreen({history}) {
+    
+    const[page, setPage] = useState(1)
 
     const alert = useAlert()
     const dispatch = useDispatch()
+
+
     const {
         error,
         loading,
-        serviceTypes
+        serviceType,
+        total,
+        limit_per_page
     } = useSelector(state => state.serviceTypeListReducer)
+
+    let keyword = history.location.search.split('=')[1]
 
     const { success: deleteSuccess, error: deleteError} = useSelector(state => state.serviceTypeDeleteReducer)
 
     useEffect(() => {
-        dispatch(serviceTypeListAction())
+        dispatch(serviceTypeListAction(page, keyword))
         if(deleteSuccess) {
         dispatch(serviceTypeListAction())
         }
         if (deleteError) {
             alert.error('Error ao deletar registro')
         }
-    }, [alert, deleteError, deleteSuccess, dispatch])
+    }, [alert, deleteError, deleteSuccess, dispatch, page, keyword])
+
+
+  function setCurrentPage(pageNumber) {
+    setPage(pageNumber)
+  }
 
     const deleteHandler = (id) => {
         if (window.confirm('Deseja deletar este segmento?')) {
@@ -58,6 +70,7 @@ function ServiceTypesScreen() {
                     ? (<Message variant='danger'>{error}</Message>)
                     :
                     <div>
+                        <SearchBox url='admin/service-types' />
                         <Table striped bordered hover responsive className='table-md'>
                             <thead>
                                 <tr>
@@ -70,7 +83,7 @@ function ServiceTypesScreen() {
                             </thead>
 
                             <tbody>
-                                {serviceTypes.map(serviceTypes => (
+                                {serviceType.map(serviceTypes => (
                                     <tr key={serviceTypes.id}>
                                         <td>{serviceTypes.name.toUpperCase()}</td>
                                         <td>{serviceTypes.description}</td>
@@ -93,7 +106,14 @@ function ServiceTypesScreen() {
                             </tbody>
 
                         </Table>
-
+                        <Pagination
+                            activePage={page}
+                            itemsCountPerPage={limit_per_page}
+                            totalItemsCount={total ? total : 1}
+                            onChange={setCurrentPage}
+                            itemClass="page-item"
+                            linkClass="page-link"
+                        />
 
                     </div>
             }
