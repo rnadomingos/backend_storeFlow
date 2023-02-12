@@ -18,8 +18,6 @@ function SocialMediaListScreen({history}) {
     limit_per_page
   } = useSelector(state => state.socialMediaListReducer)
 
-  console.log(socialMedia);
-
   let keyword = history.location.search.split('=')[1]
 
   const dispatch = useDispatch()
