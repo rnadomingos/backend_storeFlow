@@ -24,7 +24,7 @@ export const storeSegmentListAction = (id) => async (dispatch, getState) => {
     }
 
     const { data } = await axios.get(
-      `http://localhost:3333/stores/get-segment/${id}`,
+      `http://localhost:3333/stores/list-segment/${id}`,
       config
     )
 

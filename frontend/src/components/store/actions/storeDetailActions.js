@@ -28,7 +28,7 @@ export const storesDetailActions = (storeId) => async (dispatch, getState) => {
     // )
 
     const { data } = await axios.get(
-      `/stores/get-segment/${storeId}`,
+      `/stores/list-segment/${storeId}`,
       config
     )
 
