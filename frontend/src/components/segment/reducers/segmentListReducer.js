@@ -10,12 +10,15 @@ export const segmentListReducer = (state = { segment: [] }, action) => {
     case SEGMENT_LIST_REQUEST:
       return {
         loading: true,
-        segment: []
+        segment: [],
+
       }
     case SEGMENT_LIST_SUCCESS:
       return {
         loading: false,
-        segment: action.payload
+        segment: action.payload.segments,
+        total: action.payload.total,
+        limit_per_page: action.payload.limit_per_page
       }
     case SEGMENT_LIST_FAIL:
       return {

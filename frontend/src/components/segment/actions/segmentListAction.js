@@ -5,7 +5,7 @@ import {
   SEGMENT_LIST_SUCCESS
 } from '../constants/segmentConstants'
 
-export const segmentListAction = () => async (dispatch, getState) => {
+export const segmentListAction = (page, keyword = '') => async (dispatch, getState) => {
   try {
 
     dispatch({ type: SEGMENT_LIST_REQUEST })
@@ -22,7 +22,7 @@ export const segmentListAction = () => async (dispatch, getState) => {
     }
 
     const { data } = await axios.get(
-      `http://localhost:3333/segments/`,
+      `/segments?page=${page}&keyword=${keyword}`,
       config
     )
 

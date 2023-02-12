@@ -1,33 +1,38 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { Button, Col, Row, Table } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { Loader } from "../../../layout/Loader";
 import { Message } from "../../../layout/Message";
+import { SearchBox } from '../../../layout'
 import { segmentDeleteAction } from "../../actions/admin/segmentDeleteAction";
 import { segmentListAction } from "../../actions/segmentListAction";
 
+function SegmentScreen({history}) {
 
-
-function SegmentScreen() {
+const [page, setPage] = useState(1)
 
   const dispatch = useDispatch()
   const {
     error,
     loading,
-    segment
+    segment,
+    total,
+    limit_per_page
   } = useSelector(state => state.segmentListReducer)
+
+  let keyword = history.location.search.split('=')[1]
 
   const {
     success: deleteSuccess
   } = useSelector(state => state.segmentDeleteReducer)
 
   useEffect(() => {
-    dispatch(segmentListAction())
+    dispatch(segmentListAction(page, keyword))
     if (deleteSuccess) {
       dispatch(segmentListAction())
     }
-  }, [dispatch, deleteSuccess])
+  }, [dispatch, deleteSuccess, page, keyword])
 
   const deleteHandler = (id) => {
     if (window.confirm('Deseja deletar este segmento?')) {
@@ -56,6 +61,7 @@ function SegmentScreen() {
           ? (<Message variant='danger'>{error}</Message>)
           : (
             <div>
+              <SearchBox url='admin/segments'/>
               <Table striped bordered hover responsive className='table-md'>
                 <thead>
                   <tr>

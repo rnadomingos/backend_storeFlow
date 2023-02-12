@@ -18,7 +18,7 @@ export const segmentDetailAction = (id) => async (dispatch, getState) => {
     }
 
     const { data } = await axios.get(
-      `http://localhost:3333/segments/${id}`,
+      `/segments/${id}`,
       config
     )
 
