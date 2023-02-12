@@ -86,3 +86,7 @@ main {
 .flow hr {
   color: darkgray;
 }
+
+h1 { 
+  padding: 24px 0 24px 0;
+}
