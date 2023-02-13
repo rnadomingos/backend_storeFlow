@@ -12,7 +12,9 @@ export const storesListReducer = (state = { stores: [] }, action) => {
     case STORE_LIST_SUCCESS:
       return {
         loading: false,
-        stores: action.payload.store
+        stores: action.payload.store,
+        total: action.payload.total,
+        limit_per_page: action.payload.limit_per_page
       }
 
     case STORE_LIST_FAIL:

@@ -1,20 +1,34 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Button, Col, Row, Table } from 'react-bootstrap'
+import Pagination from "react-js-pagination"
 import { Link } from 'react-router-dom'
-
-import { Loader } from '../../layout/Loader'
-import { Message } from '../../layout/Message'
+import { Loader, Message, SearchBox } from '../../layout'
 import { storesListActions } from '../actions/admin/storesListActions'
 
-function StoresScreen() {
+function StoresScreen({history}) {
+  
+  const [page, setPage] = useState(1)
+
+  const { 
+    error, 
+    loading, 
+    stores,
+    total,
+    limit_per_page
+  } = useSelector(state => state.storesListReducer)
+  
+  let keyword = history.location.search.split('=')[1]
+  
   const dispatch = useDispatch()
-  const { error, loading, stores } = useSelector(state => state.storesListReducer)
 
   useEffect(() => {
-    dispatch(storesListActions())
-  }, [dispatch])
+    dispatch(storesListActions(page, keyword))
+  }, [dispatch, page, keyword])
 
+  function setCurrentPage(pageNumber) {
+    setPage(pageNumber)
+  }
 
   return (
     <div>
@@ -37,6 +51,7 @@ function StoresScreen() {
           ? (<Message variant='danger'>{error}</Message>)
           : (
             <div>
+              <SearchBox url='admin/stores' />
               <Table striped bordered hover responsive className='table-md'>
                 <thead>
                   <tr>
@@ -73,6 +88,14 @@ function StoresScreen() {
                 </tbody>
 
               </Table>
+              <Pagination 
+                activePage={page}
+                itemsCountPerPage={limit_per_page}
+                totalItemsCount={total ? total : 1}
+                onChange={setCurrentPage}
+                itemClass="page-item"
+                linkClass="page-link"
+              />
 
 
             </div>

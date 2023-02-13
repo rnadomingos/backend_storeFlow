@@ -5,7 +5,7 @@ import {
   STORE_LIST_FAIL
 } from '../../constants/storeConstants'
 
-export const storesListActions = () => async (dispatch, getState) => {
+export const storesListActions = (page, keyword = '') => async (dispatch, getState) => {
   try {
 
     dispatch({ type: STORE_LIST_REQUEST })
@@ -22,7 +22,7 @@ export const storesListActions = () => async (dispatch, getState) => {
     }
 
     const { data } = await axios.get(
-      `http://localhost:3333/stores`,
+      `/stores?page=${page}&keyword=${keyword}`,
       config
     )
 
