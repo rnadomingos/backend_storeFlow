@@ -45,13 +45,13 @@ function StoresScreen({history}) {
           </Link>
         </Col>
       </Row>
+      <SearchBox url='admin/stores' />
       {loading
         ? (<Loader />)
         : error
           ? (<Message variant='danger'>{error}</Message>)
           : (
             <div>
-              <SearchBox url='admin/stores' />
               <Table striped bordered hover responsive className='table-md'>
                 <thead>
                   <tr>
