@@ -16,14 +16,11 @@ export class JoinStoreSegmentUseCase {
         storeId,
         segmentId
     }: IJoinStoreSegmentDTO): Promise<void> {
-
         await this.storeRepository.joinStoreSegment(
             {
-                storeId,
-                segmentId
-
+              storeId,
+              segmentId
             }
-        );
-
+        )        
     }
 }

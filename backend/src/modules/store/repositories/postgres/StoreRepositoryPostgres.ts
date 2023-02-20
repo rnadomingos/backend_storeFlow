@@ -6,6 +6,7 @@ import { IJoinStoreSegmentDTO } from "@domain/store/dtos/IJoinStoreSegmentDTO";
 import { ISeparateStoreSegmentDTO } from "@domain/store/dtos/ISeparateStoreSegmentDTO";
 import { IStoreRepository } from "@domain/store/repository/IStoreRepository";
 import { IStore } from "@domain/store/model/IStore"
+import { ErrorHandler } from '@shared/errors/ErrorHandler'
 
 
 export class StoreRepositoryPostgres implements IStoreRepository {
@@ -77,14 +78,17 @@ export class StoreRepositoryPostgres implements IStoreRepository {
   async joinStoreSegment({
     storeId,
     segmentId
+  }: IJoinStoreSegmentDTO): Promise<any> {
 
-  }: IJoinStoreSegmentDTO): Promise<void> {
-
-    await this.repository.createQueryBuilder()
+    try {
+      await this.repository.createQueryBuilder()
       .relation(Store, "segments")
       .of(storeId)
       .add(segmentId)
-  }
+    } catch (e) {
+      throw new ErrorHandler(e.message)        
+    }        
+  }     
 
   async getSegmentByStoreId(id: string): Promise<IStore> {
     return await this.repository.findOne({

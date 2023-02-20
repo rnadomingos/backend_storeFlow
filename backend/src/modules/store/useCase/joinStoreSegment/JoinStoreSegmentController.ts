@@ -10,7 +10,7 @@ export class JoinStoreSegmentController {
         await joinSegmentStoreUseCase.execute({
             storeId,
             segmentId
-        })
+        })        
         return res.status(201).json({
             message: "success"
         });
