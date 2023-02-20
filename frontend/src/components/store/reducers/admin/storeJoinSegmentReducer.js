@@ -19,7 +19,7 @@ export const storeJoinSegmentReducer = (state = {}, action) => {
     case STORE_SEGMENT_JOIN_FAIL:
       return {
         loading: false,
-        error: action.payload.error
+        error: action.payload.response
       }
     case STORE_SEGMENT_JOIN_RESET:
       return {}

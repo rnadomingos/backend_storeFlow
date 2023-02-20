@@ -22,7 +22,7 @@ export const storeJoinSegmentAction = (storeSegmentData) => async (dispatch, get
     }
 
     const { data } = await axios.post(
-      `http://localhost:3333/stores/joinStoreSegment`,
+      `/stores/joinStoreSegment`,
       storeSegmentData,
       config
     )
@@ -35,11 +35,10 @@ export const storeJoinSegmentAction = (storeSegmentData) => async (dispatch, get
   } catch (error) {
     dispatch({
       type: STORE_SEGMENT_JOIN_FAIL,
-      payload: error.response.data
+      payload: error
     })
   }
 }
-
 // Clean Errors
 export const cleanErrors = () => async (dispatch) => {
   dispatch({

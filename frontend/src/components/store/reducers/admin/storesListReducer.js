@@ -7,7 +7,11 @@ import {
 export const storesListReducer = (state = { stores: [] }, action) => {
   switch (action.type) {
     case STORE_LIST_REQUEST:
-      return { loading: true, stores: [] }
+      return { 
+        ...state,
+        loading: true, 
+        stores: [] 
+      }
 
     case STORE_LIST_SUCCESS:
       return {

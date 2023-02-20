@@ -2,17 +2,17 @@ import React, { useEffect, useState } from 'react'
 import { Button, Form, Col, Row, FloatingLabel, ListGroup } from 'react-bootstrap'
 import { useDispatch, useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
+import { useAlert } from 'react-alert'
 import { FormContainer } from '../../layout/FormContainer'
 import { Loader } from '../../layout/Loader'
 import { Message } from '../../layout/Message'
 import { storeUpdateAction } from '../actions/admin/storeUpdateAction'
-import { cleanErrors } from '../actions/cleanErrors'
 import { storesDetailActions } from '../actions/storeDetailActions'
 import { segmentListAction } from '../../segment/actions/segmentListAction'
 import { storeSegmentListAction } from '../../store/actions/admin/storeSegmentListAction'
-import { storeJoinSegmentAction } from '../../store/actions/admin/storeJoinSegmentAction'
+import { storeJoinSegmentAction, cleanErrors } from '../../store/actions/admin/storeJoinSegmentAction'
 import { storeSeparateSegmentAction } from '../../store/actions/admin/storeSeparateSegmentAction'
-import { STORE_DETAIL_RESET, STORE_SEGMENT_JOIN_RESET, STORE_SEGMENT_LIST_RESET, STORE_SEGMENT_SEPARATE_RESET, STORE_UPDATE_RESET } from '../constants/storeConstants'
+import { STORE_DETAIL_RESET, STORE_SEGMENT_JOIN_RESET, STORE_UPDATE_RESET } from '../constants/storeConstants'
 import '../../../css/formJoinSegment.css';
 
 function UpdateStoreScreen({ history, match }) {
@@ -26,6 +26,8 @@ function UpdateStoreScreen({ history, match }) {
 
   const storeId = match.params.id
 
+  const alert = useAlert()
+
   const { error: errorDetail, store } = useSelector(state => state.storesDetailReducer)
   const { segment } = useSelector(state => state.segmentListReducer)
 
@@ -36,6 +38,8 @@ function UpdateStoreScreen({ history, match }) {
   }
 
   const { error, loading, success } = useSelector(state => state.storesUpdateReducer)
+
+  const errorJoin = useSelector(state => state.storeJoinSegmentReducer)
 
   const dispatch = useDispatch()
 
@@ -55,25 +59,26 @@ function UpdateStoreScreen({ history, match }) {
     }
 
     if (errorDetail) {
-      alert(`Problema ${errorDetail} ao gravar nova loja`)
+      alert.error(`Problema ${errorDetail} ao gravar nova loja`)
       dispatch(cleanErrors())
     }
 
     if (error) {
-      alert(`Problema ${error} ao gravar nova loja`)
+      alert.error(`Problema ${error} ao gravar nova loja`)
       dispatch(cleanErrors())
     }
+    
+    if (errorJoin.error) {
+      alert.error(`Erro: Segmento já vinculado!`)
+      dispatch(cleanErrors())
+    } 
 
     if (success) {
       dispatch({ type: STORE_DETAIL_RESET })
-      dispatch({ type: STORE_SEGMENT_LIST_RESET })
       dispatch({ type: STORE_UPDATE_RESET })
-      dispatch({ type: STORE_SEGMENT_JOIN_RESET })
-      dispatch({ type: STORE_SEGMENT_SEPARATE_RESET })
       history.push('/admin/stores')
-
     }
-  }, [error, dispatch, success, history, store, storeId, errorDetail])
+  }, [error, dispatch, success, history, store, storeId, errorDetail, errorJoin, alert])
 
   const submitHandler = (e) => {
     e.preventDefault()
@@ -84,12 +89,14 @@ function UpdateStoreScreen({ history, match }) {
     e.preventDefault()
     dispatch(storeJoinSegmentAction({ storeId, segmentId: id_segment }))
     dispatch(storeSegmentListAction(storeId))
+    dispatch({ type: STORE_SEGMENT_JOIN_RESET })
   }
 
   const separateStoreSegment = (e) => {
     e.preventDefault()
     dispatch(storeSeparateSegmentAction({ storeId, segmentId: del_segment }))
     dispatch(storeSegmentListAction(storeId))
+    dispatch({ type: STORE_SEGMENT_JOIN_RESET })
   }
 
 
@@ -98,6 +105,7 @@ function UpdateStoreScreen({ history, match }) {
       <FormContainer>
         <h1>Editar Loja</h1>
         {error && <Message>Problema {error} ao gravar nova loja</Message>}
+        
         {loading ? <Loader />
           : (
             <Form onSubmit={submitHandler}>
