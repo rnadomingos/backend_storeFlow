@@ -20,7 +20,6 @@ export const segmentListAction = (page, keyword = '') => async (dispatch, getSta
         Authorization: `Bearer ${userInfo.token}`
       }
     }
-
     const { data } = await axios.get(
       `/segments?page=${page}&keyword=${keyword}`,
       config

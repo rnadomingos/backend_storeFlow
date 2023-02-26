@@ -7,6 +7,7 @@ import { Message } from "../../../layout/Message";
 import { SearchBox } from '../../../layout'
 import { segmentDeleteAction } from "../../actions/admin/segmentDeleteAction";
 import { segmentListAction } from "../../actions/segmentListAction";
+import Pagination from 'react-js-pagination'
 
 function SegmentScreen({history}) {
 
@@ -40,6 +41,10 @@ const [page, setPage] = useState(1)
     }
 }
 
+function setCurrentPage(pageNumber) {
+  setPage(pageNumber)
+}
+
   return (
     <div>
       <Row className='align-items-center'>
@@ -55,13 +60,13 @@ const [page, setPage] = useState(1)
           </Link>
         </Col>
       </Row>
+      <SearchBox url='admin/segments'/>
       {loading
         ? (<Loader />)
         : error
           ? (<Message variant='danger'>{error}</Message>)
           : (
             <div>
-              <SearchBox url='admin/segments'/>
               <Table striped bordered hover responsive className='table-md'>
                 <thead>
                   <tr>
@@ -97,9 +102,15 @@ const [page, setPage] = useState(1)
                     </tr>
                   ))}
                 </tbody>
-
               </Table>
-
+              <Pagination
+              activePage={page}
+              itemsCountPerPage={limit_per_page}
+              totalItemsCount={total ? total : 1}
+              onChange={setCurrentPage}
+              itemClass="page-item"
+              linkClass="page-link"
+            />
 
             </div>
           )
