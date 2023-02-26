@@ -6,7 +6,7 @@ import {
 } from '../constants/sellerConstants'
 
 
-export const sellerListAction = () => async (dispatch, getState) => {
+export const sellerListAction = (page, keyword = '') => async (dispatch, getState) => {
   try {
 
     dispatch({ type: SELLER_LIST_REQUEST })
@@ -23,7 +23,7 @@ export const sellerListAction = () => async (dispatch, getState) => {
     }
 
     const { data } = await axios.get(
-      '/sellers',
+      `/sellers?page=${page}&keyword=${keyword}`,
       config
     )
 

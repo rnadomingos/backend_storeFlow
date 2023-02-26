@@ -1,31 +1,47 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { Button, Col, Row, Table } from 'react-bootstrap'
 import { Link } from 'react-router-dom'
-import { Loader } from '../../../layout/Loader'
-import { Message } from '../../../layout/Message'
+import { Loader, Message, SearchBox } from '../../../layout'
 import { sellerListAction } from '../../actions/sellerListAction'
 import { sellerDeleteAction } from '../../actions/admin/sellerDeleteAction'
+import Pagination from 'react-js-pagination'
 
 
-function SellerScreen() {
+function SellerScreen({ history }) {
+
+  const [page, setPage] = useState(1)
 
   const dispatch = useDispatch()
-  const { error, loading, sellers }  = useSelector(state => state.sellersListReducer)
+  const { 
+    error, 
+    loading, 
+    sellers,
+    total,
+    limit_per_page 
+  }  = useSelector(state => state.sellersListReducer)
+  
+  let keyword = history.location.search.split('=')[1]
+
   const {  success: deleteSuccess } = useSelector(state => state.sellerDeleteReducer)
 
 
   useEffect(() => {
-    dispatch(sellerListAction())
+    dispatch(sellerListAction(page, keyword))
+
     if(deleteSuccess) {
       dispatch(sellerListAction())
     }
-  }, [dispatch, deleteSuccess])
+  }, [dispatch, deleteSuccess, page, keyword])
 
   const deleteHandler = (id) => {
     if (window.confirm('Deseja deletar este segmento?')) {
         dispatch(sellerDeleteAction(id))
     }
+  }
+
+  function setCurrentPage(pageNumber) {
+    setPage(pageNumber)
   }
 
   return (
@@ -43,6 +59,7 @@ function SellerScreen() {
           </Link>
         </Col>
       </Row>
+      <SearchBox url='admin/sellers'></SearchBox>
       {loading
         ? (<Loader />)
         : error
@@ -61,7 +78,7 @@ function SellerScreen() {
                 </thead>
 
                 <tbody>
-                  {sellers.map(seller => (
+                  {sellers.sellers.map(seller => (
                     <tr key={seller.id}>
                       <td>{seller.name}</td>
                       <td>{seller.user_dms}</td>
@@ -84,9 +101,15 @@ function SellerScreen() {
                     </tr>
                   ))}
                 </tbody>
-
               </Table>
-
+              <Pagination
+              activePage={page}
+              itemsCountPerPage={limit_per_page}
+              totalItemsCount={total ? total : 1}
+              onChange={setCurrentPage}
+              itemClass="page-item"
+              linkClass="page-link"
+            />
 
             </div>
           )
