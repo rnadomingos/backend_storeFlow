@@ -16,7 +16,7 @@ export const sellersListReducer = (state = { sellers: [] }, action) => {
     case SELLER_LIST_SUCCESS:
       return {
         loading: false,
-        sellers: action.payload,
+        sellers: action.payload.sellers,
         total: action.payload.total,
         limit_per_page: action.payload.limit_per_page
       }

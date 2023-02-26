@@ -78,7 +78,7 @@ function SellerScreen({ history }) {
                 </thead>
 
                 <tbody>
-                  {sellers.sellers.map(seller => (
+                  {sellers.map(seller => (
                     <tr key={seller.id}>
                       <td>{seller.name}</td>
                       <td>{seller.user_dms}</td>
