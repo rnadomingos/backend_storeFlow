@@ -31,7 +31,7 @@ function CreateStoreFlowScreen({ history }) {
   const { userInfo } = useSelector(state => state.userLogin)
   const { error, loading, success } = useSelector(state => state.storeFlowCreateReducer)
   const { storeSellers } = useSelector(state => state.storeSellersReducer)
-  const { serviceTypes } = useSelector(state => state.serviceTypeListReducer)
+  const { serviceType } = useSelector(state => state.serviceTypeListReducer)
   const { prospection } = useSelector(state => state.prospectionListReducer)
   const { storeSegment } = useSelector(state => state.storeSegmentListReducer)
 
@@ -39,7 +39,7 @@ function CreateStoreFlowScreen({ history }) {
   const dispatch = useDispatch()
   const id_store = userInfo.user.id_store
 
-  const serviceTypesActive = serviceTypes.filter(st => st.is_active === true)
+  const serviceTypesActive = serviceType.filter(st => st.is_active === true)
   const prospectionActive = prospection.filter(pp => pp.is_active === true)
 
   useEffect(() => {

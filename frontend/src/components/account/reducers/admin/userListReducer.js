@@ -7,7 +7,7 @@ import {
 
 
 export const userListReducer = (state = { users: [] }, action) => {
-  console.log('red: ',action.payload)
+
   switch (action.type) {
     
     case USER_LIST_REQUEST:
