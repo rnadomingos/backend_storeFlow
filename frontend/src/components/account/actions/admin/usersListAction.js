@@ -26,8 +26,6 @@ export const usersListAction = (page, keyword = '') => async (dispatch, getState
       config
     )
 
-    console.log('dataAct:', data);
-
     dispatch({
       type: USER_LIST_SUCCESS,
       payload: data

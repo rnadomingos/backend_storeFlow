@@ -27,7 +27,6 @@ export class SegmentRepositoryInMemory implements ISegmentRepository {
     });
 
     this.segments.push(newSegment);
-    console.log('segment', this.segments);
   }
 
   async list(): Promise<Segment[]> {

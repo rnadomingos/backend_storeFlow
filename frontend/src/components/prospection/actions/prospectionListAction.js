@@ -19,7 +19,7 @@ export const prospectionListAction = (page, keyword = '') => async (dispatch, ge
       }
     }
 const url = `/prospections?page=${page}&keyword=${keyword}`
-console.log(url);
+
     const { data } = await axios.get(
       url,
       config
