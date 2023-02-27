@@ -1,4 +1,4 @@
-import { IUpdateUserDTO } from "@modules/user/dtos/IUpdateUserDTO";
+import { IUpdateUserDTO } from "@domain/user/dtos/IUpdateUserDTO";
 import { IUserRepository } from "@modules/user/repositories/IUserRepository";
 import { inject, injectable } from "tsyringe";
 

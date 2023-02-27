@@ -1,4 +1,4 @@
-import { ICreateUserTokenDTO } from "@modules/user/dtos/ICreateUserTokenDTO";
+import { ICreateUserTokenDTO } from "@domain/user/dtos/ICreateUserTokenDTO";
 import { UserToken } from "@modules/user/entities/UserToken";
 import { getRepository, Repository } from "typeorm";
 import { IUserTokenRepository } from "../IUserTokenRepositoryPostgres";

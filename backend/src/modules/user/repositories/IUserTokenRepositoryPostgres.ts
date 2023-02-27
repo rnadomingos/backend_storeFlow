@@ -1,4 +1,4 @@
-import { ICreateUserTokenDTO } from "../dtos/ICreateUserTokenDTO";
+import { ICreateUserTokenDTO } from "../../../domain/user/dtos/ICreateUserTokenDTO";
 import { UserToken } from "../entities/UserToken";
 
 export interface IUserTokenRepository {

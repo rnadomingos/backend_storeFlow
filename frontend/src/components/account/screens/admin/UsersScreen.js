@@ -1,19 +1,34 @@
-import { useEffect } from "react"
+import { useEffect, useState } from "react"
 import { Button, Col, Row, Table } from "react-bootstrap"
+import Pagination from 'react-js-pagination'
 import { useDispatch, useSelector } from "react-redux"
 import { Link } from "react-router-dom"
-import { Loader } from "../../../layout/Loader"
-import { Message } from "../../../layout/Message"
+import { Loader, Message, SearchBox } from '../../../layout'
 import { usersListAction } from "../../actions/admin/usersListAction"
 
-function UsersScreen() {
+function UsersScreen({ history }) {
+
+  const [page, setPage] = useState(1) 
+
   const dispatch = useDispatch()
 
-  const { error, loading, users } = useSelector(state => state.userListReducer)
+  const { 
+    error, 
+    loading, 
+    users,
+    total,
+    limit_per_page
+  } = useSelector(state => state.userListReducer)
+
+  let keyword = history.location.search.split('=')[1]
 
   useEffect(() => {
-    dispatch(usersListAction())
-  }, [dispatch])
+    dispatch(usersListAction(page, keyword))
+  }, [dispatch, page, keyword])
+
+  function setCurrentPage(pageNumber) {
+    setPage(pageNumber)
+  }
 
   return (
     <div>
@@ -30,6 +45,7 @@ function UsersScreen() {
           </Link>
         </Col>
       </Row>
+      <SearchBox url='admin/users' />
       {loading
         ? (<Loader />)
         : error
@@ -73,6 +89,14 @@ function UsersScreen() {
                 </tbody>
 
               </Table>
+              <Pagination 
+              activePage={page}
+              itemsCountPerPage={limit_per_page}
+              totalItemsCount={total ? total : 1}
+              onChange={setCurrentPage}
+              itemClass="page-item"
+              linkClass="page-link"
+              />
             </div>
           )
       }

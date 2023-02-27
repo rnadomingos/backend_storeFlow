@@ -1,7 +1,8 @@
-import { ICreateUserDTO } from "@modules/user/dtos/ICreateUserDTO";
-import { IUpdateUserDTO } from "@modules/user/dtos/IUpdateUserDTO";
+import { ICreateUserDTO } from "@domain/user/dtos/ICreateUserDTO";
+import { IUpdateUserDTO } from "@domain/user/dtos/IUpdateUserDTO";
+import { IUser } from '@domain/user/model/IUser'
 import { User } from "@modules/user/entities/User";
-import { getRepository, Repository } from "typeorm";
+import { getRepository, ILike, Repository } from "typeorm";
 import { IUserRepository } from "../IUserRepository";
 
 
@@ -13,7 +14,7 @@ export class UserRepositoryPostgres implements IUserRepository {
     this.repository = getRepository(User)
   }
 
-  async findStoreByUser(user_dms: string): Promise<User[]> {
+  async findStoreByUser(user_dms: string): Promise<IUser[]> {
     return await this.repository.find({
       where: { user_dms },
       relations: ["store"]
@@ -26,7 +27,7 @@ export class UserRepositoryPostgres implements IUserRepository {
     password,
     user_dms,
     id_store
-  }: ICreateUserDTO): Promise<User> {
+  }: ICreateUserDTO): Promise<IUser> {
     user_dms = user_dms.toLocaleLowerCase()
     const newUser = this.repository.create({
       name,
@@ -38,14 +39,21 @@ export class UserRepositoryPostgres implements IUserRepository {
     return await this.repository.save(newUser)
   }
 
-  async findByUserDms(user_dms: string): Promise<User> {
+  async findByUserDms(user_dms: string): Promise<IUser> {
     return await this.repository.findOne({
       where: { user_dms, is_active: true }
     });
   }
 
-  async list(): Promise<User[]> {
-    return await this.repository.find()
+  async list(args?: any, page?: number, rowsPerPage?:number): Promise<IUser[]> {
+    return await this.repository.find({
+      where: [
+        {name: ILike(`%${args}%`)},
+        {user_dms: ILike(`%${args}%`)}
+      ],
+      skip: rowsPerPage * (page-1),
+      take: rowsPerPage
+    })
   }
 
   async update({
@@ -72,11 +80,11 @@ export class UserRepositoryPostgres implements IUserRepository {
     await this.repository.save(updateUser)
   }
 
-  async findById(id: string): Promise<User> {
+  async findById(id: string): Promise<IUser> {
     return this.repository.findOne(id)
   }
 
-  async findByEmail(email: string): Promise<User> {
+  async findByEmail(email: string): Promise<IUser> {
     return await this.repository.findOne({
       where: { email, is_active: true }
     });

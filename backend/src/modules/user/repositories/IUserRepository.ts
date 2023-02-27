@@ -1,15 +1,16 @@
-import { ICreateUserDTO } from "../dtos/ICreateUserDTO";
-import { IUpdateUserDTO as IUpdateUserDTO } from "../dtos/IUpdateUserDTO";
-import { User } from "../entities/User";
+import { IUser } from '@domain/user/model/IUser'
+import { ICreateUserDTO } from "../../../domain/user/dtos/ICreateUserDTO";
+import { IUpdateUserDTO as IUpdateUserDTO } from "../../../domain/user/dtos/IUpdateUserDTO";
+
 
 
 export interface IUserRepository {
-  create(data: ICreateUserDTO): Promise<User>;
-  findByUserDms(user_dms: string): Promise<User>;
-  list(): Promise<User[]>;
-  findStoreByUser(user_dms: string): Promise<User[]>;
-  update(data: IUpdateUserDTO): Promise<void>;
-  findById(id: string): Promise<User>;
-  findByEmail(email: string): Promise<User>;
+  create(data: ICreateUserDTO): Promise<IUser>
+  findByUserDms(user_dms: string): Promise<IUser>
+  list(args?: any, page?: number, rowsPerPage?: number ): Promise<IUser[]>
+  findStoreByUser(user_dms: string): Promise<IUser[]>
+  update(data: IUpdateUserDTO): Promise<void>
+  findById(id: string): Promise<IUser>
+  findByEmail(email: string): Promise<IUser>
 
 }  

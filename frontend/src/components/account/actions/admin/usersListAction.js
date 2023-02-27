@@ -5,7 +5,7 @@ import {
   USER_LIST_SUCCESS
 } from "../../constants/accountConstants"
 
-export const usersListAction = () => async (dispatch, getState) => {
+export const usersListAction = (page, keyword = '') => async (dispatch, getState) => {
   try {
 
     dispatch({ type: USER_LIST_REQUEST })
@@ -22,9 +22,11 @@ export const usersListAction = () => async (dispatch, getState) => {
     }
 
     const { data } = await axios.get(
-      `/account/list`,
+      `/account/list?page=${page}&keyword=${keyword}`,
       config
     )
+
+    console.log('dataAct:', data);
 
     dispatch({
       type: USER_LIST_SUCCESS,

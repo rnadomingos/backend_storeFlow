@@ -7,16 +7,20 @@ import {
 
 
 export const userListReducer = (state = { users: [] }, action) => {
+  console.log('red: ',action.payload)
   switch (action.type) {
+    
     case USER_LIST_REQUEST:
       return { loading: true, users: [] }
 
     case USER_LIST_SUCCESS:
       return {
         loading: false,
-        users: action.payload
+        users: action.payload.users,
+        total: action.payload.total,
+        limit_per_page: action.payload.limit_per_page
       }
-
+    
     case USER_LIST_FAIL:
       return {
         loading: false,
